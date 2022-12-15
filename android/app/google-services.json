@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "448679078277",
+    "project_id": "essconnectapp",
+    "storage_bucket": "essconnectapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448679078277:android:b3dbf1fe7a40ee02e93cec",
+        "android_client_info": {
+          "package_name": "com.gjinfotech.ess_online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448679078277-hmuq6dfff8q0delk73q4mnnus81hgm5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsHEu-ud92QhkV6KoC1VUZi-EZKSn3PBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448679078277-hmuq6dfff8q0delk73q4mnnus81hgm5s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "448679078277-5h89e9qotinq46dnc4eqesl3a3sps8kr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gjinfotech.essconnet"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448679078277:android:f2e4dc32b0a6ed25e93cec",
+        "android_client_info": {
+          "package_name": "com.gjinfotech.essconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448679078277-hmuq6dfff8q0delk73q4mnnus81hgm5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsHEu-ud92QhkV6KoC1VUZi-EZKSn3PBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448679078277-hmuq6dfff8q0delk73q4mnnus81hgm5s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "448679078277-5h89e9qotinq46dnc4eqesl3a3sps8kr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gjinfotech.essconnet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
