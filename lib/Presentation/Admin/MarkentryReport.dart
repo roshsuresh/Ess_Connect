@@ -33,11 +33,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
         ),
         backgroundColor: UIGuide.light_Purple,
       ),
-      body:
-          //  Consumer<MarkEntryReportProvider_stf>(
-          //   builder: (context, value, child) =>
-
-          ListView(
+      body: ListView(
         children: [
           Row(
             children: [
@@ -63,11 +59,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         print(snapshot
                                             .markReportCourseList.length);
-                                        //    value.removeCourseAll();
                                         return ListTile(
-                                          selectedTileColor:
-                                              Colors.blue.shade100,
-                                          selectedColor: UIGuide.PRIMARY2,
                                           selected: snapshot.isCourseSelected(
                                               snapshot
                                                   .markReportCourseList[index]),
@@ -154,7 +146,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -203,12 +195,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                                 snapshot.markReportDivisions[
                                                     index]);
                                             print(courseId);
-                                            // await Provider.of<
-                                            //             MarkEntryReportProvider_stf>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .getMarkEntryDivisionValues(
-                                            //         courseId);
+
                                             Navigator.of(context).pop();
                                           },
                                           title: Text(
@@ -290,7 +277,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         print(
                                             snapshot.markReportPartList.length);
-                                        //    value.removeCourseAll();
                                         return ListTile(
                                           selectedTileColor:
                                               Colors.blue.shade100,
@@ -338,7 +324,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
                             child: TextField(
                               textAlign: TextAlign.center,
                               controller: partController1,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Color.fromARGB(255, 238, 237, 237),
                                 border: OutlineInputBorder(),
@@ -369,7 +355,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -418,12 +404,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                                 snapshot.markReportDivisions[
                                                     index]);
                                             print(courseId);
-                                            // await Provider.of<
-                                            //             MarkEntryReportProvider_stf>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .getMarkEntryDivisionValues(
-                                            //         courseId);
                                             Navigator.of(context).pop();
                                           },
                                           title: Text(
@@ -494,7 +474,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
               children: const [
                 TableRow(
                     decoration: BoxDecoration(
-                      //  border: Border.all(),
                       color: Color.fromARGB(255, 228, 224, 224),
                     ),
                     children: [
@@ -545,7 +524,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
                               0: FlexColumnWidth(1),
                               1: FlexColumnWidth(4),
                               2: FlexColumnWidth(1.5),
-                              // 3: FlexColumnWidth(1.5),
                             },
                             children: [
                               TableRow(
@@ -554,14 +532,14 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                     Text(
                                       (index + 1).toString(),
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 12),
+                                      style: const TextStyle(fontSize: 12),
                                     ),
-                                    Text(
+                                    const Text(
                                       'ADAM ARUN ',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(fontSize: 14),
                                     ),
-                                    Text(
+                                    const Text(
                                       '10',
                                       textAlign: TextAlign.center,
                                     ),
