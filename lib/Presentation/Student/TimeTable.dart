@@ -17,7 +17,7 @@ class Timetable extends StatelessWidget {
     var height = size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('TimeTable'),
+        title: const Text('TimeTable'),
         titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 60.2,
@@ -33,12 +33,12 @@ class Timetable extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<Timetableprovider>(
           builder: (context, value, child) => value.loading
-              ? spinkitLoader()
+              ? const spinkitLoader()
               : ListView(
                   children: [
                     kheight20,
                     Table(
-                      columnWidths: {
+                      columnWidths: const {
                         0: FlexColumnWidth(4),
                         1: FlexColumnWidth(2),
                       },
@@ -85,8 +85,10 @@ class Timetable extends StatelessWidget {
                                 children: [
                                   Center(
                                     child: Text(
-                                      '${value.name == null ? '--' : value.name.toString()}',
-                                      style: TextStyle(fontSize: 15),
+                                      value.name == null
+                                          ? '--'
+                                          : value.name.toString(),
+                                      style: const TextStyle(fontSize: 15),
                                     ),
                                   ),
                                   GestureDetector(
@@ -107,7 +109,7 @@ class Timetable extends StatelessWidget {
                                         );
                                       }
                                     },
-                                    child: Icon(Icons.remove_red_eye),
+                                    child: const Icon(Icons.remove_red_eye),
                                   ),
                                 ]),
                           ],

@@ -14,9 +14,9 @@ class AdminGallery extends StatelessWidget {
             appBar: AppBar(
               title: Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   const Text('Gallery'),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -24,7 +24,7 @@ class AdminGallery extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => AdminGallery()));
                       },
-                      icon: Icon(Icons.refresh))
+                      icon: const Icon(Icons.refresh))
                 ],
               ),
               titleSpacing: 20.0,
@@ -41,7 +41,6 @@ class AdminGallery extends StatelessWidget {
                 indicatorColor: Colors.white,
                 indicatorWeight: 5,
                 tabs: [
-                  // Tab(text: "Received"),
                   Tab(
                     text: "Send",
                   ),
@@ -52,10 +51,7 @@ class AdminGallery extends StatelessWidget {
               ),
               backgroundColor: UIGuide.light_Purple,
             ),
-            body: TabBarView(children: [
-              // AdminGalleryView(),
-              AdminGalleryUpload(),
-              GalleryListAdmin()
-            ])));
+            body: TabBarView(
+                children: [AdminGalleryUpload(), GalleryListAdmin()])));
   }
 }

@@ -17,116 +17,117 @@ class Staff_ToGuardian extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              const Spacer(),
-              const Text(
-                'Communication to Guardian',
-              ),
-              const Spacer(),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Staff_ToGuardian()));
-                  },
-                  icon: const Icon(Icons.refresh_outlined))
-            ],
-          ),
-          titleSpacing: 00.0,
-          centerTitle: true,
-          toolbarHeight: 45.2,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25)),
-          ),
-          bottom: const TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Colors.white,
-            indicatorWeight: 5,
-            tabs: [
-              Tab(
-                text: "Notification",
-              ),
-              Tab(text: "Text SMS"),
-            ],
-          ),
-          backgroundColor: UIGuide.light_Purple,
-        ),
-        body: TabBarView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
           children: [
-            Consumer<NotificationToGuardian_Providers>(
-              builder: (context, value, child) {
-                if (value.isClassTeacher != false) {
-                  return Notification_StaffToGuardain(
-                      size: size, valuee: valuee, checked: checked);
-                } else {
-                  return Container(
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.sentiment_dissatisfied_outlined,
-                            size: 60,
-                            color: Colors.grey,
-                          ),
-                          kheight10,
-                          Text(
-                            "Sorry you don't have access",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-              },
+            const Spacer(),
+            const Text(
+              'Notification to Guardian',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
             ),
-            Consumer<NotificationToGuardian_Providers>(
-              builder: (context, value, child) {
-                if (value.isClassTeacher != false) {
-                  return const TextSMS_staff();
-                } else {
-                  return Container(
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.sentiment_dissatisfied_outlined,
-                            size: 60,
-                            color: Colors.grey,
-                          ),
-                          kheight10,
-                          Text(
-                            "Sorry you don't have access",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
+            const Spacer(),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Staff_ToGuardian()));
+                },
+                icon: const Icon(Icons.refresh_outlined)),
+            kWidth
           ],
         ),
+        titleSpacing: 00.0,
+        centerTitle: true,
+        toolbarHeight: 60,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(25)),
+        ),
+        // bottom: const TabBar(
+        //   indicatorSize: TabBarIndicatorSize.label,
+        //   indicatorColor: Colors.white,
+        //   indicatorWeight: 5,
+        //   tabs: [
+        //     Tab(
+        //       text: "Notification",
+        //     ),
+        //     Tab(text: "Text SMS"),
+        //   ],
+        // ),
+        backgroundColor: UIGuide.light_Purple,
       ),
+      body:
+
+          // TabBarView(
+          //   children: [
+          Consumer<NotificationToGuardian_Providers>(
+        builder: (context, value, child) {
+          if (value.isClassTeacher != false) {
+            return Notification_StaffToGuardain(
+                size: size, valuee: valuee, checked: checked);
+          } else {
+            return Container(
+              child: Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.sentiment_dissatisfied_outlined,
+                      size: 60,
+                      color: Colors.grey,
+                    ),
+                    kheight10,
+                    Text(
+                      "Sorry you don't have access",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+      ),
+      // Consumer<NotificationToGuardian_Providers>(
+      //   builder: (context, value, child) {
+      //     if (value.isClassTeacher != false) {
+      //       return const TextSMS_staff();
+      //     } else {
+      //       return Container(
+      //         child: Center(
+      //           child: Column(
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: const [
+      //               Icon(
+      //                 Icons.sentiment_dissatisfied_outlined,
+      //                 size: 60,
+      //                 color: Colors.grey,
+      //               ),
+      //               kheight10,
+      //               Text(
+      //                 "Sorry you don't have access",
+      //                 style: TextStyle(
+      //                     fontSize: 20,
+      //                     fontWeight: FontWeight.w600,
+      //                     color: Colors.grey),
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //       );
+      //     }
+      //   },
+      // ),
+      //   ],
+      // ),
     );
   }
 }
@@ -549,7 +550,7 @@ class _Notification_StaffToGuardainState
                       child: const Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
-                      maxHeight: widget.size.height - 330,
+                      maxHeight: widget.size.height - 305,
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: value.notificationView.isEmpty

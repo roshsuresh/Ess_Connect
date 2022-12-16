@@ -43,7 +43,7 @@ class _SearchStaffState extends State<SearchStaff> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_ios_new,
                         color: Colors.grey,
                       )),
@@ -59,7 +59,7 @@ class _SearchStaffState extends State<SearchStaff> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.search),
+                              icon: const Icon(Icons.search),
                               color: Colors.grey,
                               onPressed: (() {
                                 Provider.of<SearchStaffProviders>(context,
@@ -72,7 +72,7 @@ class _SearchStaffState extends State<SearchStaff> {
                               }),
                             ),
                             IconButton(
-                              icon: Icon(Icons.close),
+                              icon: const Icon(Icons.close),
                               color: Colors.grey,
                               onPressed: (() {
                                 clearValue.clear();
@@ -88,16 +88,16 @@ class _SearchStaffState extends State<SearchStaff> {
                         fillColor: UIGuide.light_black,
                         filled: true,
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                               color: UIGuide.light_Purple, width: .5),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      style: TextStyle(color: UIGuide.light_Purple),
+                      style: const TextStyle(color: UIGuide.light_Purple),
                     ),
                   ),
                 ],
@@ -249,7 +249,7 @@ class _SearchStaffState extends State<SearchStaff> {
                                                         const StrutStyle(
                                                             fontSize: 8.0),
                                                     text: TextSpan(
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         fontSize: 12,
                                                         color: Colors.black,
                                                       ),
@@ -264,7 +264,7 @@ class _SearchStaffState extends State<SearchStaff> {
                                               ),
                                               Row(
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     'Designation : ',
                                                     textAlign: TextAlign.start,
                                                     style: TextStyle(
@@ -409,8 +409,8 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     const Color background = Colors.white;
-    final Color fill1 = Color.fromARGB(255, 79, 97, 197);
-    final Color fill2 = Color.fromARGB(255, 180, 103, 216);
+    const Color fill1 = Color.fromARGB(255, 79, 97, 197);
+    const Color fill2 = Color.fromARGB(255, 180, 103, 216);
     final List<Color> gradient = [
       fill1,
       fill2,
@@ -546,7 +546,7 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                     radius: 65,
                     backgroundColor: UIGuide.WHITE,
                   ),
-                )
+                ),
               ],
             ),
             Padding(
@@ -555,12 +555,12 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                 height: 170,
                 width: size.width,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 238, 234, 234),
+                    color: const Color.fromARGB(255, 238, 234, 234),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 238, 234, 234),
                       ),
                       width: size.width,
@@ -582,7 +582,7 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                               strutStyle: const StrutStyle(fontSize: 13),
                               maxLines: 3,
                               text: TextSpan(
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15,
                                     color: Color.fromARGB(255, 44, 43, 43)),
                                 text: value.searchStudent[indexx].address ??
@@ -604,7 +604,7 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                           child: Text(
                             value.searchStudent[indexx].bus ?? '---',
                             overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           ),
                         )
                       ],
@@ -621,7 +621,7 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                           child: Text(
                             value.searchStudent[indexx].stop ?? '---',
                             overflow: TextOverflow.clip,
-                            style: TextStyle(fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           ),
                         )
                       ],

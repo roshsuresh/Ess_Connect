@@ -1213,8 +1213,6 @@ class ProfileHome extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   Row(
-                                    // crossAxisAlignment: CrossAxisAlignment.end,
-                                    // mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Column(
                                         crossAxisAlignment:
@@ -1248,10 +1246,8 @@ class ProfileHome extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              // Flashnews()
             ],
           ),
-          //Flashnews()
         ],
       ),
     );
@@ -1265,7 +1261,7 @@ class ProfileHome extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (context) {
-          var size = MediaQuery.of(context).size;
+          // var size = MediaQuery.of(context).size;
           return Dialog(
               child: Container(
             decoration: BoxDecoration(
@@ -1294,10 +1290,6 @@ class ProfileHome extends StatelessWidget {
                                             ? '--'
                                             : siblinggResponse![index]['id']
                                                 .toString();
-
-                                    // await Future.delayed(
-                                    // ////    const Duration(seconds: 3));
-
                                     await Provider.of<SibingsProvider>(context,
                                             listen: false)
                                         .getSibling(context, idd);
@@ -1312,10 +1304,6 @@ class ProfileHome extends StatelessWidget {
                                         color: UIGuide.light_Purple,
                                         fontSize: 16),
                                   ))),
-                          // const Divider(
-                          //   height: 1,
-                          //   color: Colors.black45,
-                          // ),
                           kheight20,
                         ],
                       );

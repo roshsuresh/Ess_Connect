@@ -22,7 +22,6 @@ import '../../Application/StudentProviders/InternetConnection.dart';
 import '../../Constants.dart';
 import '../Login_Activation/Login_page.dart';
 import '../Student/PasswordChange.dart';
-import '../Student/Reportcard.dart';
 import 'Communication/ToGuardian.dart';
 import 'FeeCollectionReport/FeeReport.dart';
 import 'FlashNews/FlashnewsScreen.dart';
@@ -216,55 +215,6 @@ class AdminHomeContent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NonTeachingStaff()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Profilee.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Center(
-                            child: Text(
-                              '    Student \n Information',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
               kheight10,
@@ -343,7 +293,7 @@ class AdminHomeContent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // kWidth,
+
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -355,7 +305,6 @@ class AdminHomeContent extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Card(
                             elevation: 10,
@@ -569,129 +518,6 @@ class AdminHomeContent extends StatelessWidget {
                 ],
               ),
               kheight10,
-              // Row(children: <Widget>[
-              //   Expanded(
-              //     child: Container(
-              //         margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-              //         child: const Divider(
-              //           color: Colors.black45,
-              //           height: 36,
-              //         )),
-              //   ),
-              //   const Text(
-              //     "Attendance",
-              //     textAlign: TextAlign.left,
-              //     style: TextStyle(
-              //         color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
-              //   ),
-              //   Expanded(
-              //     child: Container(
-              //         margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-              //         child: const Divider(
-              //           color: Colors.black45,
-              //           height: 36,
-              //         )),
-              //   ),
-              // ]),
-              // kheight10,
-              // kheight20,
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //   child: Row(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     children: [
-              //       Padding(
-              //         padding: const EdgeInsets.only(left: 10, right: 10),
-              //         child: GestureDetector(
-              //           onTap: () {
-              //             Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                   builder: (context) => const ReportCard()),
-              //             );
-              //           },
-              //           child: Column(
-              //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //             children: [
-              //               Container(
-              //                 height: 50,
-              //                 width: 40,
-              //                 decoration: BoxDecoration(
-              //                   image: const DecorationImage(
-              //                     opacity: 20,
-              //                     image: AssetImage(
-              //                       'assets/Reportcard.png',
-              //                     ),
-              //                   ),
-              //                   borderRadius: BorderRadius.circular(10),
-              //                 ),
-              //               ),
-              //               kheight10,
-              //               const Text(
-              //                 'Taken or Not\nTaken Report',
-              //                 style: TextStyle(
-              //                     fontSize: 11, color: Colors.black38),
-              //               )
-              //             ],
-              //           ),
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: const EdgeInsets.only(left: 10, right: 10),
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //           children: [
-              //             Container(
-              //               height: 50,
-              //               width: 40,
-              //               decoration: const BoxDecoration(
-              //                 image: DecorationImage(
-              //                   opacity: 20,
-              //                   image: AssetImage(
-              //                     'assets/Profilee.png',
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //             kheight10,
-              //             const Text(
-              //               '     Absent & \nPresent Report',
-              //               style:
-              //                   TextStyle(fontSize: 11, color: Colors.black38),
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //       Padding(
-              //         padding: const EdgeInsets.only(left: 10, right: 10),
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //           children: [
-              //             Container(
-              //               height: 50,
-              //               width: 40,
-              //               decoration: const BoxDecoration(
-              //                 image: DecorationImage(
-              //                   opacity: 20,
-              //                   image: AssetImage(
-              //                     'assets/Profilee.png',
-              //                   ),
-              //                 ),
-              //               ),
-              //             ),
-              //             kheight10,
-              //             const Text(
-              //               '    Staff \nAttendance',
-              //               style:
-              //                   TextStyle(fontSize: 11, color: Colors.black38),
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
               kheight10,
               Row(children: <Widget>[
                 Expanded(

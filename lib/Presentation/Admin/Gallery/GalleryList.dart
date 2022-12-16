@@ -48,7 +48,7 @@ class GalleryListAdmin extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 GestureDetector(
                                   onTap: () async {
                                     await provider.clearPhotoList();
@@ -57,7 +57,7 @@ class GalleryListAdmin extends StatelessWidget {
                                         .toString();
                                     await provider.galleryEdit(eventt);
                                     provider.load
-                                        ? spinkitLoader()
+                                        ? const spinkitLoader()
                                         : showDialog(
                                             context: context,
                                             builder: (context) {
@@ -161,8 +161,8 @@ class GalleryListAdmin extends StatelessWidget {
                                                                 mainAxisSpacing:
                                                                     8.0,
                                                                 children: List.generate(
-                                                                    provider.galleryList.length ==
-                                                                            null
+                                                                    provider.galleryList
+                                                                            .isEmpty
                                                                         ? 0
                                                                         : provider
                                                                             .galleryList
@@ -294,15 +294,8 @@ class GalleryListAdmin extends StatelessWidget {
                                                 }),
                                               );
                                             });
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           EditGalleryView()),
-                                    // );
                                     provider.galleryViewList.clear();
                                     await provider.galleryViewListAdmin();
-                                    //Navigator.pop(context);
                                   },
                                   child: const Icon(
                                     Icons.mode_edit_outline_outlined,

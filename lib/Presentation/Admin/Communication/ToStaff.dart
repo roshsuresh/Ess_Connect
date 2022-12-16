@@ -3,7 +3,6 @@ import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart'
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Domain/Admin/StaffListModel.dart';
 import 'package:essconnect/Domain/Staff/StudentReport_staff.dart';
-import 'package:essconnect/Presentation/Admin/Communication/StaffTextSMS.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../../Domain/Staff/ToGuardian.dart';
-import 'ToGuardian.dart';
-
 class AdminToStaff extends StatelessWidget {
   AdminToStaff({Key? key}) : super(key: key);
   String? valuee;
@@ -22,46 +18,45 @@ class AdminToStaff extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Communication to Staff',
-          ),
-          titleSpacing: 00.0,
-          centerTitle: true,
-          toolbarHeight: 45.2,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25)),
-          ),
-          bottom: const TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Colors.white,
-            indicatorWeight: 5,
-            tabs: [
-              Tab(
-                text: "Notification",
-              ),
-              Tab(text: "Text SMS"),
-            ],
-          ),
-          backgroundColor: UIGuide.light_Purple,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Notification to Staff',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
         ),
-        body: TabBarView(
-          children: [
-            // Consumer<NotificationToStaffAdminProviders>(
-            //   builder: (context, value, child) {
-            //     if (value.isClassTeacher != false) {
-            //       return
-            AdminToStaffNotification(),
-
-            TextSMSAdminToStaff()
-          ],
+        titleSpacing: 00.0,
+        centerTitle: true,
+        toolbarHeight: 60,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(25)),
         ),
+        // bottom: const TabBar(
+        //   indicatorSize: TabBarIndicatorSize.label,
+        //   indicatorColor: Colors.white,
+        //   indicatorWeight: 5,
+        //   tabs: [
+        //     Tab(
+        //       text: "Notification",
+        //     ),
+        //     Tab(text: "Text SMS"),
+        //   ],
+        // ),
+        backgroundColor: UIGuide.light_Purple,
       ),
+      body:
+          //  TabBarView(
+          //   children: [
+          // Consumer<NotificationToStaffAdminProviders>(
+          //   builder: (context, value, child) {
+          //     if (value.isClassTeacher != false) {
+          //       return
+          AdminToStaffNotification(),
+
+      //     TextSMSAdminToStaff()
+      //   ],
+      // ),
     );
   }
 }
@@ -186,6 +181,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                               context,
                               listen: false)
                           .clearStaffList();
+
                       await Provider.of<NotificationToStaffAdminProviders>(
                               context,
                               listen: false)
@@ -194,7 +190,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                       //     listen: false);
                       // subjectData.clear();
 
-                      section = '';
+                      //section = '';
 
                       // p.stdReportInitialValues.clear();
                     },
@@ -254,7 +250,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                       child: const Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
-                      maxHeight: size.height - 315,
+                      maxHeight: size.height - 265,
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: value.stafflist.isEmpty
@@ -320,9 +316,9 @@ class Notification_StudListAdmin extends StatelessWidget {
             value.selectItem(viewStud);
           },
           selectedTileColor: const Color.fromARGB(255, 10, 27, 141),
-          title: Text(viewStud.name == null ? '---' : viewStud.name),
+          title: Text(viewStud.name ?? '---'),
           subtitle:
-              Text(viewStud.staffRole.isEmpty ? '---' : viewStud.staffRole),
+              Text(viewStud.staffRole!.isEmpty ? '---' : viewStud.staffRole!),
           trailing: viewStud.selected != null && viewStud.selected!
               ? SvgPicture.asset(
                   UIGuide.check,

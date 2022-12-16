@@ -59,14 +59,14 @@ class Student_statistics_admin extends StatelessWidget {
                           "Select Section",
                           style: TextStyle(color: Colors.grey),
                         ),
-                        selectedItemsTextStyle: TextStyle(
+                        selectedItemsTextStyle: const TextStyle(
                             fontWeight: FontWeight.w900,
                             color: UIGuide.light_Purple),
-                        confirmText: Text(
+                        confirmText: const Text(
                           'OK',
                           style: TextStyle(color: UIGuide.light_Purple),
                         ),
-                        cancelText: Text(
+                        cancelText: const Text(
                           'Cancel',
                           style: TextStyle(color: UIGuide.light_Purple),
                         ),
@@ -134,7 +134,7 @@ class Student_statistics_admin extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Consumer<SchoolPhotoProviders>(
                   builder: (context, value, child) => Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -150,14 +150,14 @@ class Student_statistics_admin extends StatelessWidget {
                           style: TextStyle(color: Colors.black),
                         ),
                         // selectedColor: Color.fromARGB(255, 157, 232, 241),
-                        selectedItemsTextStyle: TextStyle(
+                        selectedItemsTextStyle: const TextStyle(
                             fontWeight: FontWeight.w900,
                             color: UIGuide.light_Purple),
-                        confirmText: Text(
+                        confirmText: const Text(
                           'OK',
                           style: TextStyle(color: UIGuide.light_Purple),
                         ),
-                        cancelText: Text(
+                        cancelText: const Text(
                           'Cancel',
                           style: TextStyle(color: UIGuide.light_Purple),
                         ),
@@ -236,7 +236,7 @@ class Student_statistics_admin extends StatelessWidget {
                             listen: false)
                         .getstatitics(section, course);
                   },
-                  child: Text(
+                  child: const Text(
                     'View',
                     style: TextStyle(
                         color: Colors.white,
@@ -447,7 +447,7 @@ class Student_statistics_admin extends StatelessWidget {
                                       ? '--'
                                       : value.totalList[index].netFemaleCount
                                           .toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: UIGuide.light_Purple,
                                       fontSize: 12),
@@ -461,7 +461,7 @@ class Student_statistics_admin extends StatelessWidget {
                                       ? '--'
                                       : value.totalList[index].netTotal
                                           .toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w900,
                                       color: UIGuide.light_Purple,
                                       fontSize: 12),

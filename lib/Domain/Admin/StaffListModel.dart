@@ -1,9 +1,9 @@
 class StaffReportNotification {
-  late String id;
-  late String name;
-  late String sectionId;
-  late String designation;
-  late String staffRole;
+  String? id;
+  String? name;
+  String? sectionId;
+  String? designation;
+  String? staffRole;
   bool? selected;
 
   StaffReportNotification({

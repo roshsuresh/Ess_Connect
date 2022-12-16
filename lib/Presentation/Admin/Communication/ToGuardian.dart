@@ -1,7 +1,6 @@
 import 'package:essconnect/Application/AdminProviders/NotificationToGuardian.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Domain/Staff/ToGuardian.dart';
-import 'package:essconnect/Presentation/Admin/Communication/TextSMS_Guard.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -19,52 +18,49 @@ class AdminToGuardian extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            children: [
-              Spacer(),
-              const Text(
-                'Communication to Guardian',
-              ),
-              Spacer(),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AdminToGuardian()));
-                  },
-                  icon: Icon(Icons.refresh_outlined))
-            ],
-          ),
-          titleSpacing: 00.0,
-          centerTitle: true,
-          toolbarHeight: 45.2,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25)),
-          ),
-          bottom: const TabBar(
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Colors.white,
-            indicatorWeight: 5,
-            tabs: [
-              Tab(
-                text: "Notification",
-              ),
-              Tab(text: "Text SMS"),
-            ],
-          ),
-          backgroundColor: UIGuide.light_Purple,
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Spacer(),
+            const Text(
+              'Notification to Guardian',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            Spacer(),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AdminToGuardian()));
+                },
+                icon: const Icon(Icons.refresh_outlined)),
+            kWidth
+          ],
         ),
-        body: TabBarView(
-          children: [Notification_AdminToGuardain(), TextSMSGuardian()],
+        titleSpacing: 5.0,
+        centerTitle: true,
+        toolbarHeight: 60,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(25),
+              bottomLeft: Radius.circular(25)),
         ),
+        // bottom: const TabBar(
+        //   indicatorSize: TabBarIndicatorSize.label,
+        //   indicatorColor: Colors.white,
+        //   indicatorWeight: 5,
+        //   tabs: [
+        //     Tab(
+        //       text: "Notification",
+        //     ),
+        //     Tab(text: "Text SMS"),
+        //   ],
+        // ),
+        backgroundColor: UIGuide.light_Purple,
       ),
+      body: Notification_AdminToGuardain(),
     );
   }
 }
@@ -89,7 +85,6 @@ class _Notification_AdminToGuardainState
   List courseData = [];
 
   String course = '';
-  //String courseDiv = '';
 
   String section = '';
   int length = 0;
@@ -135,7 +130,6 @@ class _Notification_AdminToGuardainState
                     height: 50,
                     child: MultiSelectDialogField(
                       items: value.dropDown,
-
                       listType: MultiSelectListType.CHIP,
                       title: const Text(
                         "Select Section",
@@ -153,7 +147,6 @@ class _Notification_AdminToGuardainState
                         style: TextStyle(color: UIGuide.light_Purple),
                       ),
                       separateSelectedItems: true,
-                      //  checkColor: Colors.lightBlue,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
@@ -226,15 +219,15 @@ class _Notification_AdminToGuardainState
                         "Select Course",
                         style: TextStyle(color: Colors.black),
                       ),
-                      selectedItemsTextStyle: TextStyle(
+                      selectedItemsTextStyle: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w900,
                           color: UIGuide.light_Purple),
-                      confirmText: Text(
+                      confirmText: const Text(
                         'OK',
                         style: TextStyle(color: UIGuide.light_Purple),
                       ),
-                      cancelText: Text(
+                      cancelText: const Text(
                         'Cancel',
                         style: TextStyle(color: UIGuide.light_Purple),
                       ),
@@ -466,11 +459,11 @@ class _Notification_AdminToGuardainState
             builder: (context, value, child) {
               return value.loading
                   ? LimitedBox(
-                      maxHeight: size.height - 330,
+                      maxHeight: size.height - 300,
                       child: const Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
-                      maxHeight: size.height - 350,
+                      maxHeight: size.height - 320,
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: value.notificationView.isEmpty

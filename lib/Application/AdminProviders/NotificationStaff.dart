@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:essconnect/Domain/Admin/StaffListModel.dart';
 import 'package:essconnect/Domain/Staff/NotifcationSendModel.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
@@ -39,12 +40,15 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
-      // log(data.toString());
-
-      List<StaffReportNotification> templist =
+      log(data.toString());
+      List<StaffReportNotification> templistt =
           List<StaffReportNotification>.from(data["staffReport"]
               .map((x) => StaffReportNotification.fromJson(x)));
-      stafflist.addAll(templist);
+
+      // List<StaffReportNotification> templist =
+      //     List<StaffReportNotification>.from(data["staffReport"]
+      //         .map((x) => StaffReportNotification.fromJson(x)));
+      stafflist.addAll(templistt);
 
       print('correct');
       setLoading(false);
@@ -201,7 +205,7 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
           context,
           MaterialPageRoute(
               builder: (_) => Text_Matter_NotificationAdminToStaff(
-                    toList: selectedStaffList.map((e) => e.id).toList(),
+                    toList: selectedStaffList.map((e) => e.id!).toList(),
                     type: "Staff",
                   )));
     }
@@ -220,13 +224,11 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
     var request = http.Request(
         'GET', Uri.parse("${UIGuide.baseURL}/mobileapp/token/sentlist"));
     request.body = json.encode({
-      // "SchoolId": _pref.getString('schoolId'),
       "CreatedDate": null,
       "StaffGuardianStudId": parse['StaffId'],
       "Type": "Staff"
     });
     print(json.encode({
-      // "SchoolId": _pref.getString('schoolId'),
       "CreatedDate": null,
       "StaffGuardianStudId": parse['StaffId'],
       "Type": "Staff"

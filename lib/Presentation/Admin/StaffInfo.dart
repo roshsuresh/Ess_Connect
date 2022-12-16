@@ -28,7 +28,6 @@ class StaffInfo extends StatelessWidget {
                           Color.fromARGB(255, 46, 127, 202),
                           Color.fromARGB(255, 100, 162, 219),
                         ]),
-                        // color: UIGuide.light_Purple,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(40),
                             bottomRight: Radius.circular(40))),

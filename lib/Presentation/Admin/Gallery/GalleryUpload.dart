@@ -103,10 +103,8 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
           child: SizedBox(
             width: 120,
             child: MaterialButton(
-              // minWidth: size.width - 200,
               child: Text(
                   checkname == null ? 'Choose File' : checkname.toString()),
-
               color: Colors.white70,
               onPressed: (() async {
                 final result = await FilePicker.platform.pickFiles(

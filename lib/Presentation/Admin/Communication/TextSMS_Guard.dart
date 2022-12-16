@@ -100,14 +100,12 @@ class TextSMSGuardian extends StatelessWidget {
                   width: size.width * .42,
                   height: 50,
                   child: MultiSelectDialogField(
-                    // height: 200,
                     items: value.courseDrop,
                     listType: MultiSelectListType.CHIP,
                     title: const Text(
                       "Select Course",
                       style: TextStyle(color: Colors.black),
                     ),
-                    // selectedColor: Color.fromARGB(255, 157, 232, 241),
                     selectedItemsTextStyle: const TextStyle(
                         fontWeight: FontWeight.w900,
                         color: UIGuide.light_Purple),
@@ -178,7 +176,6 @@ class TextSMSGuardian extends StatelessWidget {
                       "Select Division",
                       style: TextStyle(color: Colors.grey),
                     ),
-                    // selectedColor: Color.fromARGB(255, 157, 232, 241),
                     selectedItemsTextStyle: const TextStyle(
                         fontWeight: FontWeight.w900,
                         color: UIGuide.light_Purple),
