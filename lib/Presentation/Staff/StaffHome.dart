@@ -152,7 +152,7 @@ class _StaffHomeState extends State<StaffHome> {
                                             decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                 image: AssetImage(
-                                                  'assets/Attendance.png',
+                                                  'assets/01student report.png',
                                                 ),
                                               ),
                                             ),
@@ -402,7 +402,7 @@ class _StaffHomeState extends State<StaffHome> {
                                                       const BoxDecoration(
                                                     image: DecorationImage(
                                                       image: AssetImage(
-                                                        'assets/Marksheet.png',
+                                                        'assets/Tabulation.png',
                                                       ),
                                                     ),
                                                   ),
@@ -454,7 +454,7 @@ class _StaffHomeState extends State<StaffHome> {
                                                     image:
                                                         const DecorationImage(
                                                       image: AssetImage(
-                                                        'assets/Reportcard.png',
+                                                        'assets/Marksheet.png',
                                                       ),
                                                     ),
                                                     borderRadius:
@@ -548,7 +548,7 @@ class _StaffHomeState extends State<StaffHome> {
                                               image: DecorationImage(
                                                 opacity: 20,
                                                 image: AssetImage(
-                                                  'assets/payNew.png',
+                                                  'assets/01communicationto guardian.png',
                                                 ),
                                               ),
                                             ),
@@ -849,7 +849,7 @@ class _StaffHomeState extends State<StaffHome> {
 }
 
 class StaffProfile extends StatelessWidget {
-  const StaffProfile({Key? key}) : super(key: key);
+  StaffProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

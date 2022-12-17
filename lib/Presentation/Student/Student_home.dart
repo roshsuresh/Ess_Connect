@@ -98,6 +98,7 @@ class _StudentHomeState extends State<StudentHome> {
                             'Personal info',
                             textAlign: TextAlign.left,
                             style: TextStyle(
+                                fontStyle: FontStyle.italic,
                                 color: UIGuide.light_Purple,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -300,7 +301,7 @@ class _StudentHomeState extends State<StudentHome> {
                                             image: DecorationImage(
                                               opacity: 20,
                                               image: AssetImage(
-                                                'assets/Noticeboard.png',
+                                                'assets/diary.png',
                                               ),
                                             ),
                                           ),
@@ -336,6 +337,7 @@ class _StudentHomeState extends State<StudentHome> {
                                   " * Urgent & Important * ",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
+                                      fontStyle: FontStyle.italic,
                                       color: UIGuide.light_Purple,
                                       fontWeight: FontWeight.w900),
                                 ),
@@ -626,9 +628,10 @@ class _StudentHomeState extends State<StudentHome> {
                                 )),
                           ),
                           const Text(
-                            "Tabulation",
+                            "Academics",
                             textAlign: TextAlign.left,
                             style: TextStyle(
+                                fontStyle: FontStyle.italic,
                                 color: UIGuide.light_Purple,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -679,10 +682,9 @@ class _StudentHomeState extends State<StudentHome> {
                                             image: DecorationImage(
                                               opacity: 20,
                                               image: AssetImage(
-                                                'assets/Attendancee.png',
+                                                'assets/Attendance.png',
                                               ),
                                             ),
-                                            // borderRadius: BorderRadius.circular(10),
                                           ),
                                         ),
                                       ),
@@ -1261,7 +1263,7 @@ class ProfileHome extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (context) {
-          // var size = MediaQuery.of(context).size;
+          var size = MediaQuery.of(context).size;
           return Dialog(
               child: Container(
             decoration: BoxDecoration(
@@ -1277,35 +1279,48 @@ class ProfileHome extends StatelessWidget {
                     itemCount:
                         siblinggResponse == null ? 0 : siblinggResponse!.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          kheight20,
-                          Center(
-                              child: GestureDetector(
-                                  onTap: () async {
-                                    var idd =
-                                        siblinggResponse![index]['id'] == null
-                                            ? '--'
-                                            : siblinggResponse![index]['id']
-                                                .toString();
-                                    await Provider.of<SibingsProvider>(context,
-                                            listen: false)
-                                        .getSibling(context, idd);
-                                  },
-                                  child: Text(
-                                    siblinggResponse![index]['name'] == null
-                                        ? '--'
-                                        : siblinggResponse![index]['name']
-                                            .toString(),
-                                    textAlign: TextAlign.start,
-                                    style: const TextStyle(
-                                        color: UIGuide.light_Purple,
-                                        fontSize: 16),
-                                  ))),
-                          kheight20,
-                        ],
+                      return InkWell(
+                        onTap: () async {
+                          var idd = siblinggResponse![index]['id'] == null
+                              ? '--'
+                              : siblinggResponse![index]['id'].toString();
+                          await Provider.of<SibingsProvider>(context,
+                                  listen: false)
+                              .getSibling(context, idd);
+                        },
+                        splashColor: UIGuide.light_Purple,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            kheight20,
+                            Center(
+                                child: InkWell(
+                                    splashColor: Colors.black26,
+                                    // onTap: () async {
+                                    //   var idd =
+                                    //       siblinggResponse![index]['id'] == null
+                                    //           ? '--'
+                                    //           : siblinggResponse![index]['id']
+                                    //               .toString();
+                                    //   await Provider.of<SibingsProvider>(
+                                    //           context,
+                                    //           listen: false)
+                                    //       .getSibling(context, idd);
+                                    // },
+                                    child: Text(
+                                      siblinggResponse![index]['name'] == null
+                                          ? '--'
+                                          : siblinggResponse![index]['name']
+                                              .toString(),
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          color: UIGuide.light_Purple,
+                                          fontSize: 16),
+                                    ))),
+                            kheight20,
+                          ],
+                        ),
                       );
                     }),
               ],

@@ -98,7 +98,7 @@ class AdminHomeContent extends StatelessWidget {
                       )),
                 ),
                 const Text(
-                  'Student',
+                  'General Info',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
@@ -144,7 +144,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Profilee.png',
+                                      'assets/01student report.png',
                                     ),
                                   ),
                                 ),
@@ -215,85 +215,6 @@ class AdminHomeContent extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
-              kheight10,
-              Row(children: <Widget>[
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
-                ),
-                const Text(
-                  "Staff",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
-                ),
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
-                ),
-              ]),
-              kheight10,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Demo()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/payNew.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            '       Staff \n Information',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -321,7 +242,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: const DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/payNew.png',
+                                      'assets/01staffreport.jpg',
                                     ),
                                   ),
                                   borderRadius: BorderRadius.circular(10),
@@ -341,18 +262,17 @@ class AdminHomeContent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //  kWidth,
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => MarkentryReportByAdmin()),
+                        MaterialPageRoute(builder: (context) => Demo()),
                       );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Card(
                             elevation: 10,
@@ -369,7 +289,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Profilee.png',
+                                      'assets/Prof.png',
                                     ),
                                   ),
                                 ),
@@ -378,7 +298,7 @@ class AdminHomeContent extends StatelessWidget {
                           ),
                           kheight10,
                           const Text(
-                            'Mark Entry\n   Report',
+                            '       Staff \n Information',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -391,6 +311,33 @@ class AdminHomeContent extends StatelessWidget {
                 ],
               ),
               kheight10,
+              // Row(children: <Widget>[
+              //   Expanded(
+              //     child: Container(
+              //         margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+              //         child: const Divider(
+              //           color: Colors.black45,
+              //           height: 36,
+              //         )),
+              //   ),
+              //   const Text(
+              //     "Staff",
+              //     textAlign: TextAlign.left,
+              //     style: TextStyle(
+              //         color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
+              //   ),
+              //   Expanded(
+              //     child: Container(
+              //         margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+              //         child: const Divider(
+              //           color: Colors.black45,
+              //           height: 36,
+              //         )),
+              //   ),
+              // ]),
+              kheight10,
+
+              kheight10,
               Row(children: <Widget>[
                 Expanded(
                   child: Container(
@@ -401,7 +348,7 @@ class AdminHomeContent extends StatelessWidget {
                       )),
                 ),
                 const Text(
-                  "Fees",
+                  "Reports",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
@@ -447,7 +394,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/payNew.png',
+                                      'assets/01feescollectionreport.png',
                                     ),
                                   ),
                                 ),
@@ -496,7 +443,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Profilee.png',
+                                      "assets/Fees.png",
                                     ),
                                   ),
                                 ),
@@ -511,6 +458,98 @@ class AdminHomeContent extends StatelessWidget {
                                 color: Colors.black87,
                                 fontWeight: FontWeight.bold),
                           ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MarkentryReportByAdmin()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Tabulation.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            'Mark Entry',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MarkentryReportByAdmin()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Marksheet.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            'Mark Entry\n   Report',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
                         ],
                       ),
                     ),
@@ -575,7 +614,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/staff notification.png',
+                                      'assets/01communication to staff.png',
                                     ),
                                   ),
                                 ),
@@ -622,7 +661,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: const DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Profilee.png',
+                                      'assets/01communicationto guardian.png',
                                     ),
                                   ),
                                   borderRadius: BorderRadius.circular(0),
@@ -805,7 +844,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Profilee.png',
+                                      'assets/01flashnews.png',
                                     ),
                                   ),
                                 ),
@@ -852,7 +891,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Profilee.png',
+                                      'assets/Noticeboard.png',
                                     ),
                                   ),
                                 ),
