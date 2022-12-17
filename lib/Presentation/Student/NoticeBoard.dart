@@ -24,18 +24,7 @@ class NoticeBoard extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
-    const Color background = Colors.white;
-    final Color fill1 = Color.fromARGB(255, 79, 97, 197);
-    final Color fill2 = Color.fromARGB(255, 180, 103, 216);
-    final List<Color> gradient = [
-      fill1,
-      fill2,
-      background,
-      background,
-    ];
-    const double fillPercent = 35;
-    const double fillStop = (100 - fillPercent) / 100;
-    final List<double> stops = [0.0, fillStop, fillStop, 1.0];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -54,10 +43,9 @@ class NoticeBoard extends StatelessWidget {
       ),
       body: Consumer<NoticeProvider>(builder: (_, value, child) {
         return value.loading
-            ? spinkitLoader()
+            ? const spinkitLoader()
             : AnimationLimiter(
                 child: ListView.builder(
-                  //  padding: EdgeInsets.all(width / 30),
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
                   itemCount:
@@ -66,13 +54,13 @@ class NoticeBoard extends StatelessWidget {
                     var noticeattach = noticeresponse![index]['noticeId'];
                     return AnimationConfiguration.staggeredList(
                       position: index,
-                      delay: Duration(milliseconds: 100),
+                      delay: const Duration(milliseconds: 100),
                       child: SlideAnimation(
-                        duration: Duration(milliseconds: 2500),
+                        duration: const Duration(milliseconds: 2500),
                         curve: Curves.fastLinearToSlowEaseIn,
                         child: FadeInAnimation(
                           curve: Curves.fastLinearToSlowEaseIn,
-                          duration: Duration(milliseconds: 2500),
+                          duration: const Duration(milliseconds: 2500),
                           child: Stack(
                             children: [
                               Padding(
@@ -81,12 +69,13 @@ class NoticeBoard extends StatelessWidget {
                                   width: width,
                                   //   height: 200,
                                   decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 243, 243, 252),
+                                      color: const Color.fromARGB(
+                                          255, 243, 243, 252),
                                       border: Border.all(
                                           color: UIGuide.light_Purple,
                                           width: .5),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(5))),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -96,12 +85,12 @@ class NoticeBoard extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             kWidth,
-                                            Text('📌  '),
+                                            const Text('📌  '),
                                             Flexible(
                                               child: RichText(
                                                 overflow: TextOverflow.ellipsis,
-                                                strutStyle:
-                                                    StrutStyle(fontSize: 14.0),
+                                                strutStyle: const StrutStyle(
+                                                    fontSize: 14.0),
                                                 text: TextSpan(
                                                     style: const TextStyle(
                                                         color: UIGuide
@@ -130,8 +119,9 @@ class NoticeBoard extends StatelessWidget {
                                               border: Border.all(
                                                   color: const Color.fromARGB(
                                                       255, 215, 207, 236)),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(4))),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(4))),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -163,9 +153,10 @@ class NoticeBoard extends StatelessWidget {
                                                 : noticeresponse![index]
                                                         ['entryDate']
                                                     .toString(),
-                                            style: TextStyle(fontSize: 12),
+                                            style:
+                                                const TextStyle(fontSize: 12),
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           kWidth,
                                           kWidth,
                                           kWidth,
@@ -178,9 +169,10 @@ class NoticeBoard extends StatelessWidget {
                                                 : noticeresponse![index]
                                                         ['staffName']
                                                     .toString(),
-                                            style: TextStyle(fontSize: 12),
+                                            style:
+                                                const TextStyle(fontSize: 12),
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           GestureDetector(
                                               onTap: () async {
                                                 var newProvider = await Provider
@@ -244,7 +236,7 @@ class PDFDownload extends StatelessWidget {
     return Consumer<NoticeProvider>(
       builder: (context, value, child) => Scaffold(
           appBar: AppBar(
-            title: Text(''),
+            title: const Text(''),
             titleSpacing: 00.0,
             centerTitle: true,
             toolbarHeight: 50.2,
@@ -281,12 +273,12 @@ class PdfViewPage extends StatelessWidget {
   imageview(String result) {
     return Scaffold(
       body: isLoading
-          ? LoadingIcon()
+          ? const LoadingIcon()
           : Center(
               child: Container(
                   child: PhotoView(
                 loadingBuilder: (context, event) {
-                  return LoadingIcon();
+                  return const LoadingIcon();
                 },
                 imageProvider: NetworkImage(
                   result == null

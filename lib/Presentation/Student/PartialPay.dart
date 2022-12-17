@@ -13,6 +13,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -1719,11 +1720,13 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                             ],
                           ),
                           Positioned(
-                            top: -80,
+                            top: -190,
                             child: CircleAvatar(
-                                radius: 70,
-                                backgroundColor: Colors.white,
-                                child: SvgPicture.asset(UIGuide.success)),
+                                radius: 165,
+                                backgroundColor: Colors.transparent,
+                                child: LottieBuilder.asset(
+                                  'assets/89618-gopay-succesfull-payment.json',
+                                )),
                           )
                         ],
                       ),
