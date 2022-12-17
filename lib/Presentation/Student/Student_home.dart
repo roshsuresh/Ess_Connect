@@ -3,6 +3,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
 import 'package:essconnect/Application/StudentProviders/InternetConnection.dart';
+import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/constants.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import '../../Application/Module Providers.dart/Module.dart';
 import '../../Application/StudentProviders/ProfileProvider.dart';
 import '../../Application/StudentProviders/SiblingsProvider.dart';
@@ -27,7 +28,7 @@ import 'Profile_Info.dart';
 import 'Reportcard.dart';
 import 'Stud_Notification.dart';
 import 'TimeTable.dart';
-
+import 'package:badges/badges.dart';
 class StudentHome extends StatefulWidget {
   StudentHome({Key? key}) : super(key: key);
 
@@ -167,56 +168,65 @@ class _StudentHomeState extends State<StudentHome> {
                                 ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Stud_Notification()),
-                                );
-                              },
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Card(
-                                      elevation: 10,
-                                      color: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 38,
-                                          width: 38,
-                                          decoration: BoxDecoration(
-                                            image: const DecorationImage(
-                                              opacity: 20,
-                                              image: AssetImage(
-                                                'assets/notificationnew.png',
+                            Badge(
+                              showBadge: true,
+                              position: BadgePosition.topEnd(end: 9),
+                              badgeContent: Text(
+                                '2',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Stud_Notification()),
+                                  );
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 10, right: 10),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Card(
+                                        elevation: 10,
+                                        color: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 38,
+                                            width: 38,
+                                            decoration: BoxDecoration(
+                                              image: const DecorationImage(
+                                                opacity: 20,
+                                                image: AssetImage(
+                                                  'assets/notificationnew.png',
+                                                ),
                                               ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    kheight,
-                                    const Text(
-                                      'Notification',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 11,
-                                          color: Colors.black),
-                                    )
-                                  ],
+                                      kheight,
+                                      const Text(
+                                        'Notification',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11,
+                                            color: Colors.black),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -351,7 +361,7 @@ class _StudentHomeState extends State<StudentHome> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    module.fees == false
+                                    module.fees == true
                                         ? Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 10, right: 10),
@@ -1260,73 +1270,156 @@ class ProfileHome extends StatelessWidget {
   _displayNameOfSiblings(BuildContext context, String? name) async {
     await Provider.of<ProfileProvider>(context, listen: false).siblingsAPI();
 
-    return showDialog(
-        context: context,
-        builder: (context) {
-          var size = MediaQuery.of(context).size;
-          return Dialog(
+
+
+      return  showAnimatedDialog(
+
+       //  animationType: DialogTransitionType.rotate3D,
+       // curve: Curves.fastOutSlowIn,
+       // duration: Duration(seconds: 1),
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return Dialog(
               child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: UIGuide.light_Purple, width: 2),
-                borderRadius: BorderRadius.circular(0)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount:
-                        siblinggResponse == null ? 0 : siblinggResponse!.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () async {
-                          var idd = siblinggResponse![index]['id'] == null
-                              ? '--'
-                              : siblinggResponse![index]['id'].toString();
-                          await Provider.of<SibingsProvider>(context,
-                                  listen: false)
-                              .getSibling(context, idd);
-                        },
-                        splashColor: UIGuide.light_Purple,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            kheight20,
-                            Center(
-                                child: InkWell(
-                                    splashColor: Colors.black26,
-                                    // onTap: () async {
-                                    //   var idd =
-                                    //       siblinggResponse![index]['id'] == null
-                                    //           ? '--'
-                                    //           : siblinggResponse![index]['id']
-                                    //               .toString();
-                                    //   await Provider.of<SibingsProvider>(
-                                    //           context,
-                                    //           listen: false)
-                                    //       .getSibling(context, idd);
-                                    // },
-                                    child: Text(
-                                      siblinggResponse![index]['name'] == null
-                                          ? '--'
-                                          : siblinggResponse![index]['name']
-                                              .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: UIGuide.light_Purple,
-                                          fontSize: 16),
-                                    ))),
-                            kheight20,
-                          ],
-                        ),
-                      );
-                    }),
-              ],
-            ),
-          ));
-        });
+                decoration: BoxDecoration(
+                    border: Border.all(color: UIGuide.light_Purple, width: 2),
+                    borderRadius: BorderRadius.circular(0)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount:
+                      siblinggResponse == null ? 0 : siblinggResponse!.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () async {
+                            var idd = siblinggResponse![index]['id'] == null
+                                ? '--'
+                                : siblinggResponse![index]['id'].toString();
+                            await Provider.of<SibingsProvider>(context,
+                                listen: false)
+                                .getSibling(context, idd);
+                          },
+                          splashColor: UIGuide.light_Purple,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              kheight20,
+                              Center(
+                                  child: InkWell(
+                                      splashColor: Colors.black26,
+                                      // onTap: () async {
+                                      //   var idd =
+                                      //       siblinggResponse![index]['id'] == null
+                                      //           ? '--'
+                                      //           : siblinggResponse![index]['id']
+                                      //               .toString();
+                                      //   await Provider.of<SibingsProvider>(
+                                      //           context,
+                                      //           listen: false)
+                                      //       .getSibling(context, idd);
+                                      // },
+                                      child: Text(
+                                        siblinggResponse![index]['name'] == null
+                                            ? '--'
+                                            : siblinggResponse![index]['name']
+                                            .toString(),
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            color: UIGuide.light_Purple,
+                                            fontSize: 16),
+                                      ))),
+                              kheight20,
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    kheight20
+                  ],
+                ),),
+            );
+          }
+
+
+          // animationType: DialogTransitionType.rotate3D,
+          // curve: Curves.fastOutSlowIn,
+          // duration: Duration(seconds: 1),
+        );
+
+
+    // return showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       var size = MediaQuery.of(context).size;
+    //       // return Dialog(
+    //       //     child: Container(
+    //       //   decoration: BoxDecoration(
+    //       //       border: Border.all(color: UIGuide.light_Purple, width: 2),
+    //       //       borderRadius: BorderRadius.circular(0)),
+    //       //   child: Column(
+    //       //     crossAxisAlignment: CrossAxisAlignment.start,
+    //       //     mainAxisAlignment: MainAxisAlignment.start,
+    //       //     mainAxisSize: MainAxisSize.min,
+    //       //     children: [
+    //       //       ListView.builder(
+    //       //           shrinkWrap: true,
+    //       //           itemCount:
+    //       //               siblinggResponse == null ? 0 : siblinggResponse!.length,
+    //       //           itemBuilder: (context, index) {
+    //       //             return InkWell(
+    //       //               onTap: () async {
+    //       //                 var idd = siblinggResponse![index]['id'] == null
+    //       //                     ? '--'
+    //       //                     : siblinggResponse![index]['id'].toString();
+    //       //                 await Provider.of<SibingsProvider>(context,
+    //       //                         listen: false)
+    //       //                     .getSibling(context, idd);
+    //       //               },
+    //       //               splashColor: UIGuide.light_Purple,
+    //       //               child: Column(
+    //       //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //       //                 mainAxisAlignment: MainAxisAlignment.start,
+    //       //                 children: [
+    //       //                   kheight20,
+    //       //                   Center(
+    //       //                       child: InkWell(
+    //       //                           splashColor: Colors.black26,
+    //       //                           // onTap: () async {
+    //       //                           //   var idd =
+    //       //                           //       siblinggResponse![index]['id'] == null
+    //       //                           //           ? '--'
+    //       //                           //           : siblinggResponse![index]['id']
+    //       //                           //               .toString();
+    //       //                           //   await Provider.of<SibingsProvider>(
+    //       //                           //           context,
+    //       //                           //           listen: false)
+    //       //                           //       .getSibling(context, idd);
+    //       //                           // },
+    //       //                           child: Text(
+    //       //                             siblinggResponse![index]['name'] == null
+    //       //                                 ? '--'
+    //       //                                 : siblinggResponse![index]['name']
+    //       //                                     .toString(),
+    //       //                             textAlign: TextAlign.center,
+    //       //                             style: const TextStyle(
+    //       //                                 color: UIGuide.light_Purple,
+    //       //                                 fontSize: 16),
+    //       //                           ))),
+    //       //                   kheight20,
+    //       //                 ],
+    //       //               ),
+    //       //             );
+    //       //           }),
+    //       //     ],
+    //       //   ),
+    //       // ));
+    //     });
   }
 }
 
