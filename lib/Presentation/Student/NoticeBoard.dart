@@ -41,139 +41,143 @@ class NoticeBoard extends StatelessWidget {
         ),
         backgroundColor: UIGuide.light_Purple,
       ),
-      body: Consumer<NoticeProvider>(builder: (_, value, child) {
-        return value.loading
-            ? const spinkitLoader()
-            : AnimationLimiter(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  itemCount:
-                      noticeresponse == null ? 0 : noticeresponse!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var noticeattach = noticeresponse![index]['noticeId'];
-                    return AnimationConfiguration.staggeredList(
-                      position: index,
-                      delay: const Duration(milliseconds: 100),
-                      child: SlideAnimation(
-                        duration: const Duration(milliseconds: 2500),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                        child: FadeInAnimation(
-                          curve: Curves.fastLinearToSlowEaseIn,
+      body: Consumer<NoticeProvider>(
+        builder: (_, value, child) {
+          return value.loading
+              ? const spinkitLoader()
+              : AnimationLimiter(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    itemCount:
+                        noticeresponse == null ? 0 : noticeresponse!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var noticeattach = noticeresponse![index]['noticeId'];
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        delay: const Duration(milliseconds: 100),
+                        child: SlideAnimation(
                           duration: const Duration(milliseconds: 2500),
-                          child: Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: width,
-                                  //   height: 200,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 243, 243, 252),
-                                      border: Border.all(
-                                          color: UIGuide.light_Purple,
-                                          width: .5),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            kWidth,
-                                            const Text('📌  '),
-                                            Flexible(
-                                              child: RichText(
-                                                overflow: TextOverflow.ellipsis,
-                                                strutStyle: const StrutStyle(
-                                                    fontSize: 14.0),
-                                                text: TextSpan(
-                                                    style: const TextStyle(
-                                                        color: UIGuide
-                                                            .light_Purple,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                    text: noticeresponse![index]
-                                                                ['title'] ==
-                                                            null
-                                                        ? '---'
-                                                        : noticeresponse![index]
-                                                                ['title']
-                                                            .toString()),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Container(
-                                          width: width - 15,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 236, 237, 245),
-                                              border: Border.all(
-                                                  color: const Color.fromARGB(
-                                                      255, 215, 207, 236)),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(4))),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          child: FadeInAnimation(
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            duration: const Duration(milliseconds: 2500),
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: width,
+                                    //   height: 200,
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 243, 243, 252),
+                                        border: Border.all(
+                                            color: UIGuide.light_Purple,
+                                            width: .5),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5))),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
                                             children: [
-                                              TextWrapper(
-                                                  text: noticeresponse![index]
-                                                              ['matter'] ==
-                                                          null
-                                                      ? '------'
-                                                      : noticeresponse![index]
-                                                              ['matter']
-                                                          .toString())
+                                              kWidth,
+                                              const Text('📌  '),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: const StrutStyle(
+                                                      fontSize: 14.0),
+                                                  text: TextSpan(
+                                                      style: const TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                      text: noticeresponse![
+                                                                      index]
+                                                                  ['title'] ==
+                                                              null
+                                                          ? '---'
+                                                          : noticeresponse![
+                                                                      index]
+                                                                  ['title']
+                                                              .toString()),
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          kWidth,
-                                          Text(
-                                            noticeresponse![index]
-                                                        ['entryDate'] ==
-                                                    null
-                                                ? '--'
-                                                : noticeresponse![index]
-                                                        ['entryDate']
-                                                    .toString(),
-                                            style:
-                                                const TextStyle(fontSize: 12),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Container(
+                                            width: width - 15,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 236, 237, 245),
+                                                border: Border.all(
+                                                    color: const Color.fromARGB(
+                                                        255, 215, 207, 236)),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(4))),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                TextWrapper(
+                                                    text: noticeresponse![index]
+                                                                ['matter'] ==
+                                                            null
+                                                        ? '------'
+                                                        : noticeresponse![index]
+                                                                ['matter']
+                                                            .toString())
+                                              ],
+                                            ),
                                           ),
-                                          const Spacer(),
-                                          kWidth,
-                                          kWidth,
-                                          kWidth,
-                                          kWidth,
-                                          Text(
-                                            noticeresponse![index]
-                                                        ['staffName'] ==
-                                                    null
-                                                ? '--'
-                                                : noticeresponse![index]
-                                                        ['staffName']
-                                                    .toString(),
-                                            style:
-                                                const TextStyle(fontSize: 12),
-                                          ),
-                                          const Spacer(),
-                                          GestureDetector(
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            kWidth,
+                                            Text(
+                                              noticeresponse![index]
+                                                          ['entryDate'] ==
+                                                      null
+                                                  ? '--'
+                                                  : noticeresponse![index]
+                                                          ['entryDate']
+                                                      .toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                            ),
+                                            const Spacer(),
+                                            kWidth,
+                                            kWidth,
+                                            kWidth,
+                                            kWidth,
+                                            Text(
+                                              noticeresponse![index]
+                                                          ['staffName'] ==
+                                                      null
+                                                  ? '--'
+                                                  : noticeresponse![index]
+                                                          ['staffName']
+                                                      .toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                            ),
+                                            const Spacer(),
+                                            GestureDetector(
                                               onTap: () async {
                                                 var newProvider = await Provider
                                                         .of<NoticeProvider>(
@@ -192,8 +196,9 @@ class NoticeBoard extends StatelessWidget {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            PDFDownload()),
+                                                      builder: (context) =>
+                                                          PDFDownload(),
+                                                    ),
                                                   );
                                                 } else {
                                                   Navigator.push(
@@ -205,23 +210,25 @@ class NoticeBoard extends StatelessWidget {
                                                 }
                                               },
                                               child: const Icon(
-                                                  Icons.remove_red_eye)),
-                                          kWidth,
-                                        ],
-                                      )
-                                    ],
+                                                  Icons.remove_red_eye),
+                                            ),
+                                            kWidth,
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              );
-      }),
+                      );
+                    },
+                  ),
+                );
+        },
+      ),
     );
   }
 }

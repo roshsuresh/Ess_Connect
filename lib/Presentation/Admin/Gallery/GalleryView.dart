@@ -25,7 +25,7 @@ class AdminGalleryView extends StatelessWidget {
               children: [
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: value.galleryReceived.length == null
+                    itemCount: value.galleryReceived.isEmpty
                         ? 0
                         : value.galleryReceived.length,
                     itemBuilder: ((context, index) {

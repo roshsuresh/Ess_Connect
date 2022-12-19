@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 
 import '../../Application/StudentProviders/PasswordChangeProvider.dart';
@@ -46,13 +47,15 @@ class _PasswordChangeState extends State<PasswordChange> {
             kheight10,
             Center(
               child: Container(
-                height: 100,
-                width: 100,
-                child: Image.network(
-                  'https://cdn-icons-png.flaticon.com/512/6195/6195699.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
+                  height: 150,
+                  width: 200,
+                  child: LottieBuilder.asset('assets/vsqFXTvh4d.json')
+
+                  // Image.network(
+                  //   'https://cdn-icons-png.flaticon.com/512/6195/6195699.png',
+                  //   fit: BoxFit.fill,
+                  // ),
+                  ),
             ),
             kheight20,
             kheight10,

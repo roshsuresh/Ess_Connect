@@ -92,7 +92,7 @@ class PaymentHistory extends StatelessWidget {
                   LimitedBox(
                     maxHeight: size.height - 150,
                     child: ListView.builder(
-                        itemCount: value.historyList.length == null
+                        itemCount: value.historyList.isEmpty
                             ? 0
                             : value.historyList.length,
                         shrinkWrap: true,
@@ -116,7 +116,6 @@ class PaymentHistory extends StatelessWidget {
                                 3: FlexColumnWidth(2.2),
                                 4: FlexColumnWidth(1.2)
                               },
-                              //  border: TableBorder.all(),
                               children: [
                                 TableRow(
                                     decoration: const BoxDecoration(
@@ -209,19 +208,15 @@ class PdfDownloadFee extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 15.0),
                 child: DownloandPdf(
                   isUseIcon: true,
-                  pdfUrl: value.url.toString() == null
-                      ? '--'
-                      : value.url.toString(),
-                  fileNames: value.name.toString() == null
-                      ? '---'
-                      : value.name.toString(),
+                  pdfUrl: value.url == null ? '--' : value.url.toString(),
+                  fileNames: value.name == null ? '---' : value.name.toString(),
                   color: Colors.white,
                 ),
               ),
             ],
           ),
           body: SfPdfViewer.network(
-            value.url.toString() == null ? '--' : value.url.toString(),
+            value.url == null ? '--' : value.url.toString(),
           )),
     );
   }
@@ -232,7 +227,7 @@ class NoAttachmentScreenFee extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('Invalid attachment'),
       ),

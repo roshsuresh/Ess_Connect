@@ -2152,11 +2152,13 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                             ],
                           ),
                           Positioned(
-                            top: -80,
+                            top: -190,
                             child: CircleAvatar(
-                                radius: 70,
-                                backgroundColor: Colors.white,
-                                child: SvgPicture.asset(UIGuide.success)),
+                                radius: 165,
+                                backgroundColor: Colors.transparent,
+                                child: LottieBuilder.asset(
+                                  'assets/89618-gopay-succesfull-payment.json',
+                                )),
                           )
                         ],
                       ),

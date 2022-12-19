@@ -61,7 +61,6 @@ class Stud_Notification extends StatelessWidget {
                             padding: const EdgeInsets.all(6.0),
                             child: Container(
                               width: size.width - 4,
-                              // height: 150,
                               decoration: const BoxDecoration(
                                   boxShadow: [
                                     BoxShadow(
@@ -118,7 +117,7 @@ class Stud_Notification extends StatelessWidget {
                                                   255, 49, 47, 47),
                                               fontSize: 12),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         const Text(
                                           'Send by ',
                                           style: TextStyle(

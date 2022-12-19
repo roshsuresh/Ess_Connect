@@ -35,6 +35,7 @@ dependencies:
   avatar_glow: ^2.0.2
   awesome_dialog: ^3.0.2
   awesome_notifications: any
+  badges: ^2.0.3
   carousel_slider: ^4.1.1
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2

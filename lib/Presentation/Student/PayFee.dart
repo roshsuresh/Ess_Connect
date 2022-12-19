@@ -178,8 +178,11 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                       ),
                       Scrollbar(
                         controller: _controller,
+                        thumbVisibility: true,
+                        thickness: 6,
+                        radius: Radius.circular(20),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 8),
+                          padding: EdgeInsets.only(left: 20.0, right: 8),
                           child: LimitedBox(
                               maxHeight: 160,
                               child: Consumer<FeesProvider>(
@@ -259,15 +262,12 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                               // ),
                               ),
                         ),
-                        thumbVisibility: true,
-                        thickness: 6,
-                        radius: Radius.circular(20),
                       ),
                       Consumer<FeesProvider>(
                         builder: (context, value, child) => Center(
                           child: Text(
                             'TotalFee:  ${value.totalFees}',
-                            style: TextStyle(fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           ),
                         ),
                       ),
@@ -291,6 +291,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                 ),
                                 Scrollbar(
                                   controller: _controller2,
+                                  thumbVisibility: true,
+                                  thickness: 6,
+                                  radius: const Radius.circular(20),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 20, right: 8),
@@ -308,13 +311,6 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                                   itemBuilder:
                                                       (BuildContext context,
                                                           int index) {
-                                                    // print(
-                                                    //     '-----=====--------${value.busFeeList[index]}');
-                                                    var list = [];
-                                                    list.addAll([
-                                                      value.busFeeList[index]
-                                                    ]);
-                                                    //  print(list);
                                                     return CheckboxListTile(
                                                       activeColor:
                                                           const Color.fromARGB(
@@ -368,9 +364,6 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                                   }),
                                         )),
                                   ),
-                                  thumbVisibility: true,
-                                  thickness: 6,
-                                  radius: const Radius.circular(20),
                                 ),
                                 Consumer<FeesProvider>(
                                   builder: (context, value, child) => Center(
@@ -1730,11 +1723,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
 
   void handlePaymentErrorResponse(PaymentFailureResponse response) async {
     print('------------------Failed-----------------------------');
+    await _showAlertRazorPay(context, readableid!, orderidd!);
   }
 
   void handlePaymentSuccessResponse(
     PaymentSuccessResponse response,
   ) async {
+    await _showAlertRazorPay(context, readableid!, orderidd!);
     print('------------------Success-----------------------------');
   }
 
@@ -1814,11 +1809,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                             ],
                           ),
                           Positioned(
-                            top: -80,
+                            top: -190,
                             child: CircleAvatar(
-                                radius: 70,
-                                backgroundColor: Colors.white,
-                                child: SvgPicture.asset(UIGuide.success)),
+                                radius: 165,
+                                backgroundColor: Colors.transparent,
+                                child: LottieBuilder.asset(
+                                  'assets/89618-gopay-succesfull-payment.json',
+                                )),
                           )
                         ],
                       ),

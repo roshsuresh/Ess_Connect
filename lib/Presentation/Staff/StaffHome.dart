@@ -851,6 +851,7 @@ class _StaffHomeState extends State<StaffHome> {
 class StaffProfile extends StatelessWidget {
   StaffProfile({Key? key}) : super(key: key);
 
+  late AnimationController _controller;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -887,6 +888,7 @@ class StaffProfile extends StatelessWidget {
                 Radius.circular(50),
               )),
               child: AnimateGradient(
+                controller: _controller,
                 // primaryBegin: Alignment.topLeft,
                 // primaryEnd: Alignment.bottomLeft,
                 // secondaryBegin: Alignment.bottomLeft,

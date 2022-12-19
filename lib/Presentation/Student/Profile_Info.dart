@@ -91,10 +91,6 @@ class Profile_Info extends StatelessWidget {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      // const Text('Class: ',
-                                      //     style: TextStyle(
-                                      //         fontSize: 14.0,
-                                      //         color: Colors.grey)),
                                       Text(
                                           provider.division == null
                                               ? '--'
@@ -112,21 +108,6 @@ class Profile_Info extends StatelessWidget {
                                           width: .5),
                                       children: [
                                         TableRow(children: [
-                                          // Column(
-                                          //   children: [
-                                          //     const Text('Class',
-                                          //         style: TextStyle(
-                                          //             fontSize: 14.0,
-                                          //             color: Colors.grey)),
-                                          //     Text(
-                                          //         provider.division == null
-                                          //             ? '--'
-                                          //             : provider.division
-                                          //                 .toString(),
-                                          //         style: const TextStyle(
-                                          //             fontSize: 16.0)),
-                                          //   ],
-                                          // ),
                                           Column(
                                             children: [
                                               const Text('Roll No',
@@ -222,8 +203,7 @@ class Profile_Info extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  provider.dob.toString() ==
-                                                          null
+                                                  provider.dob == null
                                                       ? '--'
                                                       : provider.dob.toString(),
                                                   style: const TextStyle(
@@ -495,17 +475,16 @@ class Profile_Info extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      // provider.classTeacher == null
-                                                      // ?
-                                                      '--',
-                                                      // : provider.
-                                                      //     .toString(),
-                                                      style: TextStyle(
+                                                      provider.classTeacher ==
+                                                              null
+                                                          ? '--'
+                                                          : provider.toString(),
+                                                      style: const TextStyle(
                                                         color: UIGuide
                                                             .light_Purple,
                                                       ),
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       'Birthplace',
                                                       style: TextStyle(
                                                           color: Colors.black38,
@@ -533,8 +512,8 @@ class Profile_Info extends StatelessWidget {
                                       color: const Color.fromARGB(
                                           255, 230, 237, 245),
                                     ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(5))),
                                 width: width,
                                 height: 115,
                                 child: Padding(
@@ -623,9 +602,7 @@ class Profile_Info extends StatelessWidget {
                                           style: const TextStyle(
                                             color: UIGuide.light_Purple,
                                           ),
-                                          text: provider.fatherMail == null
-                                              ? '--'
-                                              : provider.fatherMail),
+                                          text: provider.fatherMail ?? '--'),
                                     ),
                                   ),
                                 ],
@@ -649,7 +626,7 @@ class Profile_Info extends StatelessWidget {
                                                     : provider.fatherPhoto
                                                         .toString(),
                                               )),
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.circular(10))),
                                     ),
                                   ),
@@ -690,7 +667,7 @@ class Profile_Info extends StatelessWidget {
                         ),
                         Container(
                           width: width,
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(
@@ -801,7 +778,7 @@ class Profile_Info extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             image: const DecorationImage(
@@ -818,7 +795,8 @@ class Profile_Info extends StatelessWidget {
                         autoPlay: true,
                         aspectRatio: 16 / 9,
                         enableInfiniteScroll: true,
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
                         viewportFraction: 0.8,
                       ),
                     ),

@@ -146,6 +146,7 @@ class _GalleryState extends State<Gallery> {
                                     await Provider.of<GalleryProvider>(context,
                                             listen: false)
                                         .galleyAttachment(idd);
+                                    if (!mounted) return;
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -224,7 +225,7 @@ class ViewImageOntap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<GalleryProvider>(
       builder: (context, value, child) => PhotoViewGallery.builder(
-          backgroundDecoration: BoxDecoration(color: UIGuide.WHITE),
+          backgroundDecoration: const BoxDecoration(color: UIGuide.WHITE),
           scrollPhysics: const BouncingScrollPhysics(),
           enableRotation: false,
           itemCount: value.galleryList == null ? 0 : value.galleryList.length,

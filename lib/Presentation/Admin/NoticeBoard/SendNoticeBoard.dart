@@ -326,7 +326,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
               width: MediaQuery.of(context).size.width * 0.45,
               child: MaterialButton(
                 //   minWidth: size.width - 250,
-                child: Center(child: Text('To  ${timeNow}')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeTo = await showDatePicker(
@@ -353,6 +352,8 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                     print(timeNow);
                   });
                 }),
+
+                child: Center(child: Text('To  $timeNow')),
               ),
             ),
             const Spacer()
@@ -500,11 +501,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                           ),
                     chipDisplay: MultiSelectChipDisplay.none(),
                     onConfirm: (result) async {
-                      //  result.clear();
-                      int length = result.length;
-
-                      print(result.length);
-
                       for (var a = 0; a < result.length; a++) {
                         DivisionListModel data = result[a] as DivisionListModel;
                         print(data.text);
@@ -561,11 +557,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
               minWidth: size.width - 150,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              child: const Text(
-                'Save',
-                style: TextStyle(color: UIGuide.WHITE),
-                textAlign: TextAlign.center,
-              ),
               color: UIGuide.light_Purple,
               onPressed: (() async {
                 print(attachmentid);
@@ -574,8 +565,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                 } else {
                   attachmentid.text = attach;
                 }
-
-                //https://api.esstestonline.in/mobileapp/staff/markEntryInitialvalues
                 if (titleController.text.isNotEmpty &&
                     course.toString().isNotEmpty &&
                     division.toString().isNotEmpty &&
@@ -624,6 +613,11 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                   // attachmentid.clear();
                 }
               }),
+              child: const Text(
+                'Save',
+                style: TextStyle(color: UIGuide.WHITE),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

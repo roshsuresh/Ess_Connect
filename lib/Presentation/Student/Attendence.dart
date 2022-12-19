@@ -142,7 +142,8 @@ class Attendence extends StatelessWidget {
 
                               return Table(
                                 border: TableBorder.all(
-                                    color: Color.fromARGB(255, 245, 243, 243)),
+                                    color: const Color.fromARGB(
+                                        255, 245, 243, 243)),
                                 children: [
                                   TableRow(children: [
                                     Text(

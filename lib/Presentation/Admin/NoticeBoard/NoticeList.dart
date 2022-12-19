@@ -22,7 +22,7 @@ class NoticeBoardListAdmin extends StatelessWidget {
         return provider.loading
             ? spinkitLoader()
             : ListView.builder(
-                itemCount: provider.noticeList.length == null
+                itemCount: provider.noticeList.isEmpty
                     ? 0
                     : provider.noticeList.length,
                 itemBuilder: (context, index) {
@@ -48,16 +48,16 @@ class NoticeBoardListAdmin extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text('Created Date: '),
+                                const Text('Created Date: '),
                                 Text(
                                   finalCreatedDate == null
                                       ? '--'
-                                      : finalCreatedDate,
+                                      : finalCreatedDate.toString(),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 GestureDetector(
                                   onTap: () async {
                                     Provider.of<NoticeBoardListAdminProvider>(
@@ -271,7 +271,8 @@ class NoticeBoardListAdmin extends StatelessWidget {
                                                             Navigator.pop(
                                                                 context);
                                                           },
-                                                          child: Text('Cancel'),
+                                                          child: const Text(
+                                                              'Cancel'),
                                                           color: Colors.orange,
                                                         ),
                                                         kWidth,
@@ -281,6 +282,7 @@ class NoticeBoardListAdmin extends StatelessWidget {
                                                                 .noticeAproove(
                                                                     context,
                                                                     even);
+
                                                             Navigator.pop(
                                                                 context);
                                                             provider.noticeList
@@ -289,9 +291,9 @@ class NoticeBoardListAdmin extends StatelessWidget {
                                                                 .getNoticeListView(
                                                                     context);
                                                           },
-                                                          child:
-                                                              Text('Approve'),
                                                           color: Colors.green,
+                                                          child: const Text(
+                                                              'Approve'),
                                                         )
                                                       ],
                                                     ),

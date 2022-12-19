@@ -23,7 +23,6 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
   List divisionData = [];
   String course = '';
   String division = '';
-  DateTime? _mydatetime;
 
   String? datee;
 
@@ -121,6 +120,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                 int sizee = file.size;
 
                 if (sizee <= 200000) {
+                  if (!mounted) return;
                   await Provider.of<GalleryProviderAdmin>(context,
                           listen: false)
                       .galleryImageSave(context, file.path.toString());

@@ -16,6 +16,7 @@ import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Application/StudentProviders/InternetConnection.dart';
@@ -121,7 +122,8 @@ class AdminHomeContent extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => StudReport()),
+                        MaterialPageRoute(
+                            builder: (context) => const StudReport()),
                       );
                     },
                     child: Padding(
@@ -311,32 +313,6 @@ class AdminHomeContent extends StatelessWidget {
                 ],
               ),
               kheight10,
-              // Row(children: <Widget>[
-              //   Expanded(
-              //     child: Container(
-              //         margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-              //         child: const Divider(
-              //           color: Colors.black45,
-              //           height: 36,
-              //         )),
-              //   ),
-              //   const Text(
-              //     "Staff",
-              //     textAlign: TextAlign.left,
-              //     style: TextStyle(
-              //         color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
-              //   ),
-              //   Expanded(
-              //     child: Container(
-              //         margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-              //         child: const Divider(
-              //           color: Colors.black45,
-              //           height: 36,
-              //         )),
-              //   ),
-              // ]),
-              kheight10,
-
               kheight10,
               Row(children: <Widget>[
                 Expanded(
@@ -362,7 +338,7 @@ class AdminHomeContent extends StatelessWidget {
                       )),
                 ),
               ]),
-              kheight10,
+              kheight20,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -371,7 +347,8 @@ class AdminHomeContent extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => FeeReport()),
+                        MaterialPageRoute(
+                            builder: (context) => const FeeReport()),
                       );
                     },
                     child: Padding(
@@ -513,7 +490,8 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MarkentryReportByAdmin()),
+                          builder: (context) => MarkentryReportByAdmin(),
+                        ),
                       );
                     },
                     child: Padding(
@@ -582,7 +560,7 @@ class AdminHomeContent extends StatelessWidget {
                       )),
                 ),
               ]),
-              kheight10,
+              kheight20,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -968,6 +946,7 @@ class AdminHomeContent extends StatelessWidget {
                   ),
                 ],
               ),
+              kheight20,
               Row(children: <Widget>[
                 Expanded(
                   child: Container(
@@ -992,7 +971,7 @@ class AdminHomeContent extends StatelessWidget {
                       )),
                 ),
               ]),
-              kheight10,
+              kheight20,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1060,6 +1039,67 @@ class AdminHomeContent extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  _noAcess(context) {
+    var size = MediaQuery.of(context).size;
+    return showAnimatedDialog(
+      animationType: DialogTransitionType.slideFromBottomFade,
+      curve: Curves.fastOutSlowIn,
+      // duration: Duration(seconds: 1),
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Container(
+            height: size.height / 7.2,
+            width: size.width * 3,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const Text(
+                    "Sorry, you don't have access to this module",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: UIGuide.light_Purple),
+                  ),
+                  //kheight10,
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Spacer(),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(color: Colors.grey),
+                            )),
+                        kWidth,
+                        //kWidth
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

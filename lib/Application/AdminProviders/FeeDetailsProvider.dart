@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:essconnect/Domain/Staff/SearchStudReport.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../Domain/Admin/FeeDetails.dart';
 
 class FeeDetailsProvider with ChangeNotifier {

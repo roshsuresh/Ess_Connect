@@ -40,7 +40,7 @@ class ReportCard extends StatelessWidget {
                     kheight20,
                     Table(
                       border: TableBorder.all(
-                          color: Color.fromARGB(255, 245, 243, 243)),
+                          color: const Color.fromARGB(255, 245, 243, 243)),
                       columnWidths: const {
                         0: FlexColumnWidth(3),
                         1: FlexColumnWidth(5),
@@ -101,8 +101,8 @@ class ReportCard extends StatelessWidget {
                                 print(reAttach);
                                 return Table(
                                   border: TableBorder.all(
-                                      color:
-                                          Color.fromARGB(255, 245, 243, 243)),
+                                      color: const Color.fromARGB(
+                                          255, 245, 243, 243)),
                                   columnWidths: const {
                                     0: FlexColumnWidth(3),
                                     1: FlexColumnWidth(5),
@@ -129,7 +129,8 @@ class ReportCard extends StatelessWidget {
                                                 : reportResponse[index]
                                                         ['description']
                                                     .toString(),
-                                            style: TextStyle(fontSize: 14),
+                                            style:
+                                                const TextStyle(fontSize: 14),
                                           ),
                                           GestureDetector(
                                             onTap: () async {
@@ -157,39 +158,11 @@ class ReportCard extends StatelessWidget {
                                                 );
                                               }
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.remove_red_eye_outlined,
                                               size: 20,
                                             ),
                                           )
-                                          // IconButton(
-                                          //     onPressed: () async {
-                                          //       final attch = await Provider
-                                          //               .of<ReportCardProvider>(
-                                          //                   context,
-                                          //                   listen: false)
-                                          //           .reportCardAttachment(
-                                          //               reAttach);
-                                          //       if (provider.extension
-                                          //               .toString() ==
-                                          //           '.pdf') {
-                                          //         Navigator.push(
-                                          //           context,
-                                          //           MaterialPageRoute(
-                                          //               builder: (context) =>
-                                          //                   PdfDownload()),
-                                          //         );
-                                          //       } else {
-                                          //         Navigator.push(
-                                          //           context,
-                                          //           MaterialPageRoute(
-                                          //               builder: (context) =>
-                                          //                   const NoAttachmentScreen()),
-                                          //         );
-                                          //       }
-                                          //     },
-                                          //     icon: const Icon(Icons
-                                          //         .remove_red_eye_outlined)),
                                         ]),
                                   ],
                                 );
@@ -215,7 +188,7 @@ class PdfDownload extends StatelessWidget {
     return Consumer<ReportCardProvider>(
       builder: (context, value, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Report card'),
+            title: const Text('Report card'),
             titleSpacing: 00.0,
             centerTitle: true,
             toolbarHeight: 50.2,
