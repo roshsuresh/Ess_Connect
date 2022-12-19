@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Application/StudentProviders/FeesProvider.dart';
 import 'package:essconnect/Application/StudentProviders/FinalStatusProvider.dart';
@@ -112,6 +111,9 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                       ),
                       Scrollbar(
                         controller: _controllerr,
+                        thumbVisibility: true,
+                        thickness: 6,
+                        radius: Radius.circular(20),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20.0, right: 8),
                           child: LimitedBox(
@@ -148,9 +150,6 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                         }),
                               )),
                         ),
-                        thumbVisibility: true,
-                        thickness: 6,
-                        radius: Radius.circular(20),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
