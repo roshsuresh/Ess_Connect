@@ -15,15 +15,14 @@ class FlashnewsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<FlashNewsModelStud> flashnew = [];
+  String? flashnews;
   Future flashNewsProvider() async {
-    setLoading(true);
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
-    setLoading(true);
+
     try {
       final response = await http.get(
           Uri.parse("${UIGuide.baseURL}/mobileapp/staff/flashnews"),
@@ -31,20 +30,15 @@ class FlashnewsProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body.toString());
-        List<FlashNewsModelStud> templist = List<FlashNewsModelStud>.from(
-            data["flashNews"].map((x) => FlashNewsModelStud.fromJson(x)));
-        flashnew.addAll(templist);
-        setLoading(false);
-        print("flashnews");
+        FlashNewsMode flash = FlashNewsMode.fromJson(data);
+        flashnews = flash.flashNews;
+
         notifyListeners();
       } else {
-        setLoading(false);
         print("Something went wrong in flashnews");
       }
     } catch (e) {
       print(e.toString());
     }
-
-    //return flash;
   }
 }

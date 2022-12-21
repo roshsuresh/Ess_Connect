@@ -114,20 +114,20 @@ class TeacherTimeTable extends StatelessWidget {
                 );
               }),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 40,
               width: MediaQuery.of(context).size.width * 0.40,
               child: MaterialButton(
                 onPressed: () {},
+                color: UIGuide.light_Purple,
                 child: const Text(
                   'View',
                   style: TextStyle(color: UIGuide.WHITE),
                 ),
-                color: UIGuide.light_Purple,
               ),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
       ],

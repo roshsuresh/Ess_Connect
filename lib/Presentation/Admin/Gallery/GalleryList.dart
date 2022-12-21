@@ -259,10 +259,10 @@ class GalleryListAdmin extends StatelessWidget {
                                                                   Navigator.pop(
                                                                       context);
                                                                 },
-                                                                child: const Text(
-                                                                    'Cancel'),
                                                                 color: Colors
                                                                     .orange,
+                                                                child: const Text(
+                                                                    'Cancel'),
                                                               ),
                                                               kWidth,
                                                               MaterialButton(
@@ -280,10 +280,10 @@ class GalleryListAdmin extends StatelessWidget {
                                                                   await provider
                                                                       .galleryViewListAdmin();
                                                                 },
-                                                                child: const Text(
-                                                                    'Approve'),
                                                                 color: Colors
                                                                     .green,
+                                                                child: const Text(
+                                                                    'Approve'),
                                                               )
                                                             ],
                                                           ),
@@ -323,7 +323,7 @@ class GalleryListAdmin extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Text('Title: '),
+                                const Text('Title: '),
                                 Flexible(
                                   child: Text(
                                     provider.galleryViewList[index].title ??
@@ -338,7 +338,7 @@ class GalleryListAdmin extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Text('Created By: '),
+                                const Text('Created By: '),
                                 Flexible(
                                   child: Text(
                                     provider.galleryViewList[index]

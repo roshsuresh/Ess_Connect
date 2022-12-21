@@ -59,12 +59,8 @@ class TimetableStaffProviders with ChangeNotifier {
       if (response.statusCode == 200) {
         print("corect");
         Map<String, dynamic> data = json.decode(response.body);
-
-        //print(data);
         Map<String, dynamic> staffStudReportRespo =
             data['studentReportInitialValues'];
-        //   List studReportinitvalues_stf = staffStudReportRespo['sectionList'];
-        // print(studReportinitvalues_stf);
         print(staffStudReportRespo);
         List<StudReportSectionList> templist = List<StudReportSectionList>.from(
             staffStudReportRespo['sectionList']

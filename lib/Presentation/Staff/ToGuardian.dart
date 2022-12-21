@@ -1,7 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Application/Staff_Providers/Notification_ToGuardianProvider.dart';
 import 'package:essconnect/Domain/Staff/ToGuardian.dart';
-import 'package:essconnect/Presentation/Staff/TextSMS.dart/ToGuard_textSMS.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -717,18 +716,37 @@ class Text_Matter_Notification extends StatelessWidget {
             width: 150,
             height: 40,
             child: MaterialButton(
-              onPressed: () {
-                Provider.of<NotificationToGuardian_Providers>(context,
-                        listen: false)
-                    .sendNotification(context, titleController.text,
-                        matterController.text, toList,
-                        sentTo: type);
+              onPressed: () async {
+                if (titleController.text.isNotEmpty &&
+                    matterController.text.isNotEmpty) {
+                  await Provider.of<NotificationToGuardian_Providers>(context,
+                          listen: false)
+                      .sendNotification(context, titleController.text,
+                          matterController.text, toList,
+                          sentTo: type);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      duration: Duration(seconds: 1),
+                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        'Enter title & matter!',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                }
               },
+              color: UIGuide.light_Purple,
               child: const Text(
                 'Send',
                 style: TextStyle(color: Colors.white),
               ),
-              color: UIGuide.light_Purple,
             ),
           )
         ],

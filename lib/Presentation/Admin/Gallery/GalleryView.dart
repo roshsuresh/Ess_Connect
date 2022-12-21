@@ -84,7 +84,6 @@ class AdminGalleryView extends StatelessWidget {
                                       kWidth,
                                       Expanded(
                                         child: Container(
-                                            // color: Colors.black26,
                                             height: 110,
                                             child: Column(
                                               crossAxisAlignment:
@@ -106,7 +105,6 @@ class AdminGalleryView extends StatelessWidget {
                                                           .caption ??
                                                       '---',
                                                   maxLines: 3,
-                                                  style: TextStyle(),
                                                 ),
                                                 kheight10,
                                               ],
@@ -120,7 +118,7 @@ class AdminGalleryView extends StatelessWidget {
                                           context,
                                           listen: false)
                                       .galleyAttachment(idd);
-                                  Navigator.push(
+                                  await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
@@ -148,7 +146,7 @@ class GalleryonTapAdmin extends StatelessWidget {
       child: Scaffold(
         body: Consumer<GalleryProviderAdmin>(
           builder: (context, value, child) => value.load
-              ? spinkitLoader()
+              ? const spinkitLoader()
               : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.count(

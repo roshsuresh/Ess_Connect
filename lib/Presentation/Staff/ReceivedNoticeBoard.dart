@@ -21,7 +21,7 @@ class StaffNoticeBoardReceived extends StatelessWidget {
     var width = size.width;
     const Color background = Colors.white;
     const Color fill1 = Color.fromARGB(255, 79, 97, 197);
-    final Color fill2 = Color.fromARGB(255, 180, 103, 216);
+    final Color fill2 = const Color.fromARGB(255, 180, 103, 216);
     final List<Color> gradient = [
       fill1,
       fill2,
@@ -47,10 +47,10 @@ class StaffNoticeBoardReceived extends StatelessWidget {
                   width: width,
                   //   height: 200,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 245, 241, 241),
-                      border:
-                          Border.all(color: Color.fromARGB(255, 167, 166, 166)),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                      color: const Color.fromARGB(255, 245, 241, 241),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 167, 166, 166)),
+                      borderRadius: const BorderRadius.all(Radius.circular(5))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,9 +89,10 @@ class StaffNoticeBoardReceived extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 230, 225, 230),
                               border: Border.all(
-                                  color: Color.fromARGB(255, 215, 207, 236)),
+                                  color:
+                                      const Color.fromARGB(255, 215, 207, 236)),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(4))),
+                                  const BorderRadius.all(Radius.circular(4))),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -118,19 +119,19 @@ class StaffNoticeBoardReceived extends StatelessWidget {
                                 : staffNoticeView![index]['entryDate']
                                     .toString(),
                             //  value.noticeBoard[index].entryDate ?? '--',
-                            style: TextStyle(fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           ),
-                          Spacer(), kWidth, kWidth, kWidth, kWidth,
+                          const Spacer(), kWidth, kWidth, kWidth, kWidth,
                           Text(
                             staffNoticeView![index]['staffName'] == null
                                 ? '--'
                                 : staffNoticeView![index]['staffName']
                                     .toString(),
                             //   value.noticeBoard[index].staffName ?? '--',
-                            style: TextStyle(fontSize: 12),
+                            style: const TextStyle(fontSize: 12),
                           ),
                           //kWidth
-                          Spacer(),
+                          const Spacer(),
                           GestureDetector(
                             onTap: () async {
                               await Provider.of<StaffNoticeboardSendProviders>(
@@ -178,11 +179,10 @@ class PDFDownloadStaff extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Provider.of<NoticeProvider>(context, listen: false).noticeAttachement('');
     return Consumer<StaffNoticeboardSendProviders>(
       builder: (context, value, child) => Scaffold(
           appBar: AppBar(
-            title: Text(''),
+            title: const Text(''),
             titleSpacing: 00.0,
             centerTitle: true,
             toolbarHeight: 50.2,
@@ -193,19 +193,15 @@ class PDFDownloadStaff extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 15.0),
                 child: DownloandPdf(
                   isUseIcon: true,
-                  pdfUrl: value.url.toString() == null
-                      ? '--'
-                      : value.url.toString(),
-                  fileNames: value.name.toString() == null
-                      ? '---'
-                      : value.name.toString(),
+                  pdfUrl: value.url == null ? '--' : value.url.toString(),
+                  fileNames: value.name == null ? '---' : value.name.toString(),
                   color: Colors.white,
                 ),
               ),
             ],
           ),
           body: SfPdfViewer.network(
-            value.url.toString() == null ? '--' : value.url.toString(),
+            value.url == null ? '--' : value.url.toString(),
           )),
     );
   }
@@ -219,12 +215,12 @@ class PdfViewPageStaff extends StatelessWidget {
   imageview(String result) {
     return Scaffold(
       body: isLoading
-          ? LoadingIcon()
+          ? const LoadingIcon()
           : Center(
               child: Container(
                   child: PhotoView(
                 loadingBuilder: (context, event) {
-                  return LoadingIcon();
+                  return const LoadingIcon();
                 },
                 imageProvider: NetworkImage(
                   result == null

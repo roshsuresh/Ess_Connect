@@ -21,7 +21,7 @@ class PaymentHistory extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment History'),
+        title: const Text('Payment History'),
         titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 60.2,
@@ -35,7 +35,7 @@ class PaymentHistory extends StatelessWidget {
       ),
       body: Consumer<PaymentHistoryProvider>(builder: (context, value, child) {
         return value.loading
-            ? spinkitLoader()
+            ? const spinkitLoader()
             : ListView(
                 children: [
                   kheight10,
@@ -125,22 +125,22 @@ class PaymentHistory extends StatelessWidget {
                                       Text(
                                         "\n${(index + 1).toString()}",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 13),
+                                        style: const TextStyle(fontSize: 13),
                                       ),
                                       Center(
                                           child: Text(
                                         '\n${finalCreatedDate.toString()}',
-                                        style: TextStyle(fontSize: 13),
+                                        style: const TextStyle(fontSize: 13),
                                       )),
                                       Center(
                                           child: Text(
                                         '\n${value.historyList[index].paymentMode}',
-                                        style: TextStyle(fontSize: 13),
+                                        style: const TextStyle(fontSize: 13),
                                       )),
                                       Center(
                                           child: Text(
                                         '\n${value.historyList[index].billAmount}',
-                                        style: TextStyle(fontSize: 13),
+                                        style: const TextStyle(fontSize: 13),
                                       )),
                                       IconButton(
                                         icon: const Icon(
@@ -197,7 +197,7 @@ class PdfDownloadFee extends StatelessWidget {
     return Consumer<PaymentHistoryProvider>(
       builder: (context, value, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Receipt'),
+            title: const Text('Receipt'),
             titleSpacing: 00.0,
             centerTitle: true,
             toolbarHeight: 50.2,

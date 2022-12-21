@@ -84,7 +84,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
               labelText: 'Title*',
-              labelStyle: TextStyle(color: UIGuide.light_Purple),
+              labelStyle: const TextStyle(color: UIGuide.light_Purple),
               hintText: 'Enter Title',
               hintStyle: const TextStyle(color: Colors.grey),
               border: const OutlineInputBorder(
@@ -102,8 +102,6 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
           child: SizedBox(
             width: 120,
             child: MaterialButton(
-              child: Text(
-                  checkname == null ? 'Choose File' : checkname.toString()),
               color: Colors.white70,
               onPressed: (() async {
                 final result = await FilePicker.platform.pickFiles(
@@ -141,6 +139,8 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                   )));
                 }
               }),
+              child: Text(
+                  checkname == null ? 'Choose File' : checkname.toString()),
             ),
           ),
         ),
@@ -153,13 +153,12 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
         kheight10,
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: size.width * .45,
               height: 35,
               child: MaterialButton(
                 //  minWidth: size.width - 216,
-                child: Center(child: Text('From  $time')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeFrom = await showDatePicker(
@@ -185,15 +184,16 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                     print(time);
                   });
                 }),
+                //  minWidth: size.width - 216,
+                child: Center(child: Text('From  $time')),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: size.width * .45,
               height: 35,
               child: MaterialButton(
                 //  minWidth: size.width - 216,
-                child: Center(child: Text('To  $timeNow')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeTo = await showDatePicker(
@@ -220,14 +220,16 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                     print(timeNow);
                   });
                 }),
+                //  minWidth: size.width - 216,
+                child: Center(child: Text('To  $timeNow')),
               ),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             Consumer<GalleryProviderAdmin>(
               builder: (context, value, child) => Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -307,7 +309,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Consumer<GalleryProviderAdmin>(
               builder: (context, value, child) => Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -383,7 +385,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                 ),
               ),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
         kheight10,
@@ -418,11 +420,6 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               minWidth: size.width - 150,
-              child: const Text(
-                'Save',
-                style: TextStyle(color: UIGuide.WHITE, fontSize: 18),
-                textAlign: TextAlign.center,
-              ),
               color: UIGuide.light_Purple,
               onPressed: (() async {
                 if (checkname!.isEmpty) {
@@ -484,6 +481,11 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                 divisionData.clear();
                 attachmentid.clear();
               }),
+              child: const Text(
+                'Save',
+                style: TextStyle(color: UIGuide.WHITE, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

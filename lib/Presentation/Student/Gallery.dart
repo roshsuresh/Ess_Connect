@@ -48,118 +48,130 @@ class _GalleryState extends State<Gallery> {
             ? const spinkitLoader()
             : ListView(
                 children: [
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount:
-                          galleryResponse == null ? 0 : galleryResponse!.length,
-                      itemBuilder: ((context, index) {
-                        var idd = galleryResponse![index]['galleryId'];
-                        return Consumer<GalleryProvider>(
-                          builder: (context, value, child) {
-                            return Column(
-                              children: [
-                                kheight20,
-                                GestureDetector(
-                                  child: Container(
-                                    height: 120,
-                                    width: size.width - 30,
-                                    decoration: const BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: Offset(2, 6),
-                                          blurRadius: 20,
-                                          color: Color.fromRGBO(0, 0, 0, 0.16),
-                                        )
-                                      ],
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          topRight: Radius.circular(0),
-                                          bottomRight: Radius.circular(40.0),
-                                          topLeft: Radius.circular(40.0),
-                                          bottomLeft: Radius.circular(0.0)),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        kWidth,
-                                        Center(
+                  LimitedBox(
+                    maxHeight: size.height - 80,
+                    child: ListView.builder(
+                        physics: AlwaysScrollableScrollPhysics(),
+                        // scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: galleryResponse == null
+                            ? 0
+                            : galleryResponse!.length,
+                        itemBuilder: ((context, index) {
+                          var idd = galleryResponse![index]['galleryId'];
+                          return Consumer<GalleryProvider>(
+                            builder: (context, value, child) {
+                              return Column(
+                                children: [
+                                  kheight20,
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 120,
+                                      width: size.width - 30,
+                                      decoration: const BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(2, 6),
+                                            blurRadius: 20,
+                                            color:
+                                                Color.fromRGBO(0, 0, 0, 0.16),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(0),
+                                            bottomRight: Radius.circular(40.0),
+                                            topLeft: Radius.circular(40.0),
+                                            bottomLeft: Radius.circular(0.0)),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          kWidth,
+                                          Center(
+                                              child: Container(
+                                            width: 120,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    galleryResponse![index]
+                                                            ['url'] ??
+                                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgOinP1I4DJR8UXKbif9pXj4UTa1dar-CfGBr4mmSXNfOySMXxPfwa023_n0gvkdK4mig&usqp=CAU',
+                                                  ),
+                                                  fit: BoxFit.fill),
+                                              color: Colors.white12,
+                                              border: Border.all(
+                                                  color: const Color.fromARGB(
+                                                      255, 219, 215, 215)),
+                                              borderRadius: const BorderRadius
+                                                      .only(
+                                                  topRight: Radius.circular(0),
+                                                  bottomRight:
+                                                      Radius.circular(40.0),
+                                                  topLeft:
+                                                      Radius.circular(40.0),
+                                                  bottomLeft:
+                                                      Radius.circular(0.0)),
+                                            ),
+                                          )),
+                                          kWidth,
+                                          Expanded(
                                             child: Container(
-                                          width: 120,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                  galleryResponse![index]
-                                                          ['url'] ??
-                                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgOinP1I4DJR8UXKbif9pXj4UTa1dar-CfGBr4mmSXNfOySMXxPfwa023_n0gvkdK4mig&usqp=CAU',
-                                                ),
-                                                fit: BoxFit.fill),
-                                            color: Colors.white12,
-                                            border: Border.all(
-                                                color: const Color.fromARGB(
-                                                    255, 219, 215, 215)),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topRight:
-                                                        Radius.circular(0),
-                                                    bottomRight:
-                                                        Radius.circular(40.0),
-                                                    topLeft:
-                                                        Radius.circular(40.0),
-                                                    bottomLeft:
-                                                        Radius.circular(0.0)),
-                                          ),
-                                        )),
-                                        kWidth,
-                                        Expanded(
-                                          child: Container(
-                                              height: 110,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    galleryResponse![index]
-                                                            ['title'] ??
-                                                        '---',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 12),
-                                                    maxLines: 2,
-                                                  ),
-                                                  kheight10,
-                                                  Text(
-                                                    galleryResponse![index]
-                                                            ['caption'] ??
-                                                        '',
-                                                    maxLines: 3,
-                                                    style: TextStyle(),
-                                                  ),
-                                                  kheight10,
-                                                ],
-                                              )),
-                                        )
-                                      ],
+                                                height: 110,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      galleryResponse![index]
+                                                              ['title'] ??
+                                                          '---',
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 12),
+                                                      maxLines: 2,
+                                                    ),
+                                                    kheight10,
+                                                    Text(
+                                                      galleryResponse![index]
+                                                                  ['caption'] ==
+                                                              null
+                                                          ? ''
+                                                          : galleryResponse![
+                                                                      index]
+                                                                  ['caption']
+                                                              .toString(),
+                                                      maxLines: 3,
+                                                      style: TextStyle(),
+                                                    ),
+                                                    kheight10,
+                                                  ],
+                                                )),
+                                          )
+                                        ],
+                                      ),
                                     ),
+                                    onTap: () async {
+                                      await Provider.of<GalleryProvider>(
+                                              context,
+                                              listen: false)
+                                          .galleyAttachment(idd);
+                                      if (!mounted) return;
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GalleryonTap(id: idd)),
+                                      );
+                                    },
                                   ),
-                                  onTap: () async {
-                                    await Provider.of<GalleryProvider>(context,
-                                            listen: false)
-                                        .galleyAttachment(idd);
-                                    if (!mounted) return;
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              GalleryonTap(id: idd)),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      })),
+                                ],
+                              );
+                            },
+                          );
+                        })),
+                  ),
                 ],
               ),
       ),

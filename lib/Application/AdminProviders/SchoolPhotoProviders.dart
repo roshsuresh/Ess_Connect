@@ -27,14 +27,11 @@ class SchoolPhotoProviders with ChangeNotifier {
         Uri.parse("${UIGuide.baseURL}/mobileapp/admin/school/photo"),
         headers: headers);
     if (response.statusCode == 200) {
-      //  print('correct');
       Map<String, dynamic> data = json.decode(response.body);
       Map<String, dynamic> school = data['schoolphoto'];
       Schoolphoto ac = Schoolphoto.fromJson(school);
       url = ac.url;
-      //  print(url);
       notifyListeners();
-      // print(response.body);
     } else {
       print('Error in dashboard');
     }

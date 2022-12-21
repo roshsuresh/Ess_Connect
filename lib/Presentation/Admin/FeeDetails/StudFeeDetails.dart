@@ -29,14 +29,19 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (!mounted) return;
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .generalPaidListClear();
+      if (!mounted) return;
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .busPaidListClear();
+      if (!mounted) return;
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .generalDueListClear();
+      if (!mounted) return;
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .busDueListClear();
+      if (!mounted) return;
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .getFeeDetails(widget.studid);
     });

@@ -118,7 +118,8 @@ class UASmarkentryReport extends StatelessWidget {
                                                         .rollNo
                                                         .toString(),
                                                 textAlign: TextAlign.center,
-                                                style: TextStyle(fontSize: 12),
+                                                style: const TextStyle(
+                                                    fontSize: 12),
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.only(
@@ -130,8 +131,8 @@ class UASmarkentryReport extends StatelessWidget {
                                                           .name ??
                                                       '--',
                                                   textAlign: TextAlign.start,
-                                                  style:
-                                                      TextStyle(fontSize: 14),
+                                                  style: const TextStyle(
+                                                      fontSize: 14),
                                                 ),
                                               ),
                                               ListView.builder(

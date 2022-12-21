@@ -33,18 +33,34 @@ class FlashNews {
   }
 }
 
-class FlashNewsModelStud {
-  String? news;
+// class FlashNewsModelStud {
+//   String? news;
 
-  FlashNewsModelStud({this.news});
+//   FlashNewsModelStud({this.news});
 
-  FlashNewsModelStud.fromJson(Map<String, dynamic> json) {
-    news = json['news'];
+//   FlashNewsModelStud.fromJson(Map<String, dynamic> json) {
+//     news = json['news'];
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['news'] = this.news;
+//     return data;
+//   }
+// }
+
+class FlashNewsStaff {
+  String? flashNews;
+
+  FlashNewsStaff({this.flashNews});
+
+  FlashNewsStaff.fromJson(Map<String, dynamic> json) {
+    flashNews = json['flashNews'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['news'] = this.news;
+    data['flashNews'] = this.flashNews;
     return data;
   }
 }

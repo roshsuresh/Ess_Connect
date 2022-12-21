@@ -14,7 +14,7 @@ class Text_Matter_SMS extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Send SMS'),
+        title: const Text('Send SMS'),
         titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 60.2,
@@ -68,7 +68,8 @@ class Text_Matter_SMS extends StatelessWidget {
                                         // value.removeCourseAll();
                                         return ListTile(
                                           selectedTileColor:
-                                              Color.fromARGB(255, 15, 104, 177),
+                                              const Color.fromARGB(
+                                                  255, 15, 104, 177),
                                           selectedColor: UIGuide.PRIMARY2,
                                           // selected: snapshot.isFormatSelected(
                                           //     snapshot.smsFormats[index]),
@@ -119,7 +120,8 @@ class Text_Matter_SMS extends StatelessWidget {
                                       color: UIGuide.light_Purple, width: 1.0),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                fillColor: Color.fromARGB(255, 238, 237, 237),
+                                fillColor:
+                                    const Color.fromARGB(255, 238, 237, 237),
                                 labelText: "Select SMS Formats",
                                 hintText: "SMS Formats",
                               ),
@@ -132,7 +134,7 @@ class Text_Matter_SMS extends StatelessWidget {
                             child: TextField(
                               textAlign: TextAlign.center,
                               controller: smsFormats,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Color.fromARGB(255, 238, 237, 237),
                                 border: OutlineInputBorder(),
@@ -148,7 +150,7 @@ class Text_Matter_SMS extends StatelessWidget {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 38,
                 width: MediaQuery.of(context).size.width * 0.30,
@@ -177,7 +179,7 @@ class Text_Matter_SMS extends StatelessWidget {
             height: 50,
             child: MaterialButton(
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 'Send',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),

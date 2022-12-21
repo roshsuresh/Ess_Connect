@@ -18,7 +18,7 @@ class Staff_Timetable extends StatelessWidget {
     var height = size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('TimeTable'),
+        title: const Text('TimeTable'),
         titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 60.2,
@@ -36,7 +36,7 @@ class Staff_Timetable extends StatelessWidget {
           children: [
             kheight20,
             Table(
-              columnWidths: {
+              columnWidths: const {
                 0: FlexColumnWidth(4),
                 1: FlexColumnWidth(2),
               },
@@ -70,7 +70,7 @@ class Staff_Timetable extends StatelessWidget {
             Consumer<StaffTimetableProvider>(
               builder: (context, value, child) {
                 return value.loading
-                    ? spinkitLoader()
+                    ? const spinkitLoader()
                     : Table(
                         columnWidths: const {
                           0: FlexColumnWidth(4),
@@ -88,7 +88,7 @@ class Staff_Timetable extends StatelessWidget {
                                 Center(
                                   child: Text(
                                     value.name ?? '---',
-                                    style: TextStyle(fontSize: 15),
+                                    style: const TextStyle(fontSize: 15),
                                   ),
                                 ),
                                 GestureDetector(
@@ -98,7 +98,7 @@ class Staff_Timetable extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                PdfViewStaff()),
+                                                const PdfViewStaff()),
                                       );
                                     } else {
                                       Navigator.push(
@@ -109,7 +109,7 @@ class Staff_Timetable extends StatelessWidget {
                                       );
                                     }
                                   },
-                                  child: Icon(Icons.remove_red_eye),
+                                  child: const Icon(Icons.remove_red_eye),
                                 ),
                               ]),
                         ],
@@ -131,7 +131,7 @@ class PdfViewStaff extends StatelessWidget {
     return Consumer<StaffTimetableProvider>(
       builder: (context, value, child) => Scaffold(
           appBar: AppBar(
-            title: Text('TimeTable'),
+            title: const Text('TimeTable'),
             titleSpacing: 00.0,
             centerTitle: true,
             toolbarHeight: 50.2,
@@ -162,12 +162,12 @@ class StaffTimetableimage extends StatelessWidget {
   imageview(String result) {
     return Scaffold(
       body: isLoading
-          ? spinkitLoader()
+          ? const spinkitLoader()
           : Center(
               child: Container(
                   child: PhotoView(
                 loadingBuilder: (context, event) {
-                  return spinkitLoader();
+                  return const spinkitLoader();
                 },
                 imageProvider: NetworkImage(
                   result == null

@@ -90,7 +90,7 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                                   listen: false)
                               .timeNew ??
                           'select date',
-                      style: TextStyle(color: UIGuide.light_Purple),
+                      style: const TextStyle(color: UIGuide.light_Purple),
                     ),
                     onPressed: () async {
                       await Provider.of<AttendenceStaffProvider>(context,
@@ -454,10 +454,10 @@ class AttendenceviewWidget extends StatelessWidget {
       builder: (context, val, child) => val.loading
           ? Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 ),
-                spinkitLoader(),
+                const spinkitLoader(),
               ],
             )
           : Column(

@@ -198,7 +198,7 @@ class _MarkEntryState extends State<MarkEntry> {
                       );
                     }),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     height: 50,
                     width: MediaQuery.of(context).size.width * 0.49,
@@ -461,7 +461,7 @@ class _MarkEntryState extends State<MarkEntry> {
                       );
                     }),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     height: 50,
                     width: MediaQuery.of(context).size.width * 0.49,
@@ -713,7 +713,7 @@ class _MarkEntryState extends State<MarkEntry> {
                       );
                     }),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   // MaterialButton(
                   //   //minWidth: size.width - 200,
                   //   child: Row(
@@ -786,7 +786,7 @@ class _MarkEntryState extends State<MarkEntry> {
               kheight20,
               Consumer<MarkEntryProvider>(
                 builder: (context, providerr, child) => providerr.loading
-                    ? spinkitLoader()
+                    ? const spinkitLoader()
                     : Column(
                         children: [
                           Padding(
@@ -937,7 +937,7 @@ class _MarkEntryState extends State<MarkEntry> {
                                                           keyboardType:
                                                               TextInputType
                                                                   .number,
-                                                          decoration: InputDecoration(
+                                                          decoration: const InputDecoration(
                                                               border:
                                                                   OutlineInputBorder(),
                                                               errorStyle: TextStyle(
@@ -970,11 +970,11 @@ class _MarkEntryState extends State<MarkEntry> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             kWidth,
-            Spacer(),
+            const Spacer(),
             MaterialButton(
               onPressed: () {},
               color: UIGuide.light_Purple,
-              child: Text(
+              child: const Text(
                 'Save',
                 style: TextStyle(color: Colors.white),
               ),
@@ -983,7 +983,7 @@ class _MarkEntryState extends State<MarkEntry> {
             MaterialButton(
               onPressed: () {},
               color: Colors.red,
-              child: Text(
+              child: const Text(
                 'Delete',
                 style: TextStyle(color: Colors.white),
               ),

@@ -96,7 +96,7 @@ class _TeachingStaffState extends State<TeachingStaff> {
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       shrinkWrap: true,
-                      itemCount: value.staffReportList.length == null
+                      itemCount: value.staffReportList.isEmpty
                           ? 0
                           : value.staffReportList.length,
                       itemBuilder: (BuildContext context, int index) {

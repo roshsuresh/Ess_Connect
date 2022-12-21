@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
     controller1 = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 5,
       ),
     );
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
     controller2 = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         seconds: 5,
       ),
     );
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         setState(() {});
       });
 
-    Timer(Duration(milliseconds: 2500), () {
+    Timer(const Duration(milliseconds: 2500), () {
       controller1.forward();
     });
 
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 243, 243, 243),
+      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
       // backgroundColor: Color.fromARGB(255, 211, 228, 245),
       body: isLoading
           ? const LoadingIcon()
@@ -153,20 +153,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             painter: MyPainter(animation4.value - 55),
                           ),
                         ),
-                        // Positioned(
-                        //   top: size.height * .5,
-                        //   left: size.width * (animation2.value + .8),
-                        //   child: CustomPaint(
-                        //     painter: MyPainter(30),
-                        //   ),
-                        // ),
-                        // Positioned(
-                        //   top: size.height * animation3.value,
-                        //   left: size.width * (animation1.value + .1),
-                        //   child: CustomPaint(
-                        //     painter: MyPainter(60),
-                        //   ),
-                        // ),
                         Positioned(
                           top: size.height * .12,
                           left: size.width * .95,
@@ -204,8 +190,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                           width: 1),
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
-                                    fillColor:
-                                        Color.fromARGB(255, 255, 255, 255),
+                                    fillColor: const Color.fromARGB(
+                                        255, 255, 255, 255),
                                     hintText: "Enter Your Username",
                                     hintStyle: const TextStyle(
                                       color: Colors.grey,
@@ -218,7 +204,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                         color: UIGuide.light_Purple),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: UIGuide.light_Purple,
                                         width: 1,
                                       ),
@@ -241,8 +227,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   obscureText: !_isObscure,
                                   controller: _password,
                                   decoration: InputDecoration(
-                                    focusColor:
-                                        Color.fromARGB(255, 255, 255, 255),
+                                    focusColor: const Color.fromARGB(
+                                        255, 255, 255, 255),
                                     prefixIcon: const Icon(
                                       Icons.password_sharp,
                                       color: UIGuide.light_Purple,
@@ -283,7 +269,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20.0),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: UIGuide.light_Purple,
                                         width: 1.0,
                                       ),
@@ -306,7 +292,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     height: 40,
                                     width: size.width / 2.5,
                                     child: MaterialButton(
-                                        shape: RoundedRectangleBorder(
+                                        shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(15.0))),
                                         color: UIGuide.light_Purple,
@@ -322,7 +308,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                             print("Enter some value");
                                           }
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'LOGIN',
                                           style: TextStyle(color: Colors.white),
                                         )),
@@ -383,8 +369,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           isLoading = true;
         });
         await Future.delayed(const Duration(seconds: 3));
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (BuildContext context) => AdminHome()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => const AdminHome()));
       } else if (parsedResponse['role'] == "Teacher") {
         if (isLoading) return;
         setState(() {
@@ -426,7 +414,7 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..shader = LinearGradient(colors: [
+      ..shader = const LinearGradient(colors: [
         UIGuide.light_Purple, UIGuide.light_Purple,
         Color.fromARGB(255, 173, 211, 245),
         // UIGuide.light_Purple,

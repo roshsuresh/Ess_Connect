@@ -129,11 +129,12 @@ class GalleryProviderAdmin with ChangeNotifier {
     };
     var request = http.MultipartRequest(
         'POST', Uri.parse('${UIGuide.baseURL}/files/single/School'));
-    request.fields.addAll({'': ''});
-    request.files.add(await http.MultipartFile.fromPath('', path));
+    request.files.add(await http.MultipartFile.fromPath('file', "$path"));
     request.headers.addAll(headers);
+    print(path);
 
     http.StreamedResponse response = await request.send();
+    print(request);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
@@ -141,6 +142,7 @@ class GalleryProviderAdmin with ChangeNotifier {
 
       GalleryImageId idd = GalleryImageId.fromJson(data);
       id = idd.id;
+      print(path);
       print('...............   $id');
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,

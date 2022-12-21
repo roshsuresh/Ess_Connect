@@ -1,21 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../Application/StudentProviders/LoginProvider.dart';
 import '../../Constants.dart';
 import '../../Utils.dart';
 import '../../utils/constants.dart';
-
-import 'LoginPageWeb.dart';
 import 'Login_page.dart';
-
-/// created by akshay
-/// date 16-07-2021
-/// phone 7907017542
-/// page for checking and  retrieving activation information about  school
 
 class ActivatePage extends StatefulWidget {
   const ActivatePage({Key? key}) : super(key: key);
@@ -81,7 +72,7 @@ class _ActivatePageState extends State<ActivatePage>
                                   overflow: TextOverflow.fade),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Padding(
@@ -125,8 +116,8 @@ class _ActivatePageState extends State<ActivatePage>
   late Animation<double> sizeAnimation;
   bool isLoading = false;
   void sizeAnimationOnTap() {
-    sizeAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    sizeAnimationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 400));
     // sizeAnimation=TweenSequence(items)
 
     sizeAnimation = TweenSequence<double>(
@@ -147,8 +138,8 @@ class _ActivatePageState extends State<ActivatePage>
 
   var rectGetterKey = RectGetter.createGlobalKey(); //<--Create a key
   Rect? rect;
-  final Duration animationDuration = Duration(milliseconds: 350);
-  final Duration delay = Duration(milliseconds: 300);
+  final Duration animationDuration = const Duration(milliseconds: 350);
+  final Duration delay = const Duration(milliseconds: 300);
   final secretKeyController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   void _onTap() {
@@ -172,8 +163,8 @@ class _ActivatePageState extends State<ActivatePage>
     // Navigator.of(context)
     //     .push(FadeRouteBuilder(page: LoginPageWeb()))
     Navigator.of(context)
-        .pushReplacement(new MaterialPageRoute(builder: (BuildContext context) {
-      return new LoginPage();
+        .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
+      return LoginPage();
     })).then((_) => setState(() => rect = null));
   }
 
@@ -199,12 +190,12 @@ class _ActivatePageState extends State<ActivatePage>
         Scaffold(
           body: isLoading
               ? Container(
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 )
               : Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(
                             loginBackground,
@@ -302,7 +293,6 @@ class _ActivatePageState extends State<ActivatePage>
                                     // ),);
                                     //  ScaffoldMessenger.of(context)
                                     //      .showSnackBar(snackBar);
-
                                   }
                                 } else {
                                   return;
@@ -322,7 +312,7 @@ class _ActivatePageState extends State<ActivatePage>
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          image: DecorationImage(
+                                          image: const DecorationImage(
                                               image: AssetImage(
                                                   'assets/act_button.png'),
                                               fit: BoxFit.fill)),
@@ -347,14 +337,14 @@ class _ActivatePageState extends State<ActivatePage>
 showAlertDialog(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
-    child: Text("OK"),
+    child: const Text("OK"),
     onPressed: () {},
   );
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("My title"),
-    content: Text("This is my message."),
+    title: const Text("My title"),
+    content: const Text("This is my message."),
     actions: [
       okButton,
     ],
@@ -371,26 +361,26 @@ TextFormField secretKey(TextEditingController controller) {
         return activationError;
       }
     },
-    style: TextStyle(color: Colors.black),
+    style: const TextStyle(color: Colors.black),
     decoration: InputDecoration(
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
         label: Text(
           "School Code",
           style: TextStyle(color: Colors.grey.shade600),
         ),
-        prefixIcon: Icon(Icons.lock_open_outlined),
+        prefixIcon: const Icon(Icons.lock_open_outlined),
         filled: true,
         fillColor: Colors.white,
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.black)),
+            borderSide: const BorderSide(color: Colors.black)),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.black)),
+            borderSide: const BorderSide(color: Colors.black)),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.black))),
+            borderSide: const BorderSide(color: Colors.black))),
     obscuringCharacter: "*",
     obscureText: true,
   );

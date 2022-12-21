@@ -32,7 +32,7 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
 
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -45,28 +45,9 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
                 onPressed: () async {
                   return;
                 }),
-            // Spacer(),
           ],
         ),
         kheight20,
-
-        // Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: TextFormField(
-        //     controller: titleController,
-        //     minLines: 1,
-        //     maxLines: 1,
-        //     keyboardType: TextInputType.multiline,
-        //     decoration: InputDecoration(
-        //       labelText: 'Title*',
-        //       hintText: 'Enter Title',
-        //       hintStyle: TextStyle(color: Colors.grey),
-        //       border: OutlineInputBorder(
-        //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        //       ),
-        //     ),
-        //   ),
-        // ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
@@ -76,14 +57,15 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
               labelText: 'News*',
-              labelStyle: TextStyle(color: UIGuide.light_Purple),
+              labelStyle: const TextStyle(color: UIGuide.light_Purple),
               hintText: 'Enter News',
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: const TextStyle(color: Colors.grey),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                borderSide:
+                    const BorderSide(color: UIGuide.light_Purple, width: 1.0),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
             ),
@@ -91,42 +73,6 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
         ),
         kheight20,
         kheight10,
-        // Consumer<FlashNewsProviderAdmin>(
-        //   builder: (context, value, child) => Row(
-        //     children: [
-        //       SizedBox(
-        //         width: size.width * .45,
-        //         height: 35,
-        //         child: MaterialButton(
-        //           minWidth: size.width - 216,
-        //           child: Center(child: Text('From  ${value.timefrom}')),
-        //           color: Colors.white,
-        //           onPressed: (() async {
-        //             await Provider.of<FlashNewsProviderAdmin>(context,
-        //                     listen: false)
-        //                 .getTimeFrom(context);
-        //           }),
-        //         ),
-        //       ),
-        //       Spacer(),
-        //       SizedBox(
-        //         width: size.width * .45,
-        //         height: 35,
-        //         child: MaterialButton(
-        //           minWidth: size.width - 216,
-        //           child: Center(child: Text('To  ${value.timeTo}')),
-        //           color: Colors.white,
-        //           onPressed: (() async {
-        //             await Provider.of<FlashNewsProviderAdmin>(context,
-        //                     listen: false)
-        //                 .getTimeTo(context);
-        //           }),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-
         Row(
           children: [
             SizedBox(
@@ -134,7 +80,6 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
               height: 35,
               child: MaterialButton(
                 minWidth: size.width - 216,
-                child: Center(child: Text('From  $time')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeFrom = await showDatePicker(
@@ -160,15 +105,15 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
                     print(time);
                   });
                 }),
+                child: Center(child: Text('From  $time')),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: size.width * .45,
               height: 35,
               child: MaterialButton(
                 minWidth: size.width - 216,
-                child: Center(child: Text('To  $timeNow')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeTo = await showDatePicker(
@@ -195,6 +140,7 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
                     print(timeNow);
                   });
                 }),
+                child: Center(child: Text('To  $timeNow')),
               ),
             ),
           ],
@@ -209,11 +155,6 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
                 minWidth: size.width - 150,
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: UIGuide.WHITE, fontSize: 18),
-                  textAlign: TextAlign.center,
-                ),
                 color: UIGuide.light_Purple,
                 onPressed: (() async {
                   print(titleController);
@@ -237,6 +178,11 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
                             titleController.text.toString());
                   }
                 }),
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: UIGuide.WHITE, fontSize: 18),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),

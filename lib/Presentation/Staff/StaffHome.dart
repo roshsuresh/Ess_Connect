@@ -47,7 +47,7 @@ class _StaffHomeState extends State<StaffHome> {
       child: Scaffold(
         body: Consumer<ConnectivityProvider>(
           builder: (context, connection, child) => connection.isOnline == false
-              ? NoInternetConnection()
+              ? const NoInternetConnection()
               : ListView(
                   children: [
                     StaffProfile(), //  <--<---  StaffProfile....
@@ -77,7 +77,7 @@ class _StaffHomeState extends State<StaffHome> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            StaffProfileView()),
+                                            const StaffProfileView()),
                                   );
                                 },
                                 child: Padding(
@@ -127,7 +127,8 @@ class _StaffHomeState extends State<StaffHome> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => StudReport()),
+                                        builder: (context) =>
+                                            const StudReport()),
                                   );
                                 },
                                 child: Padding(
@@ -177,7 +178,7 @@ class _StaffHomeState extends State<StaffHome> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            Staff_Timetable()),
+                                            const Staff_Timetable()),
                                   );
                                 },
                                 child: Padding(
@@ -276,7 +277,7 @@ class _StaffHomeState extends State<StaffHome> {
                           kheight10,
                           kheight20,
                           Container(
-                            color: Color.fromARGB(255, 236, 237, 245),
+                            color: const Color.fromARGB(255, 236, 237, 245),
                             height: 170,
                             width: size.width,
                             child: Column(
@@ -292,7 +293,7 @@ class _StaffHomeState extends State<StaffHome> {
                                           height: 36,
                                         )),
                                   ),
-                                  Text(
+                                  const Text(
                                     " * Entries * ",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
@@ -851,7 +852,7 @@ class _StaffHomeState extends State<StaffHome> {
 class StaffProfile extends StatelessWidget {
   StaffProfile({Key? key}) : super(key: key);
 
-  late AnimationController _controller;
+  // late AnimationController _controller;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -860,15 +861,15 @@ class StaffProfile extends StatelessWidget {
     });
     var size = MediaQuery.of(context).size;
     const Color background = Colors.white;
-    final Color fill1 = Color.fromARGB(255, 7, 110, 206);
-    final Color fill2 = Color.fromARGB(255, 164, 197, 247);
+    const Color fill1 = Color.fromARGB(255, 7, 110, 206);
+    const Color fill2 = Color.fromARGB(255, 164, 197, 247);
 
     final List<Color> gradient = [
       fill1,
       fill2,
     ];
-    final double fillPercent = 35;
-    final double fillStop = (100 - fillPercent) / 100;
+    const double fillPercent = 35;
+    const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [
       0.0,
       fillStop,
@@ -883,12 +884,12 @@ class StaffProfile extends StatelessWidget {
           child: Container(
               height: 140,
               width: size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
                 Radius.circular(50),
               )),
               child: AnimateGradient(
-                controller: _controller,
+                // controller: _controller,
                 // primaryBegin: Alignment.topLeft,
                 // primaryEnd: Alignment.bottomLeft,
                 // secondaryBegin: Alignment.bottomLeft,
@@ -905,7 +906,7 @@ class StaffProfile extends StatelessWidget {
                 ],
                 child: Consumer<StaffProfileProvider>(
                   builder: (context, value, child) => value.loading
-                      ? spinkitLoader()
+                      ? const spinkitLoader()
                       : Column(
                           children: [
                             Container(
@@ -969,55 +970,52 @@ class StaffFlashNews extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var p = Provider.of<FlashnewsProvider>(context, listen: false);
       p.flashNewsProvider();
-      p.flashnew.clear();
     });
 
     var size = MediaQuery.of(context).size;
-    return Consumer<FlashnewsProvider>(builder: (context, value, child) {
-      if (value.flashnew.isEmpty) {
-        return Container(
-          height: 25,
-        );
-      } else {
-        return LimitedBox(
-          maxHeight: 30,
-          child: value.loading
-              ? Container(
-                  height: 30,
-                  width: 30,
-                )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount:
-                      value.flashnew.length == null ? 0 : value.flashnew.length,
-                  itemBuilder: (context, index) {
-                    return LimitedBox(
-                      maxHeight: 30,
-                      child: Marquee(
-                        text: value.flashnew[index].news ?? '-----',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                            fontSize: 12),
-                        scrollAxis: Axis.horizontal,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        blankSpace: 20.0,
-                        velocity: 40.0,
-                        pauseAfterRound: const Duration(seconds: 1),
-                        showFadingOnlyWhenScrolling: true,
-                        fadingEdgeStartFraction: 0.3,
-                        fadingEdgeEndFraction: 0.3,
-                        numberOfRounds: null,
-                        startPadding: 10.0,
-                        accelerationDuration: const Duration(seconds: 1),
-                        accelerationCurve: Curves.linear,
-                        decelerationDuration: const Duration(milliseconds: 500),
-                        decelerationCurve: Curves.easeOut,
-                      ),
-                    );
-                  }),
-        );
-      }
-    });
+    return Consumer<FlashnewsProvider>(
+      builder: (context, value, child) {
+        if (value.flashnews == null || value.flashnews == '') {
+          return Container(
+            height: 25,
+          );
+        } else {
+          return LimitedBox(
+            maxHeight: 30,
+            child: value.loading
+                ? Container(
+                    height: 30,
+                    width: 30,
+                  )
+                : LimitedBox(
+                    maxHeight: 30,
+                    child: Marquee(
+                      text: value.flashnews == null || value.flashnews == ''
+                          ? '-----'
+                          : value.flashnews.toString(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontSize: 12),
+                      scrollAxis: Axis.horizontal,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      blankSpace: 20.0,
+                      velocity: 40.0,
+                      pauseAfterRound: const Duration(seconds: 1),
+                      showFadingOnlyWhenScrolling: true,
+                      fadingEdgeStartFraction: 0.3,
+                      fadingEdgeEndFraction: 0.3,
+                      numberOfRounds: null,
+                      startPadding: 10.0,
+                      accelerationDuration: const Duration(seconds: 1),
+                      accelerationCurve: Curves.linear,
+                      decelerationDuration: const Duration(milliseconds: 500),
+                      decelerationCurve: Curves.easeOut,
+                    ),
+                  ),
+          );
+        }
+      },
+    );
   }
 }

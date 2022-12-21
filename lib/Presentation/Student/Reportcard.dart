@@ -117,7 +117,7 @@ class ReportCard extends StatelessWidget {
                                             child: Text(
                                               Corect_tym == null
                                                   ? '---'
-                                                  : Corect_tym,
+                                                  : Corect_tym.toString(),
                                               //   style: TextStyle(fontSize: 12),
                                             ),
                                           ),

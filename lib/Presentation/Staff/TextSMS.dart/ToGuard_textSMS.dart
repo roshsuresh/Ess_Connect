@@ -50,7 +50,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
     return Scaffold(
         body: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 3,
             ),
             Row(
@@ -134,7 +134,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 controller: notificationCourseController1,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   filled: true,
                                   contentPadding:
                                       EdgeInsets.only(left: 0, top: 0),
@@ -153,7 +153,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 controller: notificationCourseController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   filled: true,
                                   fillColor: Color.fromARGB(255, 238, 237, 237),
                                   border: OutlineInputBorder(),
@@ -169,7 +169,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                     );
                   }),
                 ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   height: 50,
                   width: MediaQuery.of(context).size.width * 0.49,
@@ -196,8 +196,9 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
 
                                           // value.removeCourseAll();
                                           return ListTile(
-                                            selectedTileColor: Color.fromARGB(
-                                                255, 15, 104, 177),
+                                            selectedTileColor:
+                                                const Color.fromARGB(
+                                                    255, 15, 104, 177),
                                             selectedColor: UIGuide.PRIMARY2,
                                             // selected: snapshot.isFormatSelected(
                                             //     snapshot.divisionlist[index]),
@@ -262,7 +263,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 controller: notificationDivisionListController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   filled: true,
                                   fillColor: Color.fromARGB(255, 238, 237, 237),
                                   border: OutlineInputBorder(),
@@ -380,12 +381,12 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                 //     );
                 //   }),
                 // ),
-                Spacer(),
+                const Spacer(),
                 SizedBox(
                   width: 120,
                   child: MaterialButton(
                       color: UIGuide.light_Purple,
-                      child: Text(
+                      child: const Text(
                         'View',
                         style: TextStyle(color: UIGuide.WHITE),
                       ),
@@ -434,7 +435,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                         }
                       }),
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
             kheight20,
@@ -485,7 +486,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                 return value.loading
                     ? LimitedBox(
                         maxHeight: size.height - 330,
-                        child: Center(
+                        child: const Center(
                           child: spinkitLoader(),
                         ),
                       )
@@ -553,7 +554,7 @@ class TextSMS_studListView extends StatelessWidget {
           onTap: () {
             value.selectItem(viewStud);
           },
-          selectedTileColor: Color.fromARGB(255, 10, 27, 141),
+          selectedTileColor: const Color.fromARGB(255, 10, 27, 141),
           title: Text(viewStud.name ?? '---'),
           subtitle: Text(viewStud.admnNo ?? '---'),
           trailing: viewStud.selected != null && viewStud.selected!

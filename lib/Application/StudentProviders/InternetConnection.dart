@@ -6,9 +6,9 @@ class ConnectivityProvider with ChangeNotifier {
   bool get isOnline => _isOnline;
 
   ConnectivityProvider() {
-    Connectivity _connectivity = Connectivity();
+    Connectivity connectivity = Connectivity();
 
-    _connectivity.onConnectivityChanged.listen((result) async {
+    connectivity.onConnectivityChanged.listen((result) async {
       if (result == ConnectivityResult.none) {
         _isOnline = false;
         print('No internet');

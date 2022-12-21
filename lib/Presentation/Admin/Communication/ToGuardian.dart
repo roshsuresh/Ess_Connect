@@ -22,12 +22,12 @@ class AdminToGuardian extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Spacer(),
+            const Spacer(),
             const Text(
               'Notification to Guardian',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            Spacer(),
+            const Spacer(),
             IconButton(
                 onPressed: () {
                   Navigator.pushReplacement(
@@ -381,7 +381,7 @@ class _Notification_AdminToGuardainState
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10),
                 child: SizedBox(
@@ -525,7 +525,7 @@ class Notification_StudListAdmin extends StatelessWidget {
           onTap: () {
             value.selectItem(viewStud);
           },
-          selectedTileColor: Color.fromARGB(255, 10, 27, 141),
+          selectedTileColor: const Color.fromARGB(255, 10, 27, 141),
           title: Text(viewStud.name == null ? '---' : viewStud.name),
           subtitle: Text(viewStud.admnNo ?? '---'),
           trailing: viewStud.selected != null && viewStud.selected!
@@ -630,17 +630,37 @@ class Text_Matter_NotificationAdmin extends StatelessWidget {
             width: 150,
             height: 40,
             child: MaterialButton(
-              onPressed: () {
-                Provider.of<NotificationToGuardianAdmin>(context, listen: false)
-                    .sendNotification(context, titleController.text,
-                        matterController.text, toList,
-                        sentTo: type);
+              onPressed: () async {
+                if (titleController.text.isNotEmpty &&
+                    matterController.text.isNotEmpty) {
+                  await Provider.of<NotificationToGuardianAdmin>(context,
+                          listen: false)
+                      .sendNotification(context, titleController.text,
+                          matterController.text, toList,
+                          sentTo: type);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      duration: Duration(seconds: 1),
+                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        'Enter title & matter!',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                }
               },
+              color: UIGuide.light_Purple,
               child: const Text(
                 'Send',
                 style: TextStyle(color: Colors.white),
               ),
-              color: UIGuide.light_Purple,
             ),
           )
         ],

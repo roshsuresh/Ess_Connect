@@ -124,7 +124,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             Container(
               height: 41,
               width: size.width * 0.44,
@@ -136,7 +136,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                     return;
                   }),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width * 0.49,
@@ -216,7 +216,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                           child: TextField(
                             textAlign: TextAlign.center,
                             controller: categoryvalueController1,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               contentPadding: EdgeInsets.only(left: 0, top: 0),
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
@@ -234,7 +234,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                           child: TextField(
                             textAlign: TextAlign.center,
                             controller: categoryvalueController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               filled: true,
                               fillColor: Color.fromARGB(255, 238, 237, 237),
                               border: OutlineInputBorder(),
@@ -250,7 +250,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                 );
               }),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
         Padding(
@@ -262,10 +262,10 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
               labelText: 'Title*',
-              labelStyle: TextStyle(color: UIGuide.light_Purple),
+              labelStyle: const TextStyle(color: UIGuide.light_Purple),
               hintText: 'Enter Title',
-              hintStyle: TextStyle(color: Colors.grey),
-              border: OutlineInputBorder(
+              hintStyle: const TextStyle(color: Colors.grey),
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               focusedBorder: OutlineInputBorder(
@@ -285,10 +285,10 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
               labelText: 'Matter*',
-              labelStyle: TextStyle(color: UIGuide.light_Purple),
+              labelStyle: const TextStyle(color: UIGuide.light_Purple),
               hintText: 'Enter Matter',
-              hintStyle: TextStyle(color: Colors.grey),
-              border: OutlineInputBorder(
+              hintStyle: const TextStyle(color: Colors.grey),
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               focusedBorder: OutlineInputBorder(
@@ -304,9 +304,6 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
             width: 120,
             child: MaterialButton(
               // minWidth: size.width - 200,
-              child: Text(
-                  checkname == null ? 'Choose File' : checkname.toString()),
-
               color: Colors.white70,
               onPressed: (() async {
                 final result = await FilePicker.platform.pickFiles(
@@ -352,10 +349,13 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                   ));
                 }
               }),
+              // minWidth: size.width - 200,
+              child: Text(
+                  checkname == null ? 'Choose File' : checkname.toString()),
             ),
           ),
         ),
-        Center(
+        const Center(
             child: Text(
           'Maximum allowed file size is 200 KB',
           style:
@@ -364,11 +364,10 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.45,
               child: MaterialButton(
-                child: Center(child: Text('From  $time')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeFrom = await showDatePicker(
@@ -394,13 +393,13 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                     print(time);
                   });
                 }),
+                child: Center(child: Text('From  $time')),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.45,
               child: MaterialButton(
-                child: Center(child: Text('To  ${timeNow}')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeTo = await showDatePicker(
@@ -427,14 +426,15 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                     print(timeNow);
                   });
                 }),
+                child: Center(child: Text('To  $timeNow')),
               ),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width * 0.49,
@@ -553,7 +553,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                 );
               }),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width * 0.49,
@@ -656,7 +656,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                 );
               }),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
         kheight20,
@@ -668,11 +668,6 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               minWidth: size.width - 150,
-              child: const Text(
-                'Save',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
               color: UIGuide.light_Purple,
               onPressed: (() async {
                 if (titleController.text.isEmpty &&
@@ -728,6 +723,11 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                   categoryvalueController1.clear();
                 }
               }),
+              child: const Text(
+                'Save',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

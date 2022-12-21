@@ -19,25 +19,24 @@ class StaffNotificationHistoryy extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Consumer<NotificationToStaffAdminProviders>(
       builder: (context, value, child) => value.loading
-          ? spinkitLoader()
+          ? const spinkitLoader()
           : AnimationLimiter(
               child: ListView.builder(
                 shrinkWrap: true,
-                //  padding: EdgeInsets.all(size.width / 30),
-                physics: BouncingScrollPhysics(
+                physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 itemCount: value.historyList.length,
                 itemBuilder: (BuildContext context, index) {
                   return AnimationConfiguration.staggeredList(
                     position: index,
-                    delay: Duration(milliseconds: 100),
+                    delay: const Duration(milliseconds: 100),
                     child: SlideAnimation(
-                      duration: Duration(milliseconds: 2500),
+                      duration: const Duration(milliseconds: 2500),
                       curve: Curves.fastLinearToSlowEaseIn,
                       horizontalOffset: 30,
                       verticalOffset: 300.0,
                       child: FlipAnimation(
-                        duration: Duration(milliseconds: 3000),
+                        duration: const Duration(milliseconds: 3000),
                         curve: Curves.fastLinearToSlowEaseIn,
                         flipAxis: FlipAxis.y,
                         child: Padding(
@@ -53,7 +52,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                       Border.all(color: UIGuide.light_Purple)),
                               child: Column(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
                                   Row(
@@ -61,7 +60,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Title: ',
                                         style: TextStyle(
                                             fontSize: 15,
@@ -73,7 +72,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                               '--',
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -85,7 +84,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Matter: ',
                                         style: TextStyle(
                                             fontSize: 15,
@@ -98,7 +97,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                               const StrutStyle(fontSize: 13),
                                           maxLines: 3,
                                           text: TextSpan(
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 44, 43, 43)),
@@ -116,7 +115,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                           CrossAxisAlignment.end,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Created At: ',
                                           style: TextStyle(
                                               fontSize: 15,

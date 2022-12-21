@@ -231,8 +231,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                 width: 120,
                 child: MaterialButton(
                   // minWidth: size.width - 200,
-                  child: Text(checkname.isEmpty ? 'Choose File' : checkname),
-
                   color: Colors.white70,
                   onPressed: (() async {
                     final result = await FilePicker.platform.pickFiles(
@@ -270,6 +268,8 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                       )));
                     }
                   }),
+                  // minWidth: size.width - 200,
+                  child: Text(checkname.isEmpty ? 'Choose File' : checkname),
                 ),
               ),
             ),
@@ -291,7 +291,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
               width: MediaQuery.of(context).size.width * 0.45,
               child: MaterialButton(
                 // minWidth: size.width - 250,
-                child: Center(child: Text('From  $time')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeFrom = await showDatePicker(
@@ -317,6 +316,8 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                     print(time);
                   });
                 }),
+                // minWidth: size.width - 250,
+                child: Center(child: Text('From  $time')),
               ),
             ),
             const Spacer(),

@@ -45,7 +45,7 @@ class AdminHome extends StatelessWidget {
     return Scaffold(
       body: Consumer<ConnectivityProvider>(
         builder: (context, connection, child) => connection.isOnline == false
-            ? NoInternetConnection()
+            ? const NoInternetConnection()
             : ListView(
                 children: [
                   const AdminProfileTop(),
@@ -268,7 +268,7 @@ class AdminHomeContent extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Demo()),
+                        MaterialPageRoute(builder: (context) => const Demo()),
                       );
                     },
                     child: Padding(
@@ -722,7 +722,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Reportcard.png',
+                                      'assets/Notification.png',
                                     ),
                                   ),
                                 ),
@@ -745,7 +745,8 @@ class AdminHomeContent extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AdminGallery()),
+                        MaterialPageRoute(
+                            builder: (context) => const AdminGallery()),
                       );
                     },
                     child: Padding(
@@ -799,7 +800,7 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ScreenFlashNews()),
+                            builder: (context) => const ScreenFlashNews()),
                       );
                     },
                     child: Padding(
@@ -846,7 +847,7 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NoticeBoardAdnin()),
+                            builder: (context) => const NoticeBoardAdnin()),
                       );
                     },
                     child: Padding(
@@ -1080,12 +1081,12 @@ class AdminHomeContent extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text(
+                            child: const Text(
                               'Cancel',
                               style: TextStyle(color: Colors.grey),
                             )),
@@ -1232,7 +1233,7 @@ class _AdminProfileTopState extends State<AdminProfileTop> {
                                       image: AssetImage(
                                           "assets/cardstudent.png"))),
                             ),
-                            Spacer(),
+                            const Spacer(),
                           ]),
                         ],
                       ),
@@ -1251,7 +1252,7 @@ class _AdminProfileTopState extends State<AdminProfileTop> {
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: Consumer<DashboardAdmin>(
                 builder: (context, value, child) => value.loading
-                    ? spinkitLoader()
+                    ? const spinkitLoader()
                     : SingleChildScrollView(
                         child: Column(
                           children: [
@@ -1332,7 +1333,7 @@ class _AdminProfileTopState extends State<AdminProfileTop> {
                                                   ? '--'
                                                   : value.nonTeachingStrength
                                                       .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: UIGuide.light_Purple,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -1351,7 +1352,7 @@ class _AdminProfileTopState extends State<AdminProfileTop> {
                                           image: AssetImage(
                                               "assets/Staffdb1.png"))),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                               ],
                             ),
                           ],

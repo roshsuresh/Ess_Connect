@@ -173,7 +173,7 @@ class _StudentHomeState extends State<StudentHome> {
                             Badge(
                               showBadge: true,
                               position: BadgePosition.topEnd(end: 9),
-                              badgeContent: Text(
+                              badgeContent: const Text(
                                 '1',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -290,7 +290,8 @@ class _StudentHomeState extends State<StudentHome> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => NoticeBoard()),
+                                      builder: (context) =>
+                                          const NoticeBoard()),
                                 );
                               },
                               child: Padding(
@@ -1139,7 +1140,7 @@ class ProfileHome extends StatelessWidget {
                               Radius.circular(10),
                             )),
                         child: value.loading
-                            ? spinkitLoader()
+                            ? const spinkitLoader()
                             : Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -1311,7 +1312,7 @@ class ProfileHome extends StatelessWidget {
         barrierDismissible: true,
         builder: (BuildContext context) {
           return Dialog(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))),
             child: Stack(
               clipBehavior: Clip.none,

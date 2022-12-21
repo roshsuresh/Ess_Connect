@@ -92,9 +92,7 @@ class _FeeReportState extends State<FeeReport> {
                     width: size.width * .42,
                     height: 50,
                     child: MultiSelectDialogField(
-                      // height: 200,
                       items: value.dropDown,
-
                       listType: MultiSelectListType.CHIP,
                       title: const Text(
                         "Select Section",
@@ -112,7 +110,6 @@ class _FeeReportState extends State<FeeReport> {
                         style: TextStyle(color: UIGuide.light_Purple),
                       ),
                       separateSelectedItems: true,
-
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius:
@@ -153,7 +150,7 @@ class _FeeReportState extends State<FeeReport> {
                           subjectData.map((e) => data.value);
                           print("${subjectData.map((e) => data.value)}");
                         }
-                        section = subjectData.join('&');
+                        section = subjectData.join(',');
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .sectionCounter(results.length);
@@ -236,7 +233,7 @@ class _FeeReportState extends State<FeeReport> {
                           diviData.map((e) => data.value);
                           print("${diviData.map((e) => data.value)}");
                         }
-                        course = diviData.join('&');
+                        course = diviData.join(',');
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .courseCounter(results.length);
@@ -244,7 +241,7 @@ class _FeeReportState extends State<FeeReport> {
                                 listen: false)
                             .getDivisionList(course);
 
-                        print(diviData.join('&'));
+                        print(diviData.join(','));
                       },
                     ),
                   ),

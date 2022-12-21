@@ -172,7 +172,7 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                             child: TextField(
                               textAlign: TextAlign.center,
                               controller: courseController1,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Color.fromARGB(255, 238, 237, 237),
                                 border: OutlineInputBorder(),
@@ -196,7 +196,7 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -431,7 +431,7 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -641,7 +641,7 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               MaterialButton(
                 color: UIGuide.light_Purple,
                 onPressed: () async {
@@ -660,7 +660,7 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
           kheight20,

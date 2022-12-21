@@ -69,7 +69,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                       obscureText: !_isObscure,
                       controller: _password,
                       decoration: InputDecoration(
-                          focusColor: Color.fromARGB(255, 213, 215, 218),
+                          focusColor: const Color.fromARGB(255, 213, 215, 218),
                           prefixIcon: const Icon(
                             Icons.key_outlined,
                             color: Colors.grey,

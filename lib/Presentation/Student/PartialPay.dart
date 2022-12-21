@@ -93,7 +93,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
       key: _scaffoldKey,
       body: Consumer<FeesProvider>(builder: (context, value, child) {
         return value.loading
-            ? ProgressBarFee()
+            ? const ProgressBarFee()
             : Stack(
                 children: [
                   ListView(
@@ -113,7 +113,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                         controller: _controllerr,
                         thumbVisibility: true,
                         thickness: 6,
-                        radius: Radius.circular(20),
+                        radius: const Radius.circular(20),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20.0, right: 8),
                           child: LimitedBox(
@@ -123,7 +123,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                     ListView.builder(
                                         shrinkWrap: true,
                                         controller: _controllerr,
-                                        itemCount: valuee.feeList.length == null
+                                        itemCount: valuee.feeList.isEmpty
                                             ? 0
                                             : valuee.feeList.length,
                                         itemBuilder:
@@ -225,6 +225,9 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                 ),
                                 Scrollbar(
                                   controller: _controllerr2,
+                                  thumbVisibility: true,
+                                  thickness: 6,
+                                  radius: const Radius.circular(10),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 20, right: 8),
@@ -258,9 +261,6 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                               });
                                         })),
                                   ),
-                                  thumbVisibility: true,
-                                  thickness: 6,
-                                  radius: const Radius.circular(10),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -552,12 +552,6 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                                                   : provider
                                                                       .orderId
                                                                       .toString();
-                                                          // await Provider.of<
-                                                          //             FeesProvider>(
-                                                          //         context,
-                                                          //         listen: false)
-                                                          //     .payStatus(
-                                                          //         orderID);
 
                                                           await Provider.of<
                                                                       FeesProvider>(
@@ -614,12 +608,12 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                                   onPressed: () async {
                                                     Navigator.pop(context);
                                                   },
+                                                  color: UIGuide.light_Purple,
                                                   child: const Text(
                                                     'OK',
                                                     style: TextStyle(
                                                         color: UIGuide.WHITE),
                                                   ),
-                                                  color: UIGuide.light_Purple,
                                                 )
                                               ],
                                             ),
@@ -670,7 +664,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                               if (value.lastOrderStatus == 'Success' ||
                                   value.lastOrderStatus == 'Failed' ||
                                   value.lastOrderStatus == 'Cancelled' ||
-                                  value.lastOrderStatus == 'Processing' ||
+                                  // value.lastOrderStatus == 'Processing' ||
                                   value.lastOrderStatus == null) {
                                 if (_busController.text.isEmpty &&
                                     _feeController.text.isEmpty) {
@@ -694,6 +688,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                 } else {
                                   await totalFeeCollection();
                                   print("totalFeeCollect $totalFeeCollect");
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////          get data of one             /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1570,6 +1565,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                               }
                             }
                           },
+                          color: UIGuide.light_Purple,
                           child: const Text(
                             'Proceed to Pay',
                             style: TextStyle(
@@ -1577,7 +1573,6 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                 fontWeight: FontWeight.w800,
                                 fontSize: 16),
                           ),
-                          color: UIGuide.light_Purple,
                         ),
                       ),
                     ),

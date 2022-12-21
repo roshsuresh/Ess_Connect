@@ -31,16 +31,16 @@ class PayFee extends StatelessWidget {
     });
     return Consumer<ConnectivityProvider>(
       builder: (context, connection, child) => connection.isOnline == false
-          ? NoInternetConnection()
+          ? const NoInternetConnection()
           : DefaultTabController(
               length: 2,
               child: Scaffold(
                   appBar: AppBar(
                     title: Row(
                       children: [
-                        Spacer(),
-                        Text('Payment'),
-                        Spacer(),
+                        const Spacer(),
+                        const Text('Payment'),
+                        const Spacer(),
                         IconButton(
                             onPressed: () {
                               Navigator.pushReplacement(
@@ -48,7 +48,7 @@ class PayFee extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) => PayFee()));
                             },
-                            icon: Icon(Icons.refresh_outlined))
+                            icon: const Icon(Icons.refresh_outlined))
                       ],
                     ),
                     titleSpacing: 00.0,
@@ -75,7 +75,7 @@ class PayFee extends StatelessWidget {
                               text: 'Partial',
                             );
                           } else {
-                            return Text('');
+                            return const Text('');
                           }
                         }))
                       ],
@@ -84,12 +84,12 @@ class PayFee extends StatelessWidget {
                   body: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      FeePayInstallment(),
+                      const FeePayInstallment(),
                       Consumer<FeesProvider>(builder: ((context, snap, child) {
                         if (snap.allowPartialPayment != false) {
                           return FeePartialPayment();
                         }
-                        return Text('');
+                        return const Text('');
                       }))
                     ],
                   )),
@@ -141,12 +141,12 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
         children: [
           Consumer<FeesProvider>(
             builder: (context, value, child) => value.loading
-                ? ProgressBarFee()
+                ? const ProgressBarFee()
                 : ListView(
                     children: [
                       kheight20,
                       Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 10),
+                        padding: const EdgeInsets.only(left: 20, bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -180,9 +180,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                         controller: _controller,
                         thumbVisibility: true,
                         thickness: 6,
-                        radius: Radius.circular(20),
+                        radius: const Radius.circular(20),
                         child: Padding(
-                          padding: EdgeInsets.only(left: 20.0, right: 8),
+                          padding: const EdgeInsets.only(left: 20.0, right: 8),
                           child: LimitedBox(
                               maxHeight: 160,
                               child: Consumer<FeesProvider>(
@@ -369,7 +369,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   builder: (context, value, child) => Center(
                                     child: Text(
                                       'TotalBus fee :  ${value.totalBusFee}',
-                                      style: TextStyle(fontSize: 12),
+                                      style: const TextStyle(fontSize: 12),
                                     ),
                                   ),
                                 ),
@@ -2142,7 +2142,7 @@ class PdfDownload extends StatelessWidget {
                                 builder: (context) => StudentHome()),
                             (Route<dynamic> route) => false);
                       },
-                      child: Icon(Icons.arrow_back_ios)),
+                      child: const Icon(Icons.arrow_back_ios)),
                   kWidth,
                   kWidth,
                   kWidth,

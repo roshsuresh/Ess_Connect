@@ -52,7 +52,7 @@ class AdminToStaff extends StatelessWidget {
           //   builder: (context, value, child) {
           //     if (value.isClassTeacher != false) {
           //       return
-          AdminToStaffNotification(),
+          const AdminToStaffNotification(),
 
       //     TextSMSAdminToStaff()
       //   ],
@@ -112,14 +112,14 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                         "Select Section",
                         style: TextStyle(color: Colors.grey),
                       ),
-                      selectedItemsTextStyle: TextStyle(
+                      selectedItemsTextStyle: const TextStyle(
                           fontWeight: FontWeight.w900,
                           color: UIGuide.light_Purple),
-                      confirmText: Text(
+                      confirmText: const Text(
                         'OK',
                         style: TextStyle(color: UIGuide.light_Purple),
                       ),
-                      cancelText: Text(
+                      cancelText: const Text(
                         'Cancel',
                         style: TextStyle(color: UIGuide.light_Purple),
                       ),
@@ -138,7 +138,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                         Icons.arrow_drop_down_outlined,
                         color: Colors.grey,
                       ),
-                      buttonText: Text(
+                      buttonText: const Text(
                         "Select Section",
                         style: TextStyle(
                           color: Colors.black,
@@ -167,14 +167,14 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10),
                 child: SizedBox(
                   width: size.width * .42,
                   height: 44,
                   child: MaterialButton(
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     onPressed: () async {
                       await Provider.of<NotificationToStaffAdminProviders>(
@@ -195,7 +195,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                       // p.stdReportInitialValues.clear();
                     },
                     color: UIGuide.THEME_LIGHT,
-                    child: Text('View'),
+                    child: const Text('View'),
                   ),
                 ),
               )
@@ -271,13 +271,14 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        elevation: 3.0,
+        elevation: 6,
+        notchMargin: 8.0,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: MaterialButton(
             color: UIGuide.light_Purple,
-            onPressed: () {
-              Provider.of<NotificationToStaffAdminProviders>(context,
+            onPressed: () async {
+              await Provider.of<NotificationToStaffAdminProviders>(context,
                       listen: false)
                   .submitStaff(context);
             },
@@ -421,18 +422,37 @@ class Text_Matter_NotificationAdminToStaff extends StatelessWidget {
             width: 150,
             height: 40,
             child: MaterialButton(
-              onPressed: () {
-                Provider.of<NotificationToStaffAdminProviders>(context,
-                        listen: false)
-                    .sendNotification(context, titleController.text,
-                        matterController.text, toList,
-                        sentTo: type);
+              onPressed: () async {
+                if (titleController.text.isNotEmpty &&
+                    matterController.text.isNotEmpty) {
+                  await Provider.of<NotificationToStaffAdminProviders>(context,
+                          listen: false)
+                      .sendNotification(context, titleController.text,
+                          matterController.text, toList,
+                          sentTo: type);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      duration: Duration(seconds: 1),
+                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        'Enter title & matter!',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                }
               },
+              color: UIGuide.light_Purple,
               child: const Text(
                 'Send',
                 style: TextStyle(color: Colors.white),
               ),
-              color: UIGuide.light_Purple,
             ),
           )
         ],

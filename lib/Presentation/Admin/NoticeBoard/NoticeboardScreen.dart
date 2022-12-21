@@ -14,17 +14,18 @@ class NoticeBoardAdnin extends StatelessWidget {
             appBar: AppBar(
               title: Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   const Text('Notice Board'),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NoticeBoardAdnin()));
+                                builder: (context) =>
+                                    const NoticeBoardAdnin()));
                       },
-                      icon: Icon(Icons.refresh_outlined))
+                      icon: const Icon(Icons.refresh_outlined))
                 ],
               ),
               titleSpacing: 20.0,
@@ -49,7 +50,7 @@ class NoticeBoardAdnin extends StatelessWidget {
               ),
               backgroundColor: UIGuide.light_Purple,
             ),
-            body: TabBarView(children: [
+            body: const TabBarView(children: [
               SendNoticeBoardAdmin(),
               NoticeBoardListAdmin(),
             ])));
