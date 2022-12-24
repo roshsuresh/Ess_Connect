@@ -39,26 +39,26 @@ class NoticeEditAdmin {
 
     attachmentId = json['attachmentId'];
     attachment = json['attachment'] != null
-        ? new AttachmentNoticeAdmin.fromJson(json['attachment'])
+        ? AttachmentNoticeAdmin.fromJson(json['attachment'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['matter'] = this.matter;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['matter'] = matter;
 
-    data['displayStartDate'] = this.displayStartDate;
-    data['displayEndDate'] = this.displayEndDate;
-    data['createdDate'] = this.createdDate;
-    data['cancelled'] = this.cancelled;
-    data['approved'] = this.approved;
-    data['createdStaffId'] = this.createdStaffId;
+    data['displayStartDate'] = displayStartDate;
+    data['displayEndDate'] = displayEndDate;
+    data['createdDate'] = createdDate;
+    data['cancelled'] = cancelled;
+    data['approved'] = approved;
+    data['createdStaffId'] = createdStaffId;
 
-    data['attachmentId'] = this.attachmentId;
-    if (this.attachment != null) {
-      data['attachment'] = this.attachment!.toJson();
+    data['attachmentId'] = attachmentId;
+    if (attachment != null) {
+      data['attachment'] = attachment!.toJson();
     }
     return data;
   }
@@ -96,15 +96,15 @@ class AttachmentNoticeAdmin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['path'] = this.path;
-    data['url'] = this.url;
-    data['isTemporary'] = this.isTemporary;
-    data['isDeleted'] = this.isDeleted;
-    data['createdAt'] = this.createdAt;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['extension'] = extension;
+    data['path'] = path;
+    data['url'] = url;
+    data['isTemporary'] = isTemporary;
+    data['isDeleted'] = isDeleted;
+    data['createdAt'] = createdAt;
+    data['id'] = id;
     return data;
   }
 }

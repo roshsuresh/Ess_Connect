@@ -15,11 +15,11 @@ class TimeTableViewModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['fileId'] = this.fileId;
-    data['classTTUploadId'] = this.classTTUploadId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+    data['fileId'] = fileId;
+    data['classTTUploadId'] = classTTUploadId;
     return data;
   }
 }

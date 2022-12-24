@@ -18,11 +18,11 @@ class GallerySendStaffInitialvalues {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.courseList != null) {
-      data['courseList'] = this.courseList!.map((v) => v.toJson()).toList();
+    if (courseList != null) {
+      data['courseList'] = courseList!.map((v) => v.toJson()).toList();
     }
 
-    data['isClassTeacher'] = this.isClassTeacher;
+    data['isClassTeacher'] = isClassTeacher;
     return data;
   }
 }
@@ -30,28 +30,21 @@ class GallerySendStaffInitialvalues {
 class GalleryCourseListStaff {
   String? value;
   String? text;
-  Null selected;
-  Null active;
   int? order;
 
-  GalleryCourseListStaff(
-      {this.value, this.text, this.selected, this.active, this.order});
+  GalleryCourseListStaff({this.value, this.text, this.order});
 
   GalleryCourseListStaff.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
     order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    data['value'] = value;
+    data['text'] = text;
+    data['order'] = order;
     return data;
   }
 }
@@ -59,28 +52,18 @@ class GalleryCourseListStaff {
 class GalleryDivisionListStaff {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  GalleryDivisionListStaff(
-      {this.value, this.text, this.selected, this.active, this.order});
+  GalleryDivisionListStaff({this.value, this.text});
 
   GalleryDivisionListStaff.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    data['value'] = value;
+    data['text'] = text;
     return data;
   }
 }
@@ -121,16 +104,16 @@ class GalleryImageId {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['path'] = this.path;
-    data['url'] = this.url;
-    data['isTemporary'] = this.isTemporary;
-    data['isDeleted'] = this.isDeleted;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['extension'] = extension;
+    data['path'] = path;
+    data['url'] = url;
+    data['isTemporary'] = isTemporary;
+    data['isDeleted'] = isDeleted;
 
-    data['createdAt'] = this.createdAt;
-    data['id'] = this.id;
+    data['createdAt'] = createdAt;
+    data['id'] = id;
     return data;
   }
 }

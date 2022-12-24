@@ -33,7 +33,7 @@ class Timetable extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<Timetableprovider>(
           builder: (context, value, child) => value.loading
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : ListView(
                   children: [
                     kheight20,
@@ -45,7 +45,6 @@ class Timetable extends StatelessWidget {
                       children: const [
                         TableRow(
                             decoration: BoxDecoration(
-                              //  border: Border.all(),
                               color: UIGuide.light_black,
                             ),
                             children: [
@@ -171,11 +170,11 @@ class PdfViewPages extends StatelessWidget {
   imageview(String result) {
     return Scaffold(
       body: isLoading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : Center(
               child: PhotoView(
                 loadingBuilder: (context, event) {
-                  return const spinkitLoader();
+                  return spinkitLoader();
                 },
                 imageProvider: NetworkImage(
                   result.isEmpty

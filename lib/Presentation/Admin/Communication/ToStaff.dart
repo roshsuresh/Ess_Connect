@@ -247,7 +247,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
               return value.loading
                   ? LimitedBox(
                       maxHeight: size.height - 300,
-                      child: const Center(child: spinkitLoader()),
+                      child: Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
                       maxHeight: size.height - 265,

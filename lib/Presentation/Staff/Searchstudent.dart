@@ -146,7 +146,7 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                   );
                 }
                 return provider.loading
-                    ? const spinkitLoader()
+                    ? spinkitLoader()
                     : ListView.builder(
                         shrinkWrap: true,
                         itemCount: provider.searchStudent.isEmpty

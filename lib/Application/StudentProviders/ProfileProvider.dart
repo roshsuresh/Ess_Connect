@@ -39,6 +39,7 @@ class ProfileProvider with ChangeNotifier {
   String? studPhoto;
   String? fatherPhoto;
   String? motherPhoto;
+  String? area;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -101,6 +102,7 @@ class ProfileProvider with ChangeNotifier {
         bloodGroup = std.bloodGroup;
         houseGroup = std.houseGroup;
         classTeacher = std.classTeacher;
+        area = std.area;
         setLoading(false);
         notifyListeners();
       } else {

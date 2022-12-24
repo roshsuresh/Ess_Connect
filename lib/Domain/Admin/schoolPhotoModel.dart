@@ -19,11 +19,11 @@ class Schoolphoto {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['path'] = this.path;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['extension'] = extension;
+    data['path'] = path;
+    data['url'] = url;
     return data;
   }
 }

@@ -114,13 +114,13 @@ class StudentGeneralFeePaidTotal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['transactionId'] = this.transactionId;
-    data['billDate'] = this.billDate;
-    data['paidAmount'] = this.paidAmount;
-    data['totalPaidAmount'] = this.totalPaidAmount;
-    if (this.schoolFees != null) {
-      data['schoolFees'] = this.schoolFees!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['transactionId'] = transactionId;
+    data['billDate'] = billDate;
+    data['paidAmount'] = paidAmount;
+    data['totalPaidAmount'] = totalPaidAmount;
+    if (schoolFees != null) {
+      data['schoolFees'] = schoolFees!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -158,15 +158,15 @@ class SchoolFees {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['installmentname'] = this.installmentname;
-    data['dueAmount'] = this.dueAmount;
-    data['concessionAmount'] = this.concessionAmount;
-    data['fineAmount'] = this.fineAmount;
-    data['paidAmount'] = this.paidAmount;
-    data['transactionId'] = this.transactionId;
-    data['billDate'] = this.billDate;
-    data['totalPaidAmount'] = this.totalPaidAmount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['installmentname'] = installmentname;
+    data['dueAmount'] = dueAmount;
+    data['concessionAmount'] = concessionAmount;
+    data['fineAmount'] = fineAmount;
+    data['paidAmount'] = paidAmount;
+    data['transactionId'] = transactionId;
+    data['billDate'] = billDate;
+    data['totalPaidAmount'] = totalPaidAmount;
     return data;
   }
 }
@@ -193,19 +193,19 @@ class StudentBusFeePaidTotal {
     if (json['busFees'] != null) {
       busFees = <BusFees>[];
       json['busFees'].forEach((v) {
-        busFees!.add(new BusFees.fromJson(v));
+        busFees!.add(BusFees.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['transactionId'] = this.transactionId;
-    data['billDate'] = this.billDate;
-    data['paidAmount'] = this.paidAmount;
-    data['totalPaidAmount'] = this.totalPaidAmount;
-    if (this.busFees != null) {
-      data['busFees'] = this.busFees!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['transactionId'] = transactionId;
+    data['billDate'] = billDate;
+    data['paidAmount'] = paidAmount;
+    data['totalPaidAmount'] = totalPaidAmount;
+    if (busFees != null) {
+      data['busFees'] = busFees!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -240,14 +240,14 @@ class BusFees {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['installmentname'] = this.installmentname;
-    data['dueAmount'] = this.dueAmount;
-    data['fineAmount'] = this.fineAmount;
-    data['paidAmount'] = this.paidAmount;
-    data['transactionId'] = this.transactionId;
-    data['billDate'] = this.billDate;
-    data['totalPaidAmount'] = this.totalPaidAmount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['installmentname'] = installmentname;
+    data['dueAmount'] = dueAmount;
+    data['fineAmount'] = fineAmount;
+    data['paidAmount'] = paidAmount;
+    data['transactionId'] = transactionId;
+    data['billDate'] = billDate;
+    data['totalPaidAmount'] = totalPaidAmount;
     return data;
   }
 }
@@ -293,18 +293,18 @@ class StudentGeneralFeeDueTotal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['installmentName'] = this.installmentName;
-    data['installmentNetDue'] = this.installmentNetDue;
-    data['concessionAmount'] = this.concessionAmount;
-    data['fineAmount'] = this.fineAmount;
-    data['netDue'] = this.netDue;
-    data['paidAmount'] = this.paidAmount;
-    data['totalInstallmentDue'] = this.totalInstallmentDue;
-    data['totalConcessionAmount'] = this.totalConcessionAmount;
-    data['totalFineAmount'] = this.totalFineAmount;
-    data['totalNetDueAmount'] = this.totalNetDueAmount;
-    data['totalPaidAmount'] = this.totalPaidAmount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['installmentName'] = installmentName;
+    data['installmentNetDue'] = installmentNetDue;
+    data['concessionAmount'] = concessionAmount;
+    data['fineAmount'] = fineAmount;
+    data['netDue'] = netDue;
+    data['paidAmount'] = paidAmount;
+    data['totalInstallmentDue'] = totalInstallmentDue;
+    data['totalConcessionAmount'] = totalConcessionAmount;
+    data['totalFineAmount'] = totalFineAmount;
+    data['totalNetDueAmount'] = totalNetDueAmount;
+    data['totalPaidAmount'] = totalPaidAmount;
     return data;
   }
 }
@@ -347,17 +347,17 @@ class StudentBusFeeDueTotal {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['installmentName'] = this.installmentName;
-    data['installmentNetDue'] = this.installmentNetDue;
-    data['fineAmount'] = this.fineAmount;
-    data['netDue'] = this.netDue;
-    data['paidAmount'] = this.paidAmount;
-    data['totalInstallmentDue'] = this.totalInstallmentDue;
-    data['totalConcessionAmount'] = this.totalConcessionAmount;
-    data['totalFineAmount'] = this.totalFineAmount;
-    data['totalNetDueAmount'] = this.totalNetDueAmount;
-    data['totalPaidAmount'] = this.totalPaidAmount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['installmentName'] = installmentName;
+    data['installmentNetDue'] = installmentNetDue;
+    data['fineAmount'] = fineAmount;
+    data['netDue'] = netDue;
+    data['paidAmount'] = paidAmount;
+    data['totalInstallmentDue'] = totalInstallmentDue;
+    data['totalConcessionAmount'] = totalConcessionAmount;
+    data['totalFineAmount'] = totalFineAmount;
+    data['totalNetDueAmount'] = totalNetDueAmount;
+    data['totalPaidAmount'] = totalPaidAmount;
     return data;
   }
 }

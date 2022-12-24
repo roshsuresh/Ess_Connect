@@ -70,7 +70,7 @@ class Staff_Timetable extends StatelessWidget {
             Consumer<StaffTimetableProvider>(
               builder: (context, value, child) {
                 return value.loading
-                    ? const spinkitLoader()
+                    ? spinkitLoader()
                     : Table(
                         columnWidths: const {
                           0: FlexColumnWidth(4),
@@ -162,12 +162,12 @@ class StaffTimetableimage extends StatelessWidget {
   imageview(String result) {
     return Scaffold(
       body: isLoading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : Center(
               child: Container(
                   child: PhotoView(
                 loadingBuilder: (context, event) {
-                  return const spinkitLoader();
+                  return spinkitLoader();
                 },
                 imageProvider: NetworkImage(
                   result == null

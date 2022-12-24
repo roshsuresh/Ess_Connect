@@ -1,6 +1,7 @@
 import 'package:essconnect/Application/Staff_Providers/GallerySendProviderStaff.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
@@ -114,6 +115,7 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             controller: titleController,
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             minLines: 1,
             maxLines: 1,
             keyboardType: TextInputType.multiline,
@@ -143,10 +145,10 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
 
               color: Colors.white70,
               onPressed: (() async {
-                final result =
-                    await FilePicker.platform.pickFiles(type: FileType.custom,
-                        //  allowMultiple: true,
-                        allowedExtensions: ['png', 'jpeg', 'jpg']);
+                final result = await FilePicker.platform.pickFiles(
+                    type: FileType.custom,
+                    //  allowMultiple: true,
+                    allowedExtensions: ['png', 'jpeg', 'jpg']);
                 if (result == null) {
                   return;
                 }

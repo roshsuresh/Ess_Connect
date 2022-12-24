@@ -1,8 +1,5 @@
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ProgressBarFee extends StatelessWidget {

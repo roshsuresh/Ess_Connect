@@ -29,7 +29,7 @@ class StaffProfileView extends StatelessWidget {
     return Scaffold(
       body: Consumer<StaffProfileProvider>(
         builder: (context, value, child) => value.loading
-            ? const spinkitLoader()
+            ? spinkitLoader()
             : ListView(
                 children: [
                   Stack(

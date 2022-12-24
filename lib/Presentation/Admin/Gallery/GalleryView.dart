@@ -20,7 +20,7 @@ class AdminGalleryView extends StatelessWidget {
     });
     return Consumer<GalleryProviderAdmin>(
       builder: (context, value, child) => value.loading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : ListView(
               children: [
                 ListView.builder(
@@ -146,7 +146,7 @@ class GalleryonTapAdmin extends StatelessWidget {
       child: Scaffold(
         body: Consumer<GalleryProviderAdmin>(
           builder: (context, value, child) => value.load
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.count(

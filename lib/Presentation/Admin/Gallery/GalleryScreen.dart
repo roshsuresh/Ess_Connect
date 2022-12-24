@@ -22,7 +22,7 @@ class AdminGallery extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AdminGallery()));
+                                builder: (context) => const AdminGallery()));
                       },
                       icon: const Icon(Icons.refresh))
                 ],
@@ -52,6 +52,6 @@ class AdminGallery extends StatelessWidget {
               backgroundColor: UIGuide.light_Purple,
             ),
             body: TabBarView(
-                children: [AdminGalleryUpload(), GalleryListAdmin()])));
+                children: [AdminGalleryUpload(), const GalleryListAdmin()])));
   }
 }

@@ -97,17 +97,17 @@ class AllFeeCollect {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['feeCollectionId'] = this.feeCollectionId;
-    data['busFeeCollectionId'] = this.busFeeCollectionId;
-    data['id'] = this.id;
-    data['studentId'] = this.studentId;
-    data['admissionNo'] = this.admissionNo;
-    data['name'] = this.name;
-    data['course'] = this.course;
-    data['division'] = this.division;
-    data['remittedFees'] = this.remittedFees;
-    data['remittedDate'] = this.remittedDate;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['feeCollectionId'] = feeCollectionId;
+    data['busFeeCollectionId'] = busFeeCollectionId;
+    data['id'] = id;
+    data['studentId'] = studentId;
+    data['admissionNo'] = admissionNo;
+    data['name'] = name;
+    data['course'] = course;
+    data['division'] = division;
+    data['remittedFees'] = remittedFees;
+    data['remittedDate'] = remittedDate;
     return data;
   }
 }

@@ -484,7 +484,6 @@ class _MarkEntryState extends State<MarkEntry> {
                                           itemBuilder: (context, index) {
                                             print(snapshot
                                                 .markEntrySubjectList.length);
-                                            //  snap.removeCourseAll();
                                             return ListTile(
                                               selectedTileColor:
                                                   Colors.blue.shade100,
@@ -786,7 +785,7 @@ class _MarkEntryState extends State<MarkEntry> {
               kheight20,
               Consumer<MarkEntryProvider>(
                 builder: (context, providerr, child) => providerr.loading
-                    ? const spinkitLoader()
+                    ? spinkitLoader()
                     : Column(
                         children: [
                           Padding(

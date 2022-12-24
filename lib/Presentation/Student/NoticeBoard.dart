@@ -44,7 +44,7 @@ class NoticeBoard extends StatelessWidget {
       body: Consumer<NoticeProvider>(
         builder: (_, value, child) {
           return value.loading
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : AnimationLimiter(
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(
@@ -290,7 +290,7 @@ class PdfViewPage extends StatelessWidget {
                 imageProvider: NetworkImage(
                   result == null
                       ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlmeGlXoJwwpbCE9jGgHgZ2XaE5nnPUSomkZz_vZT7&s'
-                      : result,
+                      : result.toString(),
                 ),
               )),
             ),
@@ -309,6 +309,9 @@ class PdfViewPage extends StatelessWidget {
       } else if (provider.extension.toString() == '.jpeg') {
         final imgResult3 = provider.url.toString();
         return imageview(imgResult3);
+      } else if (provider.extension.toString() == '.jfif') {
+        final imgResult4 = provider.url.toString();
+        return imageview(imgResult4);
       } else {
         return const Scaffold(
           body: Center(

@@ -64,7 +64,7 @@ class StaffNotificationReceived extends StatelessWidget {
     width = size.width;
     return Consumer<StaffNotificationScreenProvider>(
       builder: (context, value, child) => value.loading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : Scrollbar(
               child: AnimationLimiter(
                 child: ListView.builder(
@@ -289,7 +289,7 @@ class StaffNotificationSendHistory extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Consumer<StaffNotificationScreenProvider>(
       builder: (context, value, child) => value.loading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : Scrollbar(
               child: AnimationLimiter(
                 child: ListView.builder(

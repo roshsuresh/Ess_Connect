@@ -49,22 +49,22 @@ class NoticeBoardListAdmin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['createdStaffId'] = this.createdStaffId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['createdStaffId'] = createdStaffId;
 
-    data['createStaffName'] = this.createStaffName;
-    data['entryDate'] = this.entryDate;
-    data['category'] = this.category;
+    data['createStaffName'] = createStaffName;
+    data['entryDate'] = entryDate;
+    data['category'] = category;
 
-    data['displayTo'] = this.displayTo;
-    data['createdAt'] = this.createdAt;
-    data['title'] = this.title;
+    data['displayTo'] = displayTo;
+    data['createdAt'] = createdAt;
+    data['title'] = title;
 
-    data['startDate'] = this.startDate;
-    data['endDate'] = this.endDate;
-    data['approved'] = this.approved;
-    data['cancelled'] = this.cancelled;
+    data['startDate'] = startDate;
+    data['endDate'] = endDate;
+    data['approved'] = approved;
+    data['cancelled'] = cancelled;
 
     return data;
   }

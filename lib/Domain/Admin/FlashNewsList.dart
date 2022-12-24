@@ -39,18 +39,18 @@ class FlashnewsListAdmin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['createdStaffId'] = this.createdStaffId;
-    data['createStaffName'] = this.createStaffName;
-    data['createdAt'] = this.createdAt;
-    data['entryDate'] = this.entryDate;
-    data['news'] = this.news;
-    data['startDate'] = this.startDate;
-    data['endDate'] = this.endDate;
-    data['approved'] = this.approved;
-    data['cancelled'] = this.cancelled;
-    data['activeStatus'] = this.activeStatus;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['createdStaffId'] = createdStaffId;
+    data['createStaffName'] = createStaffName;
+    data['createdAt'] = createdAt;
+    data['entryDate'] = entryDate;
+    data['news'] = news;
+    data['startDate'] = startDate;
+    data['endDate'] = endDate;
+    data['approved'] = approved;
+    data['cancelled'] = cancelled;
+    data['activeStatus'] = activeStatus;
     return data;
   }
-} 
+}

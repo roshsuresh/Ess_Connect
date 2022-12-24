@@ -486,7 +486,7 @@ class _TextSMS_staffState extends State<TextSMS_staff> {
                 return value.loading
                     ? LimitedBox(
                         maxHeight: size.height - 330,
-                        child: const Center(
+                        child: Center(
                           child: spinkitLoader(),
                         ),
                       )

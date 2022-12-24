@@ -39,18 +39,18 @@ class GalleryViewList_staff {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['createdStaffId'] = this.createdStaffId;
-    data['entryDate'] = this.entryDate;
-    data['createStaffName'] = this.createStaffName;
-    data['title'] = this.title;
-    data['createdAt'] = this.createdAt;
-    data['startDate'] = this.startDate;
-    data['endDate'] = this.endDate;
-    data['approved'] = this.approved;
-    data['cancelled'] = this.cancelled;
-    data['displayTo'] = this.displayTo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['createdStaffId'] = createdStaffId;
+    data['entryDate'] = entryDate;
+    data['createStaffName'] = createStaffName;
+    data['title'] = title;
+    data['createdAt'] = createdAt;
+    data['startDate'] = startDate;
+    data['endDate'] = endDate;
+    data['approved'] = approved;
+    data['cancelled'] = cancelled;
+    data['displayTo'] = displayTo;
     return data;
   }
 }

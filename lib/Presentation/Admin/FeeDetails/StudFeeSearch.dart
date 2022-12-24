@@ -76,7 +76,7 @@ class _StudentFeeSearchState extends State<StudentFeeSearch> {
                     : provider.searchStudent.length,
                 itemBuilder: (context, index) {
                   return provider.loading
-                      ? const Center(child: spinkitLoader())
+                      ? Center(child: spinkitLoader())
                       : Column(
                           children: [
                             kheight10,

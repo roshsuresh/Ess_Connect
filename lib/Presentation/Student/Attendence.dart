@@ -34,7 +34,7 @@ class Attendence extends StatelessWidget {
           padding: const EdgeInsets.all(4.0),
           child: Consumer<AttendenceProvider>(
             builder: (context, value, child) => value.loading
-                ? const spinkitLoader()
+                ? spinkitLoader()
                 : ListView(
                     children: [
                       Center(
@@ -50,15 +50,11 @@ class Attendence extends StatelessWidget {
                               return Column(
                                 children: [
                                   Row(
-                                    // mainAxisAlignment:
-                                    //     MainAxisAlignment.spaceEvenly,
                                     children: [
                                       kWidth,
                                       Text(
                                           'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}'),
-                                      // const Divider(),
-                                      // const Divider(),
-                                      Spacer(),
+                                      const Spacer(),
                                       Text(
                                           'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}'),
                                       kWidth,
@@ -68,17 +64,11 @@ class Attendence extends StatelessWidget {
                                   kheight10,
                                   kheight10,
                                   Row(
-                                    // mainAxisAlignment:
-                                    //     MainAxisAlignment.spaceEvenly,
                                     children: [
                                       kWidth,
                                       Text(
                                           'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}'),
-                                      Spacer(),
-                                      // const Divider(),
-                                      // const Divider(),
-                                      // const Divider(),
-                                      // const Divider(),
+                                      const Spacer(),
                                       Text(
                                           'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
                                       kWidth,

@@ -34,7 +34,7 @@ class ReportCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<ReportCardProvider>(
           builder: (context, value, child) => value.loading
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : ListView(
                   children: [
                     kheight20,

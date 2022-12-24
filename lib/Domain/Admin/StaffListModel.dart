@@ -28,16 +28,13 @@ class StaffReportNotification {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-
-    data['sectionId'] = this.sectionId;
-
-    data['designation'] = this.designation;
-
-    data['staffRole'] = this.staffRole;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['sectionId'] = sectionId;
+    data['designation'] = designation;
+    data['staffRole'] = staffRole;
+    data['id'] = id;
 
     return data;
   }

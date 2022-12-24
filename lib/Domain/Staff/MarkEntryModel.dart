@@ -12,10 +12,10 @@ class MarkEntryInitialValues {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['courseName'] = this.courseName;
-    data['sortOrder'] = this.sortOrder;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['courseName'] = courseName;
+    data['sortOrder'] = sortOrder;
     return data;
   }
 }
@@ -23,28 +23,21 @@ class MarkEntryInitialValues {
 class MarkEntryDivisionList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
   int? order;
 
-  MarkEntryDivisionList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  MarkEntryDivisionList({this.value, this.text, this.order});
 
   MarkEntryDivisionList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
     order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    data['value'] = value;
+    data['text'] = text;
+    data['order'] = order;
     return data;
   }
 }
@@ -52,28 +45,21 @@ class MarkEntryDivisionList {
 class MarkEntryPartList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
   int? order;
 
-  MarkEntryPartList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  MarkEntryPartList({this.value, this.text, this.order});
 
   MarkEntryPartList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
     order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+    data['order'] = order;
     return data;
   }
 }
@@ -81,28 +67,21 @@ class MarkEntryPartList {
 class MarkEntrySubjectList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  MarkEntrySubjectList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  MarkEntrySubjectList({
+    this.value,
+    this.text,
+  });
 
   MarkEntrySubjectList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
     return data;
   }
 }
@@ -110,28 +89,19 @@ class MarkEntrySubjectList {
 class MarkEntryExamList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  MarkEntryExamList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  MarkEntryExamList({this.value, this.text});
 
   MarkEntryExamList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+
     return data;
   }
 }

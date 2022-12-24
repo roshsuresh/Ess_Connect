@@ -457,7 +457,7 @@ class AttendenceviewWidget extends StatelessWidget {
                 const SizedBox(
                   height: 150,
                 ),
-                const spinkitLoader(),
+                spinkitLoader(),
               ],
             )
           : Column(
@@ -514,7 +514,7 @@ class AttendenceviewWidget extends StatelessWidget {
                 Consumer<AttendenceStaffProvider>(
                   builder: (context, value, child) {
                     return value.loading
-                        ? const spinkitLoader()
+                        ? spinkitLoader()
                         : LimitedBox(
                             maxHeight: 530,
                             child: Scrollbar(
@@ -637,8 +637,8 @@ class DualAttendenceviewWidget extends StatelessWidget {
     return Consumer<AttendenceStaffProvider>(
       builder: (context, val, child) => val.loading
           ? Column(
-              children: const [
-                SizedBox(
+              children: [
+                const SizedBox(
                   height: 150,
                 ),
                 spinkitLoader(),
@@ -658,7 +658,6 @@ class DualAttendenceviewWidget extends StatelessWidget {
                     children: const [
                       TableRow(
                           decoration: BoxDecoration(
-                            //  border: Border.all(),
                             color: Color.fromARGB(255, 228, 224, 224),
                           ),
                           children: [
@@ -707,7 +706,7 @@ class DualAttendenceviewWidget extends StatelessWidget {
                 Consumer<AttendenceStaffProvider>(
                     builder: (context, value, child) {
                   return value.loading
-                      ? const spinkitLoader()
+                      ? spinkitLoader()
                       : LimitedBox(
                           maxHeight: 530,
                           child: Scrollbar(

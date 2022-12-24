@@ -233,6 +233,7 @@ class _PasswordChangeState extends State<PasswordChange> {
                             _password.clear();
                             _passwordNew.clear();
                           },
+                          color: UIGuide.light_Purple,
                           child: const Text(
                             'Update',
                             style: TextStyle(
@@ -240,7 +241,6 @@ class _PasswordChangeState extends State<PasswordChange> {
                                 fontWeight: FontWeight.w800,
                                 fontSize: 16),
                           ),
-                          color: UIGuide.light_Purple,
                         ),
                       ),
                     ),

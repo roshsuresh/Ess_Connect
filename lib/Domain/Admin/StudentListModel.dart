@@ -1,14 +1,14 @@
-
-
 import 'dart:convert';
 
-StudentListModel studentListModelFromJson(String str) => StudentListModel.fromJson(json.decode(str));
+StudentListModel studentListModelFromJson(String str) =>
+    StudentListModel.fromJson(json.decode(str));
 
-String studentListModelToJson(StudentListModel data) => json.encode(data.toJson());
+String studentListModelToJson(StudentListModel data) =>
+    json.encode(data.toJson());
 
 class StudentListModel {
   StudentListModel({
-     this.userId,
+    this.userId,
     required this.studentId,
     required this.name,
     required this.admissionNo,
@@ -45,43 +45,44 @@ class StudentListModel {
   dynamic studentPhotoId;
   bool? selected;
 
-  factory StudentListModel.fromJson(Map<String, dynamic> json) => StudentListModel(
-    userId: json["userId"],
-    studentId: json["studentId"],
-    name: json["name"],
-    admissionNo: json["admissionNo"],
-    division: json["division"],
-    course: json["course"],
-    rollNo: json["rollNo"],
-    sectionOrder: json["sectionOrder"],
-    courseOrder: json["courseOrder"],
-    divisionOrder: json["divisionOrder"],
-    mobileNo: json["mobileNo"],
-    presentAddress: json["presentAddress"],
-    busName: json["busName"],
-    busStop: json["busStop"],
-    studentPhoto: json["studentPhoto"],
-    studentPhotoId: json["studentPhotoId"],
-  );
+  factory StudentListModel.fromJson(Map<String, dynamic> json) =>
+      StudentListModel(
+        userId: json["userId"],
+        studentId: json["studentId"],
+        name: json["name"],
+        admissionNo: json["admissionNo"],
+        division: json["division"],
+        course: json["course"],
+        rollNo: json["rollNo"],
+        sectionOrder: json["sectionOrder"],
+        courseOrder: json["courseOrder"],
+        divisionOrder: json["divisionOrder"],
+        mobileNo: json["mobileNo"],
+        presentAddress: json["presentAddress"],
+        busName: json["busName"],
+        busStop: json["busStop"],
+        studentPhoto: json["studentPhoto"],
+        studentPhotoId: json["studentPhotoId"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "userId": userId,
-    "studentId": studentId,
-    "name": name,
-    "admissionNo": admissionNo,
-    "division": division,
-    "course": course,
-    "rollNo": rollNo,
-    "sectionOrder": sectionOrder,
-    "courseOrder": courseOrder,
-    "divisionOrder": divisionOrder,
-    "mobileNo": mobileNo,
-    "presentAddress": presentAddress,
-    "busName": busName,
-    "busStop": busStop,
-    "studentPhoto": studentPhoto,
-    "studentPhotoId": studentPhotoId,
-  };
+        "userId": userId,
+        "studentId": studentId,
+        "name": name,
+        "admissionNo": admissionNo,
+        "division": division,
+        "course": course,
+        "rollNo": rollNo,
+        "sectionOrder": sectionOrder,
+        "courseOrder": courseOrder,
+        "divisionOrder": divisionOrder,
+        "mobileNo": mobileNo,
+        "presentAddress": presentAddress,
+        "busName": busName,
+        "busStop": busStop,
+        "studentPhoto": studentPhoto,
+        "studentPhotoId": studentPhotoId,
+      };
 }
 
 class CourseList {
@@ -97,21 +98,19 @@ class CourseList {
   int sectionOrder;
   int courseOrder;
 
-
-
   factory CourseList.fromJson(Map<String, dynamic> json) => CourseList(
-    courseId: json["courseId"],
-    name: json["name"],
-    sectionOrder: json["sectionOrder"],
-    courseOrder: json["courseOrder"],
-  );
+        courseId: json["courseId"],
+        name: json["name"],
+        sectionOrder: json["sectionOrder"],
+        courseOrder: json["courseOrder"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "courseId": courseId,
-    "name": name,
-    "sectionOrder": sectionOrder,
-    "courseOrder": courseOrder,
-  };
+        "courseId": courseId,
+        "name": name,
+        "sectionOrder": sectionOrder,
+        "courseOrder": courseOrder,
+      };
 }
 
 class DivisionList {
@@ -130,19 +129,18 @@ class DivisionList {
   int divisionOrder;
 
   factory DivisionList.fromJson(Map<String, dynamic> json) => DivisionList(
-    divisionId: json["divisionId"],
-    name: json["name"],
-    sectionOrder: json["sectionOrder"],
-    courseOrder: json["courseOrder"],
-    divisionOrder: json["divisionOrder"],
-  );
+        divisionId: json["divisionId"],
+        name: json["name"],
+        sectionOrder: json["sectionOrder"],
+        courseOrder: json["courseOrder"],
+        divisionOrder: json["divisionOrder"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "divisionId": divisionId,
-    "name": name,
-    "sectionOrder": sectionOrder,
-    "courseOrder": courseOrder,
-    "divisionOrder": divisionOrder,
-  };
+        "divisionId": divisionId,
+        "name": name,
+        "sectionOrder": sectionOrder,
+        "courseOrder": courseOrder,
+        "divisionOrder": divisionOrder,
+      };
 }
-

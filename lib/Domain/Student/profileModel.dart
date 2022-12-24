@@ -25,34 +25,37 @@ class StudentProfileModel {
   String? motherName;
   String? motherMailId;
   String? motherMobileno;
+  String? area;
 
-  StudentProfileModel(
-      {this.studentName,
-      this.admissionNo,
-      this.rollNo,
-      this.classc,
-      this.divisionName,
-      this.divisionId,
-      this.bloodGroup,
-      this.houseGroup,
-      this.classTeacher,
-      this.dob,
-      this.studentPhoto,
-      this.studentPhotoId,
-      this.fatherPhoto,
-      this.fatherPhotoId,
-      this.motherPhoto,
-      this.motherPhotoId,
-      this.gender,
-      this.height,
-      this.weight,
-      this.address,
-      this.fatherName,
-      this.fatherMailId,
-      this.fatherMobileno,
-      this.motherName,
-      this.motherMailId,
-      this.motherMobileno});
+  StudentProfileModel({
+    this.studentName,
+    this.admissionNo,
+    this.rollNo,
+    this.classc,
+    this.divisionName,
+    this.divisionId,
+    this.bloodGroup,
+    this.houseGroup,
+    this.classTeacher,
+    this.dob,
+    this.studentPhoto,
+    this.studentPhotoId,
+    this.fatherPhoto,
+    this.fatherPhotoId,
+    this.motherPhoto,
+    this.motherPhotoId,
+    this.gender,
+    this.height,
+    this.weight,
+    this.address,
+    this.fatherName,
+    this.fatherMailId,
+    this.fatherMobileno,
+    this.motherName,
+    this.motherMailId,
+    this.motherMobileno,
+    this.area,
+  });
 
   StudentProfileModel.fromJson(Map<String, dynamic> json) {
     studentName = json['studentName'];
@@ -81,6 +84,7 @@ class StudentProfileModel {
     motherName = json['motherName'];
     motherMailId = json['motherMailId'];
     motherMobileno = json['motherMobileno'];
+    area = json['area'];
   }
 
   Map<String, dynamic> toJson() {
@@ -111,6 +115,7 @@ class StudentProfileModel {
     data['motherName'] = this.motherName;
     data['motherMailId'] = this.motherMailId;
     data['motherMobileno'] = this.motherMobileno;
+    data['area'] = this.area;
     return data;
   }
 }

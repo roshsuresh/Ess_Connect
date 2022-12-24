@@ -140,7 +140,7 @@ class _SearchStaffState extends State<SearchStaff> {
                     );
                   }
                   return value.loading
-                      ? const Center(child: spinkitLoader())
+                      ? Center(child: spinkitLoader())
                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: value.staffReportList.length == null

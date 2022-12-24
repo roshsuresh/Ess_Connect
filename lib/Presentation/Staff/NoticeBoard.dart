@@ -3,6 +3,7 @@ import 'package:essconnect/Application/Staff_Providers/NoticeboardSend.dart';
 import 'package:essconnect/Presentation/Staff/ReceivedNoticeBoard.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
@@ -256,6 +257,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             controller: titleController,
             minLines: 1,
             maxLines: 1,
@@ -281,6 +283,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
           child: TextFormField(
             controller: mattercontroller,
             minLines: 1,
+            inputFormatters: [LengthLimitingTextInputFormatter(300)],
             maxLines: 5,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(

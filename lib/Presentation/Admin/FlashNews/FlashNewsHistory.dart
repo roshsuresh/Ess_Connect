@@ -20,7 +20,7 @@ class FlashNewsHistory extends StatelessWidget {
     return Consumer<FlashNewsProviderAdmin>(
       builder: (context, provider, child) {
         return provider.loading
-            ? const spinkitLoader()
+            ? spinkitLoader()
             : ListView.builder(
                 itemCount:
                     provider.flashlist.isEmpty ? 0 : provider.flashlist.length,
@@ -45,7 +45,7 @@ class FlashNewsHistory extends StatelessWidget {
                   String enddate = provider.flashlist[index].endDate ?? '--';
                   var updateendDate = DateFormat('yyyy-MM-dd').parse(enddate);
                   String newendDate = updateendDate.toString();
-                  String finalendDate = newstartDate.replaceRange(10, 23, '');
+                  String finalendDate = newendDate.replaceRange(10, 23, '');
 
                   ////
                   String even = provider.flashlist[index].id.toString();

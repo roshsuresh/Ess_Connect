@@ -546,7 +546,7 @@ class _Notification_StaffToGuardainState
               return value.loading
                   ? LimitedBox(
                       maxHeight: widget.size.height - 330,
-                      child: const Center(child: spinkitLoader()),
+                      child: Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
                       maxHeight: widget.size.height - 305,
@@ -613,7 +613,7 @@ class Notification_StudList extends StatelessWidget {
             value.selectItem(viewStud);
           },
           selectedTileColor: const Color.fromARGB(255, 10, 27, 141),
-          title: Text(viewStud.name == null ? '---' : viewStud.name),
+          title: Text(viewStud.name == null ? '---' : viewStud.name.toString()),
           subtitle: Text(viewStud.admnNo ?? '---'),
           trailing: viewStud.selected != null && viewStud.selected!
               ? SvgPicture.asset(

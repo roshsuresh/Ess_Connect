@@ -416,7 +416,7 @@ class _FeeReportState extends State<FeeReport> {
           ),
           Consumer<FeeReportProvider>(
             builder: (context, value, child) => value.loading
-                ? const spinkitLoader()
+                ? spinkitLoader()
                 : Padding(
                     padding: const EdgeInsets.only(left: 6, right: 6),
                     child: LimitedBox(
@@ -454,7 +454,7 @@ class _FeeReportState extends State<FeeReport> {
                                 columnWidths: const {
                                   0: FlexColumnWidth(0.8),
                                   1: FlexColumnWidth(1),
-                                  2: FlexColumnWidth(2.5),
+                                  2: FlexColumnWidth(2.4),
                                   3: FlexColumnWidth(2),
                                   4: FlexColumnWidth(1),
                                 },
@@ -475,13 +475,13 @@ class _FeeReportState extends State<FeeReport> {
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),
-                                    Center(
-                                      child: Text(
-                                        value.collectionList[index].name ??
-                                            '--',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w500),
-                                      ),
+                                    Text(
+                                      value.collectionList[index].name == null
+                                          ? '--'
+                                          : "  ${value.collectionList[index].name}",
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500),
                                     ),
                                     Center(
                                       child: Text(
@@ -493,7 +493,8 @@ class _FeeReportState extends State<FeeReport> {
                                                 .remittedFees
                                                 .toString(),
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                     Consumer<FeeReportProvider>(

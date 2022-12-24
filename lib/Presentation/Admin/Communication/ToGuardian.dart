@@ -460,7 +460,7 @@ class _Notification_AdminToGuardainState
               return value.loading
                   ? LimitedBox(
                       maxHeight: size.height - 300,
-                      child: const Center(child: spinkitLoader()),
+                      child: Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
                       maxHeight: size.height - 320,

@@ -58,7 +58,7 @@ class StudentNotificationHistory extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Consumer<NotificationToGuardianAdmin>(
       builder: (context, value, child) => value.loading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : AnimationLimiter(
               child: ListView.builder(
                 shrinkWrap: true,

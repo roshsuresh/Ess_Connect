@@ -1,5 +1,3 @@
-//
-
 class CourseListModel {
   String? courseId;
   String? name;
@@ -17,11 +15,11 @@ class CourseListModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['courseId'] = this.courseId;
-    data['name'] = this.name;
-    data['sectionOrder'] = this.sectionOrder;
-    data['courseOrder'] = this.courseOrder;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['courseId'] = courseId;
+    data['name'] = name;
+    data['sectionOrder'] = sectionOrder;
+    data['courseOrder'] = courseOrder;
     return data;
   }
 }
@@ -31,28 +29,21 @@ class CourseListModel {
 class DivisionListModel {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  DivisionListModel(
-      {this.value, this.text, this.selected, this.active, this.order});
+  DivisionListModel({
+    this.value,
+    this.text,
+  });
 
   DivisionListModel.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
     return data;
   }
 }

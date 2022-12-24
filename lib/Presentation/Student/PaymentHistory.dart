@@ -35,7 +35,7 @@ class PaymentHistory extends StatelessWidget {
       ),
       body: Consumer<PaymentHistoryProvider>(builder: (context, value, child) {
         return value.loading
-            ? const spinkitLoader()
+            ? spinkitLoader()
             : ListView(
                 children: [
                   kheight10,
@@ -159,18 +159,16 @@ class PaymentHistory extends StatelessWidget {
                                           if (value.extension.toString() ==
                                               '.pdf') {
                                             Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PdfDownloadFee()),
-                                            );
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PdfDownloadFee()));
                                           } else {
                                             Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const NoAttachmentScreenFee()),
-                                            );
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const NoAttachmentScreenFee()));
                                           }
                                         },
                                       )

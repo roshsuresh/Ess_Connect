@@ -90,7 +90,7 @@ class _TeachingStaffState extends State<TeachingStaff> {
           maxHeight: size.height - 110,
           child: Consumer<StaffReportProviders>(
             builder: (context, value, child) => value.loading
-                ? const spinkitLoader()
+                ? spinkitLoader()
                 : AnimationLimiter(
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(
@@ -466,7 +466,7 @@ class _NonTeachingStaffState extends State<NonTeachingStaff> {
           maxHeight: size.height - 110,
           child: Consumer<StaffReportProviders>(
             builder: (context, value, child) => value.loading
-                ? const spinkitLoader()
+                ? spinkitLoader()
                 : AnimationLimiter(
                     child: ListView.builder(
                       // padding: EdgeInsets.all(size.width / 30),
@@ -843,7 +843,7 @@ class _BothStaffState extends State<BothStaff> {
           maxHeight: size.height - 110,
           child: Consumer<StaffReportProviders>(
             builder: (context, value, child) => value.loading
-                ? const spinkitLoader()
+                ? spinkitLoader()
                 : AnimationLimiter(
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(

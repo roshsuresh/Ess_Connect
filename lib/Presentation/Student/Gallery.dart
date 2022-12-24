@@ -45,14 +45,13 @@ class _GalleryState extends State<Gallery> {
       ),
       body: Consumer<GalleryProvider>(
         builder: (context, value, child) => value.loading
-            ? const spinkitLoader()
+            ? spinkitLoader()
             : ListView(
                 children: [
                   LimitedBox(
                     maxHeight: size.height - 80,
                     child: ListView.builder(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        // scrollDirection: Axis.vertical,
+                        physics: const AlwaysScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: galleryResponse == null
                             ? 0
@@ -143,7 +142,6 @@ class _GalleryState extends State<Gallery> {
                                                                   ['caption']
                                                               .toString(),
                                                       maxLines: 3,
-                                                      style: TextStyle(),
                                                     ),
                                                     kheight10,
                                                   ],

@@ -13,7 +13,7 @@ class UASmarkentryReport extends StatelessWidget {
     return Consumer<MarkEntryReportProvider_stf>(
       builder: (context, val, child) => val.loading
           ? Column(
-              children: const [
+              children: [
                 SizedBox(
                   height: 150,
                 ),

@@ -19,7 +19,7 @@ class GalleryListAdmin extends StatelessWidget {
     return Consumer<GalleryProviderAdmin>(
       builder: (context, provider, child) {
         return provider.loading
-            ? const spinkitLoader()
+            ? spinkitLoader()
             : ListView.builder(
                 itemCount: provider.galleryViewList.isEmpty
                     ? 0
@@ -57,7 +57,7 @@ class GalleryListAdmin extends StatelessWidget {
                                         .toString();
                                     await provider.galleryEdit(eventt);
                                     provider.load
-                                        ? const spinkitLoader()
+                                        ? spinkitLoader()
                                         : showDialog(
                                             context: context,
                                             builder: (context) {
@@ -150,7 +150,7 @@ class GalleryListAdmin extends StatelessWidget {
                                                           ),
                                                         ),
                                                         provider.load
-                                                            ? const spinkitLoader()
+                                                            ? spinkitLoader()
                                                             : GridView.count(
                                                                 shrinkWrap:
                                                                     true,

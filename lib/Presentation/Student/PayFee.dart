@@ -198,7 +198,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                           print(value.feeList.length);
                                           return CheckboxListTile(
                                             activeColor: const Color.fromARGB(
-                                                255, 238, 236, 236),
+                                                255, 243, 243, 243),
                                             checkColor: UIGuide.light_Purple,
                                             selectedTileColor:
                                                 UIGuide.light_Purple,
@@ -466,9 +466,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                                                 FontWeight.bold,
                                                             color: UIGuide
                                                                 .light_Purple),
-                                                        text:
-                                                            // provider.title ??
-                                                            finalDate),
+                                                        text: finalDate),
                                                   ),
                                                 ),
                                               ],
@@ -712,10 +710,6 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
               child: Consumer<FeesProvider>(
                 builder: (_, trans, child) {
                   return MaterialButton(
-                    // shape: RoundedRectangleBorder(
-                    //   borderRadius: BorderRadius.circular(10.0),
-                    //   side: BorderSide(color: UIGuide.THEME_LIGHT),
-                    // ),
                     height: 50,
                     onPressed: () async {
                       if (trans.gateway == null) {
@@ -766,7 +760,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   desc:
                                       "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
                                   btnOkOnPress: () async {
-                                    ///////////////////         PAYTM         ////////////////////////
+///////////////////  ---------------------------     PAYTM    -------------------------------  ////////////////////////
 
                                     if (trans.gateway == 'Paytm') {
                                       await Provider.of<FeesProvider>(context,
@@ -909,9 +903,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                 ).show();
                               }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////              get data of two             ////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////              get data of two             ////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                               else if (trans.transactionList.length == 2) {
                                 print(

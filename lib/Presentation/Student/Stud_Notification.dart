@@ -1,3 +1,4 @@
+import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationReceived.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,10 @@ class Stud_Notification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<NotificationReceivedProviderStudent>(context,
           listen: false);
-      p.getNotificationReceived();
+      await p.getNotificationReceived();
     });
     var size = MediaQuery.of(context).size;
 
@@ -39,7 +40,7 @@ class Stud_Notification extends StatelessWidget {
       ),
       body: Consumer<NotificationReceivedProviderStudent>(
         builder: (context, value, child) => value.loading
-            ? const spinkitLoader()
+            ? spinkitLoader()
             : Scrollbar(
                 child: AnimationLimiter(
                   child: ListView.builder(

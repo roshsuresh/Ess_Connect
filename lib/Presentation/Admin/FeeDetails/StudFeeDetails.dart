@@ -68,7 +68,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
         padding: const EdgeInsets.all(4.0),
         child: Consumer<FeeDetailsProvider>(builder: (context, value, child) {
           return value.load
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : Consumer<FeeDetailsProvider>(
                   builder: (context, list, child) {
                     return list.generalFeeDueList.isEmpty &&
@@ -284,7 +284,6 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                               children: [
                                                                                 TableRow(
                                                                                     decoration: const BoxDecoration(
-                                                                                      //  border: Border.all(),
                                                                                       color: Colors.white,
                                                                                     ),
                                                                                     children: [
@@ -418,7 +417,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                           itemCount: busfee.busFeeDueList.isEmpty ? 0 : busfee.busFeeDueList.length,
                                                                           itemBuilder: ((context, index) {
                                                                             return LimitedBox(
-                                                                              maxHeight: 30,
+                                                                              //maxHeight: ,
                                                                               child: Table(
                                                                                 columnWidths: const {
                                                                                   0: FlexColumnWidth(3),
@@ -953,83 +952,85 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                                                     padding: const EdgeInsets.all(3.0),
                                                                                                                     child: Container(
                                                                                                                       decoration: BoxDecoration(border: Border.all(color: UIGuide.light_Purple), borderRadius: const BorderRadius.all(Radius.circular(10)), color: UIGuide.WHITE),
-                                                                                                                      height: 70,
-                                                                                                                      child: Padding(
-                                                                                                                        padding: const EdgeInsets.only(left: 4.0),
-                                                                                                                        child: Column(
-                                                                                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                                                                          children: [
-                                                                                                                            Row(
-                                                                                                                              children: [
-                                                                                                                                const Text('Installment Name: '),
-                                                                                                                                Flexible(
-                                                                                                                                  child: RichText(
-                                                                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                                                                    strutStyle: const StrutStyle(fontSize: 12.0),
-                                                                                                                                    text: TextSpan(
-                                                                                                                                      style: const TextStyle(color: Colors.black),
-                                                                                                                                      text: busPaid.busFeePaidList[indexx].busFees![index].installmentname ?? '--',
+                                                                                                                      height: 80,
+                                                                                                                      child: Center(
+                                                                                                                        child: Padding(
+                                                                                                                          padding: const EdgeInsets.only(left: 4.0),
+                                                                                                                          child: Column(
+                                                                                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                                            children: [
+                                                                                                                              Row(
+                                                                                                                                children: [
+                                                                                                                                  const Text('Installment Name: '),
+                                                                                                                                  Flexible(
+                                                                                                                                    child: RichText(
+                                                                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                                                                      strutStyle: const StrutStyle(fontSize: 12.0),
+                                                                                                                                      text: TextSpan(
+                                                                                                                                        style: const TextStyle(color: Colors.black),
+                                                                                                                                        text: busPaid.busFeePaidList[indexx].busFees![index].installmentname ?? '--',
+                                                                                                                                      ),
                                                                                                                                     ),
                                                                                                                                   ),
-                                                                                                                                ),
-                                                                                                                              ],
-                                                                                                                            ),
-                                                                                                                            const SizedBox(
-                                                                                                                              height: 2,
-                                                                                                                            ),
-                                                                                                                            Row(
-                                                                                                                              children: [
-                                                                                                                                const Text('Due Amount: '),
-                                                                                                                                Flexible(
-                                                                                                                                  child: RichText(
-                                                                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                                                                    strutStyle: const StrutStyle(fontSize: 12.0),
-                                                                                                                                    text: TextSpan(
-                                                                                                                                      style: const TextStyle(color: Colors.black),
-                                                                                                                                      text: busPaid.busFeePaidList[indexx].busFees![index].dueAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].dueAmount.toString(),
+                                                                                                                                ],
+                                                                                                                              ),
+                                                                                                                              const SizedBox(
+                                                                                                                                height: 2,
+                                                                                                                              ),
+                                                                                                                              Row(
+                                                                                                                                children: [
+                                                                                                                                  const Text('Due Amount: '),
+                                                                                                                                  Flexible(
+                                                                                                                                    child: RichText(
+                                                                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                                                                      strutStyle: const StrutStyle(fontSize: 12.0),
+                                                                                                                                      text: TextSpan(
+                                                                                                                                        style: const TextStyle(color: Colors.black),
+                                                                                                                                        text: busPaid.busFeePaidList[indexx].busFees![index].dueAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].dueAmount.toString(),
+                                                                                                                                      ),
                                                                                                                                     ),
                                                                                                                                   ),
-                                                                                                                                ),
-                                                                                                                              ],
-                                                                                                                            ),
-                                                                                                                            const SizedBox(
-                                                                                                                              height: 2,
-                                                                                                                            ),
-                                                                                                                            Row(
-                                                                                                                              children: [
-                                                                                                                                const Text('Fine Amount: '),
-                                                                                                                                Flexible(
-                                                                                                                                  child: RichText(
-                                                                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                                                                    strutStyle: const StrutStyle(fontSize: 12.0),
-                                                                                                                                    text: TextSpan(
-                                                                                                                                      style: const TextStyle(color: Colors.black),
-                                                                                                                                      text: busPaid.busFeePaidList[indexx].busFees![index].fineAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].fineAmount.toString(),
+                                                                                                                                ],
+                                                                                                                              ),
+                                                                                                                              const SizedBox(
+                                                                                                                                height: 2,
+                                                                                                                              ),
+                                                                                                                              Row(
+                                                                                                                                children: [
+                                                                                                                                  const Text('Fine Amount: '),
+                                                                                                                                  Flexible(
+                                                                                                                                    child: RichText(
+                                                                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                                                                      strutStyle: const StrutStyle(fontSize: 12.0),
+                                                                                                                                      text: TextSpan(
+                                                                                                                                        style: const TextStyle(color: Colors.black),
+                                                                                                                                        text: busPaid.busFeePaidList[indexx].busFees![index].fineAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].fineAmount.toString(),
+                                                                                                                                      ),
                                                                                                                                     ),
                                                                                                                                   ),
-                                                                                                                                ),
-                                                                                                                              ],
-                                                                                                                            ),
-                                                                                                                            const SizedBox(
-                                                                                                                              height: 2,
-                                                                                                                            ),
-                                                                                                                            Row(
-                                                                                                                              children: [
-                                                                                                                                const Text('Total Paid: '),
-                                                                                                                                Flexible(
-                                                                                                                                  child: RichText(
-                                                                                                                                    overflow: TextOverflow.ellipsis,
-                                                                                                                                    strutStyle: const StrutStyle(fontSize: 12.0),
-                                                                                                                                    text: TextSpan(
-                                                                                                                                      style: const TextStyle(color: Colors.black),
-                                                                                                                                      text: busPaid.busFeePaidList[indexx].busFees![index].totalPaidAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].totalPaidAmount.toString(),
+                                                                                                                                ],
+                                                                                                                              ),
+                                                                                                                              const SizedBox(
+                                                                                                                                height: 2,
+                                                                                                                              ),
+                                                                                                                              Row(
+                                                                                                                                children: [
+                                                                                                                                  const Text('Total Paid: '),
+                                                                                                                                  Flexible(
+                                                                                                                                    child: RichText(
+                                                                                                                                      overflow: TextOverflow.ellipsis,
+                                                                                                                                      strutStyle: const StrutStyle(fontSize: 12.0),
+                                                                                                                                      text: TextSpan(
+                                                                                                                                        style: const TextStyle(color: Colors.black),
+                                                                                                                                        text: busPaid.busFeePaidList[indexx].busFees![index].totalPaidAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].totalPaidAmount.toString(),
+                                                                                                                                      ),
                                                                                                                                     ),
                                                                                                                                   ),
-                                                                                                                                ),
-                                                                                                                              ],
-                                                                                                                            )
-                                                                                                                          ],
+                                                                                                                                ],
+                                                                                                                              )
+                                                                                                                            ],
+                                                                                                                          ),
                                                                                                                         ),
                                                                                                                       ),
                                                                                                                     ),
@@ -1058,7 +1059,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                             child: RichText(
                                                                                               overflow: TextOverflow.ellipsis,
                                                                                               strutStyle: const StrutStyle(fontSize: 12.0),
-                                                                                              text: TextSpan(style: const TextStyle(color: Colors.black), text: busPaid.busFeePaidList[indexx].billDate ?? '--'),
+                                                                                              text: TextSpan(style: const TextStyle(color: Colors.black), text: busPaid.busFeePaidList[indexx].transactionId ?? '--'),
                                                                                             ),
                                                                                           ),
                                                                                         ],

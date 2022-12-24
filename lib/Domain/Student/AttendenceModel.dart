@@ -29,15 +29,15 @@ class AttendenceModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['workDays'] = this.workDays;
-    data['presentDays'] = this.presentDays;
-    data['absentDays'] = this.absentDays;
-    data['attendancePercentage'] = this.attendancePercentage;
-    data['attendanceAsOnDate'] = this.attendanceAsOnDate;
-    if (this.monthwiseAttendence != null) {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['workDays'] = workDays;
+    data['presentDays'] = presentDays;
+    data['absentDays'] = absentDays;
+    data['attendancePercentage'] = attendancePercentage;
+    data['attendanceAsOnDate'] = attendanceAsOnDate;
+    if (monthwiseAttendence != null) {
       data['monthwiseAttendence'] =
-          this.monthwiseAttendence!.map((v) => v.toJson()).toList();
+          monthwiseAttendence!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -69,13 +69,13 @@ class MonthwiseAttendence {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['month'] = this.month;
-    data['attMonthId'] = this.attMonthId;
-    data['totalWorkingDays'] = this.totalWorkingDays;
-    data['daysPresent'] = this.daysPresent;
-    data['daysAbsent'] = this.daysAbsent;
-    data['percentage'] = this.percentage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['month'] = month;
+    data['attMonthId'] = attMonthId;
+    data['totalWorkingDays'] = totalWorkingDays;
+    data['daysPresent'] = daysPresent;
+    data['daysAbsent'] = daysAbsent;
+    data['percentage'] = percentage;
     return data;
   }
 }

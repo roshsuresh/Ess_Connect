@@ -147,7 +147,7 @@ class GalleryonTapStaff extends StatelessWidget {
       child: Scaffold(
         body: Consumer<GallerySendProvider_Stf>(
           builder: (context, value, child) => value.load
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.count(

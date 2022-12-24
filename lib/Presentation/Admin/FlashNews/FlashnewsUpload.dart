@@ -2,6 +2,7 @@ import 'package:essconnect/Application/AdminProviders/FlashNewsProviders.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +54,7 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
           child: TextFormField(
             controller: titleController,
             minLines: 1,
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             maxLines: 1,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(

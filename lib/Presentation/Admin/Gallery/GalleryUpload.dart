@@ -4,6 +4,7 @@ import 'package:essconnect/Domain/Admin/Course&DivsionList.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
@@ -81,6 +82,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
             controller: titleController,
             minLines: 1,
             maxLines: 1,
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
               labelText: 'Title*',
@@ -301,6 +303,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                       await Provider.of<GalleryProviderAdmin>(context,
                               listen: false)
                           .courseCounter(results.length);
+                      if (!mounted) return;
                       await Provider.of<GalleryProviderAdmin>(context,
                               listen: false)
                           .getDivisionList(course);
@@ -418,7 +421,8 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
             width: 100,
             child: MaterialButton(
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              ),
               minWidth: size.width - 150,
               color: UIGuide.light_Purple,
               onPressed: (() async {

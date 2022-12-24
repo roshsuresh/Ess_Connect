@@ -1,16 +1,35 @@
-import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'package:loading_indicator/loading_indicator.dart';
 
 class spinkitLoader extends StatelessWidget {
-  const spinkitLoader({Key? key}) : super(key: key);
+  spinkitLoader({Key? key}) : super(key: key);
+  final List<Color> _kDefaultRainbowColors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.indigo,
+    Colors.purple,
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: SpinKitCircle(
-      color: UIGuide.light_Purple,
-      size: 50,
-    ));
+    return Center(
+      child: Container(
+        width: 80,
+        height: 80,
+        child: LoadingIndicator(
+          colors: _kDefaultRainbowColors,
+          strokeWidth: 2.0,
+          indicatorType: Indicator.ballRotateChase,
+        ),
+      ),
+      //     SpinKitCircle(
+      //   color: UIGuide.light_Purple,
+      //   size: 50,
+      // )
+    );
   }
 }

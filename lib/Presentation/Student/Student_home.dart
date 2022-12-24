@@ -3,6 +3,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
 import 'package:essconnect/Application/StudentProviders/InternetConnection.dart';
+import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
@@ -45,7 +46,9 @@ class _StudentHomeState extends State<StudentHome> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await Provider.of<ConnectivityProvider>(context, listen: false);
+      Provider.of<ConnectivityProvider>(context, listen: false);
+      await Provider.of<StudNotificationCountProviders>(context, listen: false)
+          .getnotificationCount();
       Provider.of<SibingsProvider>(context, listen: false).siblingList.clear();
       await Provider.of<SibingsProvider>(context, listen: false)
           .getSiblingName();
@@ -170,66 +173,83 @@ class _StudentHomeState extends State<StudentHome> {
                                 ),
                               ),
                             ),
-                            Badge(
-                              showBadge: true,
-                              position: BadgePosition.topEnd(end: 9),
-                              badgeContent: const Text(
-                                '1',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Stud_Notification()),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Card(
-                                        elevation: 10,
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            height: 38,
-                                            width: 38,
-                                            decoration: BoxDecoration(
-                                              image: const DecorationImage(
-                                                opacity: 20,
-                                                image: AssetImage(
-                                                  'assets/notificationnew.png',
+                            Consumer<StudNotificationCountProviders>(
+                              builder: (context, count, child) => Badge(
+                                showBadge: count.count == 0 ? false : true,
+                                animationDuration:
+                                    const Duration(milliseconds: 300),
+                                animationType: BadgeAnimationType.fade,
+                                position: BadgePosition.topEnd(end: 9),
+                                badgeContent: Text(
+                                  count.count == null
+                                      ? '0'
+                                      : count.count.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await Provider.of<
+                                                StudNotificationCountProviders>(
+                                            context,
+                                            listen: false)
+                                        .seeNotification();
+                                    await Provider.of<
+                                                StudNotificationCountProviders>(
+                                            context,
+                                            listen: false)
+                                        .getnotificationCount();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Stud_Notification()),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Card(
+                                          elevation: 10,
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 38,
+                                              width: 38,
+                                              decoration: BoxDecoration(
+                                                image: const DecorationImage(
+                                                  opacity: 20,
+                                                  image: AssetImage(
+                                                    'assets/notificationnew.png',
+                                                  ),
                                                 ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      kheight,
-                                      const Text(
-                                        'Notification',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
-                                            color: Colors.black),
-                                      )
-                                    ],
+                                        kheight,
+                                        const Text(
+                                          'Notification',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 11,
+                                              color: Colors.black),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -1140,7 +1160,7 @@ class ProfileHome extends StatelessWidget {
                               Radius.circular(10),
                             )),
                         child: value.loading
-                            ? const spinkitLoader()
+                            ? spinkitLoader()
                             : Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

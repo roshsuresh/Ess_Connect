@@ -93,7 +93,6 @@ class NotificationToGuardian_Providers with ChangeNotifier {
                 .map((x) => CommunicationToGuardian_course.fromJson(x)));
         communicationToGuardianInitialValues.addAll(templist);
         print(data);
-        // staffNotificationToGuardianRespo = data['attendenceinitvalues'];
         NotificationToGuardian_initialValues att =
             NotificationToGuardian_initialValues.fromJson(
                 data['initialValues']);
@@ -210,16 +209,12 @@ class NotificationToGuardian_Providers with ChangeNotifier {
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
-
       log(data.toString());
-
       List<StudentViewbyCourseDivision_notification_Stf> templist =
           List<StudentViewbyCourseDivision_notification_Stf>.from(
               data["studentViewbyCourseDivision"].map((x) =>
                   StudentViewbyCourseDivision_notification_Stf.fromJson(x)));
       notificationView.addAll(templist);
-
-      print('correct');
       setLoading(false);
       notifyListeners();
     } else {

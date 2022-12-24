@@ -32,7 +32,7 @@ class Profile_Info extends StatelessWidget {
       body: Consumer<ProfileProvider>(
         builder: (_, provider, child) {
           return provider.loading
-              ? const spinkitLoader()
+              ? spinkitLoader()
               : ListView(
                   children: [
                     Stack(
@@ -475,17 +475,17 @@ class Profile_Info extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      provider.classTeacher ==
-                                                              null
+                                                      provider.area == 'NIL'
                                                           ? '--'
-                                                          : provider.toString(),
+                                                          : provider.area
+                                                              .toString(),
                                                       style: const TextStyle(
                                                         color: UIGuide
                                                             .light_Purple,
                                                       ),
                                                     ),
                                                     const Text(
-                                                      'Birthplace',
+                                                      'Area',
                                                       style: TextStyle(
                                                           color: Colors.black38,
                                                           fontSize: 12),

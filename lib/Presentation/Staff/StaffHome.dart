@@ -906,14 +906,13 @@ class StaffProfile extends StatelessWidget {
                 ],
                 child: Consumer<StaffProfileProvider>(
                   builder: (context, value, child) => value.loading
-                      ? const spinkitLoader()
+                      ? spinkitLoader()
                       : Column(
                           children: [
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   image: DecorationImage(
-                                    // opacity: 20,
                                     image: NetworkImage(value.photo == null
                                         ? 'https://plantbiology.ucr.edu/sites/default/files/styles/form_preview/public/blank-profile-pic.png?itok=rhVwP3MG'
                                         : value.photo.toString()),

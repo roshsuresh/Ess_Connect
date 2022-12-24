@@ -19,7 +19,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Consumer<NotificationToStaffAdminProviders>(
       builder: (context, value, child) => value.loading
-          ? const spinkitLoader()
+          ? spinkitLoader()
           : AnimationLimiter(
               child: ListView.builder(
                 shrinkWrap: true,

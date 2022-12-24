@@ -10,10 +10,9 @@ class FeeDetailsAdmin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (feeCollectionPopupDetails != null) {
-      data['feeCollectionPopupDetails'] =
-          this.feeCollectionPopupDetails!.toJson();
+      data['feeCollectionPopupDetails'] = feeCollectionPopupDetails!.toJson();
     }
     return data;
   }
@@ -50,18 +49,18 @@ class FeeCollectionPopupDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['totalpaid'] = this.totalpaid;
-    if (this.studentAllDetails != null) {
-      data['studentAllDetails'] = this.studentAllDetails!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['totalpaid'] = totalpaid;
+    if (studentAllDetails != null) {
+      data['studentAllDetails'] = studentAllDetails!.toJson();
     }
-    if (this.generalCollectDetails != null) {
+    if (generalCollectDetails != null) {
       data['generalCollectDetails'] =
-          this.generalCollectDetails!.map((v) => v.toJson()).toList();
+          generalCollectDetails!.map((v) => v.toJson()).toList();
     }
-    if (this.busCollectDetails != null) {
+    if (busCollectDetails != null) {
       data['busCollectDetails'] =
-          this.busCollectDetails!.map((v) => v.toJson()).toList();
+          busCollectDetails!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -102,16 +101,16 @@ class StudentAllDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['feeCollectionId'] = this.feeCollectionId;
-    data['busFeeCollectionId'] = this.busFeeCollectionId;
-    data['admissionNo'] = this.admissionNo;
-    data['name'] = this.name;
-    data['division'] = this.division;
-    data['orderId'] = this.orderId;
-    data['transactionId'] = this.transactionId;
-    data['transactionDate'] = this.transactionDate;
-    data['studentId'] = this.studentId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['feeCollectionId'] = feeCollectionId;
+    data['busFeeCollectionId'] = busFeeCollectionId;
+    data['admissionNo'] = admissionNo;
+    data['name'] = name;
+    data['division'] = division;
+    data['orderId'] = orderId;
+    data['transactionId'] = transactionId;
+    data['transactionDate'] = transactionDate;
+    data['studentId'] = studentId;
     return data;
   }
 }
@@ -148,15 +147,15 @@ class GeneralCollectDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['feeCollectionId'] = this.feeCollectionId;
-    data['busFeeCollectionId'] = this.busFeeCollectionId;
-    data['dueAmount'] = this.dueAmount;
-    data['concessionAmount'] = this.concessionAmount;
-    data['fineAmount'] = this.fineAmount;
-    data['netDue'] = this.netDue;
-    data['paidAmount'] = this.paidAmount;
-    data['installmentname'] = this.installmentname;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['feeCollectionId'] = feeCollectionId;
+    data['busFeeCollectionId'] = busFeeCollectionId;
+    data['dueAmount'] = dueAmount;
+    data['concessionAmount'] = concessionAmount;
+    data['fineAmount'] = fineAmount;
+    data['netDue'] = netDue;
+    data['paidAmount'] = paidAmount;
+    data['installmentname'] = installmentname;
     return data;
   }
 }
@@ -193,15 +192,15 @@ class BusCollectDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['feeCollectionId'] = this.feeCollectionId;
-    data['busFeeCollectionId'] = this.busFeeCollectionId;
-    data['dueAmount'] = this.dueAmount;
-    data['netDue'] = this.netDue;
-    data['paidAmount'] = this.paidAmount;
-    data['installmentname'] = this.installmentname;
-    data['concessionAmount'] = this.concessionAmount;
-    data['fineAmount'] = this.fineAmount;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['feeCollectionId'] = feeCollectionId;
+    data['busFeeCollectionId'] = busFeeCollectionId;
+    data['dueAmount'] = dueAmount;
+    data['netDue'] = netDue;
+    data['paidAmount'] = paidAmount;
+    data['installmentname'] = installmentname;
+    data['concessionAmount'] = concessionAmount;
+    data['fineAmount'] = fineAmount;
     return data;
   }
 }

@@ -4,7 +4,7 @@ class SizeConfig {
   static SizeConfig? _instance;
   static BuildContext? context;
   static SizeConfig? instance(BuildContext context) {
-    if (_instance == null) _instance = SizeConfig._init(context);
+    _instance ??= SizeConfig._init(context);
     return _instance;
   }
 

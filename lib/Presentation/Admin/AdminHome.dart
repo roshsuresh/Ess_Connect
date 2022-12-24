@@ -31,16 +31,25 @@ import 'NoticeBoard/NoticeboardScreen.dart';
 import 'StaffReport.dart';
 import 'FeeDetails/StudFeeSearch.dart';
 
-class AdminHome extends StatelessWidget {
+class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<AdminHome> createState() => _AdminHomeState();
+}
+
+class _AdminHomeState extends State<AdminHome> {
+  @override
+  void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<ConnectivityProvider>(context, listen: false);
       Provider.of<ModuleProviders>(context, listen: false).getModuleDetails();
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Consumer<ConnectivityProvider>(
@@ -1141,7 +1150,7 @@ class _AdminProfileTopState extends State<AdminProfileTop> {
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: Consumer<DashboardAdmin>(
               builder: (context, value, child) => value.loading
-                  ? const spinkitLoader()
+                  ? spinkitLoader()
                   : SingleChildScrollView(
                       child: Column(
                         children: [
@@ -1252,7 +1261,7 @@ class _AdminProfileTopState extends State<AdminProfileTop> {
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: Consumer<DashboardAdmin>(
                 builder: (context, value, child) => value.loading
-                    ? const spinkitLoader()
+                    ? spinkitLoader()
                     : SingleChildScrollView(
                         child: Column(
                           children: [
