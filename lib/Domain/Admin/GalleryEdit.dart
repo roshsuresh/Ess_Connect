@@ -54,16 +54,12 @@ class GalleryEditAdmin {
     data['title'] = title;
     data['displayStartDate'] = displayStartDate;
     data['displayEndDate'] = displayEndDate;
-
     data['cancelled'] = cancelled;
     data['approved'] = approved;
     data['createdStaffId'] = createdStaffId;
-
     data['entryDate'] = entryDate;
     data['forClassTeacherOnly'] = forClassTeacherOnly;
-
     data['displayTo'] = displayTo;
-
     if (photo != null) {
       data['photo'] = photo!.map((v) => v.toJson()).toList();
     }

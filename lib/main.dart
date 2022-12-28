@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'dart:io';
+import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/routes.dart';
@@ -236,6 +237,8 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(create: (context) => Curriculamprovider()),
         ChangeNotifierProvider(
             create: (context) => StudNotificationCountProviders()),
+        ChangeNotifierProvider(
+            create: (context) => StaffNotificationCountProviders()),
       ],
       child: MaterialApp(
         title: 'Ess Connect',

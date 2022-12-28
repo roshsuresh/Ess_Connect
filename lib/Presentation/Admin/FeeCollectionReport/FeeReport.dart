@@ -36,12 +36,11 @@ class _FeeReportState extends State<FeeReport> {
       p.courseDrop.clear();
       var c = Provider.of<FeeReportProvider>(context, listen: false);
       c.clearcollectionList();
-
       p.dropDown.clear();
       p.stdReportInitialValues.clear();
       p.courselist.clear();
       p.courseCounter(0);
-
+      c.allTotal = null;
       p.sectionCounter(0);
     });
   }

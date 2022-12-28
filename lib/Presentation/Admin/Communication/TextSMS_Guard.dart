@@ -48,7 +48,6 @@ class TextSMSGuardian extends StatelessWidget {
                       style: TextStyle(color: UIGuide.light_Purple),
                     ),
                     separateSelectedItems: true,
-                    //  checkColor: Colors.lightBlue,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: const BorderRadius.all(Radius.circular(10)),

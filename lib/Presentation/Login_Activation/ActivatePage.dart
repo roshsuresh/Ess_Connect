@@ -204,7 +204,6 @@ class _ActivatePageState extends State<ActivatePage>
                   child: Center(
                     child: Form(
                       key: _formKey,
-                      //creating a column for text box and button
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,

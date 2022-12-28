@@ -21,7 +21,7 @@ class StaffNotificationHistory {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['createdDate'] = createdDate;
     data['toStudent'] = toStudent;
     data['fromStaff'] = fromStaff;
@@ -52,12 +52,12 @@ class AdminStaffNotificationHistory {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['createdDate'] = this.createdDate;
-    data['toStaff'] = this.toStaff;
-    data['fromStaff'] = this.fromStaff;
-    data['title'] = this.title;
-    data['body'] = this.body;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['createdDate'] = createdDate;
+    data['toStaff'] = toStaff;
+    data['fromStaff'] = fromStaff;
+    data['title'] = title;
+    data['body'] = body;
     return data;
   }
 }

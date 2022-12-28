@@ -41,4 +41,14 @@ class StudStatiticsProvider with ChangeNotifier {
     }
     return true;
   }
+
+  clearStaticsList() {
+    statiticsList.clear();
+    notifyListeners();
+  }
+
+  clearTotalList() {
+    totalList.clear();
+    notifyListeners();
+  }
 }

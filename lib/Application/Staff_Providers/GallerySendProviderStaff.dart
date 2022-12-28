@@ -91,13 +91,6 @@ class GallerySendProvider_Stf with ChangeNotifier {
               .map((x) => GalleryCourseListStaff.fromJson(x)));
       courselistt.addAll(templist);
 
-      //  noticeboardInitialStf = await data['initialValues'];
-      // noticeCourseStf = await noticeboardInitialStf!['courseList'];
-
-      // // print(noticeCourseStf);
-      // NoticeboardInitialValues sd =
-      //     NoticeboardInitialValues.fromJson(data['initialValues']);
-
       //isClassTeacher = sd.isClassTeacher;
 
       notifyListeners();

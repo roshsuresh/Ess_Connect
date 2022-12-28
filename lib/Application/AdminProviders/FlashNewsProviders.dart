@@ -51,8 +51,6 @@ class FlashNewsProviderAdmin with ChangeNotifier {
               btnOkIcon: Icons.cancel,
               btnOkColor: Colors.green)
           .show();
-
-      //  print(await response.stream.bytesToString());
     } else {
       print('Error in gallery save respo');
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

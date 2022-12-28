@@ -140,9 +140,6 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
             width: 120,
             child: MaterialButton(
               // minWidth: size.width - 200,
-              child: Text(
-                  checkname == null ? 'Choose File' : checkname.toString()),
-
               color: Colors.white70,
               onPressed: (() async {
                 final result = await FilePicker.platform.pickFiles(
@@ -189,6 +186,8 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                   ));
                 }
               }),
+              child: Text(
+                  checkname == null ? 'Choose File' : checkname.toString()),
             ),
           ),
         ),
@@ -200,12 +199,11 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
         )),
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.45,
               child: MaterialButton(
                 // minWidth: size.width - 216,
-                child: Center(child: Text('From  $time')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeFrom = await showDatePicker(
@@ -231,14 +229,15 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                     print(time);
                   });
                 }),
+                // minWidth: size.width - 216,
+                child: Center(child: Text('From  $time')),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.45,
               child: MaterialButton(
                 //  minWidth: size.width - 216,
-                child: Center(child: Text('To  $timeNow')),
                 color: Colors.white,
                 onPressed: (() async {
                   _mydatetimeTo = await showDatePicker(
@@ -265,14 +264,16 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                     print(timeNow);
                   });
                 }),
+                //  minWidth: size.width - 216,
+                child: Center(child: Text('To  $timeNow')),
               ),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width * 0.49,
@@ -387,7 +388,7 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                 );
               }),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width * 0.49,
@@ -489,7 +490,7 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                 );
               }),
             ),
-            Spacer()
+            const Spacer()
           ],
         ),
         kheight20,
@@ -501,11 +502,6 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               minWidth: size.width - 150,
-              child: const Text(
-                'Save',
-                style: TextStyle(color: UIGuide.WHITE, fontSize: 18),
-                textAlign: TextAlign.center,
-              ),
               color: UIGuide.light_Purple,
               onPressed: (() async {
                 if (attachmentid.isEmpty) {
@@ -582,6 +578,11 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                         listen: false)
                     .divisionClear();
               }),
+              child: const Text(
+                'Save',
+                style: TextStyle(color: UIGuide.WHITE, fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

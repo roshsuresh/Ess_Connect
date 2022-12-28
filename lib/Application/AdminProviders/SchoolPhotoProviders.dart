@@ -65,7 +65,7 @@ class SchoolPhotoProviders with ChangeNotifier {
         dropDown = stdReportInitialValues.map((subjectdata) {
           return MultiSelectItem(subjectdata, subjectdata.text!);
         }).toList();
-        print(dropDown);
+       
         notifyListeners();
       } else {
         print("Error in notification response");
@@ -203,7 +203,7 @@ class SchoolPhotoProviders with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    print('object');
+
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());

@@ -18,7 +18,6 @@ class SibingsProvider with ChangeNotifier {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
-    // print(headers);
     var response = await http.get(
         Uri.parse("${UIGuide.baseURL}/parent-home/get-guardian-children"),
         headers: headers);
@@ -35,7 +34,6 @@ class SibingsProvider with ChangeNotifier {
       notifyListeners();
     } else {
       print('Error');
-      throw ('Error');
     }
   }
 
@@ -98,6 +96,8 @@ class SibingsProvider with ChangeNotifier {
       );
       isLoading = false;
       notifyListeners();
+    } else {
+      print('something went wrong in siblings list provider');
     }
   }
 }

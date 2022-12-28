@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class StudNotificationCountProviders with ChangeNotifier {
+class StaffNotificationCountProviders with ChangeNotifier {
   Future seeNotification() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var headers = {
@@ -13,20 +13,18 @@ class StudNotificationCountProviders with ChangeNotifier {
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
     var parsedResponse = await parseJWT();
-    final studId = await parsedResponse['ChildId'];
+    final staffId = await parsedResponse['StaffId'];
     var request = http.Request(
         'POST',
         Uri.parse(
-            '${UIGuide.baseURL}/mobileapp/token/updateStatus?StudentId=$studId'));
-    request.body = json.encode({"IsSeen": true, "Type": "Student"});
+            '${UIGuide.baseURL}/mobileapp/token/updateStatus?StudentId=null&StaffId=$staffId'));
+    request.body = json.encode({"IsSeen": true, "Type": "Staff"});
     request.headers.addAll(headers);
-    print('${UIGuide.baseURL}/mobileapp/token/updateStatus?StudentId=$studId');
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(
-          '_ _ _ _ _ _ _ _ _ _ _ _   Correct   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _');
+      print(' _ _ _ _ _ _  Notification Count  _ _ _ _ _ _');
     } else {
       print('Error in notificationInitial respo');
     }
@@ -41,14 +39,11 @@ class StudNotificationCountProviders with ChangeNotifier {
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
     var parsedResponse = await parseJWT();
-    final studID = await parsedResponse['ChildId'];
+    final staffID = await parsedResponse['StaffId'];
     var response = await http.get(
         Uri.parse(
-            "${UIGuide.baseURL}/mobileapp/token/initial-Notification-Count?Type=Student&StudentId=$studID"),
+            "${UIGuide.baseURL}/mobileapp/token/initial-Notification-Count?Type=Staff&StudentId=null&StaffId=$staffID"),
         headers: headers);
-
-    print(
-        "${UIGuide.baseURL}/mobileapp/token/initial-Notification-Count?Type=Student&StudentId=$studID");
     try {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);

@@ -155,7 +155,7 @@ class _GalleryState extends State<Gallery> {
                                               context,
                                               listen: false)
                                           .galleyAttachment(idd);
-                                      if (!mounted) return;
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

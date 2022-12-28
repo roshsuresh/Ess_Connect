@@ -71,13 +71,10 @@ class ProfileProvider with ChangeNotifier {
         dataResponse = await mapResponse!['studentDetails'];
 
         print("corect..........");
-        //  print(dataResponse);
         setLoading(true);
         StudentProfileModel std =
             StudentProfileModel.fromJson(mapResponse!['studentDetails']);
         studPhoto = std.studentPhoto;
-
-        // log(studPhoto.toString());
         studName = std.studentName;
         print(studName);
         admissionNo = std.admissionNo;
@@ -98,7 +95,6 @@ class ProfileProvider with ChangeNotifier {
         motherMailId = std.motherMailId;
         motherMobileno = std.motherMobileno;
         address = std.address;
-
         bloodGroup = std.bloodGroup;
         houseGroup = std.houseGroup;
         classTeacher = std.classTeacher;

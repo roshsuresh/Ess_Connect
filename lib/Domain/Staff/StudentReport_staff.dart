@@ -13,9 +13,9 @@ class StudentReportInitialValues {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.sectionList != null) {
-      data['sectionList'] = this.sectionList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (sectionList != null) {
+      data['sectionList'] = sectionList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -25,27 +25,20 @@ class StudReportSectionList {
   String? value;
   String? text;
   bool? selected;
-  Null active;
-  Null order;
 
-  StudReportSectionList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  StudReportSectionList({this.value, this.text, this.selected});
 
   StudReportSectionList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
     selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+    data['selected'] = selected;
     return data;
   }
 }
@@ -53,30 +46,20 @@ class StudReportSectionList {
 //course
 
 class StudReportCourse {
-  StudReportCourse(
-      {this.value, required this.text, this.selected, this.active, this.order});
+  StudReportCourse({this.value, required this.text});
 
   String? value;
   String text;
-  Null selected;
-  Null active;
-  Null order;
 
   factory StudReportCourse.fromJson(Map<String, dynamic> json) =>
       StudReportCourse(
         value: json["value"],
         text: json["text"],
-        selected: json["selected"],
-        active: json["active"],
-        order: json["order"],
       );
 
   Map<String, dynamic> toJson() => {
         "value": value,
         "text": text,
-        "selected": selected,
-        "active": active,
-        "order": order,
       };
 }
 
@@ -85,28 +68,18 @@ class StudReportCourse {
 class StudReportDivision {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  StudReportDivision(
-      {this.value, this.text, this.selected, this.active, this.order});
+  StudReportDivision({this.value, this.text});
 
   StudReportDivision.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
     return data;
   }
 }
@@ -186,28 +159,28 @@ class ViewStudentReport {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['admnNo'] = this.admnNo;
-    data['name'] = this.name;
-    data['division'] = this.division;
-    data['course'] = this.course;
-    data['sectionOrder'] = this.sectionOrder;
-    data['courseOrder'] = this.courseOrder;
-    data['divisionOrder'] = this.divisionOrder;
-    data['rollNo'] = this.rollNo;
-    data['mobNo'] = this.mobNo;
-    data['address'] = this.address;
-    data['bus'] = this.bus;
-    data['stop'] = this.stop;
-    data['studentPhotoId'] = this.studentPhotoId;
-    data['photo'] = this.photo;
-    data['photoId'] = this.photoId;
-    data['studentPhoto'] = this.studentPhoto;
-    data['terminationStatus'] = this.terminationStatus;
-    data['sectionId'] = this.sectionId;
-    data['courseId'] = this.courseId;
-    data['divisionId'] = this.divisionId;
-    data['schoolId'] = this.schoolId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['admnNo'] = admnNo;
+    data['name'] = name;
+    data['division'] = division;
+    data['course'] = course;
+    data['sectionOrder'] = sectionOrder;
+    data['courseOrder'] = courseOrder;
+    data['divisionOrder'] = divisionOrder;
+    data['rollNo'] = rollNo;
+    data['mobNo'] = mobNo;
+    data['address'] = address;
+    data['bus'] = bus;
+    data['stop'] = stop;
+    data['studentPhotoId'] = studentPhotoId;
+    data['photo'] = photo;
+    data['photoId'] = photoId;
+    data['studentPhoto'] = studentPhoto;
+    data['terminationStatus'] = terminationStatus;
+    data['sectionId'] = sectionId;
+    data['courseId'] = courseId;
+    data['divisionId'] = divisionId;
+    data['schoolId'] = schoolId;
     return data;
   }
 }

@@ -13,7 +13,11 @@ class Staff_Timetable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<StaffTimetableProvider>(context, listen: false).getTimeTable();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<StaffTimetableProvider>(context, listen: false)
+          .getTimeTable();
+    });
+
     var size = MediaQuery.of(context).size;
     var height = size.height;
     return Scaffold(

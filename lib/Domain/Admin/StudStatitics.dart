@@ -28,14 +28,14 @@ class StatisticsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['course'] = this.course;
-    data['male'] = this.male;
-    data['feMale'] = this.feMale;
-    data['totalCount'] = this.totalCount;
-    data['group'] = this.group;
-    data['sectionOrder'] = this.sectionOrder;
-    data['courseOrder'] = this.courseOrder;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['course'] = course;
+    data['male'] = male;
+    data['feMale'] = feMale;
+    data['totalCount'] = totalCount;
+    data['group'] = group;
+    data['sectionOrder'] = sectionOrder;
+    data['courseOrder'] = courseOrder;
     return data;
   }
 }
@@ -54,10 +54,10 @@ class TotalStatitics {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['netMaleCount'] = this.netMaleCount;
-    data['netFemaleCount'] = this.netFemaleCount;
-    data['netTotal'] = this.netTotal;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['netMaleCount'] = netMaleCount;
+    data['netFemaleCount'] = netFemaleCount;
+    data['netTotal'] = netTotal;
     return data;
   }
 }

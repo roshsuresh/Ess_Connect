@@ -37,8 +37,6 @@ class FeeDetailsProvider with ChangeNotifier {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
-      // log(data.toString());
-
       List<SearchStudReport> templist = List<SearchStudReport>.from(
           data["viewStudentReport"].map((x) => SearchStudReport.fromJson(x)));
       searchStudent.addAll(templist);
@@ -118,8 +116,6 @@ class FeeDetailsProvider with ChangeNotifier {
 //general due
 
       generalDue = studFeeDetails['studentGeneralFeeDueTotal'];
-
-      // print(generalDue);
       if (generalDue == null) {
         print('generalDue null');
       } else {
@@ -147,8 +143,6 @@ class FeeDetailsProvider with ChangeNotifier {
 //student General Fee Paid
 
       generalPaid = studFeeDetails['studentGeneralFeePaidTotal'];
-      // schoolFees = generalPaid[index]['schoolFees'];
-      //print(schoolFees);
       if (generalPaid == null) {
         print('generalPaid null');
       } else {
@@ -157,9 +151,6 @@ class FeeDetailsProvider with ChangeNotifier {
                 studFeeDetails['studentGeneralFeePaidTotal']
                     .map((x) => StudentGeneralFeePaidTotal.fromJson(x)));
         generalFeePaidList.addAll(templist);
-
-        //    schoolFees = studFeeDetails['studentGeneralFeePaidTotal']['schoolFees'];
-        // print(schoolFees);
       }
       setLoad(true);
 

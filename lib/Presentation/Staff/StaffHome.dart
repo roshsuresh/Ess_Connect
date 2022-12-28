@@ -1,5 +1,7 @@
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:badges/badges.dart';
+import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
 import 'package:essconnect/Application/StudentProviders/InternetConnection.dart';
 import 'package:essconnect/Presentation/Staff/ScreenNotification.dart';
@@ -8,6 +10,7 @@ import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Application/Staff_Providers/StaffFlashnews.dart';
@@ -37,7 +40,11 @@ class _StaffHomeState extends State<StaffHome> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ConnectivityProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      Provider.of<ConnectivityProvider>(context, listen: false);
+      await Provider.of<StaffNotificationCountProviders>(context, listen: false)
+          .getnotificationCount();
+    });
   }
 
   @override
@@ -222,53 +229,82 @@ class _StaffHomeState extends State<StaffHome> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () async {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            StaffNotificationScreen()),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Card(
-                                        elevation: 10,
+                              Consumer<StaffNotificationCountProviders>(
+                                builder: (context, count, child) => Badge(
+                                  showBadge: count.count == 0 ? false : true,
+                                  animationDuration:
+                                      const Duration(milliseconds: 300),
+                                  animationType: BadgeAnimationType.fade,
+                                  position: BadgePosition.topEnd(end: 9),
+                                  badgeContent: Text(
+                                    count.count == null
+                                        ? '0'
+                                        : count.count.toString(),
+                                    style: const TextStyle(
                                         color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            height: 38,
-                                            width: 38,
-                                            decoration: const BoxDecoration(
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                  'assets/notificationnew.png',
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      await Provider.of<
+                                                  StaffNotificationCountProviders>(
+                                              context,
+                                              listen: false)
+                                          .seeNotification();
+                                      await Provider.of<
+                                                  StaffNotificationCountProviders>(
+                                              context,
+                                              listen: false)
+                                          .getnotificationCount();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                StaffNotificationScreen()),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Card(
+                                            elevation: 10,
+                                            color: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                height: 38,
+                                                width: 38,
+                                                decoration: const BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                      'assets/notificationnew.png',
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
+                                          kheight10,
+                                          const Text(
+                                            'Notifications',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                                color: Colors.black),
+                                          )
+                                        ],
                                       ),
-                                      kheight10,
-                                      const Text(
-                                        'Notifications',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
-                                            color: Colors.black),
-                                      )
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -884,74 +920,100 @@ class StaffProfile extends StatelessWidget {
           child: Container(
               height: 140,
               width: size.width,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(50),
-              )),
-              child: AnimateGradient(
-                // controller: _controller,
-                // primaryBegin: Alignment.topLeft,
-                // primaryEnd: Alignment.bottomLeft,
-                // secondaryBegin: Alignment.bottomLeft,
-                // secondaryEnd: Alignment.topRight,
-                primaryColors: const [
-                  Color.fromARGB(255, 143, 193, 240),
-                  Color.fromARGB(255, 131, 142, 238),
-                  Color.fromARGB(255, 99, 101, 235),
-                ],
-                secondaryColors: const [
-                  Color.fromARGB(255, 60, 78, 240),
-                  Color.fromARGB(255, 111, 125, 248),
-                  UIGuide.light_Purple,
-                ],
-                child: Consumer<StaffProfileProvider>(
-                  builder: (context, value, child) => value.loading
-                      ? spinkitLoader()
-                      : Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image: NetworkImage(value.photo == null
-                                        ? 'https://plantbiology.ucr.edu/sites/default/files/styles/form_preview/public/blank-profile-pic.png?itok=rhVwP3MG'
-                                        : value.photo.toString()),
+              // decoration: BoxDecoration(
+              //   //  border: Border.all(color: UIGuide.THEME_LIGHT),
+              //     borderRadius: BorderRadius.all(
+              //       Radius.circular(10),
+              //     )),
+              child: Stack(
+                children: [
+                  Row(
+                    children: [
+                      LottieBuilder.network(
+                          "https://assets7.lottiefiles.com/packages/lf20_2m1smtya.json"),
+                      const Spacer(),
+                      LottieBuilder.network(
+                          "https://assets7.lottiefiles.com/packages/lf20_2m1smtya.json"),
+                    ],
+                  ),
+                  Consumer<StaffProfileProvider>(
+                    builder: (context, value, child) => value.loading
+                        ? spinkitLoader()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        image: DecorationImage(
+                                          image: NetworkImage(value.photo ==
+                                                  null
+                                              ? 'https://plantbiology.ucr.edu/sites/default/files/styles/form_preview/public/blank-profile-pic.png?itok=rhVwP3MG'
+                                              : value.photo.toString()),
+                                        ),
+                                        shape: BoxShape.circle,
+                                        boxShadow: const [
+                                          BoxShadow(blurRadius: 1)
+                                        ]),
+                                    width: 70,
+                                    height: 100,
                                   ),
-                                  shape: BoxShape.circle,
-                                  boxShadow: const [BoxShadow(blurRadius: 1)]),
-                              width: 70,
-                              height: 100,
-                            ),
-                            RichText(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              strutStyle: const StrutStyle(fontSize: 8.0),
-                              text: TextSpan(
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      color: UIGuide.BLACK,
-                                      fontWeight: FontWeight.w900),
-                                  text: value.name == null
-                                      ? '----'
-                                      : value.name.toString()),
-                            ),
-                            RichText(
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              strutStyle: const StrutStyle(fontSize: 8.0),
-                              text: TextSpan(
-                                  style: const TextStyle(
-                                      fontSize: 13,
-                                      color: UIGuide.BLACK,
-                                      fontWeight: FontWeight.w900),
-                                  text: value.designation == null
-                                      ? '---'
-                                      : value.designation.toString()),
-                            ),
-                          ],
-                        ),
-                ),
-              )),
+                                  RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    strutStyle: const StrutStyle(fontSize: 8.0),
+                                    text: TextSpan(
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            color: UIGuide.BLACK,
+                                            fontWeight: FontWeight.w900),
+                                        text: value.name == null
+                                            ? '----'
+                                            : value.name.toString()),
+                                  ),
+                                  RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    strutStyle: const StrutStyle(fontSize: 8.0),
+                                    text: TextSpan(
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            color: UIGuide.BLACK,
+                                            fontWeight: FontWeight.w900),
+                                        text: value.designation == null
+                                            ? '---'
+                                            : value.designation.toString()),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                  ),
+                ],
+              )
+              //  child: AnimateGradient(
+              // controller: _controller,
+              // primaryBegin: Alignment.topLeft,
+              // primaryEnd: Alignment.bottomLeft,
+              // secondaryBegin: Alignment.bottomLeft,
+              // secondaryEnd: Alignment.topRight,
+              // primaryColors: const [
+              //   Color.fromARGB(255, 143, 193, 240),
+              //   Color.fromARGB(255, 131, 142, 238),
+              //   Color.fromARGB(255, 99, 101, 235),
+              // ],
+              // secondaryColors: const [
+              //   Color.fromARGB(255, 60, 78, 240),
+              //   Color.fromARGB(255, 111, 125, 248),
+              //   UIGuide.light_Purple,
+              // ],
+
+              //  )
+              ),
         ),
         const SizedBox(
           height: 10,

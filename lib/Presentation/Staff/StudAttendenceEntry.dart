@@ -15,10 +15,7 @@ class AttendenceEntry extends StatefulWidget {
 }
 
 class _AttendenceEntryState extends State<AttendenceEntry> {
-  DateTime? _mydatetime;
-
   String date = '';
-  bool _attendence = false;
 
   @override
   void initState() {
@@ -122,8 +119,6 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                                         itemBuilder: (context, index) {
                                           return ListTile(
                                             onTap: () async {
-                                              print(
-                                                  'guh.....${attendecourse![index]}');
                                               markEntryInitialValuesController
                                                       .text =
                                                   await attendecourse![index]
@@ -234,14 +229,8 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                                         itemCount: snapshot
                                             .attendenceDivisionList.length,
                                         itemBuilder: (context, index) {
-                                          print(snapshot
-                                              .attendenceDivisionList.length);
-
                                           return ListTile(
                                             onTap: () async {
-                                              print(snapshot
-                                                  .attendenceDivisionList
-                                                  .length);
                                               markEntryDivisionListController
                                                   .text = snapshot
                                                       .attendenceDivisionList[
@@ -254,10 +243,6 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                                                           index]
                                                       .text ??
                                                   '---';
-
-                                              print(
-                                                  markEntryDivisionListController
-                                                      .text);
                                               divisionId =
                                                   markEntryDivisionListController
                                                       .text
@@ -347,7 +332,6 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                       ),
                       onPressed: () async {
                         print(dateFinal);
-                        print(divisionId);
                         dateFinal = Provider.of<AttendenceStaffProvider>(
                                     context,
                                     listen: false)
@@ -371,7 +355,6 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                             ),
                           ));
                         }
-
                         setState(() {
                           dateFinal = Provider.of<AttendenceStaffProvider>(
                                   context,
@@ -379,7 +362,6 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                               .timeNew
                               .toString();
                         });
-
                         await Provider.of<AttendenceStaffProvider>(context,
                                 listen: false)
                             .clearStudentList();
@@ -491,7 +473,6 @@ class AttendenceviewWidget extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   'Name           ',
-                                  //textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12),
@@ -759,24 +740,28 @@ class DualAttendenceviewWidget extends StatelessWidget {
                                                         .studentsAttendenceView[
                                                     index]);
                                               },
-                                              child: SizedBox(
-                                                width: 5,
-                                                height: 22,
-                                                child: value
-                                                                .studentsAttendenceView[
-                                                                    index]
-                                                                .select !=
-                                                            null &&
-                                                        value
-                                                            .studentsAttendenceView[
-                                                                index]
-                                                            .select!
-                                                    ? SvgPicture.asset(
-                                                        UIGuide.absent,
-                                                      )
-                                                    : SvgPicture.asset(
-                                                        UIGuide.present,
-                                                      ),
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                width: 10,
+                                                child: SizedBox(
+                                                  width: 5,
+                                                  height: 22,
+                                                  child: value
+                                                                  .studentsAttendenceView[
+                                                                      index]
+                                                                  .select !=
+                                                              null &&
+                                                          value
+                                                              .studentsAttendenceView[
+                                                                  index]
+                                                              .select!
+                                                      ? SvgPicture.asset(
+                                                          UIGuide.absent,
+                                                        )
+                                                      : SvgPicture.asset(
+                                                          UIGuide.present,
+                                                        ),
+                                                ),
                                               ),
                                             ),
                                             GestureDetector(
@@ -785,24 +770,28 @@ class DualAttendenceviewWidget extends StatelessWidget {
                                                         .studentsAttendenceView[
                                                     index]);
                                               },
-                                              child: SizedBox(
-                                                width: 5,
-                                                height: 22,
-                                                child: value
-                                                                .studentsAttendenceView[
-                                                                    index]
-                                                                .selectedd !=
-                                                            null &&
-                                                        value
-                                                            .studentsAttendenceView[
-                                                                index]
-                                                            .selectedd!
-                                                    ? SvgPicture.asset(
-                                                        UIGuide.absent,
-                                                      )
-                                                    : SvgPicture.asset(
-                                                        UIGuide.present,
-                                                      ),
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                width: 10,
+                                                child: SizedBox(
+                                                  width: 5,
+                                                  height: 22,
+                                                  child: value
+                                                                  .studentsAttendenceView[
+                                                                      index]
+                                                                  .selectedd !=
+                                                              null &&
+                                                          value
+                                                              .studentsAttendenceView[
+                                                                  index]
+                                                              .selectedd!
+                                                      ? SvgPicture.asset(
+                                                          UIGuide.absent,
+                                                        )
+                                                      : SvgPicture.asset(
+                                                          UIGuide.present,
+                                                        ),
+                                                ),
                                               ),
                                             ),
                                           ],

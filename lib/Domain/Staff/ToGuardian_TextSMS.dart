@@ -13,12 +13,12 @@ class TextSMSToGuardian {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.courseList != null) {
-      data['courseList'] = this.courseList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (courseList != null) {
+      data['courseList'] = courseList!.map((v) => v.toJson()).toList();
     }
 
-    data['isClassTeacher'] = this.isClassTeacher;
+    data['isClassTeacher'] = isClassTeacher;
     return data;
   }
 }
@@ -26,28 +26,21 @@ class TextSMSToGuardian {
 class TextSMSToGuardianCourseList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
   int? order;
 
-  TextSMSToGuardianCourseList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  TextSMSToGuardianCourseList({this.value, this.text, this.order});
 
   TextSMSToGuardianCourseList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
     order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+    data['order'] = order;
     return data;
   }
 }
@@ -55,28 +48,19 @@ class TextSMSToGuardianCourseList {
 class TextSMSToGuardianDivisionList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  TextSMSToGuardianDivisionList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  TextSMSToGuardianDivisionList({this.value, this.text});
 
   TextSMSToGuardianDivisionList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+
     return data;
   }
 }
@@ -118,15 +102,15 @@ class TextSMSToGuardianCourseDivision_notification_Stf {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['studentId'] = this.studentId;
-    data['guardianId'] = this.guardianId;
-    data['admnNo'] = this.admnNo;
-    data['name'] = this.name;
-    data['rollNo'] = this.rollNo;
-    data['mobNo'] = this.mobNo;
-    data['division'] = this.division;
-    data['course'] = this.course;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['studentId'] = studentId;
+    data['guardianId'] = guardianId;
+    data['admnNo'] = admnNo;
+    data['name'] = name;
+    data['rollNo'] = rollNo;
+    data['mobNo'] = mobNo;
+    data['division'] = division;
+    data['course'] = course;
     return data;
   }
 }
@@ -150,11 +134,11 @@ class SmsSettingsByStaff {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.smsFormat != null) {
-      data['smsFormat'] = this.smsFormat!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (smsFormat != null) {
+      data['smsFormat'] = smsFormat!.map((v) => v.toJson()).toList();
     }
-    data['applySMSFormatApproval'] = this.applySMSFormatApproval;
+    data['applySMSFormatApproval'] = applySMSFormatApproval;
     return data;
   }
 }
@@ -173,10 +157,10 @@ class SmsFormatByStaff {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['text'] = this.text;
-    data['value'] = this.value;
-    data['isApproved'] = this.isApproved;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['text'] = text;
+    data['value'] = value;
+    data['isApproved'] = isApproved;
     return data;
   }
 }
@@ -202,12 +186,12 @@ class SmsFormatsCompleteview {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['smsBody'] = this.smsBody;
-    data['content'] = this.content;
-    data['isApproved'] = this.isApproved;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['smsBody'] = smsBody;
+    data['content'] = content;
+    data['isApproved'] = isApproved;
     return data;
   }
 }

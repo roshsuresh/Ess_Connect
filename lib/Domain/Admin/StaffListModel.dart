@@ -18,11 +18,8 @@ class StaffReportNotification {
   StaffReportNotification.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-
     sectionId = json['sectionId'];
-
     designation = json['designation'];
-
     staffRole = json['staffRole'];
     id = json['id'];
   }

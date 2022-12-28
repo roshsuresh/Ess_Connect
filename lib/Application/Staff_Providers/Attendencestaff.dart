@@ -78,27 +78,23 @@ class AttendenceStaffProvider with ChangeNotifier {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
-
     var response = await http.get(
         Uri.parse("${UIGuide.baseURL}/mobileapp/staff/AttendenceInitialvalues"),
         headers: headers);
-
     try {
       if (response.statusCode == 200) {
-        print("corect");
+        //  print("corect");
         final data = json.decode(response.body);
 
-        print(data);
+        //  print(data);
         staffAttendeceRespo = data['attendenceinitvalues'];
         Attendenceinitvalues att =
             Attendenceinitvalues.fromJson(data['attendenceinitvalues']);
-
         isClassTeacher = att.isClassTeacher;
         isDualAttendance = att.isDualAttendance;
         attendecourse = staffAttendeceRespo!['course'];
         print(attendecourse);
         print(isClassTeacher);
-
         notifyListeners();
       } else {
         print("Error in attendencecourse response");
@@ -208,7 +204,7 @@ class AttendenceStaffProvider with ChangeNotifier {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
-      print(data);
+      //    print(data);
 
       List<StudentsAttendenceView_stf> templist =
           List<StudentsAttendenceView_stf>.from(data["studentsAttendenceView"]
@@ -317,7 +313,7 @@ class AttendenceStaffProvider with ChangeNotifier {
 
     timeNew = DateFormat('yyyy-MM-dd').format(_mydatetime!) == null
         ? timee
-        : DateFormat('yyyy-MM-dd').format(_mydatetime!);
+        : DateFormat('yyyy-MM-dd').format(_mydatetime!).toString();
     timee = DateFormat('yyyy-MM-dd').format(DateTime.now());
     print(timeNew);
 

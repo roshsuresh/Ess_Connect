@@ -1,4 +1,3 @@
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart';

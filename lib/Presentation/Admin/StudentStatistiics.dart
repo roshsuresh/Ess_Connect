@@ -15,13 +15,18 @@ class Student_statistics_admin extends StatelessWidget {
   List diviData = [];
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Provider.of<StudStatiticsProvider>(context, listen: false)
+          .clearStaticsList();
+      await Provider.of<StudStatiticsProvider>(context, listen: false)
+          .clearTotalList();
       var p = Provider.of<SchoolPhotoProviders>(context, listen: false);
       p.stdReportSectionStaff();
       p.courseDrop.clear();
       p.dropDown.clear();
       p.stdReportInitialValues.clear();
       p.courselist.clear();
+
       p.courseCounter(0);
       p.sectionCounter(0);
     });
@@ -51,9 +56,7 @@ class Student_statistics_admin extends StatelessWidget {
                       width: size.width * .42,
                       height: 50,
                       child: MultiSelectDialogField(
-                        // height: 200,
                         items: value.dropDown,
-
                         listType: MultiSelectListType.CHIP,
                         title: const Text(
                           "Select Section",
@@ -71,7 +74,6 @@ class Student_statistics_admin extends StatelessWidget {
                           style: TextStyle(color: UIGuide.light_Purple),
                         ),
                         separateSelectedItems: true,
-
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius:
@@ -149,7 +151,7 @@ class Student_statistics_admin extends StatelessWidget {
                           "Select Course",
                           style: TextStyle(color: Colors.black),
                         ),
-                        // selectedColor: Color.fromARGB(255, 157, 232, 241),
+
                         selectedItemsTextStyle: const TextStyle(
                             fontWeight: FontWeight.w900,
                             color: UIGuide.light_Purple),
@@ -224,7 +226,7 @@ class Student_statistics_admin extends StatelessWidget {
               children: [
                 MaterialButton(
                   minWidth: 100, color: UIGuide.light_Purple,
-                  //   style: ButtonStyle(shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                  // shape: ButtonStyle(shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),),
                   onPressed: () async {
                     Provider.of<StudStatiticsProvider>(context, listen: false)
                         .statiticsList
@@ -249,6 +251,8 @@ class Student_statistics_admin extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Table(
+                border: TableBorder.all(
+                    color: const Color.fromARGB(255, 236, 236, 236)),
                 columnWidths: const {
                   0: FlexColumnWidth(1),
                   1: FlexColumnWidth(2),
@@ -259,8 +263,8 @@ class Student_statistics_admin extends StatelessWidget {
                 children: const [
                   TableRow(
                       decoration: BoxDecoration(
-                        //  border: Border.all(),
-                        color: Color.fromARGB(255, 228, 224, 224),
+                        // border: Border.all(color: UIGuide.THEME_LIGHT),
+                        color: const Color.fromARGB(255, 228, 224, 224),
                       ),
                       children: [
                         SizedBox(
@@ -315,7 +319,7 @@ class Student_statistics_admin extends StatelessWidget {
             ),
             Consumer<StudStatiticsProvider>(builder: (context, value, child) {
               return LimitedBox(
-                  maxHeight: 440,
+                  maxHeight: size.height - 200,
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: value.statiticsList.isEmpty
@@ -325,6 +329,7 @@ class Student_statistics_admin extends StatelessWidget {
                         return Column(
                           children: [
                             Table(
+                              //border: TableBorder.all(color: Color.fromARGB(255, 245, 245, 245)),
                               columnWidths: const {
                                 0: FlexColumnWidth(1),
                                 1: FlexColumnWidth(2),
@@ -334,7 +339,9 @@ class Student_statistics_admin extends StatelessWidget {
                               },
                               children: [
                                 TableRow(
-                                    decoration: const BoxDecoration(),
+                                    decoration: const BoxDecoration(
+                                        //  border: Border.all(color: UIGuide.THEME_LIGHT)
+                                        ),
                                     children: [
                                       Text(
                                         (index + 1).toString(),
@@ -399,7 +406,6 @@ class Student_statistics_admin extends StatelessWidget {
                       children: [
                         TableRow(
                             decoration: const BoxDecoration(
-                              //  border: Border.all(),
                               color: Color.fromARGB(255, 255, 255, 255),
                             ),
                             children: [

@@ -72,29 +72,29 @@ class SearchStudReport {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['studentId'] = this.studentId;
-    data['admnNo'] = this.admnNo;
-    data['name'] = this.name;
-    data['division'] = this.division;
-    data['course'] = this.course;
-    data['sectionOrder'] = this.sectionOrder;
-    data['courseOrder'] = this.courseOrder;
-    data['divisionOrder'] = this.divisionOrder;
-    data['rollNo'] = this.rollNo;
-    data['mobNo'] = this.mobNo;
-    data['address'] = this.address;
-    data['bus'] = this.bus;
-    data['stop'] = this.stop;
-    data['studentPhotoId'] = this.studentPhotoId;
-    data['photo'] = this.photo;
-    data['photoId'] = this.photoId;
-    data['studentPhoto'] = this.studentPhoto;
-    data['terminationStatus'] = this.terminationStatus;
-    data['sectionId'] = this.sectionId;
-    data['courseId'] = this.courseId;
-    data['divisionId'] = this.divisionId;
-    data['schoolId'] = this.schoolId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['studentId'] = studentId;
+    data['admnNo'] = admnNo;
+    data['name'] = name;
+    data['division'] = division;
+    data['course'] = course;
+    data['sectionOrder'] = sectionOrder;
+    data['courseOrder'] = courseOrder;
+    data['divisionOrder'] = divisionOrder;
+    data['rollNo'] = rollNo;
+    data['mobNo'] = mobNo;
+    data['address'] = address;
+    data['bus'] = bus;
+    data['stop'] = stop;
+    data['studentPhotoId'] = studentPhotoId;
+    data['photo'] = photo;
+    data['photoId'] = photoId;
+    data['studentPhoto'] = studentPhoto;
+    data['terminationStatus'] = terminationStatus;
+    data['sectionId'] = sectionId;
+    data['courseId'] = courseId;
+    data['divisionId'] = divisionId;
+    data['schoolId'] = schoolId;
     return data;
   }
 }

@@ -120,7 +120,6 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                 int sizee = file.size;
 
                 if (sizee <= 200000) {
-                  if (!mounted) return;
                   await Provider.of<GalleryProviderAdmin>(context,
                           listen: false)
                       .galleryImageSave(context, file.path.toString());
@@ -303,7 +302,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                       await Provider.of<GalleryProviderAdmin>(context,
                               listen: false)
                           .courseCounter(results.length);
-                      if (!mounted) return;
+
                       await Provider.of<GalleryProviderAdmin>(context,
                               listen: false)
                           .getDivisionList(course);

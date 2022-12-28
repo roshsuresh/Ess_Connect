@@ -8,7 +8,7 @@ import '../../../Constants.dart';
 import '../../../utils/constants.dart';
 
 class StudentFeeSearch extends StatefulWidget {
-  StudentFeeSearch({Key? key}) : super(key: key);
+  const StudentFeeSearch({Key? key}) : super(key: key);
 
   @override
   State<StudentFeeSearch> createState() => _StudentFeeSearchState();

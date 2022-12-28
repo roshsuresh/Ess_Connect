@@ -87,7 +87,6 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
       selectedList.add(model);
       print("adding to selected list");
     }
-
     notifyListeners();
   }
 
@@ -104,7 +103,6 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
       });
       isSelectAllStaff = true;
     }
-
     notifyListeners();
   }
 //send notification

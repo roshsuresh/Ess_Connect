@@ -1,3 +1,4 @@
+import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:loading_indicator/loading_indicator.dart';
@@ -11,7 +12,16 @@ class spinkitLoader extends StatelessWidget {
     Colors.green,
     Colors.blue,
     Colors.indigo,
-    Colors.purple,
+    Color.fromARGB(255, 0, 207, 235),
+  ];
+  final List<Color> _kDefaultColors = [
+    UIGuide.light_Purple,
+    Color.fromARGB(255, 13, 72, 128),
+    Color.fromARGB(255, 43, 101, 156),
+    Color.fromARGB(255, 67, 119, 168),
+    Color.fromARGB(255, 97, 156, 211),
+    Color.fromARGB(255, 159, 201, 240),
+    Color.fromARGB(255, 181, 206, 231),
   ];
 
   @override
@@ -21,7 +31,7 @@ class spinkitLoader extends StatelessWidget {
         width: 80,
         height: 80,
         child: LoadingIndicator(
-          colors: _kDefaultRainbowColors,
+          colors: _kDefaultColors,
           strokeWidth: 2.0,
           indicatorType: Indicator.ballRotateChase,
         ),

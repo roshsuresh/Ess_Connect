@@ -5,14 +5,14 @@ class StaffprofileModel {
 
   StaffprofileModel.fromJson(Map<String, dynamic> json) {
     staffprofile = json['staffprofile'] != null
-        ? new Staffprofile.fromJson(json['staffprofile'])
+        ? Staffprofile.fromJson(json['staffprofile'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.staffprofile != null) {
-      data['staffprofile'] = this.staffprofile!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (staffprofile != null) {
+      data['staffprofile'] = staffprofile!.toJson();
     }
     return data;
   }
@@ -65,20 +65,20 @@ class Staffprofile {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['section'] = this.section;
-    data['designation'] = this.designation;
-    data['mobileNo'] = this.mobileNo;
-    data['emailid'] = this.emailid;
-    data['dateOfBirth'] = this.dateOfBirth;
-    data['userName'] = this.userName;
-    data['shortname'] = this.shortname;
-    data['gender'] = this.gender;
-    data['address'] = this.address;
-    data['staffRole'] = this.staffRole;
-    data['photoId'] = this.photoId;
-    data['photo'] = this.photo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['section'] = section;
+    data['designation'] = designation;
+    data['mobileNo'] = mobileNo;
+    data['emailid'] = emailid;
+    data['dateOfBirth'] = dateOfBirth;
+    data['userName'] = userName;
+    data['shortname'] = shortname;
+    data['gender'] = gender;
+    data['address'] = address;
+    data['staffRole'] = staffRole;
+    data['photoId'] = photoId;
+    data['photo'] = photo;
     return data;
   }
 }

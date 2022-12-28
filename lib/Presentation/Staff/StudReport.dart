@@ -50,7 +50,7 @@ class StudReport extends StatelessWidget {
                             builder: (context) => SearchStudent_stf()),
                       );
                     },
-                    icon: Icon(Icons.search))
+                    icon: const Icon(Icons.search))
               ],
             ),
             body: const TabBarView(children: [
@@ -224,7 +224,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -239,17 +239,12 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                 child: Container(
                               child: LimitedBox(
                                 maxHeight: size.height - 300,
-                                // mainAxisSize: MainAxisSize.min,
-
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: snapshot.courselist.length,
                                     itemBuilder: (context, index) {
                                       print(snapshot.courselist.length);
-                                      // value.removeDivisionAll();
                                       return ListTile(
-                                        // selectedTileColor: Colors.blue.shade100,
-                                        // selectedColor: UIGuide.PRIMARY2,
                                         selected: snapshot.isCourseSelected(
                                             snapshot.courselist[index]),
                                         onTap: () async {
@@ -372,14 +367,9 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                     shrinkWrap: true,
                                     itemCount: snapshot.divisionlist.length,
                                     itemBuilder: (context, index) {
-                                      print(snapshot.divisionlist.length);
-                                      // value.removeDivisionAll();
                                       return Column(
                                         children: [
                                           ListTile(
-                                            // selectedTileColor:
-                                            //     Colors.blue.shade100,
-                                            // selectedColor: UIGuide.PRIMARY2,
                                             selected: snapshot
                                                 .isDivisionSelected(snapshot
                                                     .divisionlist[index]),
@@ -452,7 +442,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                             height: 0,
                             child: TextField(
                               controller: studReportDivisionController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: UIGuide.light_black,
                                 border: OutlineInputBorder(),
@@ -470,7 +460,6 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
               ),
               const Spacer(),
               MaterialButton(
-                child: const Text('View'),
                 color: UIGuide.THEME_LIGHT,
                 onPressed: (() async {
                   if (studReportDivisionController.text.isEmpty &&
@@ -521,8 +510,9 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                           listen: false)
                       .viewStudentReportList(sectionId, courseId, divisionId);
                 }),
+                child: const Text('View'),
               ),
-              Spacer()
+              const Spacer()
               // kWidth,
             ],
           ),
@@ -541,8 +531,6 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                         String status = provider
                             .viewStudReportListt[index].terminationStatus
                             .toString();
-                        //  print(status);
-
                         if (status.toString() == false.toString()) {
                           return Padding(
                             padding: const EdgeInsets.all(3.0),
@@ -657,7 +645,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                                           const StrutStyle(
                                                               fontSize: 8.0),
                                                       text: TextSpan(
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontSize: 12,
                                                           color: Colors.black,
                                                         ),
@@ -678,7 +666,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                                     kWidth,
                                                     Row(
                                                       children: [
-                                                        Text(
+                                                        const Text(
                                                           'Division : ',
                                                           textAlign:
                                                               TextAlign.start,
@@ -862,8 +850,8 @@ class StudProfileView_Staff extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     const Color background = Colors.white;
-    final Color fill1 = Color.fromARGB(255, 79, 97, 197);
-    final Color fill2 = Color.fromARGB(255, 180, 103, 216);
+    final Color fill1 = const Color.fromARGB(255, 79, 97, 197);
+    final Color fill2 = const Color.fromARGB(255, 180, 103, 216);
     final List<Color> gradient = [
       fill1,
       fill2,
@@ -1038,7 +1026,7 @@ class StudProfileView_Staff extends StatelessWidget {
                               strutStyle: const StrutStyle(fontSize: 13),
                               maxLines: 3,
                               text: TextSpan(
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15,
                                     color: Color.fromARGB(255, 44, 43, 43)),
                                 text:
@@ -1189,16 +1177,8 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                   shrinkWrap: true,
                                   itemCount: studReportinitvalues_stf!.length,
                                   itemBuilder: (context, index) {
-                                    // print(snapshot
-
-                                    //     .attendenceInitialValues.length);
-
                                     value.removeSectionAll();
                                     return ListTile(
-                                      // selectedTileColor: Colors.blue.shade100,
-                                      // selectedColor: UIGuide.PRIMARY2,
-                                      // selected:
-                                      //     studReportinitvalues_stf![index],
                                       onTap: () async {
                                         print(
                                             'guh.....${studReportinitvalues_stf![index]}');
@@ -1216,8 +1196,6 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                                 .text
                                                 .toString();
 
-                                        // snapshot.addSelectedCourse(
-                                        //     attendecourse![index]);
                                         print(sectionId);
                                         await Provider.of<
                                                     StudReportListProvider_stf>(
@@ -1291,7 +1269,7 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -1312,9 +1290,6 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                     print(snapshot.courselist.length);
                                     // value.removeDivisionAll();
                                     return ListTile(
-                                      // selectedTileColor:
-                                      //     Colors.blue.shade100,
-                                      // selectedColor: UIGuide.PRIMARY2,
                                       selected: snapshot.isCourseSelected(
                                           snapshot.courselist[index]),
                                       onTap: () async {
@@ -1434,11 +1409,7 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                   itemCount: snapshot.divisionlist.length,
                                   itemBuilder: (context, index) {
                                     print(snapshot.divisionlist.length);
-                                    // value.removeDivisionAll();
                                     return ListTile(
-                                      // selectedTileColor:
-                                      //     Colors.blue.shade100,
-                                      // selectedColor: UIGuide.PRIMARY2,
                                       selected: snapshot.isDivisionSelected(
                                           snapshot.divisionlist[index]),
                                       onTap: () async {
@@ -1447,7 +1418,6 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                             snapshot.divisionlist[index]
                                                     .value ??
                                                 '---';
-
                                         divisionId =
                                             StudReportDivisionController.text
                                                 .toString();
@@ -1459,7 +1429,6 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
 
                                         print(
                                             StudReportDivisionController.text);
-
                                         Navigator.of(context).pop();
                                       },
                                       title: Text(
@@ -1519,9 +1488,8 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               MaterialButton(
-                child: const Text('View'),
                 color: UIGuide.THEME_LIGHT,
                 onPressed: (() async {
                   if (StudReportDivisionController.text.isEmpty &&
@@ -1570,8 +1538,9 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                           listen: false)
                       .viewStudentReportList(sectionId, courseId, divisionId);
                 }),
+                child: const Text('View'),
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
           ViewStaffReport(size: size),
@@ -2023,7 +1992,7 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.49,
@@ -2122,7 +2091,7 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                             height: 0,
                             child: TextField(
                               controller: StudReportcourseController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Color.fromARGB(255, 238, 237, 237),
                                 border: OutlineInputBorder(),
@@ -2244,9 +2213,8 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                   );
                 }),
               ),
-              Spacer(),
+              const Spacer(),
               MaterialButton(
-                child: const Text('View'),
                 color: UIGuide.THEME_LIGHT,
                 onPressed: (() async {
                   if (StudReportDivisionController.text.isEmpty &&
@@ -2295,8 +2263,9 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                           listen: false)
                       .viewStudentReportList(sectionId, courseId, divisionId);
                 }),
+                child: const Text('View'),
               ),
-              Spacer()
+              const Spacer()
             ],
           ),
           ViewStaffReport(size: size),

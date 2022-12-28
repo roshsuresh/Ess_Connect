@@ -36,19 +36,18 @@ class MarkentryViewByStaff {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.studentMEList != null) {
-      data['studentMEList'] =
-          this.studentMEList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (studentMEList != null) {
+      data['studentMEList'] = studentMEList!.map((v) => v.toJson()).toList();
     }
-    if (this.maxMarkList != null) {
-      data['maxMarkList'] = this.maxMarkList!.map((v) => v.toJson()).toList();
+    if (maxMarkList != null) {
+      data['maxMarkList'] = maxMarkList!.map((v) => v.toJson()).toList();
     }
     // if (this.gradeList != null) {
     //   data['gradeList'] = this.gradeList.map((v) => v.toJson()).toList();
     // }
-    data['typeCode'] = this.typeCode;
-    data['examStatus'] = this.examStatus;
+    data['typeCode'] = typeCode;
+    data['examStatus'] = examStatus;
     return data;
   }
 }
@@ -119,25 +118,25 @@ class StudentMEList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['rollNo'] = this.rollNo;
-    data['studentPresentDetailsId'] = this.studentPresentDetailsId;
-    data['teMark'] = this.teMark;
-    data['peMark'] = this.peMark;
-    data['ceMark'] = this.ceMark;
-    data['teGrade'] = this.teGrade;
-    data['peGrade'] = this.peGrade;
-    data['ceGrade'] = this.ceGrade;
-    data['totalMark'] = this.totalMark;
-    data['markInPer'] = this.markInPer;
-    data['grade'] = this.grade;
-    data['gradeId'] = this.gradeId;
-    data['teGradeId'] = this.teGradeId;
-    data['peGradeId'] = this.peGradeId;
-    data['ceGradeId'] = this.ceGradeId;
-    data['attendance'] = this.attendance;
-    data['description'] = this.description;
-    data['disableAbsentRow'] = this.disableAbsentRow;
+    data['name'] = name;
+    data['rollNo'] = rollNo;
+    data['studentPresentDetailsId'] = studentPresentDetailsId;
+    data['teMark'] = teMark;
+    data['peMark'] = peMark;
+    data['ceMark'] = ceMark;
+    data['teGrade'] = teGrade;
+    data['peGrade'] = peGrade;
+    data['ceGrade'] = ceGrade;
+    data['totalMark'] = totalMark;
+    data['markInPer'] = markInPer;
+    data['grade'] = grade;
+    data['gradeId'] = gradeId;
+    data['teGradeId'] = teGradeId;
+    data['peGradeId'] = peGradeId;
+    data['ceGradeId'] = ceGradeId;
+    data['attendance'] = attendance;
+    data['description'] = description;
+    data['disableAbsentRow'] = disableAbsentRow;
     return data;
   }
 }
@@ -205,24 +204,24 @@ class MaxMarkList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['teMax'] = this.teMax;
-    data['peMax'] = this.peMax;
-    data['ceMax'] = this.ceMax;
-    data['teCaption'] = this.teCaption;
-    data['peCaption'] = this.peCaption;
-    data['ceCaption'] = this.ceCaption;
-    data['entryMethod'] = this.entryMethod;
-    data['teGrade'] = this.teGrade;
-    data['peGrade'] = this.peGrade;
-    data['ceGrade'] = this.ceGrade;
-    data['isBlocked'] = this.isBlocked;
-    data['gradeId'] = this.gradeId;
-    data['createdDate'] = this.createdDate;
-    data['enteredBy'] = this.enteredBy;
-    data['status'] = this.status;
-    data['part'] = this.part;
-    data['isConfirmed'] = this.isConfirmed;
-    data['code'] = this.code;
+    data['teMax'] = teMax;
+    data['peMax'] = peMax;
+    data['ceMax'] = ceMax;
+    data['teCaption'] = teCaption;
+    data['peCaption'] = peCaption;
+    data['ceCaption'] = ceCaption;
+    data['entryMethod'] = entryMethod;
+    data['teGrade'] = teGrade;
+    data['peGrade'] = peGrade;
+    data['ceGrade'] = ceGrade;
+    data['isBlocked'] = isBlocked;
+    data['gradeId'] = gradeId;
+    data['createdDate'] = createdDate;
+    data['enteredBy'] = enteredBy;
+    data['status'] = status;
+    data['part'] = part;
+    data['isConfirmed'] = isConfirmed;
+    data['code'] = code;
     return data;
   }
 }

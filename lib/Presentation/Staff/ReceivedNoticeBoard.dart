@@ -17,20 +17,7 @@ class StaffNoticeBoardReceived extends StatelessWidget {
     Provider.of<StaffNoticeboardSendProviders>(context, listen: false)
         .getnoticeList();
     var size = MediaQuery.of(context).size;
-
     var width = size.width;
-    const Color background = Colors.white;
-    const Color fill1 = Color.fromARGB(255, 79, 97, 197);
-    final Color fill2 = const Color.fromARGB(255, 180, 103, 216);
-    final List<Color> gradient = [
-      fill1,
-      fill2,
-      background,
-      background,
-    ];
-    const double fillPercent = 35;
-    const double fillStop = (100 - fillPercent) / 100;
-    final List<double> stops = [0.0, fillStop, fillStop, 1.0];
     return Consumer<StaffNoticeboardSendProviders>(builder: (_, value, child) {
       return ListView.builder(
         itemCount: staffNoticeView == null ? 0 : staffNoticeView!.length,

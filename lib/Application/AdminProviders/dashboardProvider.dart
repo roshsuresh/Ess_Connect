@@ -34,14 +34,12 @@ class DashboardAdmin extends ChangeNotifier {
       Map<String, dynamic> dashboard = json.decode(response.body);
       Dashboard ac = Dashboard.fromJson(dashboard);
       totalStudentStrength = ac.totalStudentStrength!;
-      print(totalStudentStrength);
       boysStrength = ac.boysStrength;
       girlsStrength = ac.girlsStrength;
       teachingStrength = ac.teachingStrength;
       totalStaffStrength = ac.totalStaffStrength;
       nonTeachingStrength = ac.nonTeachingStrength;
       notifyListeners();
-      print(response.body);
     } else {
       print('Error in dashboard');
     }

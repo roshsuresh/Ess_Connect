@@ -57,6 +57,7 @@ class GalleryListStaff extends StatelessWidget {
                                         context, event);
 
                                     provider.galleryViewList.clear();
+
                                     await provider
                                         .galleryViewListStaff(context);
                                   },

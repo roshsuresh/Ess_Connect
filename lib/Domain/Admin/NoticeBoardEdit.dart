@@ -29,14 +29,12 @@ class NoticeEditAdmin {
     id = json['id'];
     title = json['title'];
     matter = json['matter'];
-
     displayStartDate = json['displayStartDate'];
     displayEndDate = json['displayEndDate'];
     createdDate = json['createdDate'];
     cancelled = json['cancelled'];
     approved = json['approved'];
     createdStaffId = json['createdStaffId'];
-
     attachmentId = json['attachmentId'];
     attachment = json['attachment'] != null
         ? AttachmentNoticeAdmin.fromJson(json['attachment'])
@@ -48,14 +46,12 @@ class NoticeEditAdmin {
     data['id'] = id;
     data['title'] = title;
     data['matter'] = matter;
-
     data['displayStartDate'] = displayStartDate;
     data['displayEndDate'] = displayEndDate;
     data['createdDate'] = createdDate;
     data['cancelled'] = cancelled;
     data['approved'] = approved;
     data['createdStaffId'] = createdStaffId;
-
     data['attachmentId'] = attachmentId;
     if (attachment != null) {
       data['attachment'] = attachment!.toJson();

@@ -30,15 +30,15 @@ class StaffTimeTable {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['path'] = this.path;
-    data['url'] = this.url;
-    data['isTemporary'] = this.isTemporary;
-    data['isDeleted'] = this.isDeleted;
-    data['createdAt'] = this.createdAt;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['extension'] = extension;
+    data['path'] = path;
+    data['url'] = url;
+    data['isTemporary'] = isTemporary;
+    data['isDeleted'] = isDeleted;
+    data['createdAt'] = createdAt;
+    data['id'] = id;
     return data;
   }
 }

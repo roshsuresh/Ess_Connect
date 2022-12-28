@@ -178,96 +178,6 @@ class StaffNotificationReceived extends StatelessWidget {
                   },
                 ),
               ),
-
-              //  ListView.builder(
-              //   itemCount: value.notificationStaff?.length == null
-              //       ? 0
-              //       : value.notificationStaff!.length,
-              //   itemBuilder: (BuildContext context, index) {
-              //     return Column(
-              //       children: [
-              //         kheight,
-              //         Container(
-              //           width: width - 4,
-              //           // height: 150,
-              //           decoration: const BoxDecoration(
-              //               boxShadow: [
-              //                 BoxShadow(
-              //                   blurRadius: 2,
-              //                 )
-              //               ],
-              //               color: Color.fromARGB(255, 245, 246, 248),
-              //               borderRadius:
-              //                   BorderRadius.all(Radius.circular(10))),
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(6.0),
-              //             child: Column(
-              //               crossAxisAlignment: CrossAxisAlignment.start,
-              //               children: [
-              //                 Text(
-              //                   value.notificationStaff![index]['title'] == null
-              //                       ? '--'
-              //                       : value.notificationStaff![index]['title']
-              //                           .toString(),
-              //                   style: TextStyle(fontWeight: FontWeight.w700),
-              //                   textAlign: TextAlign.center,
-              //                 ),
-              //                 kheight,
-              //                 TextWrapper(
-              //                   text: value.notificationStaff![index]['body'] ==
-              //                           null
-              //                       ? '--'
-              //                       : value.notificationStaff![index]['body']
-              //                           .toString(),
-              //                 ),
-              //                 kheight,
-              //                 Row(
-              //                   children: [
-              //                     Text(
-              //                       'Date',
-              //                       style: TextStyle(
-              //                           color: Colors.grey, fontSize: 12),
-              //                     ),
-              //                     Text(
-              //                       value.notificationStaff![index]
-              //                                   ['createdDate'] ==
-              //                               null
-              //                           ? '--'
-              //                           : value.notificationStaff![index]
-              //                                   ['createdDate']
-              //                               .toString(),
-              //                       style: TextStyle(
-              //                           color: Color.fromARGB(255, 49, 47, 47),
-              //                           fontSize: 12),
-              //                     ),
-              //                     Spacer(),
-              //                     Text(
-              //                       'Send by ',
-              //                       style: TextStyle(
-              //                           color: Colors.grey, fontSize: 12),
-              //                     ),
-              //                     Text(
-              //                       value.notificationStaff![index]
-              //                                   ['fromStaff'] ==
-              //                               null
-              //                           ? '--'
-              //                           : value.notificationStaff![index]
-              //                                   ['fromStaff']
-              //                               .toString(),
-              //                       style: TextStyle(
-              //                           color: Color.fromARGB(255, 49, 47, 47),
-              //                           fontSize: 12),
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ],
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     );
-              //   },
-              // ),
             ),
     );
   }
@@ -293,12 +203,10 @@ class StaffNotificationSendHistory extends StatelessWidget {
           : Scrollbar(
               child: AnimationLimiter(
                 child: ListView.builder(
-                  // padding: EdgeInsets.all(size.width / 30),
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: value.historyList.length == null
-                      ? 0
-                      : value.historyList.length,
+                  itemCount:
+                      value.historyList.isEmpty ? 0 : value.historyList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return AnimationConfiguration.staggeredList(
                       position: index,

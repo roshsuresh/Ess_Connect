@@ -29,19 +29,18 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (!mounted) return;
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .generalPaidListClear();
-      if (!mounted) return;
+
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .busPaidListClear();
-      if (!mounted) return;
+
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .generalDueListClear();
-      if (!mounted) return;
+
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .busDueListClear();
-      if (!mounted) return;
+
       await Provider.of<FeeDetailsProvider>(context, listen: false)
           .getFeeDetails(widget.studid);
     });
@@ -775,14 +774,14 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                                               ),
                                                                                                               Row(
                                                                                                                 children: [
-                                                                                                                  const Text('Total Paid: '),
+                                                                                                                  const Text('Paid: '),
                                                                                                                   Flexible(
                                                                                                                     child: RichText(
                                                                                                                       overflow: TextOverflow.ellipsis,
                                                                                                                       strutStyle: const StrutStyle(fontSize: 12.0),
                                                                                                                       text: TextSpan(
                                                                                                                         style: const TextStyle(color: Colors.black),
-                                                                                                                        text: generalPaid.generalFeePaidList[indexx].schoolFees![index].totalPaidAmount == null ? '0.00' : generalPaid.generalFeePaidList[indexx].schoolFees![index].totalPaidAmount.toString(),
+                                                                                                                        text: generalPaid.generalFeePaidList[indexx].schoolFees![index].paidAmount == null ? '0.00' : generalPaid.generalFeePaidList[indexx].schoolFees![index].paidAmount.toString(),
                                                                                                                       ),
                                                                                                                     ),
                                                                                                                   ),
@@ -1016,14 +1015,14 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                                                               ),
                                                                                                                               Row(
                                                                                                                                 children: [
-                                                                                                                                  const Text('Total Paid: '),
+                                                                                                                                  const Text(' Paid: '),
                                                                                                                                   Flexible(
                                                                                                                                     child: RichText(
                                                                                                                                       overflow: TextOverflow.ellipsis,
                                                                                                                                       strutStyle: const StrutStyle(fontSize: 12.0),
                                                                                                                                       text: TextSpan(
                                                                                                                                         style: const TextStyle(color: Colors.black),
-                                                                                                                                        text: busPaid.busFeePaidList[indexx].busFees![index].totalPaidAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].totalPaidAmount.toString(),
+                                                                                                                                        text: busPaid.busFeePaidList[indexx].busFees![index].paidAmount == null ? '--' : busPaid.busFeePaidList[indexx].busFees![index].paidAmount.toString(),
                                                                                                                                       ),
                                                                                                                                     ),
                                                                                                                                   ),

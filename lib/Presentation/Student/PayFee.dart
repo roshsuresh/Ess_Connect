@@ -107,7 +107,6 @@ class FeePayInstallment extends StatefulWidget {
 
 class _FeePayInstallmentState extends State<FeePayInstallment> {
   final ScrollController _controller = ScrollController();
-
   final ScrollController _controller2 = ScrollController();
 
   @override

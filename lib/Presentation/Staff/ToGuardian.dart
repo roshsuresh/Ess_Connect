@@ -335,16 +335,7 @@ class _Notification_StaffToGuardainState
                                       itemBuilder: (context, index) {
                                         print(snapshot
                                             .notificationDivisionList.length);
-
-                                        // value.removeDivisionAll();
                                         return ListTile(
-                                          selectedTileColor:
-                                              Colors.blue.shade100,
-                                          selectedColor: UIGuide.PRIMARY2,
-                                          // selected: snapshot
-                                          //     .isDivisonSelected(snapshot
-                                          //             .attendenceDivisionList[
-                                          //         index]),
                                           onTap: () async {
                                             print(snapshot
                                                 .notificationDivisionList[index]
@@ -361,10 +352,6 @@ class _Notification_StaffToGuardainState
                                                         index]
                                                     .text ??
                                                 '---';
-                                            // snapshot.addSelectedDivision(
-                                            //     snapshot.attendenceDivisionList[
-                                            //         index]);
-
                                             print(
                                                 notificationDivisionListController
                                                     .text);
@@ -376,7 +363,6 @@ class _Notification_StaffToGuardainState
                                                 notificationCourseController1
                                                     .text
                                                     .toString();
-
                                             Navigator.of(context).pop();
                                           },
                                           title: Text(

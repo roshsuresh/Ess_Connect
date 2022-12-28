@@ -18,11 +18,11 @@ class Attendenceinitvalues {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['isClassTeacher'] = this.isClassTeacher;
-    data['isDualAttendance'] = this.isDualAttendance;
-    if (this.course != null) {
-      data['course'] = this.course!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['isClassTeacher'] = isClassTeacher;
+    data['isDualAttendance'] = isDualAttendance;
+    if (course != null) {
+      data['course'] = course!.map((v) => v.toJson()).toList();
     }
 
     return data;
@@ -32,18 +32,13 @@ class Attendenceinitvalues {
 class AttendenceCourse {
   String? value;
   String? text;
-  Null selected;
-  Null active;
   int? order;
 
-  AttendenceCourse(
-      {this.value, this.text, this.selected, this.active, this.order});
+  AttendenceCourse({this.value, this.text, this.order});
 
   AttendenceCourse.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
     order = json['order'];
   }
 
@@ -51,8 +46,6 @@ class AttendenceCourse {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['value'] = this.value;
     data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
     data['order'] = this.order;
     return data;
   }
@@ -61,28 +54,18 @@ class AttendenceCourse {
 class AttendenceDivisions {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  AttendenceDivisions(
-      {this.value, this.text, this.selected, this.active, this.order});
+  AttendenceDivisions({this.value, this.text});
 
   AttendenceDivisions.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
     return data;
   }
 }
@@ -127,7 +110,7 @@ class StudentsAttendenceView_stf {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['studAttId'] = studAttId;
     data['divisionId'] = divisionId;
     data['id'] = id;

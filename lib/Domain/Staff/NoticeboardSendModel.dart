@@ -32,18 +32,18 @@ class NoticeboardInitialValues {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.courseList != null) {
-      data['courseList'] = this.courseList!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (courseList != null) {
+      data['courseList'] = courseList!.map((v) => v.toJson()).toList();
     }
-    if (this.divisionList != null) {
-      data['divisionList'] = this.divisionList!.map((v) => v.toJson()).toList();
+    if (divisionList != null) {
+      data['divisionList'] = divisionList!.map((v) => v.toJson()).toList();
     }
 
-    if (this.category != null) {
-      data['category'] = this.category!.map((v) => v.toJson()).toList();
+    if (category != null) {
+      data['category'] = category!.map((v) => v.toJson()).toList();
     }
-    data['isClassTeacher'] = this.isClassTeacher;
+    data['isClassTeacher'] = isClassTeacher;
     return data;
   }
 }
@@ -51,28 +51,21 @@ class NoticeboardInitialValues {
 class NoticeboardCourseList {
   String? value;
   String? text;
-  Null selected;
-  Null active;
   int? order;
 
-  NoticeboardCourseList(
-      {this.value, this.text, this.selected, this.active, this.order});
+  NoticeboardCourseList({this.value, this.text, this.order});
 
   NoticeboardCourseList.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
     order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+    data['order'] = order;
     return data;
   }
 }
@@ -80,28 +73,19 @@ class NoticeboardCourseList {
 class NoticeBoardDivision {
   String? value;
   String? text;
-  Null selected;
-  Null active;
-  Null order;
 
-  NoticeBoardDivision(
-      {this.value, this.text, this.selected, this.active, this.order});
+  NoticeBoardDivision({this.value, this.text});
 
   NoticeBoardDivision.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
-    selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+
     return data;
   }
 }
@@ -110,27 +94,21 @@ class NoticeboardCategory {
   String? value;
   String? text;
   bool? selected;
-  Null active;
-  Null order;
 
-  NoticeboardCategory(
-      {this.value, this.text, this.selected, this.active, this.order});
+  NoticeboardCategory({this.value, this.text, this.selected});
 
   NoticeboardCategory.fromJson(Map<String, dynamic> json) {
     value = json['value'];
     text = json['text'];
     selected = json['selected'];
-    active = json['active'];
-    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['text'] = this.text;
-    data['selected'] = this.selected;
-    data['active'] = this.active;
-    data['order'] = this.order;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['value'] = value;
+    data['text'] = text;
+    data['selected'] = selected;
+
     return data;
   }
 }
@@ -144,7 +122,6 @@ class NoticeImageId {
   String? url;
   bool? isTemporary;
   bool? isDeleted;
-
   String? createdAt;
   String? id;
 
@@ -165,22 +142,20 @@ class NoticeImageId {
     url = json['url'];
     isTemporary = json['isTemporary'];
     isDeleted = json['isDeleted'];
-
     createdAt = json['createdAt'];
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['path'] = this.path;
-    data['url'] = this.url;
-    data['isTemporary'] = this.isTemporary;
-    data['isDeleted'] = this.isDeleted;
-
-    data['createdAt'] = this.createdAt;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['extension'] = extension;
+    data['path'] = path;
+    data['url'] = url;
+    data['isTemporary'] = isTemporary;
+    data['isDeleted'] = isDeleted;
+    data['createdAt'] = createdAt;
+    data['id'] = id;
     return data;
   }
 }
@@ -217,14 +192,14 @@ class NoticeBoardReceivedstaff {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['noticeId'] = this.noticeId;
-    data['noticeBoardFileid'] = this.noticeBoardFileid;
-    data['title'] = this.title;
-    data['matter'] = this.matter;
-    data['entryDate'] = this.entryDate;
-    data['entryTime'] = this.entryTime;
-    data['staffName'] = this.staffName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['noticeId'] = noticeId;
+    data['noticeBoardFileid'] = noticeBoardFileid;
+    data['title'] = title;
+    data['matter'] = matter;
+    data['entryDate'] = entryDate;
+    data['entryTime'] = entryTime;
+    data['staffName'] = staffName;
     return data;
   }
 }
@@ -236,9 +211,7 @@ class NoticeBoardAttatchmentStaffReceived {
   String? extension;
   String? path;
   String? url;
-
   bool? isDeleted;
-
   String? createdAt;
   String? id;
 
@@ -256,24 +229,20 @@ class NoticeBoardAttatchmentStaffReceived {
     extension = json['extension'];
     path = json['path'];
     url = json['url'];
-
     isDeleted = json['isDeleted'];
-
     createdAt = json['createdAt'];
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['extension'] = this.extension;
-    data['path'] = this.path;
-    data['url'] = this.url;
-
-    data['isDeleted'] = this.isDeleted;
-
-    data['createdAt'] = this.createdAt;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['extension'] = extension;
+    data['path'] = path;
+    data['url'] = url;
+    data['isDeleted'] = isDeleted;
+    data['createdAt'] = createdAt;
+    data['id'] = id;
     return data;
   }
 }

@@ -1,5 +1,3 @@
-//
-
 //old password
 
 class CkeckoldPassword {
@@ -12,8 +10,8 @@ class CkeckoldPassword {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['oldPasswordCorrect'] = this.oldPasswordCorrect;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['oldPasswordCorrect'] = oldPasswordCorrect;
     return data;
   }
 }
