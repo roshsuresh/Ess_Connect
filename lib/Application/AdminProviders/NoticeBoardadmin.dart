@@ -122,7 +122,6 @@ class NoticeBoardAdminProvider with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    print('object');
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
@@ -155,7 +154,7 @@ class NoticeBoardAdminProvider with ChangeNotifier {
     var request = http.MultipartRequest(
         'POST', Uri.parse('${UIGuide.baseURL}/files/single/School'));
     request.fields.addAll({'': ''});
-    request.files.add(await http.MultipartFile.fromPath('', '$path'));
+    request.files.add(await http.MultipartFile.fromPath('', path));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

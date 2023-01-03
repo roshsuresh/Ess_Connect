@@ -47,11 +47,12 @@ class _GalleryState extends State<Gallery> {
         builder: (context, value, child) => value.loading
             ? spinkitLoader()
             : ListView(
+                physics: const BouncingScrollPhysics(),
                 children: [
                   LimitedBox(
                     maxHeight: size.height - 80,
                     child: ListView.builder(
-                        physics: const AlwaysScrollableScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: galleryResponse == null
                             ? 0

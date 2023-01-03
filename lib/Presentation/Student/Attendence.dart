@@ -36,6 +36,7 @@ class Attendence extends StatelessWidget {
             builder: (context, value, child) => value.loading
                 ? spinkitLoader()
                 : ListView(
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       Center(
                         child: Container(
@@ -120,6 +121,7 @@ class Attendence extends StatelessWidget {
                       ),
                       Consumer<AttendenceProvider>(
                         builder: (_, value, child) => ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             itemCount: attend == null ? 0 : attend!.length,
                             shrinkWrap: true,
                             itemBuilder: ((context, index) {

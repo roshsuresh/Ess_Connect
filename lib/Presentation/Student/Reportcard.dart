@@ -36,6 +36,8 @@ class ReportCard extends StatelessWidget {
           builder: (context, value, child) => value.loading
               ? spinkitLoader()
               : ListView(
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
                   children: [
                     kheight20,
                     Table(

@@ -6,6 +6,7 @@ import 'package:essconnect/Application/StudentProviders/InternetConnection.dart'
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
+import 'package:essconnect/Presentation/Student/Diary.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
@@ -73,6 +74,7 @@ class _StudentHomeState extends State<StudentHome> {
         builder: (context, connection, child) => connection.isOnline == false
             ? const NoInternetConnection()
             : ListView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   ProfileHome(kheight20: kheight20, kheight: kheight),
                   const Flashnews(),
@@ -88,6 +90,7 @@ class _StudentHomeState extends State<StudentHome> {
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
                     child: ListView(
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         kheight20,
                         Row(children: <Widget>[
@@ -310,8 +313,7 @@ class _StudentHomeState extends State<StudentHome> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NoticeBoard()),
+                                      builder: (context) => const Diary()),
                                 );
                               },
                               child: Padding(
@@ -713,6 +715,7 @@ class _StudentHomeState extends State<StudentHome> {
                                     var divId = value.divisionId == null
                                         ? 'divId is null'
                                         : value.divisionId.toString();
+                                    print(divId);
                                     await Provider.of<Timetableprovider>(
                                             context,
                                             listen: false)
@@ -1212,6 +1215,8 @@ class ProfileHome extends StatelessWidget {
                                                   fontSize: 8.0),
                                               text: TextSpan(
                                                   style: const TextStyle(
+                                                      overflow:
+                                                          TextOverflow.clip,
                                                       fontSize: 12,
                                                       color:
                                                           UIGuide.light_Purple,

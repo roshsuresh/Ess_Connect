@@ -121,15 +121,15 @@ class GalleryProviderAdmin with ChangeNotifier {
 
   String? id;
   Future galleryImageSave(BuildContext context, String path) async {
-    SharedPreferences _pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
 
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+      'Authorization': 'Bearer ${pref.getString('accesstoken')}'
     };
     var request = http.MultipartRequest(
         'POST', Uri.parse('${UIGuide.baseURL}/files/single/School'));
-    request.files.add(await http.MultipartFile.fromPath('file', "$path"));
+    request.files.add(await http.MultipartFile.fromPath('file', path));
     request.headers.addAll(headers);
     print(path);
 
@@ -181,48 +181,66 @@ class GalleryProviderAdmin with ChangeNotifier {
   Future gallerySave(
       context,
       String entryDate,
-      String DisplayStartDate,
-      String DisplayEndDate,
-      String Titlee,
+      String displayStartDate,
+      String displayEndDate,
+      String titlee,
       coursee,
       divisionn,
       String toggle,
-      String AttachmentId) async {
+      String attachmentId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
 
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
+    print('$attachmentId  __________________');
     var request =
         http.Request('POST', Uri.parse('${UIGuide.baseURL}/gallery/create'));
     request.body = json.encode({
-      "EntryDate": entryDate,
-      "DisplayStartDate": DisplayStartDate,
-      "DisplayEndDate": DisplayEndDate,
-      "Title": Titlee,
-      "CourseId": coursee,
-      "DivisionId": divisionn,
-      "ForClassTeacherOnly": "false",
-      "DisplayTo": toggle,
-      "StaffRole": "null",
-      "PhotoList": [
-        {"PhotoCaption": "null", "FileId": AttachmentId, "IsMaster": "true"},
-      ]
+      "cancel": null,
+      "courseId": coursee,
+      "displayEndDate": displayEndDate,
+      "displayStartDate": displayStartDate,
+      "displayTo": toggle,
+      "divisionId": divisionn,
+      "entryDate": entryDate,
+      "forClassTeacherOnly": false,
+      "photoList": [
+        {"fileId": attachmentId, "isMaster": true}
+      ],
+      "sectionId": null,
+      "staffRole": null,
+      "title": titlee
+
+      // "EntryDate": entryDate,
+      // "DisplayStartDate": DisplayStartDate,
+      // "DisplayEndDate": DisplayEndDate,
+      // "Title": Titlee,
+      // "CourseId": coursee,
+      // "DivisionId": divisionn,
+      // "ForClassTeacherOnly": "false",
+      // "DisplayTo": toggle,
+      // "StaffRole": "null",
+      // "PhotoList": [
+      //   {"PhotoCaption": "null", "FileId": AttachmentId, "IsMaster": "true"},
+      // ]
     });
     print(json.encode({
-      "EntryDate": entryDate,
-      "DisplayStartDate": DisplayStartDate,
-      "DisplayEndDate": DisplayEndDate,
-      "Title": Titlee,
-      "CourseId": coursee,
-      "DivisionId": divisionn,
-      "ForClassTeacherOnly": "false",
-      "DisplayTo": toggle,
-      "StaffRole": "null",
-      "PhotoList": [
-        {"PhotoCaption": "null", "FileId": AttachmentId, "IsMaster": "true"},
-      ]
+      "cancel": null,
+      "courseId": coursee,
+      "displayEndDate": displayEndDate,
+      "displayStartDate": displayStartDate,
+      "displayTo": toggle,
+      "divisionId": divisionn,
+      "entryDate": entryDate,
+      "forClassTeacherOnly": false,
+      "photoList": [
+        {"fileId": attachmentId, "isMaster": true}
+      ],
+      "sectionId": null,
+      "staffRole": null,
+      "title": titlee
     }));
     request.headers.addAll(headers);
 

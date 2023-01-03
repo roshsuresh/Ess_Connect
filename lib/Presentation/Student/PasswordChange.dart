@@ -42,6 +42,7 @@ class _PasswordChangeState extends State<PasswordChange> {
       ),
       body: Center(
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             kheight20,
             kheight10,

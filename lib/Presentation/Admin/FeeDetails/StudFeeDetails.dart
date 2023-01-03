@@ -89,6 +89,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                         : Scrollbar(
                             thickness: 5,
                             child: ListView(
+                              physics: const BouncingScrollPhysics(),
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
@@ -270,6 +271,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                     Consumer<
                                                                         FeeDetailsProvider>(
                                                                       builder: (context, general, child) => ListView.builder(
+                                                                          physics: const BouncingScrollPhysics(),
                                                                           shrinkWrap: true,
                                                                           itemCount: general.generalFeeDueList.isEmpty ? 0 : general.generalFeeDueList.length,
                                                                           itemBuilder: ((context, index) {
@@ -412,6 +414,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                     Consumer<
                                                                         FeeDetailsProvider>(
                                                                       builder: (context, busfee, child) => ListView.builder(
+                                                                          physics: const BouncingScrollPhysics(),
                                                                           shrinkWrap: true,
                                                                           itemCount: busfee.busFeeDueList.isEmpty ? 0 : busfee.busFeeDueList.length,
                                                                           itemBuilder: ((context, index) {
@@ -603,6 +606,8 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                   child) =>
                                                               ListView.builder(
                                                             shrinkWrap: true,
+                                                            physics:
+                                                                const BouncingScrollPhysics(),
                                                             itemCount: generalPaid
                                                                     .generalFeePaidList
                                                                     .isEmpty
@@ -686,6 +691,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                             mainAxisSize: MainAxisSize.min,
                                                                                             children: [
                                                                                               ListView.builder(
+                                                                                                  physics: const BouncingScrollPhysics(),
                                                                                                   shrinkWrap: true,
                                                                                                   itemCount: generalPaid.generalFeePaidList[indexx].schoolFees!.isEmpty ? 0 : generalPaid.generalFeePaidList[indexx].schoolFees!.length,
                                                                                                   itemBuilder: (context, index) {
@@ -891,6 +897,8 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                 busFeePaidList,
                                                                                 child) =>
                                                                             ListView.builder(
+                                                                          physics:
+                                                                              const BouncingScrollPhysics(),
                                                                           shrinkWrap:
                                                                               true,
                                                                           itemCount: busPaid.busFeePaidList.isEmpty
@@ -944,6 +952,7 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                                           mainAxisSize: MainAxisSize.min,
                                                                                                           children: [
                                                                                                             ListView.builder(
+                                                                                                                physics: const BouncingScrollPhysics(),
                                                                                                                 shrinkWrap: true,
                                                                                                                 itemCount: busPaid.busFeePaidList[indexx].busFees!.isEmpty ? 0 : busPaid.busFeePaidList[indexx].busFees!.length,
                                                                                                                 itemBuilder: (context, index) {

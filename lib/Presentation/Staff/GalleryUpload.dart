@@ -98,6 +98,7 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
       // titleController.clear();
     });
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

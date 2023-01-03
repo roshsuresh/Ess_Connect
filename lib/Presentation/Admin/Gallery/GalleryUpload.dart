@@ -63,6 +63,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
     var size = MediaQuery.of(context).size;
     datee = DateFormat('dd/MMM/yyyy').format(DateTime.now());
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -55,20 +55,23 @@ class _AdminHomeState extends State<AdminHome> {
         builder: (context, connection, child) => connection.isOnline == false
             ? const NoInternetConnection()
             : ListView(
+                physics: BouncingScrollPhysics(),
                 children: [
                   const AdminProfileTop(),
                   Container(
                     width: size.width,
                     height: size.height - 170,
-                    decoration: const BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              // color: UIGuide.light_Purple,
-                              blurRadius: 5,
-                              offset: Offset(1, 3))
-                        ],
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: UIGuide.THEME_LIGHT, width: 1),
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //       color: UIGuide.light_Purple,
+                        //       blurRadius: 2,
+                        //       offset: Offset(1, 3))
+                        // ],
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
                     child: const AdminHomeContent(),
@@ -87,10 +90,11 @@ class AdminHomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Container(
           decoration: const BoxDecoration(
-              boxShadow: [BoxShadow(blurRadius: 5, offset: Offset(1, 3))],
+              //  boxShadow: [BoxShadow(blurRadius: 5, offset: Offset(1, 3))],
               color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30))),

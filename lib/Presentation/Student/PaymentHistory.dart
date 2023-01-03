@@ -92,6 +92,7 @@ class PaymentHistory extends StatelessWidget {
                   LimitedBox(
                     maxHeight: size.height - 150,
                     child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                         itemCount: value.historyList.isEmpty
                             ? 0
                             : value.historyList.length,

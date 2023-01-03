@@ -265,6 +265,21 @@ class GallerySendProvider_Stf with ChangeNotifier {
     });
     request.headers.addAll(headers);
 
+    print(json.encode({
+      "EntryDate": entryDate,
+      "DisplayStartDate": DisplayStartDate,
+      "DisplayEndDate": DisplayEndDate,
+      "Title": Titlee,
+      "CourseId": [CourseId],
+      "DivisionId": [DivisionId],
+      "ForClassTeacherOnly": "false",
+      "DisplayTo": "student",
+      "StaffRole": "null",
+      "PhotoList": [
+        {"PhotoCaption": "null", "FileId": AttachmentId, "IsMaster": "true"},
+      ]
+    }));
+
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200 || response.statusCode == 204) {

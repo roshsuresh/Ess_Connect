@@ -152,31 +152,23 @@ class StudReportListProvider_stf with ChangeNotifier {
 
   Future<bool> getCourseList(String sectionId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
-
     var request = http.Request(
         'GET',
         Uri.parse(
             '${UIGuide.baseURL}/mobileapp/staffdet/studentreport/course/$sectionId'));
     request.body = json.encode({"SchoolId": _pref.getString('schoolId')});
     request.headers.addAll(headers);
-
     http.StreamedResponse response = await request.send();
-
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
-
-      // log(data.toString());
-
       List<StudReportCourse> templist = List<StudReportCourse>.from(
           data["course"].map((x) => StudReportCourse.fromJson(x)));
       courselist.addAll(templist);
-
       notifyListeners();
     } else {
       print('Error in courseList stf');
@@ -294,23 +286,14 @@ class StudReportListProvider_stf with ChangeNotifier {
             '${UIGuide.baseURL}/mobileapp/staffdet/studentreport/viewStudentReport?section=$section&course=$course&division=$division'));
     request.body = json.encode({"SchoolId": _pref.getString('schoolId')});
     request.headers.addAll(headers);
-
     http.StreamedResponse response = await request.send();
-
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
-
-      log(data.toString());
-
       List<ViewStudentReport> templist = List<ViewStudentReport>.from(
           data["viewStudentReport"].map((x) => ViewStudentReport.fromJson(x)));
       viewStudReportListt.addAll(templist);
-      // int len = templist.length;
-      // String ss = templist[len].terminationStatus.toString();
-      // log(ss.toString());
       setLoading(false);
-
       notifyListeners();
     } else {
       setLoading(false);

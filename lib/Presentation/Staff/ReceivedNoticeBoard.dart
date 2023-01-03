@@ -20,6 +20,7 @@ class StaffNoticeBoardReceived extends StatelessWidget {
     var width = size.width;
     return Consumer<StaffNoticeboardSendProviders>(builder: (_, value, child) {
       return ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: staffNoticeView == null ? 0 : staffNoticeView!.length,
         itemBuilder: (BuildContext context, index) {
           var noticeattach = staffNoticeView![index]['noticeId'] == null
@@ -212,7 +213,7 @@ class PdfViewPageStaff extends StatelessWidget {
                 imageProvider: NetworkImage(
                   result == null
                       ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlmeGlXoJwwpbCE9jGgHgZ2XaE5nnPUSomkZz_vZT7&s'
-                      : result,
+                      : result.toString(),
                 ),
               )),
             ),
@@ -232,6 +233,9 @@ class PdfViewPageStaff extends StatelessWidget {
       } else if (provider.extension.toString() == '.jpeg') {
         final imgResult3 = provider.url.toString();
         return imageview(imgResult3);
+      } else if (provider.extension.toString() == '.jfif') {
+        final imgResult4 = provider.url.toString();
+        return imageview(imgResult4);
       } else {
         return const Scaffold(
           body: Center(

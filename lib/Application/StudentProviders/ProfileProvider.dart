@@ -126,7 +126,6 @@ class ProfileProvider with ChangeNotifier {
         final data = json.decode(response.body.toString());
         FlashNewsMode flash = FlashNewsMode.fromJson(data);
         flashnews = flash.flashNews;
-
         notifyListeners();
       } else {
         print("Something went wrong in flashnews");

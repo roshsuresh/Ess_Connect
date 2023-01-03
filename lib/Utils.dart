@@ -31,7 +31,7 @@ Widget ripple(BuildContext context, Duration animationDuration, Rect? rect) {
     bottom: MediaQuery.of(context).size.height - rect.bottom,
     duration: animationDuration,
     child: Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: UIGuide.light_Purple,
       ),

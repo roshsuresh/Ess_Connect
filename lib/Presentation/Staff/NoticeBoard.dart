@@ -121,6 +121,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
     datee = DateFormat('dd/MMM/yyyy').format(DateTime.now());
 
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

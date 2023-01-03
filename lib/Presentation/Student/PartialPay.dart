@@ -97,6 +97,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
             : Stack(
                 children: [
                   ListView(
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       kheight20,
                       const Padding(
@@ -121,6 +122,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                               child: Consumer<FeesProvider>(
                                 builder: (context, valuee, child) =>
                                     ListView.builder(
+                                        physics: const BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         controller: _controllerr,
                                         itemCount: valuee.feeList.isEmpty
@@ -236,6 +238,8 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                         child: Consumer<FeesProvider>(
                                             builder: (context, val, child) {
                                           return ListView.builder(
+                                              physics:
+                                                  const BouncingScrollPhysics(),
                                               shrinkWrap: true,
                                               controller: _controllerr2,
                                               itemCount: val.busFeeList.isEmpty

@@ -522,97 +522,211 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
             child: Consumer<StudReportListProvider_stf>(
               builder: (context, provider, child) => provider.loading
                   ? spinkitLoader()
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: provider.viewStudReportListt.length == null
-                          ? 0
-                          : provider.viewStudReportListt.length,
-                      itemBuilder: (context, index) {
-                        String status = provider
-                            .viewStudReportListt[index].terminationStatus
-                            .toString();
-                        if (status.toString() == false.toString()) {
-                          return Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Container(
-                              width: size.width - 4,
-                              height: 93,
-                              decoration: const BoxDecoration(
-                                  color: UIGuide.light_Purple,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const SizedBox(
-                                    height: 2,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                StudProfileView_Staff(
-                                                  indexx: index,
-                                                )),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: size.width - 10,
-                                      height: 90,
-                                      decoration: const BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          kWidth,
-                                          Center(
-                                            child: Container(
-                                              width: 70,
-                                              height: 70,
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromARGB(
-                                                      255, 236, 233, 233),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(provider
-                                                              .viewStudReportListt[
-                                                                  index]
-                                                              .studentPhoto ??
-                                                          'https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg')),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(10))),
+                  : Scrollbar(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: provider.viewStudReportListt.length == null
+                            ? 0
+                            : provider.viewStudReportListt.length,
+                        itemBuilder: (context, index) {
+                          String status = provider
+                              .viewStudReportListt[index].terminationStatus
+                              .toString();
+                          if (status.toString() == false.toString()) {
+                            return Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Container(
+                                width: size.width - 4,
+                                height: 93,
+                                decoration: const BoxDecoration(
+                                    color: UIGuide.light_Purple,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  StudProfileView_Staff(
+                                                    indexx: index,
+                                                  )),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: size.width - 10,
+                                        height: 90,
+                                        decoration: const BoxDecoration(
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            kWidth,
+                                            Center(
+                                              child: Container(
+                                                width: 70,
+                                                height: 70,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 236, 233, 233),
+                                                    image: DecorationImage(
+                                                        image: NetworkImage(provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .studentPhoto ??
+                                                            'https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg')),
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                10))),
+                                              ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    const Text(
-                                                      'Name : ',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 13),
-                                                    ),
-                                                    RichText(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      strutStyle:
-                                                          const StrutStyle(
-                                                              fontSize: 8.0),
-                                                      text: TextSpan(
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Name : ',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 13),
+                                                      ),
+                                                      RichText(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        strutStyle:
+                                                            const StrutStyle(
+                                                                fontSize: 8.0),
+                                                        text: TextSpan(
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 12,
+                                                              color: UIGuide
+                                                                  .light_Purple,
+                                                            ),
+                                                            text: provider
+                                                                    .viewStudReportListt[
+                                                                        index]
+                                                                    .name ??
+                                                                '---'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Roll No : ',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 13),
+                                                      ),
+                                                      RichText(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        strutStyle:
+                                                            const StrutStyle(
+                                                                fontSize: 8.0),
+                                                        text: TextSpan(
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors.black,
+                                                          ),
+                                                          text: provider
+                                                                      .viewStudReportListt[
+                                                                          index]
+                                                                      .rollNo ==
+                                                                  null
+                                                              ? '---'
+                                                              : provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .rollNo
+                                                                  .toString(),
+                                                        ),
+                                                      ),
+                                                      kWidth,
+                                                      kWidth,
+                                                      Row(
+                                                        children: [
+                                                          const Text(
+                                                            'Division : ',
+                                                            textAlign:
+                                                                TextAlign.start,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: 13),
+                                                          ),
+                                                          RichText(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            strutStyle:
+                                                                const StrutStyle(
+                                                                    fontSize:
+                                                                        8.0),
+                                                            text: TextSpan(
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                              text: provider
+                                                                      .viewStudReportListt[
+                                                                          index]
+                                                                      .division ??
+                                                                  '---',
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Adm No : ',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 13),
+                                                      ),
+                                                      RichText(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        strutStyle:
+                                                            const StrutStyle(
+                                                                fontSize: 8.0),
+                                                        text: TextSpan(
                                                           style:
                                                               const TextStyle(
                                                             fontSize: 12,
@@ -621,53 +735,33 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                                           text: provider
                                                                   .viewStudReportListt[
                                                                       index]
-                                                                  .name ??
-                                                              '---'),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const Text(
-                                                      'Roll No : ',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 13),
-                                                    ),
-                                                    RichText(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      strutStyle:
-                                                          const StrutStyle(
-                                                              fontSize: 8.0),
-                                                      text: TextSpan(
-                                                        style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black,
+                                                                  .admnNo ??
+                                                              '---',
                                                         ),
-                                                        text: provider
-                                                                    .viewStudReportListt[
-                                                                        index]
-                                                                    .rollNo ==
-                                                                null
-                                                            ? '---'
-                                                            : provider
-                                                                .viewStudReportListt[
-                                                                    index]
-                                                                .rollNo
-                                                                .toString(),
                                                       ),
-                                                    ),
-                                                    kWidth,
-                                                    kWidth,
-                                                    Row(
+                                                    ],
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      phn = provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .mobNo ==
+                                                              null
+                                                          ? '--'
+                                                          : provider
+                                                              .viewStudReportListt[
+                                                                  index]
+                                                              .mobNo
+                                                              .toString();
+
+                                                      _makingPhoneCall(
+                                                          phn.toString());
+                                                    },
+                                                    child: Row(
                                                       children: [
                                                         const Text(
-                                                          'Division : ',
+                                                          'Phone : ',
                                                           textAlign:
                                                               TextAlign.start,
                                                           style: TextStyle(
@@ -687,126 +781,43 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                                           text: TextSpan(
                                                             style:
                                                                 const TextStyle(
-                                                              fontSize: 12,
+                                                              fontSize: 13,
                                                               color:
                                                                   Colors.black,
                                                             ),
                                                             text: provider
                                                                     .viewStudReportListt[
                                                                         index]
-                                                                    .division ??
+                                                                    .mobNo ??
                                                                 '---',
                                                           ),
                                                         ),
+                                                        const Icon(
+                                                          Icons.phone,
+                                                          size: 17,
+                                                        )
                                                       ],
                                                     ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const Text(
-                                                      'Adm No : ',
-                                                      textAlign:
-                                                          TextAlign.start,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 13),
-                                                    ),
-                                                    RichText(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      strutStyle:
-                                                          const StrutStyle(
-                                                              fontSize: 8.0),
-                                                      text: TextSpan(
-                                                        style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black,
-                                                        ),
-                                                        text: provider
-                                                                .viewStudReportListt[
-                                                                    index]
-                                                                .admnNo ??
-                                                            '---',
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    phn = provider
-                                                                .viewStudReportListt[
-                                                                    index]
-                                                                .mobNo ==
-                                                            null
-                                                        ? '--'
-                                                        : provider
-                                                            .viewStudReportListt[
-                                                                index]
-                                                            .mobNo
-                                                            .toString();
-
-                                                    _makingPhoneCall(
-                                                        phn.toString());
-                                                  },
-                                                  child: Row(
-                                                    children: [
-                                                      const Text(
-                                                        'Phone : ',
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 13),
-                                                      ),
-                                                      RichText(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 1,
-                                                        strutStyle:
-                                                            const StrutStyle(
-                                                                fontSize: 8.0),
-                                                        text: TextSpan(
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 13,
-                                                            color: Colors.black,
-                                                          ),
-                                                          text: provider
-                                                                  .viewStudReportListt[
-                                                                      index]
-                                                                  .mobNo ??
-                                                              '---',
-                                                        ),
-                                                      ),
-                                                      const Icon(
-                                                        Icons.phone,
-                                                        size: 17,
-                                                      )
-                                                    ],
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        } else {
-                          return Container(
-                            width: 0,
-                            height: 0,
-                          );
-                        }
-                      },
+                            );
+                          } else {
+                            return Container(
+                              width: 0,
+                              height: 0,
+                            );
+                          }
+                        },
+                      ),
                     ),
             ),
           ),
@@ -850,29 +861,29 @@ class StudProfileView_Staff extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     const Color background = Colors.white;
-    final Color fill1 = const Color.fromARGB(255, 79, 97, 197);
-    final Color fill2 = const Color.fromARGB(255, 180, 103, 216);
+    const Color fill1 = Color.fromARGB(255, 79, 97, 197);
+    const Color fill2 = Color.fromARGB(255, 180, 103, 216);
     final List<Color> gradient = [
       fill1,
       fill2,
       background,
       background,
     ];
-    final double fillPercent = 35;
-    final double fillStop = (100 - fillPercent) / 100;
+    const double fillPercent = 35;
+    const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
 
     return SafeArea(
         child: Scaffold(
       body: Consumer<StudReportListProvider_stf>(
         builder: (context, value, child) => ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Stack(
               children: [
                 Container(
                   height: 260,
                   width: size.width,
-                  // color: UIGuide.WHITE,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: gradient,
@@ -918,7 +929,6 @@ class StudProfileView_Staff extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Table(
-                              // defaultColumnWidth: FixedColumnWidth(120.0),
                               border: TableBorder.all(
                                   color:
                                       const Color.fromARGB(255, 213, 213, 243),
@@ -1559,124 +1569,181 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                         print(status);
 
                         if (status.toString() == true.toString()) {
-                          return Column(
-                            children: [
-                              kheight10,
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            StudProfileView_Staff(
-                                              indexx: index,
-                                            )),
-                                  );
-                                },
-                                child: Container(
-                                  width: size.width - 10,
-                                  height: 90,
-                                  decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 236, 233, 233),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      kWidth,
-                                      Center(
-                                        child: Container(
-                                          width: 70,
-                                          height: 70,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 236, 233, 233),
-                                              image: DecorationImage(
-                                                  image: NetworkImage(provider
-                                                          .viewStudReportListt[
-                                                              index]
-                                                          .studentPhoto ??
-                                                      'https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg')),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10))),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Text(
-                                                  'Name : ',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 13),
-                                                ),
-                                                RichText(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  strutStyle: const StrutStyle(
-                                                      fontSize: 8.0),
-                                                  text: TextSpan(
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.black,
-                                                      ),
-                                                      text: provider
+                          return Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Container(
+                              width: size.width - 4,
+                              height: 93,
+                              decoration: const BoxDecoration(
+                                  color: UIGuide.light_Purple,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                StudProfileView_Staff(
+                                                  indexx: index,
+                                                )),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: size.width - 10,
+                                      height: 90,
+                                      decoration: const BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          kWidth,
+                                          Center(
+                                            child: Container(
+                                              width: 70,
+                                              height: 70,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 236, 233, 233),
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(provider
                                                               .viewStudReportListt[
                                                                   index]
-                                                              .name ??
-                                                          '---'),
-                                                ),
-                                              ],
+                                                              .studentPhoto ??
+                                                          'https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg')),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(10))),
                                             ),
-                                            Row(
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                const Text(
-                                                  'Roll No : ',
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 13),
-                                                ),
-                                                RichText(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  strutStyle: const StrutStyle(
-                                                      fontSize: 8.0),
-                                                  text: TextSpan(
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.black,
-                                                    ),
-                                                    text: provider
-                                                                .viewStudReportListt[
-                                                                    index]
-                                                                .rollNo ==
-                                                            null
-                                                        ? '---'
-                                                        : provider
-                                                            .viewStudReportListt[
-                                                                index]
-                                                            .rollNo
-                                                            .toString(),
-                                                  ),
-                                                ),
-                                                kWidth,
-                                                kWidth,
                                                 Row(
                                                   children: [
                                                     const Text(
-                                                      'Division : ',
+                                                      'Name : ',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 13),
+                                                    ),
+                                                    RichText(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      strutStyle:
+                                                          const StrutStyle(
+                                                              fontSize: 8.0),
+                                                      text: TextSpan(
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 12,
+                                                            color: UIGuide
+                                                                .light_Purple,
+                                                          ),
+                                                          text: provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .name ??
+                                                              '---'),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Roll No : ',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 13),
+                                                    ),
+                                                    RichText(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      strutStyle:
+                                                          const StrutStyle(
+                                                              fontSize: 8.0),
+                                                      text: TextSpan(
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.black,
+                                                        ),
+                                                        text: provider
+                                                                    .viewStudReportListt[
+                                                                        index]
+                                                                    .rollNo ==
+                                                                null
+                                                            ? '---'
+                                                            : provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .rollNo
+                                                                .toString(),
+                                                      ),
+                                                    ),
+                                                    kWidth,
+                                                    kWidth,
+                                                    Row(
+                                                      children: [
+                                                        const Text(
+                                                          'Division : ',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 13),
+                                                        ),
+                                                        RichText(
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          strutStyle:
+                                                              const StrutStyle(
+                                                                  fontSize:
+                                                                      8.0),
+                                                          text: TextSpan(
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 12,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                            text: provider
+                                                                    .viewStudReportListt[
+                                                                        index]
+                                                                    .division ??
+                                                                '---',
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Adm No : ',
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: TextStyle(
@@ -1699,107 +1766,77 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                                         text: provider
                                                                 .viewStudReportListt[
                                                                     index]
-                                                                .division ??
+                                                                .admnNo ??
                                                             '---',
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                const Text(
-                                                  'Adm No : ',
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 13),
-                                                ),
-                                                RichText(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  strutStyle: const StrutStyle(
-                                                      fontSize: 8.0),
-                                                  text: TextSpan(
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.black,
-                                                    ),
-                                                    text: provider
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    phn = provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .mobNo ==
+                                                            null
+                                                        ? '--'
+                                                        : provider
                                                             .viewStudReportListt[
                                                                 index]
-                                                            .admnNo ??
-                                                        '---',
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            GestureDetector(
-                                              onTap: () async {
-                                                phn = provider
-                                                            .viewStudReportListt[
-                                                                index]
-                                                            .mobNo ==
-                                                        null
-                                                    ? '--'
-                                                    : provider
-                                                        .viewStudReportListt[
-                                                            index]
-                                                        .mobNo
-                                                        .toString();
+                                                            .mobNo
+                                                            .toString();
 
-                                                _makingPhoneCall(
-                                                    phn.toString());
-                                              },
-                                              child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.center,
-                                                //crossAxisAlignment: CrossAxisAlignment.end,
-                                                children: [
-                                                  const Text(
-                                                    'Phone : ',
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 13),
-                                                  ),
-                                                  RichText(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    strutStyle:
-                                                        const StrutStyle(
-                                                            fontSize: 8.0),
-                                                    text: TextSpan(
-                                                      style: const TextStyle(
-                                                        fontSize: 13,
-                                                        color: Colors.black,
+                                                    _makingPhoneCall(
+                                                        phn.toString());
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Phone : ',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 13),
                                                       ),
-                                                      text: provider
-                                                              .viewStudReportListt[
-                                                                  index]
-                                                              .mobNo ??
-                                                          '---',
-                                                    ),
+                                                      RichText(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        strutStyle:
+                                                            const StrutStyle(
+                                                                fontSize: 8.0),
+                                                        text: TextSpan(
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 13,
+                                                            color: Colors.black,
+                                                          ),
+                                                          text: provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .mobNo ??
+                                                              '---',
+                                                        ),
+                                                      ),
+                                                      const Icon(
+                                                        Icons.phone,
+                                                        size: 17,
+                                                      )
+                                                    ],
                                                   ),
-                                                  const Icon(
-                                                    Icons.phone,
-                                                    size: 17,
-                                                  )
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           );
                         } else {
                           return Container(
@@ -2274,241 +2311,282 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
             child: Consumer<StudReportListProvider_stf>(
               builder: (context, provider, child) => provider.loading
                   ? spinkitLoader()
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: provider.viewStudReportListt.length,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            kheight10,
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          StudProfileView_Staff(
-                                            indexx: index,
-                                          )),
-                                );
-                              },
-                              child: Container(
-                                width: size.width - 10,
-                                height: 90,
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 236, 233, 233),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    kWidth,
-                                    Center(
-                                      child: Container(
-                                        width: 70,
-                                        height: 70,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                255, 236, 233, 233),
-                                            image: DecorationImage(
-                                                image: NetworkImage(provider
-                                                        .viewStudReportListt[
-                                                            index]
-                                                        .studentPhoto ??
-                                                    'https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg')),
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10))),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
+                  : Scrollbar(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: provider.viewStudReportListt.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Container(
+                              width: size.width - 4,
+                              height: 93,
+                              decoration: const BoxDecoration(
+                                  color: UIGuide.light_Purple,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                StudProfileView_Staff(
+                                                  indexx: index,
+                                                )),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: size.width - 10,
+                                      height: 90,
+                                      decoration: const BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            children: [
-                                              const Text(
-                                                'Name : ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13),
-                                              ),
-                                              RichText(
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                strutStyle: const StrutStyle(
-                                                    fontSize: 8.0),
-                                                text: TextSpan(
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: Colors.black,
-                                                    ),
-                                                    text: provider
-                                                            .viewStudReportListt[
-                                                                index]
-                                                            .name ??
-                                                        '---'),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Text(
-                                                'Roll No : ',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13),
-                                              ),
-                                              RichText(
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                strutStyle: const StrutStyle(
-                                                    fontSize: 8.0),
-                                                text: TextSpan(
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                  ),
-                                                  text: provider
+                                          kWidth,
+                                          Center(
+                                            child: Container(
+                                              width: 70,
+                                              height: 70,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromARGB(
+                                                      255, 236, 233, 233),
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(provider
                                                               .viewStudReportListt[
                                                                   index]
-                                                              .rollNo ==
-                                                          null
-                                                      ? '---'
-                                                      : provider
-                                                          .viewStudReportListt[
-                                                              index]
-                                                          .rollNo
-                                                          .toString(),
-                                                ),
-                                              ),
-                                              kWidth,
-                                              kWidth,
-                                              Row(
-                                                children: [
-                                                  const Text(
-                                                    'Division : ',
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 13),
-                                                  ),
-                                                  RichText(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 1,
-                                                    strutStyle:
-                                                        const StrutStyle(
-                                                            fontSize: 8.0),
-                                                    text: TextSpan(
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.black,
-                                                      ),
-                                                      text: provider
-                                                              .viewStudReportListt[
-                                                                  index]
-                                                              .division ??
-                                                          '---',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Text(
-                                                'Adm No : ',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13),
-                                              ),
-                                              RichText(
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                strutStyle: const StrutStyle(
-                                                    fontSize: 8.0),
-                                                text: TextSpan(
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                  ),
-                                                  text: provider
-                                                          .viewStudReportListt[
-                                                              index]
-                                                          .admnNo ??
-                                                      '---',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              phn = provider
-                                                          .viewStudReportListt[
-                                                              index]
-                                                          .mobNo ==
-                                                      null
-                                                  ? '--'
-                                                  : provider
-                                                      .viewStudReportListt[
-                                                          index]
-                                                      .mobNo
-                                                      .toString();
-
-                                              _makingPhoneCall(phn.toString());
-                                            },
-                                            child: Row(
-                                              children: [
-                                                const Text(
-                                                  'Phone : ',
-                                                  textAlign: TextAlign.start,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 13),
-                                                ),
-                                                RichText(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                  strutStyle: const StrutStyle(
-                                                      fontSize: 8.0),
-                                                  text: TextSpan(
-                                                    style: const TextStyle(
-                                                      fontSize: 13,
-                                                      color: Colors.black,
-                                                    ),
-                                                    text: provider
-                                                            .viewStudReportListt[
-                                                                index]
-                                                            .mobNo ??
-                                                        '---',
-                                                  ),
-                                                ),
-                                                const Icon(
-                                                  Icons.phone,
-                                                  size: 17,
-                                                )
-                                              ],
+                                                              .studentPhoto ??
+                                                          'https://c8.alamy.com/zooms/9/52c3ea49892f4e5789b31cadac8aa969/2gefnr1.jpg')),
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                          Radius.circular(10))),
                                             ),
                                           ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Name : ',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 13),
+                                                    ),
+                                                    RichText(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      strutStyle:
+                                                          const StrutStyle(
+                                                              fontSize: 8.0),
+                                                      text: TextSpan(
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 12,
+                                                            color: UIGuide
+                                                                .light_Purple,
+                                                          ),
+                                                          text: provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .name ??
+                                                              '---'),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Roll No : ',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 13),
+                                                    ),
+                                                    RichText(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      strutStyle:
+                                                          const StrutStyle(
+                                                              fontSize: 8.0),
+                                                      text: TextSpan(
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.black,
+                                                        ),
+                                                        text: provider
+                                                                    .viewStudReportListt[
+                                                                        index]
+                                                                    .rollNo ==
+                                                                null
+                                                            ? '---'
+                                                            : provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .rollNo
+                                                                .toString(),
+                                                      ),
+                                                    ),
+                                                    kWidth,
+                                                    kWidth,
+                                                    Row(
+                                                      children: [
+                                                        const Text(
+                                                          'Division : ',
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 13),
+                                                        ),
+                                                        RichText(
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          strutStyle:
+                                                              const StrutStyle(
+                                                                  fontSize:
+                                                                      8.0),
+                                                          text: TextSpan(
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 12,
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                            text: provider
+                                                                    .viewStudReportListt[
+                                                                        index]
+                                                                    .division ??
+                                                                '---',
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    const Text(
+                                                      'Adm No : ',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 13),
+                                                    ),
+                                                    RichText(
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                      strutStyle:
+                                                          const StrutStyle(
+                                                              fontSize: 8.0),
+                                                      text: TextSpan(
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: Colors.black,
+                                                        ),
+                                                        text: provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .admnNo ??
+                                                            '---',
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    phn = provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .mobNo ==
+                                                            null
+                                                        ? '--'
+                                                        : provider
+                                                            .viewStudReportListt[
+                                                                index]
+                                                            .mobNo
+                                                            .toString();
+
+                                                    _makingPhoneCall(
+                                                        phn.toString());
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Phone : ',
+                                                        textAlign:
+                                                            TextAlign.start,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 13),
+                                                      ),
+                                                      RichText(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 1,
+                                                        strutStyle:
+                                                            const StrutStyle(
+                                                                fontSize: 8.0),
+                                                        text: TextSpan(
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 13,
+                                                            color: Colors.black,
+                                                          ),
+                                                          text: provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .mobNo ??
+                                                              '---',
+                                                        ),
+                                                      ),
+                                                      const Icon(
+                                                        Icons.phone,
+                                                        size: 17,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
                                         ],
                                       ),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
             ),
           ),

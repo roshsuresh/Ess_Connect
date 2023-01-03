@@ -28,10 +28,10 @@ class spinkitLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 80,
-        height: 80,
+        width: 68,
+        height: 68,
         child: LoadingIndicator(
-          colors: _kDefaultColors,
+          colors: _kDefaultRainbowColors,
           strokeWidth: 2.0,
           indicatorType: Indicator.ballRotateChase,
         ),

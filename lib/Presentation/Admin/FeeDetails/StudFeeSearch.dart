@@ -43,6 +43,7 @@ class _StudentFeeSearchState extends State<StudentFeeSearch> {
         backgroundColor: UIGuide.light_Purple,
       ),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -70,6 +71,7 @@ class _StudentFeeSearchState extends State<StudentFeeSearch> {
             maxHeight: size.height - 180,
             child: Consumer<FeeDetailsProvider>(
               builder: (context, provider, child) => ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: provider.searchStudent.length == null
                     ? 0

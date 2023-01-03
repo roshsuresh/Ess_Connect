@@ -60,125 +60,127 @@ class StudentNotificationHistory extends StatelessWidget {
       builder: (context, value, child) => value.loading
           ? spinkitLoader()
           : AnimationLimiter(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: value.historyList.length,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                itemBuilder: (BuildContext context, index) {
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    delay: const Duration(milliseconds: 100),
-                    child: SlideAnimation(
-                      duration: const Duration(milliseconds: 2500),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                      horizontalOffset: 30,
-                      verticalOffset: 300.0,
-                      child: FlipAnimation(
-                          duration: const Duration(milliseconds: 3000),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          flipAxis: FlipAxis.y,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: LimitedBox(
-                              maxHeight: 100,
-                              child: Container(
-                                width: size.width,
-                                // height: 100,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: UIGuide.light_Purple)),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Title: ',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: UIGuide.light_Purple),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            value.historyList[index].title ??
-                                                '--',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Matter: ',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: UIGuide.light_Purple),
-                                        ),
-                                        Flexible(
-                                          child: RichText(
-                                            overflow: TextOverflow.ellipsis,
-                                            strutStyle:
-                                                const StrutStyle(fontSize: 13),
-                                            maxLines: 3,
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                  fontSize: 15,
-                                                  color: Color.fromARGB(
-                                                      255, 44, 43, 43)),
-                                              text: value.historyList[index]
-                                                      .body ??
-                                                  '--',
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: Row(
+              child: Scrollbar(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: value.historyList.length,
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  itemBuilder: (BuildContext context, index) {
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      delay: const Duration(milliseconds: 100),
+                      child: SlideAnimation(
+                        duration: const Duration(milliseconds: 2500),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        horizontalOffset: 30,
+                        verticalOffset: 300.0,
+                        child: FlipAnimation(
+                            duration: const Duration(milliseconds: 3000),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            flipAxis: FlipAxis.y,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: LimitedBox(
+                                maxHeight: 100,
+                                child: Container(
+                                  width: size.width,
+                                  // height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: UIGuide.light_Purple)),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                            CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.start,
                                         children: [
                                           const Text(
-                                            'Created At: ',
+                                            'Title: ',
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 color: UIGuide.light_Purple),
                                           ),
-                                          Text(
-                                            value.historyList[index]
-                                                    .createdDate ??
-                                                '--',
+                                          Flexible(
+                                            child: Text(
+                                              value.historyList[index].title ??
+                                                  '--',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'Matter: ',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: UIGuide.light_Purple),
+                                          ),
+                                          Flexible(
+                                            child: RichText(
+                                              overflow: TextOverflow.ellipsis,
+                                              strutStyle: const StrutStyle(
+                                                  fontSize: 13),
+                                              maxLines: 3,
+                                              text: TextSpan(
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    color: Color.fromARGB(
+                                                        255, 44, 43, 43)),
+                                                text: value.historyList[index]
+                                                        .body ??
+                                                    '--',
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    )
-                                  ],
+                                      Expanded(
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            const Text(
+                                              'Created At: ',
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: UIGuide.light_Purple),
+                                            ),
+                                            Text(
+                                              value.historyList[index]
+                                                      .createdDate ??
+                                                  '--',
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )),
-                    ),
-                  );
-                },
+                            )),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
     );

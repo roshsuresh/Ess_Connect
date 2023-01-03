@@ -22,6 +22,7 @@ class NoticeBoardListAdmin extends StatelessWidget {
         return provider.loading
             ? spinkitLoader()
             : ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: provider.noticeList.isEmpty
                     ? 0
                     : provider.noticeList.length,
@@ -34,7 +35,7 @@ class NoticeBoardListAdmin extends StatelessWidget {
 
                   String even = provider.noticeList[index].id.toString();
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Container(
                       width: size.width,
                       height: 90,

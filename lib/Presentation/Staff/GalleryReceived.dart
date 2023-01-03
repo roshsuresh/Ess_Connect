@@ -22,10 +22,12 @@ class StaffGalleryView extends StatelessWidget {
       builder: (context, value, child) => value.loading
           ? spinkitLoader()
           : ListView(
+              physics: const BouncingScrollPhysics(),
               children: [
                 ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: value.galleryReceived.length == null
+                    itemCount: value.galleryReceived.isEmpty
                         ? 0
                         : value.galleryReceived.length,
                     itemBuilder: ((context, index) {

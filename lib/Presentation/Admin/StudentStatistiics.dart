@@ -46,6 +46,7 @@ class Student_statistics_admin extends StatelessWidget {
           backgroundColor: UIGuide.light_Purple,
         ),
         body: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Row(
               children: [
@@ -321,6 +322,7 @@ class Student_statistics_admin extends StatelessWidget {
               return LimitedBox(
                   maxHeight: size.height - 200,
                   child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: value.statiticsList.isEmpty
                           ? 0
@@ -391,6 +393,7 @@ class Student_statistics_admin extends StatelessWidget {
               builder: (context, value, child) => Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount:
                       value.totalList.isEmpty ? 0 : value.totalList.length,
                   shrinkWrap: true,

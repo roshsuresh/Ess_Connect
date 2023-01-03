@@ -37,6 +37,7 @@ class Staff_Timetable extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             kheight20,
             Table(

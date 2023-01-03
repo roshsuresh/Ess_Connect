@@ -1,4 +1,3 @@
-import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationReceived.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +51,7 @@ class Stud_Notification extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return AnimationConfiguration.staggeredList(
                         position: index,
-                        delay: const Duration(milliseconds: 100),
+                        delay: const Duration(milliseconds: 50),
                         child: SlideAnimation(
                           duration: const Duration(milliseconds: 2500),
                           curve: Curves.fastLinearToSlowEaseIn,

@@ -296,7 +296,6 @@ class _FeeReportState extends State<FeeReport> {
                 width: size.width * .42,
                 child: MaterialButton(
                   // minWidth: size.width - 250,
-                  child: Center(child: Text('To ${timeNow}')),
                   color: Colors.white,
                   onPressed: (() async {
                     _mydatetimeTo = await showDatePicker(
@@ -323,6 +322,8 @@ class _FeeReportState extends State<FeeReport> {
                       print(timeNow);
                     });
                   }),
+                  // minWidth: size.width - 250,
+                  child: Center(child: Text('To $timeNow')),
                 ),
               ),
               const Spacer()
@@ -334,10 +335,6 @@ class _FeeReportState extends State<FeeReport> {
               SizedBox(
                 width: 120,
                 child: TextButton(
-                  child: const Text(
-                    'View',
-                    style: TextStyle(color: Colors.white),
-                  ),
                   style: TextButton.styleFrom(
                       backgroundColor: UIGuide.light_Purple),
                   onPressed: (() async {
@@ -355,6 +352,10 @@ class _FeeReportState extends State<FeeReport> {
                     await Provider.of<FeeReportProvider>(context, listen: false)
                         .getFeeReportView(section, course, time, timeNow);
                   }),
+                  child: const Text(
+                    'View',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ],
@@ -421,6 +422,7 @@ class _FeeReportState extends State<FeeReport> {
                     child: LimitedBox(
                       maxHeight: size.height / 1.8,
                       child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: value.collectionList.isEmpty
                               ? 0
@@ -946,15 +948,22 @@ class _FeeReportState extends State<FeeReport> {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Text(
-                  "Total:  ",
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                ),
-                Text(
-                  value.allTotal == null ? '0.00' : value.allTotal.toString(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w900, fontSize: 16),
-                ),
+                value.allTotal == null
+                    ? const Text('')
+                    : const Text(
+                        "Total:  ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 16),
+                      ),
+                value.allTotal == null
+                    ? const Text('')
+                    : Text(
+                        value.allTotal == null
+                            ? '0.00'
+                            : value.allTotal.toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w900, fontSize: 16),
+                      ),
                 kWidth
               ],
             ),

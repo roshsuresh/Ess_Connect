@@ -77,11 +77,7 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
         ),
         backgroundColor: UIGuide.light_Purple,
       ),
-      body:
-          //  Consumer<MarkEntryReportProvider_stf>(
-          //   builder: (context, value, child) =>
-
-          ListView(
+      body: ListView(
         children: [
           Row(
             children: [
@@ -107,7 +103,6 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                                       itemBuilder: (context, index) {
                                         print(snapshot
                                             .markReportCourseList.length);
-                                        //    value.removeCourseAll();
                                         return ListTile(
                                           selectedTileColor:
                                               Colors.blue.shade100,
@@ -133,10 +128,6 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                                                 .markReportCourseList[index]);
                                             print(courseId);
                                             // Provider.of<MarkEntryReportProvider_stf>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .markReportCourseList
-                                            //     .clear();
                                             await Provider.of<
                                                         MarkEntryReportProvider_stf>(
                                                     context,
@@ -219,7 +210,6 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                                       itemBuilder: (context, index) {
                                         print(snapshot
                                             .markReportDivisions.length);
-                                        //    value.removeCourseAll();
                                         return ListTile(
                                           selectedTileColor:
                                               Colors.blue.shade100,
@@ -253,12 +243,6 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                                                     listen: false)
                                                 .markReportDivisions
                                                 .clear();
-                                            // await Provider.of<
-                                            //             MarkEntryReportProvider_stf>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .getMarkEntryDivisionValues(
-                                            //         courseId);
                                             Navigator.of(context).pop();
                                           },
                                           title: Text(
@@ -340,7 +324,6 @@ class _MarkEntryReportState extends State<MarkEntryReport> {
                                       itemBuilder: (context, index) {
                                         print(
                                             snapshot.markReportPartList.length);
-                                        //    value.removeCourseAll();
                                         return ListTile(
                                           selectedTileColor:
                                               Colors.blue.shade100,

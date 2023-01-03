@@ -24,6 +24,7 @@ class AdminGalleryView extends StatelessWidget {
           : ListView(
               children: [
                 ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: value.galleryReceived.isEmpty
                         ? 0

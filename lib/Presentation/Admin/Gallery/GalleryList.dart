@@ -21,6 +21,7 @@ class GalleryListAdmin extends StatelessWidget {
         return provider.loading
             ? spinkitLoader()
             : ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: provider.galleryViewList.isEmpty
                     ? 0
                     : provider.galleryViewList.length,

@@ -64,8 +64,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                               snapshot
                                                   .markReportCourseList[index]),
                                           onTap: () async {
-                                            print(snapshot
-                                                .markReportCourseList.length);
                                             courseController.text = snapshot
                                                     .markReportCourseList[index]
                                                     .id ??
@@ -91,6 +89,7 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                                     context,
                                                     listen: false)
                                                 .markReportPart(courseId);
+
                                             Navigator.of(context).pop();
                                           },
                                           title: Text(
@@ -378,7 +377,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         print(snapshot
                                             .markReportDivisions.length);
-                                        //    value.removeCourseAll();
                                         return ListTile(
                                           selectedTileColor:
                                               Colors.blue.shade100,

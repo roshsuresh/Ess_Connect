@@ -32,6 +32,8 @@ class Timetableprovider with ChangeNotifier {
         Uri.parse(
             "${UIGuide.baseURL}/mobileapp/parent/class-timetable-download/$divId"),
         headers: headers);
+    print(
+        "${UIGuide.baseURL}/mobileapp/parent/class-timetable-download/$divId");
     setLoading(true);
     try {
       if (response.statusCode == 200) {
@@ -43,6 +45,7 @@ class Timetableprovider with ChangeNotifier {
         url = prev.url;
         createdAt = prev.createdAt;
         name = prev.name;
+
         extension = prev.extension;
         print(name);
         setLoading(false);

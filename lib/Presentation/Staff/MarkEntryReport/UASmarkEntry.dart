@@ -14,7 +14,7 @@ class UASmarkentryReport extends StatelessWidget {
       builder: (context, val, child) => val.loading
           ? Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 ),
                 spinkitLoader(),

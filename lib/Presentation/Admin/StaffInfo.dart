@@ -14,6 +14,7 @@ class StaffInfo extends StatelessWidget {
     return Scaffold(
       body: Consumer<StaffReportProviders>(
         builder: (context, value, child) => ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Container(
               height: 190,

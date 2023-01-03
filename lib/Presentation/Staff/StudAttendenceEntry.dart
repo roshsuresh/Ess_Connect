@@ -76,6 +76,7 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
       ),
       body: Consumer<AttendenceStaffProvider>(builder: (context, value, child) {
         return ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -400,8 +401,9 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
               kWidth,
               const Spacer(),
               MaterialButton(
-                onPressed: () {
-                  Provider.of<AttendenceStaffProvider>(context, listen: false)
+                onPressed: () async {
+                  await Provider.of<AttendenceStaffProvider>(context,
+                          listen: false)
                       .submitStudent(context);
                 },
                 color: UIGuide.light_Purple,
@@ -500,6 +502,7 @@ class AttendenceviewWidget extends StatelessWidget {
                             maxHeight: 530,
                             child: Scrollbar(
                               child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: value.studentsAttendenceView.length,
                                 itemBuilder: ((context, index) {
@@ -572,24 +575,29 @@ class AttendenceviewWidget extends StatelessWidget {
                                                       print('Present');
                                                     }
                                                   },
-                                                  child: SizedBox(
-                                                    width: 5,
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 25,
                                                     height: 22,
-                                                    child: value
-                                                                    .studentsAttendenceView[
-                                                                        index]
-                                                                    .select !=
-                                                                null &&
-                                                            value
-                                                                .studentsAttendenceView[
-                                                                    index]
-                                                                .select!
-                                                        ? SvgPicture.asset(
-                                                            UIGuide.absent,
-                                                          )
-                                                        : SvgPicture.asset(
-                                                            UIGuide.present,
-                                                          ),
+                                                    child: SizedBox(
+                                                      width: 25,
+                                                      height: 22,
+                                                      child: value
+                                                                      .studentsAttendenceView[
+                                                                          index]
+                                                                      .select !=
+                                                                  null &&
+                                                              value
+                                                                  .studentsAttendenceView[
+                                                                      index]
+                                                                  .select!
+                                                          ? SvgPicture.asset(
+                                                              UIGuide.absent,
+                                                            )
+                                                          : SvgPicture.asset(
+                                                              UIGuide.present,
+                                                            ),
+                                                    ),
                                                   ),
                                                 ),
                                               ]),
@@ -692,6 +700,7 @@ class DualAttendenceviewWidget extends StatelessWidget {
                           maxHeight: 530,
                           child: Scrollbar(
                             child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: value.studentsAttendenceView.length,
                               itemBuilder: ((context, index) {

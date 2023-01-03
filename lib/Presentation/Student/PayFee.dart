@@ -142,6 +142,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
             builder: (context, value, child) => value.loading
                 ? const ProgressBarFee()
                 : ListView(
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       kheight20,
                       Padding(
@@ -187,6 +188,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                               child: Consumer<FeesProvider>(
                                 builder: (context, value, child) =>
                                     ListView.builder(
+                                        physics: const BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         controller: _controller,
                                         itemCount: value.feeList.isEmpty
@@ -301,6 +303,8 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                         child: Consumer<FeesProvider>(
                                           builder: (context, value, child) =>
                                               ListView.builder(
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
                                                   shrinkWrap: true,
                                                   controller: _controller2,
                                                   itemCount: value
@@ -396,8 +400,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                             ),
                             // totalFee()
                             Consumer<FeesProvider>(
-                                builder: (context, value, child) =>
-                                    Text(value.total.toString()))
+                              builder: (context, value, child) =>
+                                  Text(value.total.toString()),
+                            ),
                           ],
                         ),
                       ),
@@ -737,9 +742,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                               // trans.lastOrderStatus == 'Processing' ||
                               trans.lastOrderStatus == null) {
                             if (trans.total != 0) {
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////                        get data of one             /////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////              get data of one             //////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                               if (trans.transactionList.length == 1) {
                                 print('1111111111111111');
@@ -759,7 +764,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   desc:
                                       "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
                                   btnOkOnPress: () async {
+//  --------------------------------------------------------------------------------------------------------------    //
 ///////////////////  ---------------------------     PAYTM    -------------------------------  ////////////////////////
+//  --------------------------------------------------------------------------------------------------------------   //
 
                                     if (trans.gateway == 'Paytm') {
                                       await Provider.of<FeesProvider>(context,
@@ -812,7 +819,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                             staging1);
                                       }
                                     }
-                                    ///////////////////         RazorPay         ////////////////////////
+//  -----------------------------------------------------------------------------------------------------------------  //
+///////////////////                                 RazorPay                                    ////////////////////////
+//  -----------------------------------------------------------------------------------------------------------------  //
                                     else if (trans.gateway == 'RazorPay') {
                                       await Provider.of<FeesProvider>(context,
                                               listen: false)
@@ -1211,6 +1220,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                         }
                       }
                     },
+                    color: UIGuide.light_Purple,
                     child: const Text(
                       'Proceed to Pay',
                       style: TextStyle(
@@ -1218,7 +1228,6 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                           fontWeight: FontWeight.w800,
                           fontSize: 16),
                     ),
-                    color: UIGuide.light_Purple,
                   );
                 },
               ),
@@ -1229,7 +1238,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
     );
   }
 
-/////////////////////////////////////////////  paytm   //////////////////////////////////////////////////////////
+//         ----------------------------------------------------------------------------------------            //
+//         ***********************                paytm                    ************************            //
+//         ----------------------------------------------------------------------------------------            //
   String result = "";
   bool restrictAppInvoke = true;
 
@@ -1675,7 +1686,10 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
               },
             ));
   }
-/////////////////////////////////////////////////////
+
+//         ----------------------------------------------------------------------------------------            //
+//         ***********************                Razorpay                *************************            //
+//         ----------------------------------------------------------------------------------------            //
 
   _startRazorpay(String key, String amount, String name, String description,
       String nameP, String email, String contact, String orderId) async {

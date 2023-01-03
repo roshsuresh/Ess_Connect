@@ -183,6 +183,7 @@ class _Notification_StaffToGuardainState
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           const SizedBox(
             height: 3,
@@ -219,8 +220,6 @@ class _Notification_StaffToGuardainState
                                           //     attendecourse![index]),
 
                                           onTap: () async {
-                                            print(
-                                                'guh.....${snapshot.communicationToGuardianInitialValues[index].toString()}');
                                             notificationCourseController
                                                 .text = snapshot
                                                     .communicationToGuardianInitialValues[
@@ -237,10 +236,6 @@ class _Notification_StaffToGuardainState
                                                 notificationCourseController
                                                     .text
                                                     .toString();
-
-                                            // snapshot.addSelectedCourse(
-                                            //     attendecourse![index]);
-                                            print(courseId);
                                             await Provider.of<
                                                         NotificationToGuardian_Providers>(
                                                     context,
@@ -495,7 +490,6 @@ class _Notification_StaffToGuardainState
                 const Text(
                   '   NO.',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  //   textAlign: TextAlign.center,
                 ),
                 const Text(
                   'Name',
@@ -511,8 +505,6 @@ class _Notification_StaffToGuardainState
                               padding: const EdgeInsets.only(left: 15),
                               child: SvgPicture.asset(
                                 UIGuide.check,
-                                // width: 25,
-                                // height: 25,
                                 color: UIGuide.light_Purple,
                               ),
                             )
@@ -559,8 +551,8 @@ class _Notification_StaffToGuardainState
           padding: const EdgeInsets.all(8.0),
           child: MaterialButton(
             color: UIGuide.light_Purple,
-            onPressed: () {
-              Provider.of<NotificationToGuardian_Providers>(context,
+            onPressed: () async {
+              await Provider.of<NotificationToGuardian_Providers>(context,
                       listen: false)
                   .submitStudent(context);
             },
@@ -654,18 +646,26 @@ class Text_Matter_Notification extends StatelessWidget {
                 minLines: 1,
                 maxLines: 1,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Title*',
                   hintText: 'Enter Title',
-                  labelStyle: const TextStyle(color: UIGuide.light_Purple),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: UIGuide.light_Purple),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: UIGuide.light_Purple, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide:
+                        BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                 ),
               ),
@@ -681,18 +681,26 @@ class Text_Matter_Notification extends StatelessWidget {
                 minLines: 1,
                 maxLines: 5,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Matter*',
                   hintText: 'Enter Matter',
-                  labelStyle: const TextStyle(color: UIGuide.light_Purple),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: UIGuide.light_Purple),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: UIGuide.light_Purple, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide:
+                        BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                 ),
               ),
@@ -729,6 +737,13 @@ class Text_Matter_Notification extends StatelessWidget {
                 }
               },
               color: UIGuide.light_Purple,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(0),
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(20)),
+              ),
               child: const Text(
                 'Send',
                 style: TextStyle(color: Colors.white),

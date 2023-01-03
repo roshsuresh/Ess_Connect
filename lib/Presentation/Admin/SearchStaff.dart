@@ -142,6 +142,7 @@ class _SearchStaffState extends State<SearchStaff> {
                   return value.loading
                       ? Center(child: spinkitLoader())
                       : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: value.staffReportList.length == null
                               ? 0
@@ -425,6 +426,7 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
         child: Scaffold(
       body: Consumer<Screen_Search_Providers>(
         builder: (context, value, child) => ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Stack(
               children: [

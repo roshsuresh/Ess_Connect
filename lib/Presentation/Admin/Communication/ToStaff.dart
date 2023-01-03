@@ -374,18 +374,26 @@ class Text_Matter_NotificationAdminToStaff extends StatelessWidget {
                 minLines: 1,
                 maxLines: 1,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Title*',
                   hintText: 'Enter Title',
-                  labelStyle: const TextStyle(color: UIGuide.light_Purple),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: UIGuide.light_Purple),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: UIGuide.light_Purple, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide:
+                        BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                 ),
               ),
@@ -401,18 +409,26 @@ class Text_Matter_NotificationAdminToStaff extends StatelessWidget {
                 minLines: 1,
                 maxLines: 5,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Matter*',
                   hintText: 'Enter Matter',
-                  labelStyle: const TextStyle(color: UIGuide.light_Purple),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: UIGuide.light_Purple),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: UIGuide.light_Purple, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide:
+                        BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                 ),
               ),
@@ -448,6 +464,13 @@ class Text_Matter_NotificationAdminToStaff extends StatelessWidget {
                   );
                 }
               },
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(0),
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(20)),
+              ),
               color: UIGuide.light_Purple,
               child: const Text(
                 'Send',

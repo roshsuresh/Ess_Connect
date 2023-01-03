@@ -148,6 +148,7 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                 return provider.loading
                     ? spinkitLoader()
                     : ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: provider.searchStudent.isEmpty
                             ? 0
@@ -432,14 +433,15 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
       background,
       background,
     ];
-    final double fillPercent = 35;
-    final double fillStop = (100 - fillPercent) / 100;
+    const double fillPercent = 35;
+    const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
 
     return SafeArea(
         child: Scaffold(
       body: Consumer<Screen_Search_Providers>(
         builder: (context, value, child) => ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             Stack(
               children: [

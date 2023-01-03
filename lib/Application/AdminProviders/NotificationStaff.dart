@@ -236,13 +236,8 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
 
     try {
       if (response.statusCode == 200) {
-        print("corect");
-
         Map<String, dynamic> data =
             jsonDecode(await response.stream.bytesToString());
-
-        //    log(data.toString());
-
         List<AdminStaffNotificationHistory> templist =
             List<AdminStaffNotificationHistory>.from(data["results"]
                 .map((x) => AdminStaffNotificationHistory.fromJson(x)));

@@ -12,7 +12,6 @@ class StaffProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
     const Color background = Colors.white;
     const Color fill1 = UIGuide.light_Purple;
     const Color fill2 = Color.fromARGB(255, 57, 149, 235);
@@ -31,6 +30,7 @@ class StaffProfileView extends StatelessWidget {
         builder: (context, value, child) => value.loading
             ? spinkitLoader()
             : ListView(
+                physics: const BouncingScrollPhysics(),
                 children: [
                   Stack(
                     children: [

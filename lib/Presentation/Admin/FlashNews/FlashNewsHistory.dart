@@ -22,6 +22,7 @@ class FlashNewsHistory extends StatelessWidget {
         return provider.loading
             ? spinkitLoader()
             : ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount:
                     provider.flashlist.isEmpty ? 0 : provider.flashlist.length,
                 itemBuilder: (context, index) {
@@ -89,9 +90,13 @@ class FlashNewsHistory extends StatelessWidget {
                                       provider.flashlist.clear();
                                       await provider.getFlashnewsList();
                                     },
-                                    child: const Icon(
-                                      Icons.delete_forever_outlined,
-                                      color: Colors.red,
+                                    child: Container(
+                                      width: 40,
+                                      color: Colors.transparent,
+                                      child: const Icon(
+                                        Icons.delete_forever_outlined,
+                                        color: Colors.red,
+                                      ),
                                     ),
                                   )
                                 ],

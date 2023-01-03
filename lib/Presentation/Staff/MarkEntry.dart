@@ -74,6 +74,7 @@ class _MarkEntryState extends State<MarkEntry> {
       body: Consumer<MarkEntryProvider>(
         builder: (context, value, child) {
           return ListView(
+            physics: const BouncingScrollPhysics(),
             children: [
               Row(
                 children: [

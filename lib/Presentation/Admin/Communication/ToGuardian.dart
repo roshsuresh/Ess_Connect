@@ -462,19 +462,21 @@ class _Notification_AdminToGuardainState
                       maxHeight: size.height - 300,
                       child: Center(child: spinkitLoader()),
                     )
-                  : LimitedBox(
-                      maxHeight: size.height - 320,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: value.notificationView.isEmpty
-                            ? 0
-                            : value.notificationView.length,
-                        itemBuilder: ((context, index) {
-                          return Notification_StudListAdmin(
-                            viewStud: value.notificationView[index],
-                            indexx: index,
-                          );
-                        }),
+                  : Scrollbar(
+                      child: LimitedBox(
+                        maxHeight: size.height - 320,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: value.notificationView.isEmpty
+                              ? 0
+                              : value.notificationView.length,
+                          itemBuilder: ((context, index) {
+                            return Notification_StudListAdmin(
+                              viewStud: value.notificationView[index],
+                              indexx: index,
+                            );
+                          }),
+                        ),
                       ),
                     );
             },
@@ -582,18 +584,26 @@ class Text_Matter_NotificationAdmin extends StatelessWidget {
                 minLines: 1,
                 maxLines: 1,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Title*',
                   hintText: 'Enter Title',
-                  labelStyle: const TextStyle(color: UIGuide.light_Purple),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: UIGuide.light_Purple),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: UIGuide.light_Purple, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide:
+                        BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                 ),
               ),
@@ -609,18 +619,26 @@ class Text_Matter_NotificationAdmin extends StatelessWidget {
                 minLines: 1,
                 maxLines: 5,
                 keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Matter*',
                   hintText: 'Enter Matter',
-                  labelStyle: const TextStyle(color: UIGuide.light_Purple),
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  labelStyle: TextStyle(color: UIGuide.light_Purple),
+                  hintStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: UIGuide.light_Purple, width: 1.0),
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide:
+                        BorderSide(color: UIGuide.light_Purple, width: 1.0),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                        bottomRight: Radius.circular(20)),
                   ),
                 ),
               ),
@@ -656,6 +674,14 @@ class Text_Matter_NotificationAdmin extends StatelessWidget {
                   );
                 }
               },
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(0),
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(20)),
+                side: BorderSide(color: Theme.of(context).primaryColor),
+              ),
               color: UIGuide.light_Purple,
               child: const Text(
                 'Send',

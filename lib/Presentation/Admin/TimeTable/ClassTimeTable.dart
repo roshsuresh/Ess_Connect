@@ -32,11 +32,12 @@ class _ClassTimeTableState extends State<ClassTimeTable> {
     });
     var size = MediaQuery.of(context).size;
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         kheight10,
         Row(
           children: [
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               width: MediaQuery.of(context).size.width * 0.49,
@@ -93,7 +94,7 @@ class _ClassTimeTableState extends State<ClassTimeTable> {
                           child: TextField(
                             textAlign: TextAlign.center,
                             controller: divisionController1,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               filled: true,
                               fillColor: Color.fromARGB(255, 238, 237, 237),
                               border: OutlineInputBorder(),

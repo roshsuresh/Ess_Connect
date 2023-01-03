@@ -61,6 +61,7 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
     datee = DateFormat('dd/MMM/yyyy').format(DateTime.now());
 
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,8 +82,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Container(
-                // decoration: BoxDecoration(
-                //     border: Border.all(color: UIGuide.light_Purple)),
                 height: 55,
                 width: MediaQuery.of(context).size.width * 0.49,
                 child: Consumer<NoticeBoardAdminProvider>(

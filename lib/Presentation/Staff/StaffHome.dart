@@ -1,4 +1,3 @@
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:badges/badges.dart';
 import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
@@ -56,6 +55,7 @@ class _StaffHomeState extends State<StaffHome> {
           builder: (context, connection, child) => connection.isOnline == false
               ? const NoInternetConnection()
               : ListView(
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     StaffProfile(), //  <--<---  StaffProfile....
                     StaffFlashNews(),
@@ -71,6 +71,7 @@ class _StaffHomeState extends State<StaffHome> {
                               topLeft: Radius.circular(30),
                               topRight: Radius.circular(30))),
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           kheight20,
                           kheight10,
@@ -90,42 +91,44 @@ class _StaffHomeState extends State<StaffHome> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Card(
-                                        elevation: 10,
-                                        color: Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            height: 38,
-                                            width: 38,
-                                            decoration: const BoxDecoration(
-                                              image: DecorationImage(
-                                                opacity: 20,
-                                                image: AssetImage(
-                                                  'assets/Profilee.png',
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Card(
+                                          elevation: 10,
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 38,
+                                              width: 38,
+                                              decoration: const BoxDecoration(
+                                                image: DecorationImage(
+                                                  opacity: 20,
+                                                  image: AssetImage(
+                                                    'assets/Profilee.png',
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      kheight10,
-                                      const Text(
-                                        'Profile',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
-                                            color: Colors.black),
-                                      )
-                                    ],
+                                        kheight10,
+                                        const Text(
+                                          'Profile',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 11,
+                                              color: Colors.black),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -929,11 +932,14 @@ class StaffProfile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
+                      kWidth,
                       LottieBuilder.network(
                           "https://assets7.lottiefiles.com/packages/lf20_2m1smtya.json"),
                       const Spacer(),
                       LottieBuilder.network(
                           "https://assets7.lottiefiles.com/packages/lf20_2m1smtya.json"),
+                      //"https://assets3.lottiefiles.com/packages/lf20_w6y7r1ap.json"),
+                      kWidth
                     ],
                   ),
                   Consumer<StaffProfileProvider>(

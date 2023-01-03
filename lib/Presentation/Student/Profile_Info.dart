@@ -34,6 +34,7 @@ class Profile_Info extends StatelessWidget {
           return provider.loading
               ? spinkitLoader()
               : ListView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     Stack(
                       children: [
