@@ -429,9 +429,16 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
   }
 }
 
-class AttendenceviewWidget extends StatelessWidget {
+class AttendenceviewWidget extends StatefulWidget {
   AttendenceviewWidget({Key? key}) : super(key: key);
+
+  @override
+  State<AttendenceviewWidget> createState() => _AttendenceviewWidgetState();
+}
+
+class _AttendenceviewWidgetState extends State<AttendenceviewWidget> {
   String att = '';
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AttendenceStaffProvider>(
@@ -510,6 +517,9 @@ class AttendenceviewWidget extends StatelessWidget {
                                           .studentsAttendenceView[index]
                                           .absent ??
                                       '--';
+                                  value.attt = value
+                                      .studentsAttendenceView[index].forenoon;
+
                                   return Column(
                                     children: [
                                       Table(
@@ -517,7 +527,6 @@ class AttendenceviewWidget extends StatelessWidget {
                                           0: FlexColumnWidth(1.0),
                                           1: FlexColumnWidth(3),
                                           2: FlexColumnWidth(1),
-                                          //  3: FlexColumnWidth(1.5),
                                         },
                                         children: [
                                           TableRow(
@@ -550,7 +559,22 @@ class AttendenceviewWidget extends StatelessWidget {
                                                       fontSize: 14),
                                                 ),
                                                 GestureDetector(
-                                                  onTap: () {
+                                                  onTap: () async {
+                                                    await value.attendView();
+                                                    value.attt = value
+                                                        .studentsAttendenceView[
+                                                            index]
+                                                        .forenoon;
+
+                                                    if (value.attt == 'A') {
+                                                      value.attt = 'P';
+                                                      print(value.attt);
+                                                    } else if (value.attt ==
+                                                        'P') {
+                                                      value.attt = "A";
+                                                      print(
+                                                          "-------------${value.attt}");
+                                                    }
                                                     value.selectItem(value
                                                             .studentsAttendenceView[
                                                         index]);
@@ -590,7 +614,8 @@ class AttendenceviewWidget extends StatelessWidget {
                                                               value
                                                                   .studentsAttendenceView[
                                                                       index]
-                                                                  .select!
+                                                                  .select! &&
+                                                              value.attt == 'P'
                                                           ? SvgPicture.asset(
                                                               UIGuide.absent,
                                                             )

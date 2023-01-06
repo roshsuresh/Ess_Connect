@@ -115,12 +115,11 @@ class ReportCard extends StatelessWidget {
                                         decoration: const BoxDecoration(),
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Text(
                                               Corect_tym == null
                                                   ? '---'
                                                   : Corect_tym.toString(),
-                                              //   style: TextStyle(fontSize: 12),
                                             ),
                                           ),
                                           Text(

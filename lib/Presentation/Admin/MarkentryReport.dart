@@ -401,7 +401,6 @@ class MarkentryReportByAdmin extends StatelessWidget {
                                             snapshot.addSelectedDivision(
                                                 snapshot.markReportDivisions[
                                                     index]);
-                                            print(courseId);
                                             Navigator.of(context).pop();
                                           },
                                           title: Text(

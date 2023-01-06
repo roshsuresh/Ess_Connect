@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:essconnect/Domain/Student/NotificationCountModel.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,8 @@ class StudNotificationCountProviders with ChangeNotifier {
         NotifiCountModel not = NotifiCountModel.fromJson(data);
         count = not.totalCount;
         print("Notification Count = $count");
-
+        log('-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_'
+            .toString());
         notifyListeners();
       } else {
         print("Error in Response");

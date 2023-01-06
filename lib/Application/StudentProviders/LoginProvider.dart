@@ -29,7 +29,7 @@ class LoginProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       print("corect");
       var jsonData = json.decode(response.body);
-      print(jsonData);
+
       ActivationModel ac = ActivationModel.fromJson(jsonData);
 
       schoolName = ac.schoolName!;

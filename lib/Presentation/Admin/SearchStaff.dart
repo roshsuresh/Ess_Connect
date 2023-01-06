@@ -418,8 +418,8 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
       background,
       background,
     ];
-    final double fillPercent = 35;
-    final double fillStop = (100 - fillPercent) / 100;
+    const double fillPercent = 35;
+    const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
 
     return SafeArea(

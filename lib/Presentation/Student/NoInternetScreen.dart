@@ -13,24 +13,7 @@ class NoInternetConnection extends StatelessWidget {
       color: UIGuide.WHITE,
       height: size.height,
       width: size.width,
-      child:
-          // Column(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          // Container(
-          //   width: size.width / 1.3,
-          //   height: size.height / 2.7,
-          // decoration: const BoxDecoration(
-          //     image: DecorationImage(
-          //   image: AssetImage("assets/wifi copy.png"),
-          //   fit: BoxFit.fill,
-          // ))
-          //  child:
-          Center(child: LottieBuilder.asset('assets/no internet.json')),
-      // ),
-      //   ],
-      // ),
+      child: Center(child: LottieBuilder.asset('assets/no internet.json')),
     );
   }
 }

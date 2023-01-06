@@ -1,9 +1,7 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
-
 import '../../Application/StudentProviders/PasswordChangeProvider.dart';
 import '../../Constants.dart';
 import '../../utils/constants.dart';
@@ -28,7 +26,7 @@ class _PasswordChangeState extends State<PasswordChange> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change Password'),
+        title: const Text('Change Password'),
         titleSpacing: 00.0,
         centerTitle: true,
         toolbarHeight: 60.2,

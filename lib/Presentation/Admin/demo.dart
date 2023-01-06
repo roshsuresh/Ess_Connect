@@ -1,5 +1,4 @@
 import 'package:essconnect/utils/constants.dart';
-import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 
 class Demo extends StatefulWidget {
@@ -16,7 +15,7 @@ class _DemoState extends State<Demo> {
     return Scaffold(
         body: ListView(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 200,
         ),
         Container(
@@ -35,7 +34,7 @@ class _DemoState extends State<Demo> {
                       color: Colors.cyan,
                       border: Border.all(color: UIGuide.light_Purple),
                       borderRadius: BorderRadius.circular(20)),
-                  child: const Center(child: Text("Helloo")),
+                  child: const Center(child: Text("")),
                 ),
                 Container(
                   width: size.width / 3,
@@ -44,7 +43,7 @@ class _DemoState extends State<Demo> {
                       color: Colors.cyan,
                       border: Border.all(color: UIGuide.light_Purple),
                       borderRadius: BorderRadius.circular(20)),
-                  child: const Center(child: Text("Helloo")),
+                  child: const Center(child: Text("")),
                 )
               ],
             ),

@@ -181,6 +181,11 @@ class AttendenceStaffProvider with ChangeNotifier {
   }
 
   //view Attendence
+  String? attt;
+  attendView() {
+    attt;
+    notifyListeners();
+  }
 
   List<StudentsAttendenceView_stf> studentsAttendenceView = [];
   Future<bool> getstudentsAttendenceView(String date, String id) async {

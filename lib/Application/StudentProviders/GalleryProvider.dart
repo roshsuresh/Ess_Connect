@@ -18,7 +18,7 @@ class GalleryProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<GalleryModel?> getGalleyList() async {
+  Future<GalleryModel?> getGalleyList(context) async {
     GalleryModel gallery;
     SharedPreferences _pref = await SharedPreferences.getInstance();
     setLoading(true);
@@ -41,6 +41,21 @@ class GalleryProvider with ChangeNotifier {
         notifyListeners();
       } else {
         setLoading(false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            duration: Duration(seconds: 2),
+            margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+            behavior: SnackBarBehavior.floating,
+            content: Text(
+              'Something went wrong...',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
         print("Error in Response");
       }
     } catch (e) {
@@ -74,7 +89,7 @@ class GalleryProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         setLoadingg(true);
         final data = json.decode(response.body);
-        print(data);
+
         galleryList = data;
         print(galleryList);
         setLoadingg(false);

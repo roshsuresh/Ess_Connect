@@ -26,7 +26,6 @@ class Student_statistics_admin extends StatelessWidget {
       p.dropDown.clear();
       p.stdReportInitialValues.clear();
       p.courselist.clear();
-
       p.courseCounter(0);
       p.sectionCounter(0);
     });

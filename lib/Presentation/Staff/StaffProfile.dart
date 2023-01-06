@@ -83,8 +83,7 @@ class StaffProfileView extends StatelessWidget {
                                         style: const TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w500,
-                                            color: Color.fromARGB(
-                                                255, 44, 43, 43)),
+                                            color: UIGuide.light_Purple),
                                         text: value.name == null
                                             ? '---'
                                             : value.name.toString()),
@@ -119,7 +118,7 @@ class StaffProfileView extends StatelessWidget {
                       width: size.width - 20,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromARGB(255, 223, 222, 222),
+                        color: const Color.fromARGB(255, 235, 234, 234),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -128,10 +127,10 @@ class StaffProfileView extends StatelessWidget {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: const Color.fromARGB(255, 223, 222, 222),
+                                color: const Color.fromARGB(255, 235, 234, 234),
                               ),
                               width: size.width,
-                              height: 90,
+                              height: 70,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -141,25 +140,28 @@ class StaffProfileView extends StatelessWidget {
                                       Text(
                                         'Permenent Address',
                                         style: TextStyle(
-                                            fontSize: 14,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
-                                  Flexible(
-                                    child: RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      strutStyle:
-                                          const StrutStyle(fontSize: 13),
-                                      maxLines: 3,
-                                      text: TextSpan(
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color.fromARGB(
-                                                  255, 44, 43, 43)),
-                                          text: value.address == null
-                                              ? '----'
-                                              : value.address.toString()),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 4.0),
+                                    child: Flexible(
+                                      child: RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        strutStyle:
+                                            const StrutStyle(fontSize: 13),
+                                        maxLines: 3,
+                                        text: TextSpan(
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: UIGuide.light_Purple,
+                                            ),
+                                            text: value.address == null
+                                                ? '----'
+                                                : value.address.toString()),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -173,7 +175,7 @@ class StaffProfileView extends StatelessWidget {
                                     Text(
                                       ' Gender : ',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w700,
                                           fontSize: 13),
                                     ),
                                   ],
@@ -184,7 +186,9 @@ class StaffProfileView extends StatelessWidget {
                                         ? '--'
                                         : value.gender.toString(),
                                     overflow: TextOverflow.clip,
-                                    style: const TextStyle(fontSize: 12),
+                                    style: const TextStyle(
+                                        color: UIGuide.light_Purple,
+                                        fontSize: 12),
                                   ),
                                 )
                               ],
@@ -198,7 +202,7 @@ class StaffProfileView extends StatelessWidget {
                                     Text(
                                       ' DOB : ',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w700,
                                           fontSize: 13),
                                     ),
                                   ],
@@ -209,7 +213,9 @@ class StaffProfileView extends StatelessWidget {
                                         ? '--'
                                         : value.dateOfBirth.toString(),
                                     overflow: TextOverflow.clip,
-                                    style: const TextStyle(fontSize: 12),
+                                    style: const TextStyle(
+                                        color: UIGuide.light_Purple,
+                                        fontSize: 12),
                                   ),
                                 )
                               ],
@@ -227,7 +233,7 @@ class StaffProfileView extends StatelessWidget {
                                       Text(
                                         ' Phone No : ',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w700,
                                             fontSize: 13),
                                       ),
                                     ],
@@ -238,7 +244,9 @@ class StaffProfileView extends StatelessWidget {
                                           ? '--'
                                           : value.mobileNo.toString(),
                                       overflow: TextOverflow.clip,
-                                      style: const TextStyle(fontSize: 12),
+                                      style: const TextStyle(
+                                          color: UIGuide.light_Purple,
+                                          fontSize: 12),
                                     ),
                                   )
                                 ],
@@ -253,7 +261,7 @@ class StaffProfileView extends StatelessWidget {
                                     Text(
                                       ' Short Name : ',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w700,
                                           fontSize: 13),
                                     ),
                                   ],
@@ -264,7 +272,9 @@ class StaffProfileView extends StatelessWidget {
                                         ? '--'
                                         : value.shortname.toString(),
                                     overflow: TextOverflow.clip,
-                                    style: const TextStyle(fontSize: 12),
+                                    style: const TextStyle(
+                                        color: UIGuide.light_Purple,
+                                        fontSize: 12),
                                   ),
                                 )
                               ],
@@ -278,7 +288,7 @@ class StaffProfileView extends StatelessWidget {
                                     Text(
                                       ' Email : ',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w700,
                                           fontSize: 13),
                                     ),
                                   ],
@@ -289,7 +299,10 @@ class StaffProfileView extends StatelessWidget {
                                         ? '--'
                                         : value.emailid.toString(),
                                     overflow: TextOverflow.clip,
-                                    style: const TextStyle(fontSize: 12),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: UIGuide.light_Purple,
+                                    ),
                                   ),
                                 )
                               ],

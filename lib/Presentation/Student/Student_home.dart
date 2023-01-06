@@ -70,6 +70,12 @@ class _StudentHomeState extends State<StudentHome> {
       height: 20,
     );
     return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 00.0,
+        centerTitle: true,
+        toolbarHeight: 0,
+        backgroundColor: UIGuide.light_Purple,
+      ),
       body: Consumer<ConnectivityProvider>(
         builder: (context, connection, child) => connection.isOnline == false
             ? const NoInternetConnection()
@@ -723,8 +729,7 @@ class _StudentHomeState extends State<StudentHome> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              Timetable(divid: divId)),
+                                          builder: (context) => Timetable()),
                                     );
                                   },
                                   child: Padding(

@@ -736,7 +736,6 @@ class _MarkEntryState extends State<MarkEntry> {
                 width: 100,
                 child: MaterialButton(
                   //minWidth: size.width - 200,
-                  child: const Text('View'),
                   color: Colors.grey,
                   onPressed: (() async {
                     String date =
@@ -751,14 +750,6 @@ class _MarkEntryState extends State<MarkEntry> {
                     String subject =
                         markEntrySubjectListController.text.toString();
                     String exam = markEntryExamListController.text.toString();
-
-                    print(course);
-                    print(date);
-
-                    print(division);
-                    print(exam);
-                    print(part);
-                    print(subject);
 
                     await Provider.of<MarkEntryProvider>(context, listen: false)
                         .getMarkEntryView(
@@ -781,6 +772,7 @@ class _MarkEntryState extends State<MarkEntry> {
                     await Provider.of<MarkEntryProvider>(context, listen: false)
                         .removeExamAll();
                   }),
+                  child: const Text('View'),
                 ),
               ),
               kheight20,

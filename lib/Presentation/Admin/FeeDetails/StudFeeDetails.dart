@@ -458,12 +458,12 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                                             style: const TextStyle(fontWeight: FontWeight.w500),
                                                                                           )),
                                                                                         ),
-                                                                                        const SizedBox(
+                                                                                        SizedBox(
                                                                                           height: 30,
                                                                                           child: Center(
                                                                                               child: Text(
-                                                                                            '0.00',
-                                                                                            style: TextStyle(fontWeight: FontWeight.w500),
+                                                                                            busfee.busFeeDueList[index].paidAmount == null ? '--' : busfee.busFeeDueList[index].paidAmount.toString(),
+                                                                                            style: const TextStyle(fontWeight: FontWeight.w500),
                                                                                           )),
                                                                                         ),
                                                                                       ]),
@@ -637,9 +637,6 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                           10,
                                                                           23,
                                                                           '');
-                                                              print(
-                                                                  updatedDate);
-                                                              print(finalDate);
 
                                                               return Padding(
                                                                 padding:
@@ -917,8 +914,6 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                             String
                                                                                 finalDate =
                                                                                 newDate.replaceRange(10, 23, '');
-                                                                            print(updatedDate);
-                                                                            print(finalDate);
 
                                                                             return Padding(
                                                                               padding: const EdgeInsets.all(4.0),

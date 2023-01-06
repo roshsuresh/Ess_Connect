@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,8 +23,7 @@ class Curriculamprovider with ChangeNotifier {
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
     setLoading(true);
-    var response = await http.get(
-        Uri.parse("https://api.esstestonline.in/curriculum"),
+    var response = await http.get(Uri.parse("${UIGuide.baseURL}/curriculum"),
         headers: headers);
     setLoading(true);
     try {
@@ -31,8 +31,6 @@ class Curriculamprovider with ChangeNotifier {
         print("corect");
         Map<String, dynamic> data = json.decode(response.body);
         print("daaaata:,$data");
-        //Map<String,dynamic> token= data['results'];
-
         CurriculamModel prev = CurriculamModel.fromJson(data);
         token = prev.results;
 

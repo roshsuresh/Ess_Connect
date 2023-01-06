@@ -5,6 +5,7 @@ import 'package:essconnect/Application/AdminProviders/dashboardProvider.dart';
 import 'package:essconnect/Application/Module%20Providers.dart/Module.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
+import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
 import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.dart';
 import 'package:essconnect/Presentation/Admin/MarkentryReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
@@ -12,6 +13,7 @@ import 'package:essconnect/Presentation/Admin/demo.dart';
 import 'package:essconnect/Presentation/Staff/StudReport.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
+import 'package:essconnect/Presentation/Student/TimeTable.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +96,6 @@ class AdminHomeContent extends StatelessWidget {
       children: [
         Container(
           decoration: const BoxDecoration(
-              //  boxShadow: [BoxShadow(blurRadius: 5, offset: Offset(1, 3))],
               color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30))),
@@ -280,7 +281,8 @@ class AdminHomeContent extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const Demo()),
+                        MaterialPageRoute(
+                            builder: (context) => ExamTimetable()),
                       );
                     },
                     child: Padding(
@@ -303,7 +305,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Prof.png',
+                                      'assets/Timetable.png',
                                     ),
                                   ),
                                 ),
@@ -312,7 +314,7 @@ class AdminHomeContent extends StatelessWidget {
                           ),
                           kheight10,
                           const Text(
-                            '       Staff \n Information',
+                            '     Exam \n TimeTable',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -409,7 +411,7 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => StudentFeeSearch()),
+                            builder: (context) => const StudentFeeSearch()),
                       );
                     },
                     child: Padding(

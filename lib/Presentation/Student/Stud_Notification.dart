@@ -8,11 +8,9 @@ import '../../utils/constants.dart';
 
 class Stud_Notification extends StatelessWidget {
   Stud_Notification({Key? key}) : super(key: key);
-
   var kheight = const SizedBox(
     height: 8,
   );
-
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {

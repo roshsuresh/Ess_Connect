@@ -21,7 +21,8 @@ class _GalleryState extends State<Gallery> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<GalleryProvider>(context, listen: false).getGalleyList();
+      Provider.of<GalleryProvider>(context, listen: false)
+          .getGalleyList(context);
     });
   }
 
@@ -59,6 +60,7 @@ class _GalleryState extends State<Gallery> {
                             : galleryResponse!.length,
                         itemBuilder: ((context, index) {
                           var idd = galleryResponse![index]['galleryId'];
+
                           return Consumer<GalleryProvider>(
                             builder: (context, value, child) {
                               return Column(
