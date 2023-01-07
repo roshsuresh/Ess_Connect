@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:essconnect/Domain/Student/NotificationReceivedStud.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -12,7 +13,9 @@ class NotificationReceivedProviderStudent with ChangeNotifier {
     notifyListeners();
   }
 
-  List? notificationstud;
+  // List? notificationstud;
+
+  List<StudNotificationReceivedList> receivedList = [];
   Future getNotificationReceived() async {
     Map<String, dynamic> parse = await parseJWT();
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -42,9 +45,14 @@ class NotificationReceivedProviderStudent with ChangeNotifier {
     try {
       if (response.statusCode == 200) {
         print("corect");
-        final data = json.decode(await response.stream.bytesToString());
+        // final data = json.decode(await response.stream.bytesToString());
+        Map<String, dynamic> data =
+            jsonDecode(await response.stream.bytesToString());
 
-        notificationstud = data;
+        List<StudNotificationReceivedList> templist =
+            List<StudNotificationReceivedList>.from(data["receiveList"]
+                .map((x) => StudNotificationReceivedList.fromJson(x)));
+        receivedList.addAll(templist);
 
         setLoading(false);
         notifyListeners();

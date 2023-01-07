@@ -16,6 +16,7 @@ class ReportCard extends StatelessWidget {
     _provider.getReportCard();
     var size = MediaQuery.of(context).size;
     var height = size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Report card'),

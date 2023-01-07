@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ExamTTAdmProviders with ChangeNotifier {
+class ExamTTAdmProvidersStaff with ChangeNotifier {
   List<CourseListModel> courseList = [];
   //List<MultiSelectItem> courseDropDown = [];
   Future getCourseList() async {

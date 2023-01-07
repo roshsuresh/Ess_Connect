@@ -299,7 +299,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                     padding: const EdgeInsets.only(
                                         left: 20, right: 8),
                                     child: LimitedBox(
-                                        maxHeight: 280,
+                                        maxHeight: 160,
                                         child: Consumer<FeesProvider>(
                                           builder: (context, value, child) =>
                                               ListView.builder(
@@ -746,7 +746,9 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
 ///////////////////////////////////              get data of one             //////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                              if (trans.transactionList.length == 1) {
+                              if (trans.transactionList.length == 1 &&
+                                  trans.transactionList[0].name.toString() ==
+                                      "FEES") {
                                 print('1111111111111111');
                                 String transType =
                                     trans.transactionList[0].name ?? '--';
@@ -847,6 +849,179 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                           trans.contact1Razo ?? '';
                                       orderidd = trans.order1;
                                       readableid = trans.readableOrderid1;
+
+                                      print(key1);
+
+                                      if (key1.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            elevation: 10,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                            ),
+                                            duration: Duration(seconds: 1),
+                                            margin: EdgeInsets.only(
+                                                bottom: 80,
+                                                left: 30,
+                                                right: 30),
+                                            behavior: SnackBarBehavior.floating,
+                                            content: Text(
+                                              'Something went wrong...',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        await _startRazorpay(
+                                            key1,
+                                            amount1R,
+                                            name1,
+                                            description1,
+                                            customer1,
+                                            email1,
+                                            contact1,
+                                            orede1);
+                                      }
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          elevation: 10,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          duration: Duration(seconds: 1),
+                                          margin: EdgeInsets.only(
+                                              bottom: 80, left: 30, right: 30),
+                                          behavior: SnackBarBehavior.floating,
+                                          content: Text(
+                                            'Payment Gateway Not Provided...',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  btnCancelOnPress: () {
+                                    Navigator.of(_scaffoldKey.currentContext!)
+                                        .pop();
+                                    //      Navigator.pop(context);
+                                  },
+                                ).show();
+                              }
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/////              get data of one            -----------    BUS  FEES
+////////////////////////////////////////////////////////////////////////////////////////
+
+                              else if (trans.transactionList.length == 1 &&
+                                  trans.transactionList[0].name.toString() ==
+                                      "BUS FEES") {
+                                print('1111111111111111');
+                                String transTypeB =
+                                    trans.transactionList[0].name ?? '--';
+                                String transId1B =
+                                    trans.transactionList[0].id ?? '--';
+                                String gateWay = trans.gateway ?? '--';
+                                print(transTypeB);
+                                print(transId1B);
+
+                                await AwesomeDialog(
+                                  context: cont,
+                                  animType: AnimType.scale,
+                                  dialogType: DialogType.info,
+                                  title: 'Do you want to continue the payment',
+                                  desc:
+                                      "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
+                                  btnOkOnPress: () async {
+//  --------------------------------------------------------------------------------------------------------------    //
+///////////////////  ---------------------------     PAYTM    -------------------------------  ////////////////////////
+//  --------------------------------------------------------------------------------------------------------------   //
+
+                                    if (trans.gateway == 'Paytm') {
+                                      await Provider.of<FeesProvider>(context,
+                                              listen: false)
+                                          .getDataOneBus(
+                                              transTypeB,
+                                              transId1B,
+                                              trans.totalBusFee.toString(),
+                                              trans.total.toString(),
+                                              gateWay);
+
+                                      String mid1B = trans.mid1B ?? '--';
+                                      String orderId1B =
+                                          trans.txnorderId1B ?? '--';
+                                      String amount1B =
+                                          trans.txnAmount1B ?? '--';
+                                      String txntokenB = trans.txnToken1B ?? '';
+                                      print(txntokenB);
+                                      String callbackURL1B =
+                                          trans.callbackUrl1B ?? '--';
+                                      bool staging1B =
+                                          trans.isStaging1B ?? true;
+
+                                      if (txntokenB.isEmpty) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            elevation: 10,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                            ),
+                                            duration: Duration(seconds: 1),
+                                            margin: EdgeInsets.only(
+                                                bottom: 80,
+                                                left: 30,
+                                                right: 30),
+                                            behavior: SnackBarBehavior.floating,
+                                            content: Text(
+                                              'Something went wrong...',
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        await _startTransaction(
+                                            txntokenB,
+                                            mid1B,
+                                            orderId1B,
+                                            amount1B,
+                                            callbackURL1B,
+                                            staging1B);
+                                      }
+                                    }
+//  -----------------------------------------------
+////                   RazorPay
+//  -----------------------------------------------
+                                    else if (trans.gateway == 'RazorPay') {
+                                      await Provider.of<FeesProvider>(context,
+                                              listen: false)
+                                          .getDataOneRAZORPAYBus(
+                                              transTypeB,
+                                              transId1B,
+                                              trans.totalBusFee.toString(),
+                                              trans.total.toString(),
+                                              gateWay);
+
+                                      String key1 = trans.key1RazoBus ?? '--';
+                                      String orede1 = trans.order1Bus ?? '--';
+
+                                      String amount1R =
+                                          trans.amount1RazoBus ?? '--';
+                                      String name1 = trans.name1RazoBus ?? '';
+                                      String description1 =
+                                          trans.description1RazoBus ?? '';
+                                      String customer1 =
+                                          trans.customer1RazoBus ?? '';
+                                      String email1 = trans.email1RazoBus ?? '';
+                                      String contact1 =
+                                          trans.contact1RazoBus ?? '';
+                                      orderidd = trans.order1Bus;
+                                      readableid = trans.readableOrderid1Bus;
 
                                       print(key1);
 

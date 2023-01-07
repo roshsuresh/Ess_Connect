@@ -904,7 +904,7 @@ class _StudentHomeState extends State<StudentHome> {
                                 )),
                           ),
                           const Text(
-                            "Change Password / SignOut",
+                            "Change Password / Sign-out",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 color: UIGuide.light_Purple,

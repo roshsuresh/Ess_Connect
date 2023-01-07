@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
+import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
 import 'package:essconnect/Application/StudentProviders/DiaryProviders.dart';
@@ -243,6 +244,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
             create: (context) => StaffNotificationCountProviders()),
         ChangeNotifierProvider(create: (context) => DiaryProvidersstud()),
         ChangeNotifierProvider(create: (context) => ExamTTAdmProviders()),
+        ChangeNotifierProvider(create: (context) => ExamTTAdmProvidersStaff()),
       ],
       child: MaterialApp(
         title: 'Ess Connect',

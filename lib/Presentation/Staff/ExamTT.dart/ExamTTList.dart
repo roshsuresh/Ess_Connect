@@ -1,4 +1,5 @@
 import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
+import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
@@ -6,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class ExamTTHistory extends StatelessWidget {
-  const ExamTTHistory({Key? key}) : super(key: key);
+class ExamTTHistoryStaff extends StatelessWidget {
+  const ExamTTHistoryStaff({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      var p = Provider.of<ExamTTAdmProviders>(context, listen: false);
+      var p = Provider.of<ExamTTAdmProvidersStaff>(context, listen: false);
       p.courseList.clear();
       p.clearTTexamList();
       p.getExamTimeTableList();
     });
     var size = MediaQuery.of(context).size;
-    return Consumer<ExamTTAdmProviders>(
+    return Consumer<ExamTTAdmProvidersStaff>(
       builder: (context, provider, child) {
         return provider.loading
             ? spinkitLoader()

@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
 import 'package:essconnect/Application/AdminProviders/FlashNewsProviders.dart';
+import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Domain/Admin/Course&DivsionList.dart';
 import 'package:essconnect/utils/constants.dart';
@@ -12,14 +13,14 @@ import 'package:material_dialogs/material_dialogs.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ExamTTUpload extends StatefulWidget {
-  ExamTTUpload({Key? key}) : super(key: key);
+class ExamTTUploadStaff extends StatefulWidget {
+  ExamTTUploadStaff({Key? key}) : super(key: key);
 
   @override
-  State<ExamTTUpload> createState() => _ExamTTUploadState();
+  State<ExamTTUploadStaff> createState() => _ExamTTUploadStaffState();
 }
 
-class _ExamTTUploadState extends State<ExamTTUpload> {
+class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
   String? datee;
   DateTime? _mydatetimeFrom;
   DateTime? _mydatetimeTo;
@@ -40,7 +41,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      var p = Provider.of<ExamTTAdmProviders>(context, listen: false);
+      var p = Provider.of<ExamTTAdmProvidersStaff>(context, listen: false);
       p.courseList.clear();
       p.getCourseList();
       p.divisionCounter(0);
@@ -148,7 +149,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                     int sizee = file.size;
 
                     if (sizee <= 200000) {
-                      await Provider.of<ExamTTAdmProviders>(context,
+                      await Provider.of<ExamTTAdmProvidersStaff>(context,
                               listen: false)
                           .examImageSave(context, file.path.toString());
                       if (file.name.length >= 6) {
@@ -280,7 +281,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                     borderRadius: BorderRadius.circular(10)),
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.46,
-                child: Consumer<ExamTTAdmProviders>(
+                child: Consumer<ExamTTAdmProvidersStaff>(
                     builder: (context, snapshot, child) {
                   return InkWell(
                     onTap: () async {
@@ -315,7 +316,8 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                                           print(
                                               studReportcourseController.text);
 
-                                          await Provider.of<ExamTTAdmProviders>(
+                                          await Provider.of<
+                                                      ExamTTAdmProvidersStaff>(
                                                   context,
                                                   listen: false)
                                               .getDivisionList(courseId!);
@@ -384,7 +386,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                 }),
               ),
               Spacer(),
-              Consumer<ExamTTAdmProviders>(
+              Consumer<ExamTTAdmProvidersStaff>(
                 builder: (context, value, child) => Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
@@ -450,7 +452,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                           print("${divisionData.map((e) => data.value)}");
                         }
                         division = divisionData.join(',');
-                        await Provider.of<ExamTTAdmProviders>(context,
+                        await Provider.of<ExamTTAdmProvidersStaff>(context,
                                 listen: false)
                             .divisionCounter(results.length);
                         attach = value.id.toString();
@@ -502,7 +504,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                       division.toString().isNotEmpty) {
                     print('object');
                     print("attachmentid   $attachmentid");
-                    await Provider.of<ExamTTAdmProviders>(context,
+                    await Provider.of<ExamTTAdmProvidersStaff>(context,
                             listen: false)
                         .examSave(
                             context,

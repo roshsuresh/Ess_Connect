@@ -43,9 +43,9 @@ class Stud_Notification extends StatelessWidget {
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
-                    itemCount: value.notificationstud?.length == null
+                    itemCount: value.receivedList.isEmpty
                         ? 0
-                        : value.notificationstud!.length,
+                        : value.receivedList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return AnimationConfiguration.staggeredList(
                         position: index,
@@ -74,11 +74,9 @@ class Stud_Notification extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      value.notificationstud![index]['title'] ==
-                                              null
+                                      value.receivedList[index].title == null
                                           ? '--'
-                                          : value.notificationstud![index]
-                                                  ['title']
+                                          : value.receivedList[index].title
                                               .toString(),
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w700),
@@ -86,13 +84,11 @@ class Stud_Notification extends StatelessWidget {
                                     ),
                                     kheight,
                                     TextWrapper(
-                                      text: value.notificationstud![index]
-                                                  ['body'] ==
-                                              null
-                                          ? '--'
-                                          : value.notificationstud![index]
-                                                  ['body']
-                                              .toString(),
+                                      text:
+                                          value.receivedList[index].body == null
+                                              ? '--'
+                                              : value.receivedList[index].body
+                                                  .toString(),
                                     ),
                                     kheight,
                                     Row(
@@ -103,12 +99,12 @@ class Stud_Notification extends StatelessWidget {
                                               color: Colors.grey, fontSize: 12),
                                         ),
                                         Text(
-                                          value.notificationstud![index]
-                                                      ['createdDate'] ==
+                                          value.receivedList[index]
+                                                      .createdDate ==
                                                   null
                                               ? '--'
-                                              : value.notificationstud![index]
-                                                      ['createdDate']
+                                              : value.receivedList[index]
+                                                  .createdDate
                                                   .toString(),
                                           style: const TextStyle(
                                               color: Color.fromARGB(
@@ -122,12 +118,11 @@ class Stud_Notification extends StatelessWidget {
                                               color: Colors.grey, fontSize: 12),
                                         ),
                                         Text(
-                                          value.notificationstud![index]
-                                                      ['fromStaff'] ==
+                                          value.receivedList[index].fromStaff ==
                                                   null
                                               ? '--'
-                                              : value.notificationstud![index]
-                                                      ['fromStaff']
+                                              : value
+                                                  .receivedList[index].fromStaff
                                                   .toString(),
                                           style: const TextStyle(
                                               color: Color.fromARGB(
