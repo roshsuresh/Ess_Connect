@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:essconnect/Domain/Staff/NotifcationSendModel.dart';
+import 'package:essconnect/Domain/Staff/NotificationReceived.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +15,7 @@ class StaffNotificationScreenProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List? notificationStaff;
+  List<StaffNotificationReceivedModel> notificationList = [];
   Future getNotificationReceived() async {
     Map<String, dynamic> parse = await parseJWT();
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -43,10 +44,13 @@ class StaffNotificationScreenProvider with ChangeNotifier {
 
     try {
       if (response.statusCode == 200) {
-        print("corect");
-        final data = json.decode(await response.stream.bytesToString());
-        print(data);
-        notificationStaff = data;
+        Map<String, dynamic> data =
+            jsonDecode(await response.stream.bytesToString());
+
+        List<StaffNotificationReceivedModel> templist =
+            List<StaffNotificationReceivedModel>.from(data["receiveList"]
+                .map((x) => StaffNotificationReceivedModel.fromJson(x)));
+        notificationList.addAll(templist);
 
         setLoading(false);
         notifyListeners();
@@ -95,7 +99,7 @@ class StaffNotificationScreenProvider with ChangeNotifier {
         Map<String, dynamic> data =
             jsonDecode(await response.stream.bytesToString());
 
-        log(data.toString());
+        //   log(data.toString());
 
         List<StaffNotificationHistory> templist =
             List<StaffNotificationHistory>.from(data["results"]

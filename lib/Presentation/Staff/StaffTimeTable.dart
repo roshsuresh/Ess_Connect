@@ -19,7 +19,7 @@ class Staff_Timetable extends StatelessWidget {
     });
 
     var size = MediaQuery.of(context).size;
-    var height = size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('TimeTable'),
@@ -48,7 +48,6 @@ class Staff_Timetable extends StatelessWidget {
               children: const [
                 TableRow(
                     decoration: BoxDecoration(
-                      //  border: Border.all(),
                       color: Color.fromARGB(255, 228, 224, 224),
                     ),
                     children: [
@@ -76,48 +75,49 @@ class Staff_Timetable extends StatelessWidget {
               builder: (context, value, child) {
                 return value.loading
                     ? spinkitLoader()
-                    : Table(
-                        columnWidths: const {
-                          0: FlexColumnWidth(4),
-                          1: FlexColumnWidth(2),
-
-                          // 3: FlexColumnWidth(2)
-                        },
-                        //border: TableBorder.all(),
-                        children: [
-                          TableRow(
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 245, 242, 242),
-                              ),
-                              children: [
-                                Center(
-                                  child: Text(
-                                    value.name ?? '---',
-                                    style: const TextStyle(fontSize: 15),
+                    : GestureDetector(
+                        child: Table(
+                          columnWidths: const {
+                            0: FlexColumnWidth(4),
+                            1: FlexColumnWidth(2),
+                          },
+                          children: [
+                            TableRow(
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(255, 245, 242, 242),
+                                ),
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        value.name ?? '---',
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    if (value.extension == '.pdf') {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PdfViewStaff()),
-                                      );
-                                    } else {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                StaffTimetableimage()),
-                                      );
-                                    }
-                                  },
-                                  child: const Icon(Icons.remove_red_eye),
-                                ),
-                              ]),
-                        ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: const Icon(Icons.remove_red_eye),
+                                  ),
+                                ]),
+                          ],
+                        ),
+                        onTap: () async {
+                          if (value.extension == '.pdf') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const PdfViewStaff()),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => StaffTimetableimage()),
+                            );
+                          }
+                        },
                       );
               },
             )

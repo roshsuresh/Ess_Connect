@@ -217,7 +217,10 @@ class GalleryonTap extends StatelessWidget {
                   onTap: () async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ViewImageOntap()),
+                      MaterialPageRoute(
+                          builder: (context) => ViewImageOntap(
+                                currentIndex: index,
+                              )),
                     );
                   },
                 );
@@ -230,9 +233,22 @@ class GalleryonTap extends StatelessWidget {
   }
 }
 
-class ViewImageOntap extends StatelessWidget {
-  ViewImageOntap({Key? key}) : super(key: key);
+class ViewImageOntap extends StatefulWidget {
+  late int currentIndex;
+  ViewImageOntap({Key? key, required this.currentIndex}) : super(key: key);
+
+  @override
+  State<ViewImageOntap> createState() => _ViewImageOntapState();
+}
+
+class _ViewImageOntapState extends State<ViewImageOntap> {
   bool isLoading = false;
+
+  void onPageChanged(int index) {
+    setState(() {
+      widget.currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -241,17 +257,18 @@ class ViewImageOntap extends StatelessWidget {
           backgroundDecoration: const BoxDecoration(color: UIGuide.WHITE),
           scrollPhysics: const BouncingScrollPhysics(),
           enableRotation: false,
-          itemCount: value.galleryList == null ? 0 : value.galleryList.length,
-          builder: ((context, inde) {
-            final imgUrl = value.galleryList[inde]['url'];
+          onPageChanged: onPageChanged,
+          itemCount: value.galleryList.isEmpty ? 0 : value.galleryList.length,
+          builder: ((_, indee) {
+            final imgUrl = value.galleryList[widget.currentIndex]['url'];
             return PhotoViewGalleryPageOptions(
                 imageProvider: NetworkImage(
                     imgUrl ?? const AssetImage('assets/noimages.png')),
                 initialScale: PhotoViewComputedScale.contained * 0.8,
                 heroAttributes: PhotoViewHeroAttributes(
-                    tag: value.galleryList[inde]['url']));
+                    tag: value.galleryList[widget.currentIndex]['url']));
           }),
-          loadingBuilder: (context, event) => const LoadingIcon()),
+          loadingBuilder: (context, event) => spinkitLoader()),
     );
   }
 }

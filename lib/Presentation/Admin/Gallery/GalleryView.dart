@@ -219,7 +219,7 @@ class ViewImageOntapAdmin extends StatelessWidget {
                 heroAttributes: PhotoViewHeroAttributes(
                     tag: value.galleryAttachResponse![inde]['url']));
           }),
-          loadingBuilder: (context, event) => const LoadingIcon()),
+          loadingBuilder: (context, event) => spinkitLoader()),
     );
   }
 }

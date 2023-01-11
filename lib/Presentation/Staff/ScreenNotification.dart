@@ -1,7 +1,10 @@
 import 'package:essconnect/Application/Staff_Providers/StaffNotificationScreen.dart';
+import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:intl/intl.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import '../../utils/TextWrap(moreOption).dart';
 import '../../utils/constants.dart';
@@ -57,6 +60,7 @@ class StaffNotificationReceived extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var p =
           Provider.of<StaffNotificationScreenProvider>(context, listen: false);
+      p.notificationList.clear();
       p.getNotificationReceived();
     });
     size = MediaQuery.of(context).size;
@@ -71,10 +75,16 @@ class StaffNotificationReceived extends StatelessWidget {
                   padding: EdgeInsets.all(size.width / 70),
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: value.notificationStaff?.length == null
+                  itemCount: value.notificationList.isEmpty
                       ? 0
-                      : value.notificationStaff!.length,
+                      : value.notificationList.length,
                   itemBuilder: (BuildContext context, int index) {
+                    String createddate =
+                        value.notificationList[index].createdDate ?? '--';
+                    var updatedDate =
+                        DateFormat('yyyy-MM-dd').parse(createddate);
+                    String newDate = updatedDate.toString();
+                    String finalCreatedDate = newDate.replaceRange(10, 23, '');
                     return AnimationConfiguration.staggeredList(
                       position: index,
                       delay: const Duration(milliseconds: 100),
@@ -83,96 +93,177 @@ class StaffNotificationReceived extends StatelessWidget {
                         curve: Curves.fastLinearToSlowEaseIn,
                         horizontalOffset: -300,
                         verticalOffset: -850,
-                        child: Column(
-                          children: [
-                            kheight,
-                            Container(
-                              width: width - 4,
-                              // height: 150,
-                              decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 2,
-                                    )
-                                  ],
-                                  color: Color.fromARGB(255, 245, 246, 248),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      value.notificationStaff![index]
-                                                  ['title'] ==
-                                              null
-                                          ? '--'
-                                          : value.notificationStaff![index]
-                                                  ['title']
-                                              .toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w700),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    kheight,
-                                    TextWrapper(
-                                      text: value.notificationStaff![index]
-                                                  ['body'] ==
-                                              null
-                                          ? '--'
-                                          : value.notificationStaff![index]
-                                                  ['body']
-                                              .toString(),
-                                    ),
-                                    kheight,
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          'Date',
-                                          style: TextStyle(
-                                              color: Colors.grey, fontSize: 12),
-                                        ),
-                                        Text(
-                                          value.notificationStaff![index]
-                                                      ['createdDate'] ==
-                                                  null
-                                              ? '--'
-                                              : value.notificationStaff![index]
-                                                      ['createdDate']
-                                                  .toString(),
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 49, 47, 47),
-                                              fontSize: 12),
-                                        ),
-                                        const Spacer(),
-                                        const Text(
-                                          'Send by ',
-                                          style: TextStyle(
-                                              color: Colors.grey, fontSize: 12),
-                                        ),
-                                        Text(
-                                          value.notificationStaff![index]
-                                                      ['fromStaff'] ==
-                                                  null
-                                              ? '--'
-                                              : value.notificationStaff![index]
-                                                      ['fromStaff']
-                                                  .toString(),
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 49, 47, 47),
-                                              fontSize: 12),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 6.0, right: 6, bottom: 3, top: 3),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 234, 234, 236),
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 136, 187, 235)),
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20))),
+                            width: size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Container(
+                                width: size.width - 4,
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    // border: Border.all(
+                                    //     color: UIGuide.light_Purple),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 25,
+                                            width: 25,
+                                            child: LottieBuilder.network(
+                                                'https://assets7.lottiefiles.com/packages/lf20_0skurerf.json'),
+                                          ),
+                                          // Text('🔔'),
+                                          Text(
+                                            value.notificationList[index]
+                                                    .title ??
+                                                '--',
+                                            style: const TextStyle(
+                                                color: UIGuide.light_Purple,
+                                                fontWeight: FontWeight.w700),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                      kheight,
+                                      TextWrapper(
+                                        text: value
+                                                .notificationList[index].body ??
+                                            '--',
+                                        fSize: 14,
+                                      ),
+                                      kheight10,
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            'Date: ',
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 12),
+                                          ),
+                                          Text(
+                                            finalCreatedDate == null
+                                                ? '--'
+                                                : finalCreatedDate.toString(),
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 49, 47, 47),
+                                                fontSize: 12),
+                                          ),
+                                          const Spacer(),
+                                          const Text(
+                                            'Send by: ',
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 12),
+                                          ),
+                                          Text(
+                                            value.notificationList[index]
+                                                    .fromStaff ??
+                                                '--',
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 49, 47, 47),
+                                                fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
+                        //Column(
+                        //   children: [
+                        //     kheight,
+                        //     Container(
+                        //       width: width - 4,
+                        //       decoration: const BoxDecoration(
+                        //           boxShadow: [
+                        //             BoxShadow(
+                        //               blurRadius: 2,
+                        //             )
+                        //           ],
+                        //           color: Color.fromARGB(255, 245, 246, 248),
+                        //           borderRadius:
+                        //               BorderRadius.all(Radius.circular(10))),
+                        //       child: Padding(
+                        //         padding: const EdgeInsets.all(6.0),
+                        //         child: Column(
+                        //           crossAxisAlignment: CrossAxisAlignment.start,
+                        //           children: [
+                        //             Text(
+                        //               value.notificationList[index].title ??
+                        //                   '--',
+                        //               style: const TextStyle(
+                        //                   fontWeight: FontWeight.w700),
+                        //               textAlign: TextAlign.center,
+                        //             ),
+                        //             kheight,
+                        //             TextWrapper(
+                        //               text:
+                        //                   value.notificationList[index].body ??
+                        //                       '--',
+                        //               fSize: 14,
+                        //             ),
+                        //             kheight,
+                        //             Row(
+                        //               children: [
+                        //                 const Text(
+                        //                   'Date',
+                        //                   style: TextStyle(
+                        //                       color: Colors.grey, fontSize: 12),
+                        //                 ),
+                        //                 Text(
+                        //                   finalCreatedDate == null
+                        //                       ? '--'
+                        //                       : finalCreatedDate,
+                        //                   style: const TextStyle(
+                        //                       color: Color.fromARGB(
+                        //                           255, 49, 47, 47),
+                        //                       fontSize: 12),
+                        //                 ),
+                        //                 const Spacer(),
+                        //                 const Text(
+                        //                   'Send by ',
+                        //                   style: TextStyle(
+                        //                       color: Colors.grey, fontSize: 12),
+                        //                 ),
+                        //                 Text(
+                        //                   value.notificationList[index]
+                        //                           .fromStaff ??
+                        //                       '--',
+                        //                   style: const TextStyle(
+                        //                       color: Color.fromARGB(
+                        //                           255, 49, 47, 47),
+                        //                       fontSize: 12),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ),
                     );
                   },
@@ -238,7 +329,7 @@ class StaffNotificationSendHistory extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        'Title: ',
+                                        '  Title: ',
                                         style: TextStyle(
                                             fontSize: 15,
                                             color: UIGuide.light_Purple),
@@ -262,7 +353,7 @@ class StaffNotificationSendHistory extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        'Matter: ',
+                                        '  Matter: ',
                                         style: TextStyle(
                                             fontSize: 15,
                                             color: UIGuide.light_Purple),

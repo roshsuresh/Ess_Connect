@@ -103,13 +103,19 @@ class AdminHomeContent extends StatelessWidget {
             children: [
               kheight20,
               Row(children: <Widget>[
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
+                // Expanded(
+                //   child: Container(
+                //       margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                //       child: const Divider(
+                //         color: Colors.black45,
+                //         height: 36,
+                //       )),
+                // ),
+                Text(
+                  ' ──    ',
+                  style: TextStyle(
+                    color: Colors.black26,
+                  ),
                 ),
                 const Text(
                   'General Info',
@@ -329,13 +335,11 @@ class AdminHomeContent extends StatelessWidget {
               kheight10,
               kheight10,
               Row(children: <Widget>[
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
+                Text(
+                  ' ──    ',
+                  style: TextStyle(
+                    color: Colors.black26,
+                  ),
                 ),
                 const Text(
                   "Reports",
@@ -457,8 +461,7 @@ class AdminHomeContent extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => MarkentryReportByAdmin()),
+                        MaterialPageRoute(builder: (context) => Demo()),
                       );
                     },
                     child: Padding(
@@ -551,13 +554,11 @@ class AdminHomeContent extends StatelessWidget {
               kheight10,
               kheight10,
               Row(children: <Widget>[
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
+                Text(
+                  ' ──    ',
+                  style: TextStyle(
+                    color: Colors.black26,
+                  ),
                 ),
                 const Text(
                   "Communication",
@@ -963,16 +964,14 @@ class AdminHomeContent extends StatelessWidget {
               ),
               kheight20,
               Row(children: <Widget>[
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
+                const Text(
+                  ' ──    ',
+                  style: TextStyle(
+                    color: Colors.black26,
+                  ),
                 ),
                 const Text(
-                  "Change Password / SignOut",
+                  "Change Password | SignOut",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
@@ -994,7 +993,7 @@ class AdminHomeContent extends StatelessWidget {
                   MaterialButton(
                       elevation: 10,
                       minWidth: 50,
-                      color: Colors.white,
+                      color: UIGuide.THEME_LIGHT,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       onPressed: () async {
@@ -1010,7 +1009,7 @@ class AdminHomeContent extends StatelessWidget {
                   MaterialButton(
                       minWidth: 50,
                       elevation: 10,
-                      color: Colors.white,
+                      color: UIGuide.THEME_LIGHT,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       onPressed: () async {
@@ -1026,6 +1025,8 @@ class AdminHomeContent extends StatelessWidget {
                           title: 'SignOut',
                           desc: 'Are you sure want to sign out',
                           showCloseIcon: true,
+                          btnOkColor: UIGuide.button1,
+                          btnCancelColor: UIGuide.button2,
                           btnCancelOnPress: () {
                             return;
                           },

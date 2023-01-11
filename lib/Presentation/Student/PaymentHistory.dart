@@ -49,7 +49,7 @@ class PaymentHistory extends StatelessWidget {
                         padding: const EdgeInsets.all(2.0),
                         child: Table(
                           columnWidths: const {
-                            0: FlexColumnWidth(.5),
+                            0: FlexColumnWidth(.6),
                             1: FlexColumnWidth(2.1),
                             2: FlexColumnWidth(2.3),
                             3: FlexColumnWidth(2.2),
@@ -60,42 +60,57 @@ class PaymentHistory extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: Color.fromARGB(255, 196, 210, 235),
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(5),
+                                    topLeft: Radius.circular(3),
+                                    topRight: Radius.circular(3),
                                   ),
                                 ),
                                 children: [
-                                  Center(
-                                      child: Text(
-                                    'Sl No.',
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  )),
-                                  Center(
-                                      child: Text(
-                                    'Bill Date',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  )),
-                                  Center(
-                                      child: Text(
-                                    'Payment \n  Mode',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  )),
-                                  Center(
-                                      child: Text(
-                                    'Amount \n paid',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  )),
-                                  Center(
-                                      child: Text(
-                                    'Receipt',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  ))
+                                  Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Center(
+                                        child: Text(
+                                      'Sl.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Center(
+                                        child: Text(
+                                      'Bill Date',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Center(
+                                        child: Text(
+                                      'Payment \n  Mode',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Center(
+                                        child: Text(
+                                      'Amount \n   paid',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Center(
+                                        child: Text(
+                                      'Receipt',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                  )
                                 ]),
                           ],
                         ),
@@ -118,81 +133,105 @@ class PaymentHistory extends StatelessWidget {
                               String finalCreatedDate =
                                   newDate.replaceRange(10, 23, '');
 
-                              return Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Table(
-                                  columnWidths: const {
-                                    0: FlexColumnWidth(.5),
-                                    1: FlexColumnWidth(2.1),
-                                    2: FlexColumnWidth(2.3),
-                                    3: FlexColumnWidth(2.2),
-                                    4: FlexColumnWidth(1.2)
-                                  },
-                                  children: [
-                                    TableRow(
-                                        decoration: const BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 238, 235, 235),
-                                        ),
-                                        children: [
-                                          Text(
-                                            "\n${(index + 1).toString()}",
-                                            textAlign: TextAlign.center,
-                                            style:
-                                                const TextStyle(fontSize: 13),
+                              return GestureDetector(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Table(
+                                    columnWidths: const {
+                                      0: FlexColumnWidth(.6),
+                                      1: FlexColumnWidth(2.1),
+                                      2: FlexColumnWidth(2.3),
+                                      3: FlexColumnWidth(2.2),
+                                      4: FlexColumnWidth(1.2)
+                                    },
+                                    children: [
+                                      TableRow(
+                                          decoration: const BoxDecoration(
+                                            color: Color.fromARGB(
+                                                255, 238, 235, 235),
                                           ),
-                                          Center(
-                                              child: Text(
-                                            '\n${finalCreatedDate.toString()}',
-                                            style:
-                                                const TextStyle(fontSize: 13),
-                                          )),
-                                          Center(
-                                              child: Text(
-                                            '\n${value.historyList[index].paymentMode}',
-                                            style:
-                                                const TextStyle(fontSize: 13),
-                                          )),
-                                          Center(
-                                              child: Text(
-                                            '\n${value.historyList[index].billAmount}',
-                                            style:
-                                                const TextStyle(fontSize: 13),
-                                          )),
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.remove_red_eye,
-                                              size: 20,
+                                          children: [
+                                            Text(
+                                              "\n${(index + 1).toString()}",
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  const TextStyle(fontSize: 13),
                                             ),
-                                            onPressed: () async {
-                                              String reAttach = value
-                                                  .historyList[index].orderId
-                                                  .toString();
-                                              await Provider.of<
-                                                          PaymentHistoryProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .feeHistoryAttachment(
-                                                      reAttach);
-                                              if (value.extension.toString() ==
-                                                  '.pdf') {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            PdfDownloadFee()));
-                                              } else {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const NoAttachmentScreenFee()));
-                                              }
-                                            },
-                                          )
-                                        ]),
-                                  ],
+                                            Center(
+                                                child: Text(
+                                              '\n${finalCreatedDate.toString()}',
+                                              style:
+                                                  const TextStyle(fontSize: 13),
+                                            )),
+                                            Center(
+                                                child: Text(
+                                              '\n${value.historyList[index].paymentMode}',
+                                              style:
+                                                  const TextStyle(fontSize: 13),
+                                            )),
+                                            Center(
+                                                child: Text(
+                                              '\n${value.historyList[index].billAmount}',
+                                              style:
+                                                  const TextStyle(fontSize: 13),
+                                            )),
+                                            IconButton(
+                                              icon: const Icon(
+                                                Icons.remove_red_eye,
+                                                size: 20,
+                                              ),
+                                              onPressed: () async {
+                                                // String reAttach = value
+                                                //     .historyList[index].orderId
+                                                //     .toString();
+                                                // await Provider.of<
+                                                //             PaymentHistoryProvider>(
+                                                //         context,
+                                                //         listen: false)
+                                                //     .feeHistoryAttachment(
+                                                //         reAttach);
+                                                // if (value.extension.toString() ==
+                                                //     '.pdf') {
+                                                //   Navigator.push(
+                                                //       context,
+                                                //       MaterialPageRoute(
+                                                //           builder: (context) =>
+                                                //               PdfDownloadFee()));
+                                                // } else {
+                                                //   Navigator.push(
+                                                //       context,
+                                                //       MaterialPageRoute(
+                                                //           builder: (context) =>
+                                                //               const NoAttachmentScreenFee()));
+                                                // }
+                                              },
+                                            )
+                                          ]),
+                                    ],
+                                  ),
                                 ),
+                                onTap: () async {
+                                  String reAttach = value
+                                      .historyList[index].orderId
+                                      .toString();
+                                  await Provider.of<PaymentHistoryProvider>(
+                                          context,
+                                          listen: false)
+                                      .feeHistoryAttachment(reAttach);
+                                  if (value.extension.toString() == '.pdf') {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PdfDownloadFee()));
+                                  } else {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NoAttachmentScreenFee()));
+                                  }
+                                },
                               );
                             }),
                       )

@@ -465,6 +465,11 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                           divisionData,
                           toggleVal.toString(),
                           attachmentid.text.toString());
+
+                  titleController.clear();
+                  courseData.clear();
+                  divisionData.clear();
+                  attachmentid.clear();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
@@ -480,10 +485,6 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                 print(timeNow);
                 print(titleController);
                 print(attachmentid);
-                titleController.clear();
-                courseData.clear();
-                divisionData.clear();
-                attachmentid.clear();
               }),
               child: const Text(
                 'Save',

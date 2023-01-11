@@ -102,71 +102,82 @@ class ReportCard extends StatelessWidget {
                                 String reAttach =
                                     reportResponse[index]['fileId'];
                                 print(reAttach);
-                                return Table(
-                                  border: TableBorder.all(
-                                      color: const Color.fromARGB(
-                                          255, 245, 243, 243)),
-                                  columnWidths: const {
-                                    0: FlexColumnWidth(3),
-                                    1: FlexColumnWidth(5),
-                                    2: FlexColumnWidth(2),
+                                return GestureDetector(
+                                  onTap: () async {
+                                    final attch =
+                                        await Provider.of<ReportCardProvider>(
+                                                context,
+                                                listen: false)
+                                            .reportCardAttachment(reAttach);
+                                    if (provider.extension.toString() ==
+                                        '.pdf') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PdfDownload()),
+                                      );
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NoAttachmentScreen()),
+                                      );
+                                    }
                                   },
-                                  children: [
-                                    TableRow(
-                                        decoration: const BoxDecoration(),
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              Corect_tym == null
-                                                  ? '---'
-                                                  : Corect_tym.toString(),
+                                  child: Table(
+                                    border: TableBorder.all(
+                                        color: const Color.fromARGB(
+                                            255, 245, 243, 243)),
+                                    columnWidths: const {
+                                      0: FlexColumnWidth(3),
+                                      1: FlexColumnWidth(5),
+                                      2: FlexColumnWidth(2),
+                                    },
+                                    children: [
+                                      TableRow(
+                                          decoration: const BoxDecoration(),
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                Corect_tym == null
+                                                    ? '---'
+                                                    : Corect_tym.toString(),
+                                                textAlign: TextAlign.center,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            reportResponse[index]
-                                                        ['description'] ==
-                                                    null
-                                                ? '----'
-                                                : reportResponse[index]
-                                                        ['description']
-                                                    .toString(),
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () async {
-                                              final attch = await Provider.of<
-                                                          ReportCardProvider>(
-                                                      context,
-                                                      listen: false)
-                                                  .reportCardAttachment(
-                                                      reAttach);
-                                              if (provider.extension
-                                                      .toString() ==
-                                                  '.pdf') {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PdfDownload()),
-                                                );
-                                              } else {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const NoAttachmentScreen()),
-                                                );
-                                              }
-                                            },
-                                            child: const Icon(
-                                              Icons.remove_red_eye_outlined,
-                                              size: 20,
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                reportResponse[index]
+                                                            ['description'] ==
+                                                        null
+                                                    ? '----'
+                                                    : reportResponse[index]
+                                                            ['description']
+                                                        .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 14),
+                                              ),
                                             ),
-                                          )
-                                        ]),
-                                  ],
+                                            const Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "view",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: UIGuide.light_Purple,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            )
+                                          ]),
+                                    ],
+                                  ),
                                 );
                               }));
                         },

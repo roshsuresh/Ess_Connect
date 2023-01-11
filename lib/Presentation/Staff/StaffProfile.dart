@@ -74,20 +74,18 @@ class StaffProfileView extends StatelessWidget {
                                 kheight20,
                                 kheight20,
                                 kheight10,
-                                Flexible(
-                                  child: RichText(
-                                    overflow: TextOverflow.ellipsis,
-                                    strutStyle: const StrutStyle(fontSize: 13),
-                                    maxLines: 3,
-                                    text: TextSpan(
-                                        style: const TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w500,
-                                            color: UIGuide.light_Purple),
-                                        text: value.name == null
-                                            ? '---'
-                                            : value.name.toString()),
-                                  ),
+                                RichText(
+                                  overflow: TextOverflow.ellipsis,
+                                  strutStyle: const StrutStyle(fontSize: 13),
+                                  maxLines: 3,
+                                  text: TextSpan(
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          color: UIGuide.light_Purple),
+                                      text: value.name == null
+                                          ? '---'
+                                          : value.name.toString()),
                                 ),
                                 Text(
                                   value.designation == null
@@ -147,21 +145,19 @@ class StaffProfileView extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 4.0),
-                                    child: Flexible(
-                                      child: RichText(
-                                        overflow: TextOverflow.ellipsis,
-                                        strutStyle:
-                                            const StrutStyle(fontSize: 13),
-                                        maxLines: 3,
-                                        text: TextSpan(
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              color: UIGuide.light_Purple,
-                                            ),
-                                            text: value.address == null
-                                                ? '----'
-                                                : value.address.toString()),
-                                      ),
+                                    child: RichText(
+                                      overflow: TextOverflow.ellipsis,
+                                      strutStyle:
+                                          const StrutStyle(fontSize: 13),
+                                      maxLines: 3,
+                                      text: TextSpan(
+                                          style: const TextStyle(
+                                            fontSize: 13,
+                                            color: UIGuide.light_Purple,
+                                          ),
+                                          text: value.address == null
+                                              ? '----'
+                                              : value.address.toString()),
                                     ),
                                   ),
                                 ],
@@ -180,16 +176,14 @@ class StaffProfileView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Flexible(
-                                  child: Text(
-                                    value.gender == null
-                                        ? '--'
-                                        : value.gender.toString(),
-                                    overflow: TextOverflow.clip,
-                                    style: const TextStyle(
-                                        color: UIGuide.light_Purple,
-                                        fontSize: 12),
-                                  ),
+                                Text(
+                                  value.gender == null
+                                      ? '--'
+                                      : value.gender.toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(
+                                      color: UIGuide.light_Purple,
+                                      fontSize: 12),
                                 )
                               ],
                             ),
@@ -207,16 +201,14 @@ class StaffProfileView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Flexible(
-                                  child: Text(
-                                    value.dateOfBirth == null
-                                        ? '--'
-                                        : value.dateOfBirth.toString(),
-                                    overflow: TextOverflow.clip,
-                                    style: const TextStyle(
-                                        color: UIGuide.light_Purple,
-                                        fontSize: 12),
-                                  ),
+                                Text(
+                                  value.dateOfBirth == null
+                                      ? '--'
+                                      : value.dateOfBirth.toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(
+                                      color: UIGuide.light_Purple,
+                                      fontSize: 12),
                                 )
                               ],
                             ),
@@ -238,16 +230,14 @@ class StaffProfileView extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  Flexible(
-                                    child: Text(
-                                      value.mobileNo == null
-                                          ? '--'
-                                          : value.mobileNo.toString(),
-                                      overflow: TextOverflow.clip,
-                                      style: const TextStyle(
-                                          color: UIGuide.light_Purple,
-                                          fontSize: 12),
-                                    ),
+                                  Text(
+                                    value.mobileNo == null
+                                        ? '--'
+                                        : value.mobileNo.toString(),
+                                    overflow: TextOverflow.clip,
+                                    style: const TextStyle(
+                                        color: UIGuide.light_Purple,
+                                        fontSize: 12),
                                   )
                                 ],
                               ),
@@ -266,16 +256,14 @@ class StaffProfileView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Flexible(
-                                  child: Text(
-                                    value.shortname == null
-                                        ? '--'
-                                        : value.shortname.toString(),
-                                    overflow: TextOverflow.clip,
-                                    style: const TextStyle(
-                                        color: UIGuide.light_Purple,
-                                        fontSize: 12),
-                                  ),
+                                Text(
+                                  value.shortname == null
+                                      ? '--'
+                                      : value.shortname.toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(
+                                      color: UIGuide.light_Purple,
+                                      fontSize: 12),
                                 )
                               ],
                             ),
@@ -293,16 +281,14 @@ class StaffProfileView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Flexible(
-                                  child: Text(
-                                    value.emailid == null
-                                        ? '--'
-                                        : value.emailid.toString(),
-                                    overflow: TextOverflow.clip,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: UIGuide.light_Purple,
-                                    ),
+                                Text(
+                                  value.emailid == null
+                                      ? '--'
+                                      : value.emailid.toString(),
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: UIGuide.light_Purple,
                                   ),
                                 )
                               ],

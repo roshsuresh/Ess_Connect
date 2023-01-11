@@ -234,7 +234,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                     padding: const EdgeInsets.only(
                                         left: 20, right: 8),
                                     child: LimitedBox(
-                                        maxHeight: 280,
+                                        maxHeight: 165,
                                         child: Consumer<FeesProvider>(
                                             builder: (context, val, child) {
                                           return ListView.builder(

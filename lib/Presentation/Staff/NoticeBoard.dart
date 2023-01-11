@@ -258,7 +258,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
-            inputFormatters: [LengthLimitingTextInputFormatter(50)],
+            inputFormatters: [LengthLimitingTextInputFormatter(20)],
             controller: titleController,
             minLines: 1,
             maxLines: 1,

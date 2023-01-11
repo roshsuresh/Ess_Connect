@@ -33,7 +33,7 @@ class Profile_Info extends StatelessWidget {
           return provider.loading
               ? spinkitLoader()
               : ListView(
-                  physics: const BouncingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [
                     Stack(
                       children: [
@@ -163,7 +163,7 @@ class Profile_Info extends StatelessWidget {
                       child: Container(
                         width: width,
                         height: 370,
-                        color: Color.fromARGB(255, 240, 243, 247),
+                        color: const Color.fromARGB(255, 240, 243, 247),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

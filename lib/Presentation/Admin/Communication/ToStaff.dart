@@ -369,7 +369,7 @@ class Text_Matter_NotificationAdminToStaff extends StatelessWidget {
             child: SizedBox(
               height: 40,
               child: TextFormField(
-                inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                inputFormatters: [LengthLimitingTextInputFormatter(20)],
                 controller: titleController,
                 minLines: 1,
                 maxLines: 1,
@@ -404,7 +404,7 @@ class Text_Matter_NotificationAdminToStaff extends StatelessWidget {
             child: SizedBox(
               height: 100,
               child: TextFormField(
-                inputFormatters: [LengthLimitingTextInputFormatter(300)],
+                inputFormatters: [LengthLimitingTextInputFormatter(100)],
                 controller: matterController,
                 minLines: 1,
                 maxLines: 5,
