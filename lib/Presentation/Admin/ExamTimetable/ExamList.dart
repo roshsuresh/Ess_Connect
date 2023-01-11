@@ -11,11 +11,11 @@ class ExamTTHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<ExamTTAdmProviders>(context, listen: false);
       p.courseList.clear();
-      p.clearTTexamList();
-      p.getExamTimeTableList();
+      await p.clearTTexamList();
+      await p.getExamTimeTableList();
     });
     var size = MediaQuery.of(context).size;
     return Consumer<ExamTTAdmProviders>(

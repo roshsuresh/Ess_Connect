@@ -556,10 +556,8 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                 print(time);
                 print(timeNow);
                 print(titleController);
-
                 print(coursevalueController);
                 print(divisionvalueController);
-
                 print(attachmentid);
                 coursevalueController.clear();
                 titleController.clear();

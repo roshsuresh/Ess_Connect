@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:essconnect/Domain/Student/ExamTTModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,9 +46,53 @@ class Timetableprovider with ChangeNotifier {
         url = prev.url;
         createdAt = prev.createdAt;
         name = prev.name;
-
         extension = prev.extension;
         print(name);
+        setLoading(false);
+        notifyListeners();
+      } else {
+        setLoading(false);
+        print("Error in response");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //Exam tt
+
+  String? nameExam;
+  String? extensionExam;
+  String? urlexam;
+  String? createdExam;
+  String? examDescription;
+  Future getExamTimeTable() async {
+    setLoading(true);
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+    setLoading(true);
+    var response = await http.get(
+        Uri.parse(
+            "${UIGuide.baseURL}/upload-exam-timetable/guardian-timetable-view"),
+        headers: headers);
+
+    try {
+      if (response.statusCode == 200) {
+        print("corect");
+        final data = json.decode(response.body);
+        Map<String, dynamic> exam = data['viewExamTimeTableList'];
+        print(exam);
+        ExamTTModel mod = ExamTTModel.fromJson(exam['item1']);
+        nameExam = mod.name;
+        extensionExam = mod.extension;
+        urlexam = mod.url;
+        createdExam = mod.createdAt;
+        examDescription = mod.examDescription;
+
+        print(nameExam);
         setLoading(false);
         notifyListeners();
       } else {

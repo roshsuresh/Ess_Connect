@@ -40,6 +40,11 @@ class UIGuide {
   static const Color PRIMARY3 = Color(0XFFff6699);
   static const Color light_black = Color.fromARGB(255, 228, 229, 230);
   static const Color light_Purple = Color.fromARGB(255, 7, 68, 126);
+  static const Color custom_blue = Color.fromARGB(255, 44, 127, 238);
+  static const Color grey = Color.fromARGB(255, 44, 127, 238);
+  static const Color button1 = Color.fromARGB(255, 166, 232, 161);
+  static const Color button2 = Color.fromARGB(255, 241, 135, 118);
+
 
   static const Color primary4 = Color(0xff17a2b8);
   Widget sizer20 = const SizedBox(

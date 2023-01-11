@@ -53,7 +53,7 @@ class FeesProvider with ChangeNotifier {
 
         Map<String, dynamic> data = json.decode(response.body);
         Map<String, dynamic> feeinitial =
-            data['onlineFeePaymentStudentDetails'];
+        data['onlineFeePaymentStudentDetails'];
         Map<String, dynamic> feedata = feeinitial['feeOrder'];
         FeeOrder fee = FeeOrder.fromJson(feedata);
         lastOrderStatus = fee.lastOrderStatus;
@@ -116,54 +116,159 @@ class FeesProvider with ChangeNotifier {
   List selecteCategorys = [];
 
   void onFeeSelected(bool selected, feeName, int index, feeNetDue) {
-    if (selected == true) {
-      selecteCategorys.add(feeName);
-      print(index);
-      final double tot = feeNetDue;
-      print(feeName);
-      print(tot);
-      totalFees = tot + totalFees;
-      print(totalFees);
-      total = totalFees + totalBusFee;
-      print(total);
-      print("selecteCategorys   $selecteCategorys");
-      notifyListeners();
-    } else {
-      if (selecteCategorys.remove(feeName)) {
+
+    feeList[0].enabled=true;
+    if(feeList[index].enabled== true) {
+      if (selected == true) {
+
+        selecteCategorys.add(feeName);
+
+        index == (feeList.length)-1 ? "--" :
+        feeList[index+1].enabled=true ;
+        feeList[index].selected=true;
+
+        print(index);
         final double tot = feeNetDue;
-        totalFees = totalFees - tot;
+        print(feeName);
+        print(tot);
+        totalFees = tot + totalFees;
+        print(totalFees);
         total = totalFees + totalBusFee;
         print(total);
+        print("selecteCategorys   $selecteCategorys");
+        notifyListeners();
       }
-      notifyListeners();
+      // else if(feesList[index+1].selected  == true){
+      //   selected != true;
+      // }
+
+
+        else {
+          int lastindex= feeList.length-1;
+          print(lastindex);
+          if(feeList[lastindex].selected==true){
+            selecteCategorys.removeAt(lastindex);
+            feeList[lastindex].selected=false;
+            feeList[lastindex].enabled=true;
+            final double? tot = feeList[lastindex].installmentNetDue;
+            totalFees = totalFees - tot!;
+            total = totalFees + totalBusFee;
+            notifyListeners();
+          }
+
+           else if (feeList[index + 1].selected == true ) {
+          print("demooo");
+          notifyListeners();
+          print(selecteCategorys);
+        }
+        else
+          if (selecteCategorys.remove(feeName)) {
+            feeList[index].selected = false;
+            index == (feeList.length) - 1 ? "--" :
+            feeList[index + 1].enabled = false;
+            final double tot = feeNetDue;
+            totalFees = totalFees - tot;
+            total = totalFees + totalBusFee;
+            print(total);
+            print("selecteCategorys   $selecteCategorys");
+            notifyListeners();
+          }
+        }
+    }
+    else {
+      print("no dta");
     }
   }
+
 
   //bus fee
 
   List selectedBusFee = [];
 
   void onBusSelected(bool selected, busfeeName, int index, feeNetDue) {
-    if (selected == true) {
-      selectedBusFee.add(busfeeName);
-      print(index);
-      final double tot = feeNetDue;
-      print(busfeeName);
-      print(tot);
-      totalBusFee = tot + totalBusFee;
-      print(totalBusFee);
-      total = totalFees + totalBusFee;
-      print(total);
-      notifyListeners();
-    } else {
-      if (selectedBusFee.remove(busfeeName)) {
+
+
+    busFeeList[0].enabled=true;
+    if(busFeeList[index].enabled== true) {
+      if (selected == true) {
+
+        selectedBusFee.add(busfeeName);
+
+        index == (busFeeList.length)-1 ? "--" :
+        busFeeList[index+1].enabled=true ;
+        busFeeList[index].selected=true;
+
+        print(index);
         final double tot = feeNetDue;
-        totalBusFee = totalBusFee - tot;
+        print(busfeeName);
+        print(tot);
+        totalBusFee = tot + totalBusFee;
+        print(totalBusFee);
         total = totalFees + totalBusFee;
         print(total);
+        print("selecteCategorys   $selectedBusFee");
+        notifyListeners();
       }
-      notifyListeners();
+      // else if(feesList[index+1].selected  == true){
+      //   selected != true;
+      // }
+
+
+      else {
+        int lastindex= busFeeList.length-1;
+        print(lastindex);
+        if(busFeeList[lastindex].selected==true){
+          selectedBusFee.removeAt(lastindex);
+          busFeeList[lastindex].selected=false;
+          busFeeList[lastindex].enabled=true;
+          final double? tot = busFeeList[lastindex].installmentNetDue;
+          totalFees = totalFees - tot!;
+          total = totalFees + totalBusFee;
+          notifyListeners();
+        }
+
+        else if (busFeeList[index + 1].selected == true ) {
+          print("demooo");
+          notifyListeners();
+          print(selectedBusFee);
+        }
+        else
+        if (selectedBusFee.remove(busfeeName)) {
+          busFeeList[index].selected = false;
+          index == (busFeeList.length) - 1 ? "--" :
+          busFeeList[index + 1].enabled = false;
+          final double tot = feeNetDue;
+          totalBusFee = totalBusFee - tot;
+          total = totalFees + totalBusFee;
+          print(total);
+          print("selecteCategorys   $selectedBusFee");
+          notifyListeners();
+        }
+      }
     }
+    else {
+      print("no dta");
+    }
+    // if (selected == true) {
+    //   selectedBusFee.add(busfeeName);
+    //   print(index);
+    //   final double tot = feeNetDue;
+    //   print(busfeeName);
+    //   print(tot);
+    //   totalBusFee = tot + totalBusFee;
+    //   print(totalBusFee);
+    //   total = totalFees + totalBusFee;
+    //   print(total);
+    //   notifyListeners();
+    // } else {
+    //   if (selectedBusFee.remove(busfeeName)) {
+    //     final double tot = feeNetDue;
+    //     totalBusFee = totalBusFee - tot;
+    //     total = totalFees + totalBusFee;
+    //     print(total);
+    //   }
+    //   notifyListeners();
+    // }
   }
 
   //total
@@ -171,6 +276,12 @@ class FeesProvider with ChangeNotifier {
   void totalFee() async {
     total = totalFees + totalBusFee;
     print(total);
+    notifyListeners();
+  }
+  bool isselectAlll = false;
+  void selectAlll(){
+    selecteCategorys.addAll(feeList);
+    isselectAlll =true;
     notifyListeners();
   }
 
@@ -253,7 +364,6 @@ class FeesProvider with ChangeNotifier {
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////    get data  1 index  PAYTM    ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
-
   String? mid1;
   String? txnorderId1;
   String? callbackUrl1;
@@ -410,10 +520,88 @@ class FeesProvider with ChangeNotifier {
     }
   }
 
+//////////////////////////////////////////
+///////    get data  1 index  PAYTM   ---------------  "BUS FEES"
+//////////////////////////////////////////
+  String? mid1B;
+  String? txnorderId1B;
+  String? callbackUrl1B;
+  String? txnAmount1B;
+  String? customerID1B;
+  String? mobile1B;
+  String? emailID1B;
+  bool? isStaging1B;
+  String? txnToken1B;
+
+  Future getDataOneBus(String fees, String idFee, String feeAmount,
+      String amount, String gateName) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
+
+    final http.Response response = await http.post(
+      Uri.parse(
+          '${UIGuide.baseURL}/online-payment/paytm/get-data?ismobileapp=true'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+      },
+      body: jsonEncode({
+        "Description": "Online Fees Payment",
+        "TransactionType": [
+          {"name": fees, "id": idFee, "amount": feeAmount}
+        ],
+        "ReturnUrl": "",
+        "Amount": amount,
+        "PaymentGateWay": gateName
+      }),
+    );
+
+    print(json.encode({
+      "Description": "Online Fees Payment",
+      "TransactionType": [
+        {"name": fees, "id": idFee, "amount": feeAmount}
+      ],
+      "ReturnUrl": "",
+      "Amount": amount,
+      "PaymentGateWay": gateName
+    }));
+
+    try {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = await json.decode(response.body);
+
+        print(data);
+        TransactionModel txn = TransactionModel.fromJson(data);
+        mid1B = txn.mid;
+        txnorderId1B = txn.orderId;
+        callbackUrl1B = txn.callbackUrl;
+        isStaging1B = txn.isStaging;
+        txnToken1B = txn.txnToken;
+        print(mid1B);
+
+        Map<String, dynamic> txnAmnt = data['txnAmount'];
+        TxnAmount amnt = TxnAmount.fromJson(txnAmnt);
+        txnAmount1B = amnt.value;
+
+        Map<String, dynamic> userInf = data['userInfo'];
+        UserInfo user = UserInfo.fromJson(userInf);
+        customerID1B = user.custId;
+        emailID1B = user.email;
+        mobile1B = user.mobile;
+
+        notifyListeners();
+      } else {
+        setLoading(false);
+        print("Error in  transaction index one Bus  response");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 ///////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////    get data  2 index PAYTM   //////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-
   String? mid2;
   String? txnorderId2;
   String? callbackUrl2;
@@ -491,13 +679,9 @@ class FeesProvider with ChangeNotifier {
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////               RAZORPAY         ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
-
 //////////////////////////////////////////////////////////////////////////////////////////
-
 //////////////////////////    get data  1 index  RAZORPAY    ////////////////////////////
-
 ////////////////////////////////////////////////////////////////////////////////////////
-
   String? key1Razo;
   String? amount1Razo;
   String? name1Razo;
@@ -648,13 +832,86 @@ class FeesProvider with ChangeNotifier {
       print(e);
     }
   }
+/////////////////////////////////////////////
+//////////    get data  1 index  RAZORPAY    ----------- "BUS FEES"
+/////////////////////////////////////////////
+  String? key1RazoBus;
+  String? amount1RazoBus;
+  String? name1RazoBus;
+  String? description1RazoBus;
+  String? customer1RazoBus;
+  String? email1RazoBus;
+  String? contact1RazoBus;
+  String? order1Bus;
+  String? readableOrderid1Bus;
+
+  Future getDataOneRAZORPAYBus(String fees, String idFee, String feeAmount,
+      String amount, String gateName) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
+
+    final http.Response response = await http.post(
+      Uri.parse('${UIGuide.baseURL}/online-payment/razor-pay/get-data'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+      },
+      body: jsonEncode({
+        "Description": "Online Fees Payment",
+        "TransactionType": [
+          {"name": fees, "id": idFee, "amount": feeAmount}
+        ],
+        "ReturnUrl": "",
+        "Amount": amount,
+        "PaymentGateWay": gateName
+      }),
+    );
+
+    print(json.encode({
+      "Description": "Online Fees Payment",
+      "TransactionType": [
+        {"name": fees, "id": idFee, "amount": feeAmount}
+      ],
+      "ReturnUrl": "",
+      "Amount": amount,
+      "PaymentGateWay": gateName
+    }));
+
+    try {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = await json.decode(response.body);
+
+        print(data);
+        RazorPayModel raz = RazorPayModel.fromJson(data);
+        key1RazoBus = raz.key;
+        amount1RazoBus = raz.amount;
+        name1RazoBus = raz.name;
+        description1RazoBus = raz.description;
+        order1Bus = raz.orderId;
+
+        Map<String, dynamic> pre = data['prefill'];
+        Prefill info = Prefill.fromJson(pre);
+        customer1RazoBus = info.name;
+        email1RazoBus = info.email;
+        contact1RazoBus = info.contact;
+
+        Map<String, dynamic> note = data['notes'];
+        Notes inf = Notes.fromJson(note);
+        readableOrderid1Bus = inf.readableOrderid;
+
+        notifyListeners();
+      } else {
+        setLoading(false);
+        print("Error in  transaction index one RAZORPAYBus response");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
 ///////////////////////////////////////////////////////////////////////////////////////
-
 //////////////////////////    get data  2 index RAZORPAY   ///////////////////////////
-
 /////////////////////////////////////////////////////////////////////////////////////
-
   String? key2Razo;
   String? amount2Razo;
   String? name2Razo;
@@ -735,9 +992,7 @@ class FeesProvider with ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-
   //////////////////////        gateway NAME          /////////////////////////
-
   ////////////////////////////////////////////////////////////////////////////
   String? gateway;
   Future gatewayName() async {
@@ -772,9 +1027,7 @@ class FeesProvider with ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////////////////////
-
   //////////////////////       vendor Mapping          ////////////////////////
-
   ////////////////////////////////////////////////////////////////////////////
   bool? existMap;
   Future vendorMapping() async {

@@ -70,12 +70,12 @@ class _StudentHomeState extends State<StudentHome> {
       height: 20,
     );
     return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 00.0,
-        centerTitle: true,
-        toolbarHeight: 0,
-        backgroundColor: UIGuide.light_Purple,
-      ),
+      // appBar: AppBar(
+      //   titleSpacing: 00.0,
+      //   centerTitle: true,
+      //   toolbarHeight: 0,
+      //   backgroundColor: UIGuide.light_Purple,
+      // ),
       body: Consumer<ConnectivityProvider>(
         builder: (context, connection, child) => connection.isOnline == false
             ? const NoInternetConnection()
@@ -93,27 +93,21 @@ class _StudentHomeState extends State<StudentHome> {
                         ],
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30))),
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15))),
                     child: ListView(
                       physics: const BouncingScrollPhysics(),
                       children: [
                         kheight20,
                         Row(children: <Widget>[
-                          Expanded(
-                            child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10.0, right: 20.0),
-                                child: const Divider(
-                                  color: Colors.black45,
-                                  height: 36,
-                                )),
-                          ),
+                          const Text("──   ",style: TextStyle(
+                              color: Colors.black26
+                          ),),
                           const Text(
                             'Personal info',
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontStyle: FontStyle.italic,
+                                //fontStyle: FontStyle.italic,
                                 color: UIGuide.light_Purple,
                                 fontWeight: FontWeight.w900),
                           ),
@@ -127,7 +121,7 @@ class _StudentHomeState extends State<StudentHome> {
                                 )),
                           ),
                         ]),
-                        kheight20,
+                        kheight,
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -182,87 +176,7 @@ class _StudentHomeState extends State<StudentHome> {
                                 ),
                               ),
                             ),
-                            Consumer<StudNotificationCountProviders>(
-                              builder: (context, count, child) => Badge(
-                                showBadge: count.count == 0 ? false : true,
-                                animationDuration:
-                                    const Duration(milliseconds: 300),
-                                animationType: BadgeAnimationType.fade,
-                                position: BadgePosition.topEnd(end: 9),
-                                badgeContent: Text(
-                                  count.count == null
-                                      ? '0'
-                                      : count.count.toString(),
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    await Provider.of<
-                                                StudNotificationCountProviders>(
-                                            context,
-                                            listen: false)
-                                        .seeNotification();
-                                    await Provider.of<
-                                                StudNotificationCountProviders>(
-                                            context,
-                                            listen: false)
-                                        .getnotificationCount();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Stud_Notification()),
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Card(
-                                          elevation: 10,
-                                          color: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              height: 38,
-                                              width: 38,
-                                              decoration: BoxDecoration(
-                                                image: const DecorationImage(
-                                                  opacity: 20,
-                                                  image: AssetImage(
-                                                    'assets/notificationnew.png',
-                                                  ),
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        kheight,
-                                        const Text(
-                                          'Notification',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 11,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -311,8 +225,9 @@ class _StudentHomeState extends State<StudentHome> {
                                           color: Colors.black),
                                     )
                                   ],
-                                ),
+
                               ),
+                            ),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -364,294 +279,116 @@ class _StudentHomeState extends State<StudentHome> {
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        kheight20,
-                        kheight20,
-                        Container(
-                          color: const Color.fromARGB(255, 236, 237, 245),
-                          height: 150,
-                          width: width,
-                          child: Column(
-                            children: [
-                              kheight,
-                              Row(children: const <Widget>[
-                                Expanded(child: Text("")),
-                                Text(
-                                  " * Urgent & Important * ",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      color: Color(0xFF07447E),
-                                      fontWeight: FontWeight.w900),
+                            Consumer<StudNotificationCountProviders>(
+                              builder: (context, count, child) => Badge(
+                                showBadge: count.count == 0 ? false : true,
+                                animationDuration:
+                                const Duration(milliseconds: 300),
+                                animationType: BadgeAnimationType.fade,
+                                position: BadgePosition.topEnd(end: 9),
+                                badgeContent: Text(
+                                  count.count == null
+                                      ? '0'
+                                      : count.count.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(child: Text("")),
-                              ]),
-                              kheight,
-                              kheight,
-                              Consumer<ModuleProviders>(
-                                builder: (context, module, child) => Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    await Provider.of<
+                                        StudNotificationCountProviders>(
+                                        context,
+                                        listen: false)
+                                        .seeNotification();
+                                    await Provider.of<
+                                        StudNotificationCountProviders>(
+                                        context,
+                                        listen: false)
+                                        .getnotificationCount();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Stud_Notification()),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Column(
+                                      mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    module.fees == true
-                                        ? Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          PayFee()),
-                                                );
-                                              },
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Card(
-                                                    elevation: 10,
-                                                    color: Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Container(
-                                                        height: 38,
-                                                        width: 38,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          image:
-                                                              DecorationImage(
-                                                            opacity: 20,
-                                                            image: AssetImage(
-                                                              'assets/payNew.png',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                      children: [
+                                        Card(
+                                          elevation: 10,
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(12.0),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 38,
+                                              width: 38,
+                                              decoration: BoxDecoration(
+                                                image: const DecorationImage(
+                                                  opacity: 20,
+                                                  image: AssetImage(
+                                                    'assets/notificationnew.png',
                                                   ),
-                                                  kheight,
-                                                  const Text(
-                                                    'Pay Fee',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 11,
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                _noAcess();
-                                                // _modalBottomSheetMenu();
-                                              },
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Card(
-                                                    elevation: 10,
-                                                    color: Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Container(
-                                                        height: 38,
-                                                        width: 38,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          image:
-                                                              DecorationImage(
-                                                            //  opacity: 0.3,
-                                                            image: AssetImage(
-                                                              'assets/payNew.png',
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  kheight,
-                                                  const Text(
-                                                    'Pay Fee',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 11,
-                                                        color: Colors.black),
-                                                  )
-                                                ],
+                                                ),
+                                                borderRadius:
+                                                BorderRadius.circular(10),
                                               ),
                                             ),
                                           ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ReportCard()),
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Card(
-                                              elevation: 10,
-                                              color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 38,
-                                                  width: 38,
-                                                  decoration: BoxDecoration(
-                                                    image:
-                                                        const DecorationImage(
-                                                      opacity: 20,
-                                                      image: AssetImage(
-                                                        'assets/Reportcard.png',
-                                                      ),
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            kheight,
-                                            const Text(
-                                              'Report Card',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 11,
-                                                  color: Colors.black),
-                                            )
-                                          ],
                                         ),
-                                      ),
+                                        kheight,
+                                        const Text(
+                                          'Notification',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 11,
+                                              color: Colors.black),
+                                        )
+                                      ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PaymentHistory()),
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Card(
-                                              elevation: 10,
-                                              color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 38,
-                                                  width: 38,
-                                                  decoration: BoxDecoration(
-                                                    image:
-                                                        const DecorationImage(
-                                                      opacity: 20,
-                                                      image: AssetImage(
-                                                        'assets/Payment History.png',
-                                                      ),
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            kheight,
-                                            const Text(
-                                              'Payment \n History',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 11,
-                                                  color: Colors.black),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        kheight,
-                        kheight20,
+                         kheight20,
+
                         Row(children: <Widget>[
-                          Expanded(
-                            child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10.0, right: 20.0),
-                                child: const Divider(
-                                  color: Colors.black45,
-                                  height: 36,
-                                )),
-                          ),
+                          // Expanded(
+                          //   child: Container(
+                          //       margin: const EdgeInsets.only(
+                          //           left: 10.0, right: 20.0),
+                          //       child: const Divider(
+                          //         color: Colors.black45,
+                          //         height: 36,
+                          //       )),
+                          // ),
+                          const Text("──   ",style: TextStyle(
+                            color: Colors.black26
+                          ),),
                           const Text(
                             "Academics",
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                                fontStyle: FontStyle.italic,
+                                //fontStyle: FontStyle.italic,
                                 color: UIGuide.light_Purple,
                                 fontWeight: FontWeight.w900),
                           ),
                           Expanded(
                             child: Container(
                                 margin: const EdgeInsets.only(
-                                    left: 20.0, right: 10.0),
+                                    left: 16.0, right: 10.0),
                                 child: const Divider(
                                   color: Colors.black45,
                                   height: 36,
@@ -659,7 +396,7 @@ class _StudentHomeState extends State<StudentHome> {
                           ),
                         ]),
                         kheight,
-                        kheight20,
+
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -729,7 +466,7 @@ class _StudentHomeState extends State<StudentHome> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Timetable()),
+                                          builder: (context) => const Timetable()),
                                     );
                                   },
                                   child: Padding(
@@ -878,7 +615,7 @@ class _StudentHomeState extends State<StudentHome> {
                                       ),
                                       kheight,
                                       const Text(
-                                        'Curriculum',
+                                        'e-Classroom',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 11,
@@ -891,29 +628,307 @@ class _StudentHomeState extends State<StudentHome> {
                             ),
                           ],
                         ),
-                        kheight,
+                        kheight20,
+
+                        Container(
+                          color: const Color.fromARGB(255, 236, 237, 245),
+                          height: 170,
+                          width: width,
+                          child: Column(
+                            children: [
+                              kheight,
+                              Row(children: <Widget>[
+                                const Text("──   ",style: TextStyle(
+                                    color: Colors.black26
+                                ),),
+                                const Text(
+                                  'Important',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      //fontStyle: FontStyle.italic,
+                                      color: UIGuide.light_Purple,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 20.0, right: 10.0),
+                                      child: const Divider(
+                                        color: Colors.black45,
+                                        height: 36,
+                                      )),
+                                ),
+                              ]),
+
+                              kheight,
+                              Consumer<ModuleProviders>(
+                                builder: (context, module, child) => Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: [
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                const ReportCard()),
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Card(
+                                              elevation: 10,
+                                              color: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(12.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  height: 38,
+                                                  width: 38,
+                                                  decoration: BoxDecoration(
+                                                    image:
+                                                    const DecorationImage(
+                                                      opacity: 20,
+                                                      image: AssetImage(
+                                                        'assets/Reportcard.png',
+                                                      ),
+                                                    ),
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        10),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            kheight,
+                                            const Text(
+                                              'Report Card',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    module.fees == true
+                                        ? Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PayFee()),
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .spaceEvenly,
+                                          children: [
+                                            Card(
+                                              elevation: 10,
+                                              color: Colors.white,
+                                              shape:
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    12.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(
+                                                    8.0),
+                                                child: Container(
+                                                  height: 38,
+                                                  width: 38,
+                                                  decoration:
+                                                  const BoxDecoration(
+                                                    image:
+                                                    DecorationImage(
+                                                      opacity: 20,
+                                                      image: AssetImage(
+                                                        'assets/payNew.png',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            kheight,
+                                            const Text(
+                                              'Pay Fee',
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                        : Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          _noAcess();
+                                          // _modalBottomSheetMenu();
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .spaceEvenly,
+                                          children: [
+                                            Card(
+                                              elevation: 10,
+                                              color: Colors.white,
+                                              shape:
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    12.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(
+                                                    8.0),
+                                                child: Container(
+                                                  height: 38,
+                                                  width: 38,
+                                                  decoration:
+                                                  const BoxDecoration(
+                                                    image:
+                                                    DecorationImage(
+                                                      //  opacity: 0.3,
+                                                      image: AssetImage(
+                                                        'assets/payNew.png',
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            kheight,
+                                            const Text(
+                                              'Pay Fee',
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                const PaymentHistory()),
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Card(
+                                              elevation: 10,
+                                              color: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(12.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  height: 38,
+                                                  width: 38,
+                                                  decoration: BoxDecoration(
+                                                    image:
+                                                    const DecorationImage(
+                                                      opacity: 20,
+                                                      image: AssetImage(
+                                                        'assets/Payment History.png',
+                                                      ),
+                                                    ),
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        10),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            kheight,
+                                            const Text(
+                                              'Payment \n History',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+
                         kheight20,
                         Row(children: <Widget>[
-                          Expanded(
-                            child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 10.0, right: 20.0),
-                                child: const Divider(
-                                  color: Colors.black45,
-                                  height: 36,
-                                )),
-                          ),
+                          // Expanded(
+                          //   child: Container(
+                          //       margin: const EdgeInsets.only(
+                          //           left: 10.0, right: 20.0),
+                          //       child: const Divider(
+                          //         color: Colors.black45,
+                          //         height: 36,
+                          //       )),
+                          // ),
+                          const Text("──   ",style: TextStyle(
+                              color: Colors.black26
+                          ),),
                           const Text(
-                            "Change Password / Sign-out",
+                            "Change Password | Sign Out",
                             textAlign: TextAlign.left,
                             style: TextStyle(
+                              //fontStyle: FontStyle.italic,
                                 color: UIGuide.light_Purple,
                                 fontWeight: FontWeight.w900),
                           ),
                           Expanded(
                             child: Container(
                                 margin: const EdgeInsets.only(
-                                    left: 20.0, right: 10.0),
+                                    left: 16.0, right: 10.0),
                                 child: const Divider(
                                   color: Colors.black45,
                                   height: 36,
@@ -928,7 +943,7 @@ class _StudentHomeState extends State<StudentHome> {
                             MaterialButton(
                                 elevation: 10,
                                 minWidth: 50,
-                                color: Colors.white,
+                                color: UIGuide.THEME_LIGHT,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () async {
@@ -944,7 +959,7 @@ class _StudentHomeState extends State<StudentHome> {
                             MaterialButton(
                                 elevation: 10,
                                 minWidth: 50,
-                                color: Colors.white,
+                                color: UIGuide.THEME_LIGHT,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () async {
@@ -960,9 +975,12 @@ class _StudentHomeState extends State<StudentHome> {
                                     title: 'SignOut',
                                     desc: 'Are you sure want to sign out',
                                     showCloseIcon: true,
+                                    btnCancelColor:UIGuide.button2,
+                                    btnOkColor: UIGuide.button1,
                                     btnCancelOnPress: () {
                                       return;
                                     },
+
                                     btnOkOnPress: () async {
                                       SharedPreferences prefs =
                                           await SharedPreferences.getInstance();
@@ -975,6 +993,9 @@ class _StudentHomeState extends State<StudentHome> {
                                                   LoginPage()),
                                           (Route<dynamic> route) => false);
                                     },
+                                    buttonsTextStyle: const TextStyle(
+                                      color: Colors.white
+                                    )
                                   ).show();
                                 },
                                 child: const Icon(
@@ -983,7 +1004,7 @@ class _StudentHomeState extends State<StudentHome> {
                                 )),
                           ],
                         ),
-                        kheight20,
+
                         kheight20,
                         kheight20,
                         Consumer<SibingsProvider>(
@@ -1006,6 +1027,14 @@ class _StudentHomeState extends State<StudentHome> {
                                   );
                                 });
                           },
+                        ),
+
+                        const Center(child: Text("Powered By GJ Infotech (P) Ltd.",style:
+                          TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: UIGuide.light_Purple
+                          ),),
                         )
                       ],
                     ),
@@ -1013,6 +1042,8 @@ class _StudentHomeState extends State<StudentHome> {
                 ],
               ),
       ),
+
+
     );
   }
 
@@ -1059,7 +1090,8 @@ class _StudentHomeState extends State<StudentHome> {
                             },
                             child: const Text(
                               'Cancel',
-                              style: TextStyle(color: Colors.grey),
+
+                            style: TextStyle(),
                             )),
                         kWidth,
                       ],
@@ -1154,8 +1186,9 @@ class ProfileHome extends StatelessWidget {
                 builder: (_, value, child) {
                   return Container(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10),
+                      padding: const EdgeInsets.only(left: 20.0, right: 20,top: 5 ),
                       child: Container(
+                        
                         height: 120,
                         decoration: const BoxDecoration(
                             boxShadow: [
@@ -1163,7 +1196,7 @@ class ProfileHome extends StatelessWidget {
                                 blurRadius: 0.5,
                               )
                             ],
-                            color: Colors.white,
+                          gradient: LinearGradient(colors: [UIGuide.light_Purple,UIGuide.custom_blue]),
                             borderRadius: BorderRadius.all(
                               Radius.circular(10),
                             )),
@@ -1208,7 +1241,7 @@ class ProfileHome extends StatelessWidget {
                                             const Text(
                                               'Name : ',
                                               style: TextStyle(
-                                                  color: Colors.black54,
+                                                  color:Colors.white54,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w700),
                                             ),
@@ -1223,8 +1256,8 @@ class ProfileHome extends StatelessWidget {
                                                       overflow:
                                                           TextOverflow.clip,
                                                       fontSize: 12,
-                                                      color:
-                                                          UIGuide.light_Purple,
+
+                                                      color: Colors.white70,
                                                       fontWeight:
                                                           FontWeight.w700),
                                                   text: value.studName ?? "--"
@@ -1245,7 +1278,7 @@ class ProfileHome extends StatelessWidget {
                                             const Text(
                                               'Adm no : ',
                                               style: TextStyle(
-                                                  color: Colors.black54,
+                                                  color:Colors.white54,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w700),
                                             ),
@@ -1256,7 +1289,7 @@ class ProfileHome extends StatelessWidget {
                                               //  dataResponse?['admissionNo'].noSuchMethod(),
                                               ,
                                               style: const TextStyle(
-                                                  color: UIGuide.light_Purple,
+                                                  color: Colors.white70,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w700),
                                             )
@@ -1268,7 +1301,7 @@ class ProfileHome extends StatelessWidget {
                                             const Text(
                                               'Class : ',
                                               style: TextStyle(
-                                                  color: Colors.black54,
+                                                  color:Colors.white54,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w700),
                                             ),
@@ -1277,7 +1310,7 @@ class ProfileHome extends StatelessWidget {
                                                   ? '--'
                                                   : value.division.toString(),
                                               style: const TextStyle(
-                                                  color: UIGuide.light_Purple,
+                                                  color: Colors.white70,
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w700),
                                             )
@@ -1305,7 +1338,7 @@ class ProfileHome extends StatelessWidget {
                                               icon: const Icon(
                                                 Icons.switch_account_outlined,
                                                 size: 30,
-                                                color: UIGuide.light_Purple,
+                                                color: Colors.white70,
                                               )),
                                         ],
                                       )
@@ -1331,6 +1364,7 @@ class ProfileHome extends StatelessWidget {
   bool loading = false;
 
   _displayNameOfSiblings(BuildContext context, String? name) async {
+    bool? selected;
     await Provider.of<ProfileProvider>(context, listen: false).siblingsAPI();
 
     return showAnimatedDialog(
@@ -1364,12 +1398,14 @@ class ProfileHome extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () async {
+                              selected =true;
                               var idd = siblinggResponse![index]['id'] == null
                                   ? '--'
                                   : siblinggResponse![index]['id'].toString();
                               await Provider.of<SibingsProvider>(context,
                                       listen: false)
-                                  .getSibling(context, idd);
+                                  .getSibling(context, idd,selected!);
+
                             },
                             splashColor: UIGuide.light_Purple,
                             child: Column(
@@ -1378,30 +1414,40 @@ class ProfileHome extends StatelessWidget {
                               children: [
                                 kheight20,
                                 Center(
-                                    child: InkWell(
-                                        splashColor: Colors.black26,
-                                        // onTap: () async {
-                                        //   var idd =
-                                        //       siblinggResponse![index]['id'] == null
-                                        //           ? '--'
-                                        //           : siblinggResponse![index]['id']
-                                        //               .toString();
-                                        //   await Provider.of<SibingsProvider>(
-                                        //           context,
-                                        //           listen: false)
-                                        //       .getSibling(context, idd);
-                                        // },
-                                        child: Text(
-                                          siblinggResponse![index]['name'] ==
-                                                  null
-                                              ? '--'
-                                              : siblinggResponse![index]['name']
-                                                  .toString(),
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              color: UIGuide.light_Purple,
-                                              fontSize: 16),
-                                        ))),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                            splashColor: Colors.black26,
+                                            // onTap: () async {
+                                            //   var idd =
+                                            //       siblinggResponse![index]['id'] == null
+                                            //           ? '--'
+                                            //           : siblinggResponse![index]['id']
+                                            //               .toString();
+                                            //   await Provider.of<SibingsProvider>(
+                                            //           context,
+                                            //           listen: false)
+                                            //       .getSibling(context, idd);
+                                            // },
+                                            child: Text(
+                                              siblinggResponse![index]['name'] ==
+                                                      null
+                                                  ? '--'
+                                                  : siblinggResponse![index]['name']
+                                                      .toString(),
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                  color: UIGuide.light_Purple,
+                                                  fontSize: 16),
+                                            ),
+
+                                        ),
+
+                                      ],
+                                    ),
+
+                                ),
                                 kheight20,
                               ],
                             ),
@@ -1549,7 +1595,7 @@ class _FlashnewsState extends State<Flashnews> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.grey,
-                          fontSize: 12),
+                          fontSize: 15),
                       scrollAxis: Axis.horizontal,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       blankSpace: 20.0,

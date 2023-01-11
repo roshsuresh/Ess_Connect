@@ -16,7 +16,6 @@ class ReportCard extends StatelessWidget {
     _provider.getReportCard();
     var size = MediaQuery.of(context).size;
     var height = size.height;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Report card'),
@@ -123,16 +122,19 @@ class ReportCard extends StatelessWidget {
                                                   : Corect_tym.toString(),
                                             ),
                                           ),
-                                          Text(
-                                            reportResponse[index]
-                                                        ['description'] ==
-                                                    null
-                                                ? '----'
-                                                : reportResponse[index]
-                                                        ['description']
-                                                    .toString(),
-                                            style:
-                                                const TextStyle(fontSize: 14),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              reportResponse[index]
+                                                          ['description'] ==
+                                                      null
+                                                  ? '----'
+                                                  : reportResponse[index]
+                                                          ['description']
+                                                      .toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 14),
+                                            ),
                                           ),
                                           GestureDetector(
                                             onTap: () async {
@@ -160,9 +162,12 @@ class ReportCard extends StatelessWidget {
                                                 );
                                               }
                                             },
-                                            child: const Icon(
-                                              Icons.remove_red_eye_outlined,
-                                              size: 20,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: const Icon(
+                                                Icons.remove_red_eye_outlined,
+                                                size: 20,
+                                              ),
                                             ),
                                           )
                                         ]),

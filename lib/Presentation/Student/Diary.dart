@@ -151,17 +151,18 @@ class Diary extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     TextWrapper(
-                                                        text: value
-                                                                    .diarylist[
-                                                                        index]
-                                                                    .remarks ==
-                                                                null
-                                                            ? '--'
-                                                            : value
-                                                                .diarylist[
-                                                                    index]
-                                                                .remarks
-                                                                .toString())
+                                                      text: value
+                                                                  .diarylist[
+                                                                      index]
+                                                                  .remarks ==
+                                                              null
+                                                          ? '--'
+                                                          : value
+                                                              .diarylist[index]
+                                                              .remarks
+                                                              .toString(),
+                                                      fSize: 16,
+                                                    )
                                                   ],
                                                 ),
                                               ),

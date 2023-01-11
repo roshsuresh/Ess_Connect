@@ -59,6 +59,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
     var size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       child: Column(
         children: [
           const SizedBox(
@@ -536,6 +537,8 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
               ),
             ),
           ),
+          kheight20,
+          kheight20,
           Center(
             child: Container(
               height: size.width / 2,

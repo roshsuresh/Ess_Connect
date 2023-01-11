@@ -7,13 +7,13 @@ class ReportModel {
     if (json['reportCardList'] != null) {
       reportCardList = [];
       json['reportCardList'].forEach((v) {
-        reportCardList!.add(new ReportCardModel.fromJson(v));
+        reportCardList!.add(ReportCardModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     if (this.reportCardList != null) {
       data['reportCardList'] =
           this.reportCardList!.map((v) => v.toJson()).toList();
@@ -83,7 +83,7 @@ class ReportAttachment {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['name'] = this.name;
     data['extension'] = this.extension;
     data['path'] = this.path;

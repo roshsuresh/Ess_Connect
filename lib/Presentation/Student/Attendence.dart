@@ -40,8 +40,9 @@ class Attendence extends StatelessWidget {
                     children: [
                       Center(
                         child: Container(
-                          margin: const EdgeInsets.all(10.0),
-                          padding: const EdgeInsets.all(3.0),
+                          width: size.width - 59,
+                          // margin: const EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(5.0),
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: UIGuide.light_Purple, width: .5),
@@ -49,33 +50,70 @@ class Attendence extends StatelessWidget {
                           child: Consumer<AttendenceProvider>(
                             builder: (_, provider, child) {
                               return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    children: [
-                                      kWidth,
-                                      Text(
-                                          'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}'),
-                                      const Spacer(),
-                                      Text(
-                                          'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}'),
-                                      kWidth,
-                                      kWidth
-                                    ],
+                                  Center(
+                                    child: Table(
+                                      // border: TableBorder.all(
+                                      //     color: UIGuide.light_Purple),
+                                      children: [
+                                        TableRow(children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}',
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}',
+                                            ),
+                                          ),
+                                        ]),
+                                        TableRow(children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}',
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
+                                          ),
+                                        ])
+                                      ],
+                                    ),
                                   ),
-                                  kheight10,
-                                  kheight10,
-                                  Row(
-                                    children: [
-                                      kWidth,
-                                      Text(
-                                          'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}'),
-                                      const Spacer(),
-                                      Text(
-                                          'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
-                                      kWidth,
-                                      kWidth
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     kWidth,
+                                  //     Text(
+                                  //         'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}'),
+
+                                  //     //  const Spacer(),
+                                  //     Text(
+                                  //         'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}'),
+                                  //     kWidth,
+                                  //     kWidth
+                                  //   ],
+                                  // ),
+                                  // kheight10,
+                                  // kheight10,
+                                  // Row(
+                                  //   children: [
+                                  //     kWidth,
+                                  //     Text(
+                                  //         'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}'),
+                                  //     //  const Spacer(),
+                                  //     Text(
+                                  //         'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
+                                  //     kWidth,
+                                  //     kWidth
+                                  //   ],
+                                  // ),
                                 ],
                               );
                             },
@@ -85,31 +123,52 @@ class Attendence extends StatelessWidget {
                       kheight10,
                       Table(
                         border: TableBorder.all(
-                            color: UIGuide.light_Purple, width: .2),
+                            color: Color.fromARGB(255, 215, 216, 216),
+                            width: .2),
                         children: const [
                           TableRow(
-                              decoration:
-                                  BoxDecoration(color: UIGuide.light_black),
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 231, 233, 235)),
                               children: [
-                                Text(
-                                  'Month',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                  textAlign: TextAlign.center,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 19.0, bottom: 4, left: 4, right: 4),
+                                  child: Text(
+                                    'Month',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                                Text(
-                                  'No of \n Working \n Days',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                  textAlign: TextAlign.center,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 4.0, bottom: 4, left: 4, right: 4),
+                                  child: Text(
+                                    'No of \n Working \n Days',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                                Text(
-                                  'Days \n Present',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                  textAlign: TextAlign.center,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 10.0, bottom: 4, left: 4, right: 4),
+                                  child: Text(
+                                    'Days \n Present',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                                Text(
-                                  'Days \n absent',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                  textAlign: TextAlign.center,
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 10.0, bottom: 4, left: 4, right: 4),
+                                  child: Text(
+                                    'Days \n absent',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                                 Text(
                                   ' \n %',

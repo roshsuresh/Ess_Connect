@@ -1,3 +1,4 @@
+import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Admin/History/StaffNotificationHIstory.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
@@ -85,7 +86,6 @@ class StudentNotificationHistory extends StatelessWidget {
                                 maxHeight: 100,
                                 child: Container(
                                   width: size.width,
-                                  // height: 100,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
                                       border: Border.all(
@@ -101,6 +101,9 @@ class StudentNotificationHistory extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
                                           const Text(
                                             'Title: ',
                                             style: TextStyle(
@@ -126,6 +129,9 @@ class StudentNotificationHistory extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
+                                          const SizedBox(
+                                            width: 3,
+                                          ),
                                           const Text(
                                             'Matter: ',
                                             style: TextStyle(
@@ -169,6 +175,9 @@ class StudentNotificationHistory extends StatelessWidget {
                                                       .createdDate ??
                                                   '--',
                                             ),
+                                            const SizedBox(
+                                              width: 4,
+                                            )
                                           ],
                                         ),
                                       )

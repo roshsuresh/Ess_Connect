@@ -122,6 +122,8 @@ class FeeFeesInstallments {
   bool? enableInstallment;
   bool? checkedFees;
   double? totalPaidAmount;
+  bool? enabled;
+  bool? selected;
 
   FeeFeesInstallments(
       {this.feesDetailsId,
@@ -134,7 +136,10 @@ class FeeFeesInstallments {
       this.checkedInstallment,
       this.enableInstallment,
       this.checkedFees,
-      this.totalPaidAmount});
+      this.totalPaidAmount,
+      this.enabled,
+      this.selected
+      });
 
   FeeFeesInstallments.fromJson(Map<String, dynamic> json) {
     feesDetailsId = json['feesDetailsId'];
@@ -178,6 +183,8 @@ class FeeBusInstallments {
   bool? enableInstallment;
   bool? checkedFees;
   double? totalPaidAmount;
+  bool? enabled;
+  bool? selected;
 
   FeeBusInstallments(
       {this.feesDetailsId,
@@ -189,7 +196,9 @@ class FeeBusInstallments {
       this.checkedInstallment,
       this.enableInstallment,
       this.checkedFees,
-      this.totalPaidAmount});
+      this.totalPaidAmount,
+        this.enabled,
+        this.selected});
 
   FeeBusInstallments.fromJson(Map<String, dynamic> json) {
     feesDetailsId = json['feesDetailsId'];

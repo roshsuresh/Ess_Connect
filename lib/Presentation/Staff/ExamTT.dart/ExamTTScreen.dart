@@ -1,5 +1,3 @@
-import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamList.dart';
-import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamUpload.dart';
 import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTList.dart';
 import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTUpload.dart';
 import 'package:essconnect/utils/constants.dart';
@@ -51,7 +49,7 @@ class ExamTimetableStaff extends StatelessWidget {
           backgroundColor: UIGuide.light_Purple,
         ),
         body: TabBarView(
-          children: [ExamTTUploadStaff(), const ExamTTHistoryStaff()],
+          children: [ExamTTUploadStaff(), ExamTTHistoryStaff()],
         ),
       ),
     );

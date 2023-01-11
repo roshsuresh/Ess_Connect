@@ -3,7 +3,9 @@ import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/LoadingIndication.dart';
 import 'package:essconnect/utils/TextWrap(moreOption).dart';
 import 'package:essconnect/utils/constants.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pdfdownload/pdfdownload.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
@@ -27,133 +29,258 @@ class StaffNoticeBoardReceived extends StatelessWidget {
               ? '--'
               : staffNoticeView![index]['noticeId'].toString();
 
-          return Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+          String createddate = staffNoticeView![index]["entryDate"] ?? '--';
+          // print(createddate);
+          // var updatedDate = DateFormat('yyyy-MM-dd').parse(createddate);
+          // String newDate = updatedDate.toString();
+          String finalCreatedDate = createddate.replaceRange(11, 19, '');
+
+          return Padding(
+            padding:
+                const EdgeInsets.only(left: 6.0, right: 6, bottom: 3, top: 3),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 234, 234, 236),
+                  border: Border.all(color: Color.fromARGB(255, 136, 187, 235)),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20))),
+              width: size.width,
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
                 child: Container(
-                  width: width,
-                  //   height: 200,
+                  width: size.width - 4,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 245, 241, 241),
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 167, 166, 166)),
-                      borderRadius: const BorderRadius.all(Radius.circular(5))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Row(
-                          children: [
-                            kWidth,
-                            const Text('📌  '),
-                            Flexible(
-                              child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                strutStyle: const StrutStyle(fontSize: 14.0),
-                                text: TextSpan(
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500),
-                                    text:
-                                        staffNoticeView![index]['title'] == null
-                                            ? '--'
-                                            : staffNoticeView![index]['title']
-                                                .toString()
-                                    // value.noticeBoard[index].title ?? '--'
-                                    ),
-                              ),
-                            ),
-                            //Spacer(),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          //height: 132,
-                          width: width - 15,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 230, 225, 230),
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 215, 207, 236)),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4))),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      // border: Border.all(
+                      //     color: UIGuide.light_Purple),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Row(
                             children: [
-                              TextWrapper(
-                                  text:
-                                      staffNoticeView![index]['matter'] == null
+                              const Text('📌  '),
+                              Flexible(
+                                child: RichText(
+                                  overflow: TextOverflow.ellipsis,
+                                  strutStyle: const StrutStyle(fontSize: 14.0),
+                                  text: TextSpan(
+                                      style: const TextStyle(
+                                          color: UIGuide.light_Purple,
+                                          fontWeight: FontWeight.w500),
+                                      text: staffNoticeView![index]['title'] ==
+                                              null
                                           ? '--'
-                                          : staffNoticeView![index]['matter']
+                                          : staffNoticeView![index]['title']
                                               .toString()
-                                  //value.noticeBoard[index].matter ?? '--'
-                                  )
+                                      // value.noticeBoard[index].title ?? '--'
+                                      ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          kWidth,
-                          Text(
-                            staffNoticeView![index]['entryDate'] == null
-                                ? '--'
-                                : staffNoticeView![index]['entryDate']
-                                    .toString(),
-                            //  value.noticeBoard[index].entryDate ?? '--',
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                          const Spacer(), kWidth, kWidth, kWidth, kWidth,
-                          Text(
-                            staffNoticeView![index]['staffName'] == null
-                                ? '--'
-                                : staffNoticeView![index]['staffName']
-                                    .toString(),
-                            //   value.noticeBoard[index].staffName ?? '--',
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                          //kWidth
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () async {
-                              await Provider.of<StaffNoticeboardSendProviders>(
-                                      context,
-                                      listen: false)
-                                  .staffNoticeBoardAttach(
-                                      noticeattach.toString());
-                              if (value.extension.toString() == '.pdf') {
-                                final result = value.url.toString();
-                                final name = value.name.toString();
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PDFDownloadStaff()),
-                                );
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PdfViewPageStaff()),
-                                );
-                              }
-                            },
-                            child: const Icon(Icons.remove_red_eye_outlined),
-                          ),
-                        ],
-                      )
-                    ],
+                        kheight10,
+                        TextWrapper(
+                          text: staffNoticeView![index]['matter'] == null
+                              ? '--'
+                              : staffNoticeView![index]['matter'].toString(),
+                          fSize: 14,
+                        ),
+                        kheight10,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            kWidth,
+                            Text(
+                              finalCreatedDate,
+                              //  value.noticeBoard[index].entryDate ?? '--',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            const Spacer(), kWidth, kWidth, kWidth, kWidth,
+                            Text(
+                              staffNoticeView![index]['staffName'] == null
+                                  ? '--'
+                                  : staffNoticeView![index]['staffName']
+                                      .toString(),
+                              //   value.noticeBoard[index].staffName ?? '--',
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                            //kWidth
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () async {
+                                await Provider.of<
+                                            StaffNoticeboardSendProviders>(
+                                        context,
+                                        listen: false)
+                                    .staffNoticeBoardAttach(
+                                        noticeattach.toString());
+                                if (value.extension.toString() == '.pdf') {
+                                  final result = value.url.toString();
+                                  final name = value.name.toString();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PDFDownloadStaff()),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PdfViewPageStaff()),
+                                  );
+                                }
+                              },
+                              child: const Icon(Icons.remove_red_eye_outlined),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ],
+            ),
           );
+
+          //  Stack(
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Container(
+          //         width: width,
+          //         //   height: 200,
+          //         decoration: BoxDecoration(
+          //             color: const Color.fromARGB(255, 245, 241, 241),
+          //             border: Border.all(
+          //                 color: const Color.fromARGB(255, 167, 166, 166)),
+          //             borderRadius: const BorderRadius.all(Radius.circular(5))),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: [
+          //             Padding(
+          //               padding: const EdgeInsets.all(4.0),
+          //               child: Row(
+          //                 children: [
+          //                   kWidth,
+          //                   const Text('📌  '),
+          //                   Flexible(
+          //                     child: RichText(
+          //                       overflow: TextOverflow.ellipsis,
+          //                       strutStyle: const StrutStyle(fontSize: 14.0),
+          //                       text: TextSpan(
+          //                           style: const TextStyle(
+          //                               color: Colors.black,
+          //                               fontWeight: FontWeight.w500),
+          //                           text:
+          //                               staffNoticeView![index]['title'] == null
+          //                                   ? '--'
+          //                                   : staffNoticeView![index]['title']
+          //                                       .toString()
+          //                           // value.noticeBoard[index].title ?? '--'
+          //                           ),
+          //                     ),
+          //                   ),
+          //                   //Spacer(),
+          //                 ],
+          //               ),
+          //             ),
+          //             Padding(
+          //               padding: const EdgeInsets.all(4.0),
+          //               child: Container(
+          //                 //height: 132,
+          //                 width: width - 15,
+          //                 decoration: BoxDecoration(
+          //                     color: const Color.fromARGB(255, 230, 225, 230),
+          //                     border: Border.all(
+          //                         color:
+          //                             const Color.fromARGB(255, 215, 207, 236)),
+          //                     borderRadius:
+          //                         const BorderRadius.all(Radius.circular(4))),
+          //                 child: Column(
+          //                   crossAxisAlignment: CrossAxisAlignment.start,
+          //                   children: [
+          //                     TextWrapper(
+          //                       text: staffNoticeView![index]['matter'] == null
+          //                           ? '--'
+          //                           : staffNoticeView![index]['matter']
+          //                               .toString(),
+          //                       fSize: 14,
+          //                       //value.noticeBoard[index].matter ?? '--'
+          //                     )
+          //                   ],
+          //                 ),
+          //               ),
+          //             ),
+          //             Row(
+          //               crossAxisAlignment: CrossAxisAlignment.end,
+          //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //               children: [
+          //                 kWidth,
+          //                 Text(
+          //                   staffNoticeView![index]['entryDate'] == null
+          //                       ? '--'
+          //                       : staffNoticeView![index]['entryDate']
+          //                           .toString(),
+          //                   //  value.noticeBoard[index].entryDate ?? '--',
+          //                   style: const TextStyle(fontSize: 12),
+          //                 ),
+          //                 const Spacer(), kWidth, kWidth, kWidth, kWidth,
+          //                 Text(
+          //                   staffNoticeView![index]['staffName'] == null
+          //                       ? '--'
+          //                       : staffNoticeView![index]['staffName']
+          //                           .toString(),
+          //                   //   value.noticeBoard[index].staffName ?? '--',
+          //                   style: const TextStyle(fontSize: 12),
+          //                 ),
+          //                 //kWidth
+          //                 const Spacer(),
+          //                 GestureDetector(
+          //                   onTap: () async {
+          //                     await Provider.of<StaffNoticeboardSendProviders>(
+          //                             context,
+          //                             listen: false)
+          //                         .staffNoticeBoardAttach(
+          //                             noticeattach.toString());
+          //                     if (value.extension.toString() == '.pdf') {
+          //                       final result = value.url.toString();
+          //                       final name = value.name.toString();
+
+          //                       Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                             builder: (context) => PDFDownloadStaff()),
+          //                       );
+          //                     } else {
+          //                       Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                             builder: (context) => PdfViewPageStaff()),
+          //                       );
+          //                     }
+          //                   },
+          //                   child: const Icon(Icons.remove_red_eye_outlined),
+          //                 ),
+          //               ],
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // );
         },
       );
     });
@@ -203,12 +330,12 @@ class PdfViewPageStaff extends StatelessWidget {
   imageview(String result) {
     return Scaffold(
       body: isLoading
-          ? const LoadingIcon()
+          ? spinkitLoader()
           : Center(
               child: Container(
                   child: PhotoView(
                 loadingBuilder: (context, event) {
-                  return const LoadingIcon();
+                  return spinkitLoader();
                 },
                 imageProvider: NetworkImage(
                   result == null

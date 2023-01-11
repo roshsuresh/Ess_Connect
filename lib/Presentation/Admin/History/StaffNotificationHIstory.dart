@@ -61,6 +61,9 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
                                         const Text(
                                           'Title: ',
                                           style: TextStyle(
@@ -86,6 +89,9 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
+                                        const SizedBox(
+                                          width: 3,
+                                        ),
                                         const Text(
                                           'Matter: ',
                                           style: TextStyle(
@@ -129,6 +135,9 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                                     .createdDate ??
                                                 '--',
                                           ),
+                                          const SizedBox(
+                                            width: 4,
+                                          )
                                         ],
                                       ),
                                     )

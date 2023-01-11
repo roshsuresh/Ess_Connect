@@ -2,6 +2,8 @@ import 'package:essconnect/Application/StudentProviders/NotificationReceived.dar
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:intl/intl.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import '../../utils/TextWrap(moreOption).dart';
 import '../../utils/constants.dart';
@@ -47,6 +49,13 @@ class Stud_Notification extends StatelessWidget {
                         ? 0
                         : value.receivedList.length,
                     itemBuilder: (BuildContext context, int index) {
+                      String createddate =
+                          value.receivedList[index].createdDate ?? '--';
+                      var updatedDate =
+                          DateFormat('yyyy-MM-dd').parse(createddate);
+                      String newDate = updatedDate.toString();
+                      String finalCreatedDate =
+                          newDate.replaceRange(10, 23, '');
                       return AnimationConfiguration.staggeredList(
                         position: index,
                         delay: const Duration(milliseconds: 50),
@@ -56,82 +65,110 @@ class Stud_Notification extends StatelessWidget {
                           horizontalOffset: -300,
                           verticalOffset: -850,
                           child: Padding(
-                            padding: const EdgeInsets.all(6.0),
+                            padding: const EdgeInsets.only(
+                                left: 6.0, right: 6, bottom: 3, top: 3),
                             child: Container(
-                              width: size.width - 4,
-                              decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 2,
-                                    )
-                                  ],
-                                  color: Color.fromARGB(255, 236, 236, 241),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 234, 234, 236),
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 136, 187, 235)),
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20))),
+                              width: size.width,
                               child: Padding(
                                 padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      value.receivedList[index].title == null
-                                          ? '--'
-                                          : value.receivedList[index].title
-                                              .toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w700),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    kheight,
-                                    TextWrapper(
-                                      text:
-                                          value.receivedList[index].body == null
+                                child: Container(
+                                  width: size.width - 4,
+                                  decoration: const BoxDecoration(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      // border: Border.all(
+                                      //     color: UIGuide.light_Purple),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 25,
+                                              width: 25,
+                                              child: LottieBuilder.network(
+                                                  'https://assets7.lottiefiles.com/packages/lf20_0skurerf.json'),
+                                            ),
+                                            Text(
+                                              value.receivedList[index].title ==
+                                                      null
+                                                  ? '--'
+                                                  : value
+                                                      .receivedList[index].title
+                                                      .toString(),
+                                              style: const TextStyle(
+                                                  color: UIGuide.light_Purple,
+                                                  fontWeight: FontWeight.w700),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                        kheight,
+                                        TextWrapper(
+                                          text: value.receivedList[index]
+                                                      .body ==
+                                                  null
                                               ? '--'
                                               : value.receivedList[index].body
                                                   .toString(),
-                                    ),
-                                    kheight,
-                                    Row(
-                                      children: [
-                                        const Text(
-                                          'Date: ',
-                                          style: TextStyle(
-                                              color: Colors.grey, fontSize: 12),
+                                          fSize: 14,
                                         ),
-                                        Text(
-                                          value.receivedList[index]
-                                                      .createdDate ==
-                                                  null
-                                              ? '--'
-                                              : value.receivedList[index]
-                                                  .createdDate
-                                                  .toString(),
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 49, 47, 47),
-                                              fontSize: 12),
-                                        ),
-                                        const Spacer(),
-                                        const Text(
-                                          'Send by ',
-                                          style: TextStyle(
-                                              color: Colors.grey, fontSize: 12),
-                                        ),
-                                        Text(
-                                          value.receivedList[index].fromStaff ==
-                                                  null
-                                              ? '--'
-                                              : value
-                                                  .receivedList[index].fromStaff
-                                                  .toString(),
-                                          style: const TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 49, 47, 47),
-                                              fontSize: 12),
+                                        kheight,
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              'Date: ',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12),
+                                            ),
+                                            Text(
+                                              finalCreatedDate == null
+                                                  ? '--'
+                                                  : finalCreatedDate.toString(),
+                                              style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 49, 47, 47),
+                                                  fontSize: 12),
+                                            ),
+                                            const Spacer(),
+                                            const Text(
+                                              'Send by: ',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12),
+                                            ),
+                                            Text(
+                                              value.receivedList[index]
+                                                          .fromStaff ==
+                                                      null
+                                                  ? '--'
+                                                  : value.receivedList[index]
+                                                      .fromStaff
+                                                      .toString(),
+                                              style: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 49, 47, 47),
+                                                  fontSize: 12),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),

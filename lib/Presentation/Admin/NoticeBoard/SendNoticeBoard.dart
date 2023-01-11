@@ -184,7 +184,7 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
           child: TextFormField(
             controller: titleController,
             minLines: 1,
-            inputFormatters: [LengthLimitingTextInputFormatter(50)],
+            inputFormatters: [LengthLimitingTextInputFormatter(30)],
             maxLines: 1,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
