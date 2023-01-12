@@ -104,45 +104,48 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
         Center(
           child: SizedBox(
             width: 120,
-            child: MaterialButton(
-              color: Colors.white70,
-              onPressed: (() async {
-                final result = await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowedExtensions: ['png', 'jpeg', 'jpg']);
-                if (result == null) {
-                  return;
-                }
-                final file = result.files.first;
-                print('Name: ${file.name}');
-                print('Path: ${file.path}');
-                print('Extension: ${file.extension}');
-
-                int sizee = file.size;
-
-                if (sizee <= 200000) {
-                  await Provider.of<GalleryProviderAdmin>(context,
-                          listen: false)
-                      .galleryImageSave(context, file.path.toString());
-                  if (file.name.length >= 6) {
-                    setState(() {
-                      checkname =
-                          file.name.replaceRange(6, file.name.length, '');
-                    });
-
-                    print(checkname);
+            child: Consumer<GalleryProviderAdmin>(
+              builder: (context, value, child) => MaterialButton(
+                color: Colors.white70,
+                onPressed: (() async {
+                  final result = await FilePicker.platform.pickFiles(
+                      type: FileType.custom,
+                      allowedExtensions: ['png', 'jpeg', 'jpg']);
+                  if (result == null) {
+                    return;
                   }
-                } else {
-                  print('Size Exceed');
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                    "Size Exceed (Less than 200KB allowed)",
-                    textAlign: TextAlign.center,
-                  )));
-                }
-              }),
-              child: Text(
-                  checkname == null ? 'Choose File' : checkname.toString()),
+                  final file = result.files.first;
+                  print('Name: ${file.name}');
+                  print('Path: ${file.path}');
+                  print('Extension: ${file.extension}');
+
+                  int sizee = file.size;
+
+                  if (sizee <= 200000) {
+                    await Provider.of<GalleryProviderAdmin>(context,
+                            listen: false)
+                        .galleryImageSave(context, file.path.toString());
+                    attach = await value.id.toString();
+                    if (file.name.length >= 6) {
+                      setState(() {
+                        checkname =
+                            file.name.replaceRange(6, file.name.length, '');
+                      });
+
+                      print(checkname);
+                    }
+                  } else {
+                    print('Size Exceed');
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                      "Size Exceed (Less than 200KB allowed)",
+                      textAlign: TextAlign.center,
+                    )));
+                  }
+                }),
+                child: Text(
+                    checkname == null ? 'Choose File' : checkname.toString()),
+              ),
             ),
           ),
         ),
@@ -382,7 +385,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                               listen: false)
                           .divisionCounter(results.length);
                       print(divisionData.join(','));
-                      attach = value.id.toString();
+                      //  attach = value.id.toString();
                     },
                   ),
                 ),
@@ -426,11 +429,12 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
               minWidth: size.width - 150,
               color: UIGuide.light_Purple,
               onPressed: (() async {
-                if (checkname!.isEmpty) {
-                  attachmentid.clear();
-                } else {
-                  attachmentid.text = attach;
-                }
+                // if (checkname!.isEmpty) {
+                //   attachmentid.clear();
+                // } else {
+
+                // }
+                attachmentid.text = attach;
                 if (attachmentid.toString().isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(

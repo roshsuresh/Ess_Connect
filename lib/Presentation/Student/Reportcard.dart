@@ -60,7 +60,7 @@ class ReportCard extends StatelessWidget {
                                 child: Center(
                                     child: Text(
                                   'Date',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 )),
                               ),
                               SizedBox(
@@ -69,7 +69,7 @@ class ReportCard extends StatelessWidget {
                                   child: Text(
                                     'Description',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.w500),
+                                        TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                 ),
                               ),
@@ -78,7 +78,7 @@ class ReportCard extends StatelessWidget {
                                 child: Center(
                                     child: Text(
                                   'View',
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 )),
                               ),
                             ]),
@@ -146,6 +146,11 @@ class ReportCard extends StatelessWidget {
                                                 Corect_tym == null
                                                     ? '---'
                                                     : Corect_tym.toString(),
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                        UIGuide.light_Purple),
                                                 textAlign: TextAlign.center,
                                               ),
                                             ),
@@ -161,7 +166,10 @@ class ReportCard extends StatelessWidget {
                                                             ['description']
                                                         .toString(),
                                                 style: const TextStyle(
-                                                    fontSize: 14),
+                                                    color: UIGuide.light_Purple,
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                               ),
                                             ),
                                             const Padding(
@@ -172,7 +180,7 @@ class ReportCard extends StatelessWidget {
                                                 style: TextStyle(
                                                     color: UIGuide.light_Purple,
                                                     fontWeight:
-                                                        FontWeight.w600),
+                                                        FontWeight.w400),
                                               ),
                                             )
                                           ]),

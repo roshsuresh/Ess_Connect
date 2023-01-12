@@ -258,7 +258,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
-            inputFormatters: [LengthLimitingTextInputFormatter(20)],
+            inputFormatters: [LengthLimitingTextInputFormatter(40)],
             controller: titleController,
             minLines: 1,
             maxLines: 1,
@@ -284,7 +284,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
           child: TextFormField(
             controller: mattercontroller,
             minLines: 1,
-            inputFormatters: [LengthLimitingTextInputFormatter(300)],
+            inputFormatters: [LengthLimitingTextInputFormatter(400)],
             maxLines: 5,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
@@ -306,56 +306,59 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         Center(
           child: SizedBox(
             width: 120,
-            child: MaterialButton(
-              // minWidth: size.width - 200,
-              color: Colors.white70,
-              onPressed: (() async {
-                final result = await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    allowedExtensions: ['pdf', 'png', 'jpeg', 'jpg']);
-                if (result == null) {
-                  return;
-                }
-                final file = result.files.first;
-                print('Name: ${file.name}');
-                print('Path: ${file.path}');
-                print('Extension: ${file.extension}');
-
-                int sizee = file.size;
-
-                if (sizee <= 200000) {
-                  await Provider.of<StaffNoticeboardSendProviders>(context,
-                          listen: false)
-                      .noticeImageSave(context, file.path.toString());
-                  //openFile(file);
-                  if (file.name.length >= 6) {
-                    setState(() {
-                      checkname =
-                          file.name.replaceRange(6, file.name.length, '');
-                    });
-
-                    print(checkname);
+            child: Consumer<StaffNoticeboardSendProviders>(
+              builder: (context, value, child) => MaterialButton(
+                // minWidth: size.width - 200,
+                color: Colors.white70,
+                onPressed: (() async {
+                  final result = await FilePicker.platform.pickFiles(
+                      type: FileType.custom,
+                      allowedExtensions: ['pdf', 'png', 'jpeg', 'jpg']);
+                  if (result == null) {
+                    return;
                   }
-                } else {
-                  print('Size Exceed');
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    duration: Duration(seconds: 1),
-                    margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                    behavior: SnackBarBehavior.floating,
-                    content: Text(
-                      "Size Exceed(Less than 200KB allowed)",
-                      textAlign: TextAlign.center,
-                    ),
-                  ));
-                }
-              }),
-              // minWidth: size.width - 200,
-              child: Text(
-                  checkname == null ? 'Choose File' : checkname.toString()),
+                  final file = result.files.first;
+                  print('Name: ${file.name}');
+                  print('Path: ${file.path}');
+                  print('Extension: ${file.extension}');
+
+                  int sizee = file.size;
+
+                  if (sizee <= 200000) {
+                    await Provider.of<StaffNoticeboardSendProviders>(context,
+                            listen: false)
+                        .noticeImageSave(context, file.path.toString());
+                    attachmentid = value.id ?? '';
+                    //openFile(file);
+                    if (file.name.length >= 6) {
+                      setState(() {
+                        checkname =
+                            file.name.replaceRange(6, file.name.length, '');
+                      });
+
+                      print(checkname);
+                    }
+                  } else {
+                    print('Size Exceed');
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      duration: Duration(seconds: 1),
+                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        "Size Exceed(Less than 200KB allowed)",
+                        textAlign: TextAlign.center,
+                      ),
+                    ));
+                  }
+                }),
+                // minWidth: size.width - 200,
+                child: Text(
+                    checkname == null ? 'Choose File' : checkname.toString()),
+              ),
             ),
           ),
         ),
@@ -563,7 +566,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
               width: MediaQuery.of(context).size.width * 0.49,
               child: Consumer<StaffNoticeboardSendProviders>(
                   builder: (context, snapshot, child) {
-                attachmentid = snapshot.id ?? '';
+                //   attachmentid = snapshot.id ?? '';
                 return InkWell(
                   onTap: () {
                     showDialog(

@@ -114,28 +114,62 @@ class FeesProvider with ChangeNotifier {
   double? total = 0;
   double totalBusFee = 0;
   List selecteCategorys = [];
-
   void onFeeSelected(bool selected, feeName, int index, feeNetDue) {
-    if (selected == true) {
-      selecteCategorys.add(feeName);
-      print(index);
-      final double tot = feeNetDue;
-      print(feeName);
-      print(tot);
-      totalFees = tot + totalFees;
-      print(totalFees);
-      total = totalFees + totalBusFee;
-      print(total);
-      print("selecteCategorys   $selecteCategorys");
-      notifyListeners();
-    } else {
-      if (selecteCategorys.remove(feeName)) {
+    feeList[0].enabled = true;
+    if (feeList[index].enabled == true) {
+      if (selected == true) {
+        selecteCategorys.add(feeName);
+
+        index == (feeList.length) - 1
+            ? "--"
+            : feeList[index + 1].enabled = true;
+        feeList[index].selected = true;
+
+        print(index);
         final double tot = feeNetDue;
-        totalFees = totalFees - tot;
+        print(feeName);
+        print(tot);
+        totalFees = tot + totalFees;
+        print(totalFees);
         total = totalFees + totalBusFee;
         print(total);
+        print("selecteCategorys   $selecteCategorys");
+        notifyListeners();
       }
-      notifyListeners();
+      // else if(feesList[index+1].selected  == true){
+      //   selected != true;
+      // }
+
+      else {
+        int lastindex = feeList.length - 1;
+        print(lastindex);
+        if (feeList[lastindex].selected == true) {
+          selecteCategorys.removeAt(lastindex);
+          feeList[lastindex].selected = false;
+          feeList[lastindex].enabled = true;
+          final double? tot = feeList[lastindex].installmentNetDue;
+          totalFees = totalFees - tot!;
+          total = totalFees + totalBusFee;
+          notifyListeners();
+        } else if (feeList[index + 1].selected == true) {
+          print("demooo");
+          notifyListeners();
+          print(selecteCategorys);
+        } else if (selecteCategorys.remove(feeName)) {
+          feeList[index].selected = false;
+          index == (feeList.length) - 1
+              ? "--"
+              : feeList[index + 1].enabled = false;
+          final double tot = feeNetDue;
+          totalFees = totalFees - tot;
+          total = totalFees + totalBusFee;
+          print(total);
+          print("selecteCategorys   $selecteCategorys");
+          notifyListeners();
+        }
+      }
+    } else {
+      print("no dta");
     }
   }
 
@@ -144,27 +178,134 @@ class FeesProvider with ChangeNotifier {
   List selectedBusFee = [];
 
   void onBusSelected(bool selected, busfeeName, int index, feeNetDue) {
-    if (selected == true) {
-      selectedBusFee.add(busfeeName);
-      print(index);
-      final double tot = feeNetDue;
-      print(busfeeName);
-      print(tot);
-      totalBusFee = tot + totalBusFee;
-      print(totalBusFee);
-      total = totalFees + totalBusFee;
-      print(total);
-      notifyListeners();
-    } else {
-      if (selectedBusFee.remove(busfeeName)) {
+    busFeeList[0].enabled = true;
+    if (busFeeList[index].enabled == true) {
+      if (selected == true) {
+        selectedBusFee.add(busfeeName);
+
+        index == (busFeeList.length) - 1
+            ? "--"
+            : busFeeList[index + 1].enabled = true;
+        busFeeList[index].selected = true;
+
+        print(index);
         final double tot = feeNetDue;
-        totalBusFee = totalBusFee - tot;
+        print(busfeeName);
+        print(tot);
+        totalBusFee = tot + totalBusFee;
+        print(totalBusFee);
         total = totalFees + totalBusFee;
         print(total);
+        print("selecteCategorys   $selectedBusFee");
+        notifyListeners();
       }
-      notifyListeners();
+      // else if(feesList[index+1].selected  == true){
+      //   selected != true;
+      // }
+
+      else {
+        int lastindex = busFeeList.length - 1;
+        print(lastindex);
+        if (busFeeList[lastindex].selected == true) {
+          selectedBusFee.removeAt(lastindex);
+          busFeeList[lastindex].selected = false;
+          busFeeList[lastindex].enabled = true;
+          final double? tot = busFeeList[lastindex].installmentNetDue;
+          totalFees = totalFees - tot!;
+          total = totalFees + totalBusFee;
+          notifyListeners();
+        } else if (busFeeList[index + 1].selected == true) {
+          print("demooo");
+          notifyListeners();
+          print(selectedBusFee);
+        } else if (selectedBusFee.remove(busfeeName)) {
+          busFeeList[index].selected = false;
+          index == (busFeeList.length) - 1
+              ? "--"
+              : busFeeList[index + 1].enabled = false;
+          final double tot = feeNetDue;
+          totalBusFee = totalBusFee - tot;
+          total = totalFees + totalBusFee;
+          print(total);
+          print("selecteCategorys   $selectedBusFee");
+          notifyListeners();
+        }
+      }
+    } else {
+      print("no dta");
     }
+    // if (selected == true) {
+    //   selectedBusFee.add(busfeeName);
+    //   print(index);
+    //   final double tot = feeNetDue;
+    //   print(busfeeName);
+    //   print(tot);
+    //   totalBusFee = tot + totalBusFee;
+    //   print(totalBusFee);
+    //   total = totalFees + totalBusFee;
+    //   print(total);
+    //   notifyListeners();
+    // } else {
+    //   if (selectedBusFee.remove(busfeeName)) {
+    //     final double tot = feeNetDue;
+    //     totalBusFee = totalBusFee - tot;
+    //     total = totalFees + totalBusFee;
+    //     print(total);
+    //   }
+    //   notifyListeners();
+    // }
   }
+
+  // void onFeeSelected(bool selected, feeName, int index, feeNetDue) {
+  //   if (selected == true) {
+  //     selecteCategorys.add(feeName);
+  //     print(index);
+  //     final double tot = feeNetDue;
+  //     print(feeName);
+  //     print(tot);
+  //     totalFees = tot + totalFees;
+  //     print(totalFees);
+  //     total = totalFees + totalBusFee;
+  //     print(total);
+  //     print("selecteCategorys   $selecteCategorys");
+  //     notifyListeners();
+  //   } else {
+  //     if (selecteCategorys.remove(feeName)) {
+  //       final double tot = feeNetDue;
+  //       totalFees = totalFees - tot;
+  //       total = totalFees + totalBusFee;
+  //       print(total);
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
+
+  // //bus fee
+
+  // List selectedBusFee = [];
+
+  // void onBusSelected(bool selected, busfeeName, int index, feeNetDue) {
+  //   if (selected == true) {
+  //     selectedBusFee.add(busfeeName);
+  //     print(index);
+  //     final double tot = feeNetDue;
+  //     print(busfeeName);
+  //     print(tot);
+  //     totalBusFee = tot + totalBusFee;
+  //     print(totalBusFee);
+  //     total = totalFees + totalBusFee;
+  //     print(total);
+  //     notifyListeners();
+  //   } else {
+  //     if (selectedBusFee.remove(busfeeName)) {
+  //       final double tot = feeNetDue;
+  //       totalBusFee = totalBusFee - tot;
+  //       total = totalFees + totalBusFee;
+  //       print(total);
+  //     }
+  //     notifyListeners();
+  //   }
+  // }
 
   //total
 

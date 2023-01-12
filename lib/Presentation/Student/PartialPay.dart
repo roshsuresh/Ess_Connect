@@ -100,113 +100,137 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                     physics: const BouncingScrollPhysics(),
                     children: [
                       kheight20,
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 10),
-                        child: Text(
-                          'Installment',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: UIGuide.light_Purple),
-                        ),
-                      ),
-                      Scrollbar(
-                        controller: _controllerr,
-                        thumbVisibility: true,
-                        thickness: 6,
-                        radius: const Radius.circular(20),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 8),
-                          child: LimitedBox(
-                              maxHeight: 160,
-                              child: Consumer<FeesProvider>(
-                                builder: (context, valuee, child) =>
-                                    ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        controller: _controllerr,
-                                        itemCount: valuee.feeList.isEmpty
-                                            ? 0
-                                            : valuee.feeList.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          totallPartial =
-                                              valuee.feeList[index].netDue!;
+                      value.feeList.isEmpty
+                          ? SizedBox(
+                              height: 0,
+                              width: 0,
+                            )
+                          : Column(
+                              children: [
+                                const Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 20, bottom: 10),
+                                  child: Text(
+                                    'Installment',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w900,
+                                        color: UIGuide.light_Purple),
+                                  ),
+                                ),
+                                Scrollbar(
+                                  controller: _controllerr,
+                                  thumbVisibility: true,
+                                  thickness: 6,
+                                  radius: const Radius.circular(20),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 8),
+                                    child: LimitedBox(
+                                        maxHeight: 160,
+                                        child: Consumer<FeesProvider>(
+                                          builder: (context, valuee, child) =>
+                                              ListView.builder(
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  controller: _controllerr,
+                                                  itemCount: valuee
+                                                          .feeList.isEmpty
+                                                      ? 0
+                                                      : valuee.feeList.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    totallPartial = valuee
+                                                        .feeList[index].netDue!;
 
-                                          feeDate();
+                                                    feeDate();
 
-                                          return ListTile(
-                                            trailing: Text(
-                                              valuee.feeList[index].netDue ==
-                                                      null
-                                                  ? '--'
-                                                  : valuee.feeList[index].netDue
-                                                      .toString(),
-                                            ),
-                                            title: Text(
-                                              valuee.feeList[index]
-                                                      .installmentName ??
-                                                  '--',
-                                            ),
-                                          );
-                                        }),
-                              )),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25.0),
-                            child: SizedBox(
-                              height: 30,
-                              width: size.width / 3.5,
-                              child: TextField(
-                                controller: _feeController,
-                                cursorColor: UIGuide.light_Purple,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    focusColor: const Color.fromARGB(
-                                        255, 213, 215, 218),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                                    return ListTile(
+                                                      trailing: Text(
+                                                        valuee.feeList[index]
+                                                                    .netDue ==
+                                                                null
+                                                            ? '--'
+                                                            : valuee
+                                                                .feeList[index]
+                                                                .netDue
+                                                                .toString(),
+                                                      ),
+                                                      title: Text(
+                                                        valuee.feeList[index]
+                                                                .installmentName ??
+                                                            '--',
+                                                      ),
+                                                    );
+                                                  }),
+                                        )),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 25.0),
+                                      child: SizedBox(
+                                        height: 30,
+                                        width: size.width / 3.5,
+                                        child: TextField(
+                                          controller: _feeController,
+                                          cursorColor: UIGuide.light_Purple,
+                                          inputFormatters: <TextInputFormatter>[
+                                            FilteringTextInputFormatter
+                                                .digitsOnly
+                                          ],
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                              focusColor: const Color.fromARGB(
+                                                  255, 213, 215, 218),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    color: UIGuide.light_Purple,
+                                                    width: 1.0),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              fillColor: Colors.grey,
+                                              hintStyle: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 16,
+                                                fontFamily: "verdana_regular",
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              labelText: 'Amount',
+                                              labelStyle: const TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 106, 107, 109))),
+                                          onChanged: (value) {
+                                            if (double.parse(
+                                                    _feeController.text) ==
+                                                0) {
+                                              _feeController.clear();
+                                            } else if (double.parse(
+                                                        _feeController.text) -
+                                                    1 >=
+                                                totalFeePartial) {
+                                              _feeController.clear();
+                                            }
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: UIGuide.light_Purple,
-                                          width: 1.0),
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    fillColor: Colors.grey,
-                                    hintStyle: const TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
-                                      fontFamily: "verdana_regular",
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    labelText: 'Amount',
-                                    labelStyle: const TextStyle(
-                                        color: Color.fromARGB(
-                                            255, 106, 107, 109))),
-                                onChanged: (value) {
-                                  if (double.parse(_feeController.text) == 0) {
-                                    _feeController.clear();
-                                  } else if (double.parse(_feeController.text) -
-                                          1 >=
-                                      totalFeePartial) {
-                                    _feeController.clear();
-                                  }
-                                },
-                              ),
+                                  ],
+                                ),
+                                kheight10,
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                      kheight10,
                       Consumer<FeesProvider>(
                         builder: (context, buss, child) {
                           if (buss.busFeeList.isNotEmpty) {

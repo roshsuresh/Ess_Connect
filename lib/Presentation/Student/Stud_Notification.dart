@@ -70,7 +70,7 @@ class Stud_Notification extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                   color:
-                                      const Color.fromARGB(255, 234, 234, 236),
+                                      const Color.fromARGB(255, 238, 238, 245),
                                   border: Border.all(
                                       color: const Color.fromARGB(
                                           255, 136, 187, 235)),
@@ -79,13 +79,11 @@ class Stud_Notification extends StatelessWidget {
                                       bottomLeft: Radius.circular(20))),
                               width: size.width,
                               child: Padding(
-                                padding: const EdgeInsets.all(6.0),
+                                padding: const EdgeInsets.all(5.0),
                                 child: Container(
                                   width: size.width - 4,
                                   decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      // border: Border.all(
-                                      //     color: UIGuide.light_Purple),
+                                      color: Color.fromARGB(255, 253, 253, 253),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   child: Padding(
@@ -146,7 +144,7 @@ class Stud_Notification extends StatelessWidget {
                                             ),
                                             const Spacer(),
                                             const Text(
-                                              'Send by: ',
+                                              'Sent by: ',
                                               style: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 12),

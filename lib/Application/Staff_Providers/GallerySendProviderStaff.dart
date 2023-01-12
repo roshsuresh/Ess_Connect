@@ -90,9 +90,6 @@ class GallerySendProvider_Stf with ChangeNotifier {
           galleryiniti["courseList"]
               .map((x) => GalleryCourseListStaff.fromJson(x)));
       courselistt.addAll(templist);
-
-      //isClassTeacher = sd.isClassTeacher;
-
       notifyListeners();
     } else {
       print('Error in gallerycourse stf');

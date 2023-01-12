@@ -37,7 +37,7 @@ class GalleryListStaff extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           width: size.width,
-                          height: 90,
+                          height: 100,
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: UIGuide.light_Purple, width: 1),

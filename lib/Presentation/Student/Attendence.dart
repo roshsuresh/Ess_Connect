@@ -10,8 +10,12 @@ class Attendence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<AttendenceProvider>(context, listen: false).attendenceList();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      Provider.of<AttendenceProvider>(context, listen: false)
+          .attendList
+          .clear();
+      await Provider.of<AttendenceProvider>(context, listen: false)
+          .attendenceList();
     });
 
     var size = MediaQuery.of(context).size;
@@ -81,7 +85,7 @@ class Attendence extends StatelessWidget {
                                           Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(
-                                                'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
+                                                'Percentage % : ${provider.totPercentage == null ? '--' : provider.totPercentage.toString()}'),
                                           ),
                                         ])
                                       ],
@@ -181,15 +185,17 @@ class Attendence extends StatelessWidget {
                       Consumer<AttendenceProvider>(
                         builder: (_, value, child) => ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: attend == null ? 0 : attend!.length,
+                            itemCount: value.attendList.isEmpty
+                                ? 0
+                                : value.attendList.length,
                             shrinkWrap: true,
                             itemBuilder: ((context, index) {
-                              String percentage =
-                                  attend![index]['percentage'].toString();
-                              if (percentage.length >= 5) {
-                                percentage.replaceRange(
-                                    6, percentage.length, '');
-                              }
+                              // String percentage =
+                              //     attend![index]['monthres'].toString();
+                              // if (percentage.length >= 5) {
+                              //   percentage.replaceRange(
+                              //       6, percentage.length, '');
+                              // }
 
                               return Table(
                                 border: TableBorder.all(
@@ -197,35 +203,73 @@ class Attendence extends StatelessWidget {
                                         255, 245, 243, 243)),
                                 children: [
                                   TableRow(children: [
-                                    Text(
-                                      '${attend![index]['month'] == null ? '--' : attend![index]['month'].toString()} \n',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400),
-                                      textAlign: TextAlign.center,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        value.attendList[index].month ?? '--',
+                                        //'${attend![index]['month'] == null ? '--' : attend![index]['month'].toString()} \n',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    Text(
-                                      '${attend![index]['totalWorkingDays'].toString()} \n',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400),
-                                      textAlign: TextAlign.center,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        value.attendList[index]
+                                                    .totalWorkingDays ==
+                                                null
+                                            ? '--'
+                                            : value.attendList[index]
+                                                .totalWorkingDays
+                                                .toString(),
+                                        // '${attend![index]['totalWorkingDays'].toString()} \n',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    Text(
-                                      '${attend![index]['daysPresent'].toString()} \n',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400),
-                                      textAlign: TextAlign.center,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        value.attendList[index].daysPresent ==
+                                                null
+                                            ? '--'
+                                            : value
+                                                .attendList[index].daysPresent
+                                                .toString(),
+                                        //   '${attend![index]['daysPresent'].toString()} \n',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    Text(
-                                      '${attend![index]['daysAbsent'].toString()} \n',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400),
-                                      textAlign: TextAlign.center,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        value.attendList[index].daysAbsent ==
+                                                null
+                                            ? '--'
+                                            : value.attendList[index].daysAbsent
+                                                .toString(),
+
+                                        // '${attend![index]['daysAbsent'].toString()} \n',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    Text(
-                                      '$percentage \n ',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400),
-                                      textAlign: TextAlign.center,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        value.attendList[index].monthres == null
+                                            ? '--'
+                                            : value.attendList[index].monthres
+                                                .toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w400),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                   ])
                                 ],

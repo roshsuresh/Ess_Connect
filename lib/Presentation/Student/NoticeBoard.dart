@@ -171,8 +171,8 @@ class NoticeBoard extends StatelessWidget {
                                                   const Spacer(),
                                                   Row(
                                                     children: [
-                                                      Text(
-                                                        'Send by: ',
+                                                      const Text(
+                                                        'Sent by: ',
                                                         style: TextStyle(
                                                             color: Colors.grey,
                                                             fontSize: 12),
