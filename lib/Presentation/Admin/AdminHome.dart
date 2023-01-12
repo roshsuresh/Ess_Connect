@@ -459,10 +459,26 @@ class AdminHomeContent extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Demo()),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          duration: Duration(seconds: 1),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Something went wrong...',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => Demo()),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -504,12 +520,28 @@ class AdminHomeContent extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MarkentryReportByAdmin(),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          duration: Duration(seconds: 1),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Something went wrong...',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => MarkentryReportByAdmin(),
+                      //   ),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -1048,6 +1080,16 @@ class AdminHomeContent extends StatelessWidget {
                         color: UIGuide.light_Purple,
                       )),
                 ],
+              ),
+              kheight20,
+              const Center(
+                child: Text(
+                  "Powered By GJ Infotech (P) Ltd.",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: UIGuide.light_Purple),
+                ),
               ),
               kheight20,
               kheight20

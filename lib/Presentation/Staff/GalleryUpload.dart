@@ -139,56 +139,59 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
         Center(
           child: SizedBox(
             width: 120,
-            child: MaterialButton(
-              // minWidth: size.width - 200,
-              color: Colors.white70,
-              onPressed: (() async {
-                final result = await FilePicker.platform.pickFiles(
-                    type: FileType.custom,
-                    //  allowMultiple: true,
-                    allowedExtensions: ['png', 'jpeg', 'jpg']);
-                if (result == null) {
-                  return;
-                }
-
-                final file = result.files.first;
-                print('Name: ${file.name}');
-                print('Path: ${file.path}');
-                print('Extension: ${file.extension}');
-                print('Size : ${file.size}');
-                int sizee = file.size;
-
-                if (sizee <= 200000) {
-                  await Provider.of<GallerySendProvider_Stf>(context,
-                          listen: false)
-                      .galleryImageSave(context, file.path.toString());
-                  if (file.name.length >= 6) {
-                    setState(() {
-                      checkname =
-                          file.name.replaceRange(6, file.name.length, '');
-                    });
-
-                    print(checkname);
+            child: Consumer<GallerySendProvider_Stf>(
+              builder: (context, value, child) => MaterialButton(
+                // minWidth: size.width - 200,
+                color: Colors.white70,
+                onPressed: (() async {
+                  final result = await FilePicker.platform.pickFiles(
+                      type: FileType.custom,
+                      //  allowMultiple: true,
+                      allowedExtensions: ['png', 'jpeg', 'jpg']);
+                  if (result == null) {
+                    return;
                   }
-                } else {
-                  print('Size Exceed');
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    duration: Duration(seconds: 1),
-                    margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                    behavior: SnackBarBehavior.floating,
-                    content: Text(
-                      "Size Exceed(Less than 200KB allowed)",
-                      textAlign: TextAlign.center,
-                    ),
-                  ));
-                }
-              }),
-              child: Text(
-                  checkname == null ? 'Choose File' : checkname.toString()),
+
+                  final file = result.files.first;
+                  print('Name: ${file.name}');
+                  print('Path: ${file.path}');
+                  print('Extension: ${file.extension}');
+                  print('Size : ${file.size}');
+                  int sizee = file.size;
+
+                  if (sizee <= 200000) {
+                    await Provider.of<GallerySendProvider_Stf>(context,
+                            listen: false)
+                        .galleryImageSave(context, file.path.toString());
+                    attachmentid = value.id ?? '';
+                    if (file.name.length >= 6) {
+                      setState(() {
+                        checkname =
+                            file.name.replaceRange(6, file.name.length, '');
+                      });
+
+                      print(checkname);
+                    }
+                  } else {
+                    print('Size Exceed');
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      duration: Duration(seconds: 1),
+                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text(
+                        "Size Exceed(Less than 200KB allowed)",
+                        textAlign: TextAlign.center,
+                      ),
+                    ));
+                  }
+                }),
+                child: Text(
+                    checkname == null ? 'Choose File' : checkname.toString()),
+              ),
             ),
           ),
         ),
@@ -395,7 +398,6 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
               width: MediaQuery.of(context).size.width * 0.49,
               child: Consumer<GallerySendProvider_Stf>(
                   builder: (context, snapshot, child) {
-                attachmentid = snapshot.id ?? '';
                 return InkWell(
                   onTap: () async {
                     showDialog(

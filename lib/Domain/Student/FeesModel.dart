@@ -138,8 +138,7 @@ class FeeFeesInstallments {
       this.checkedFees,
       this.totalPaidAmount,
       this.enabled,
-      this.selected
-      });
+      this.selected});
 
   FeeFeesInstallments.fromJson(Map<String, dynamic> json) {
     feesDetailsId = json['feesDetailsId'];
@@ -197,8 +196,8 @@ class FeeBusInstallments {
       this.enableInstallment,
       this.checkedFees,
       this.totalPaidAmount,
-        this.enabled,
-        this.selected});
+      this.enabled,
+      this.selected});
 
   FeeBusInstallments.fromJson(Map<String, dynamic> json) {
     feesDetailsId = json['feesDetailsId'];

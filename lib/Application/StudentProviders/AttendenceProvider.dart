@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ class AttendenceProvider with ChangeNotifier {
   double? presentDays;
   double? absentDays;
   double? attendancePercentage;
+  double? totPercentage;
   bool _loading = false;
   bool get loading => _loading;
   setLoading(bool value) {
@@ -21,6 +23,7 @@ class AttendenceProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  List<MonthwiseAttendence> attendList = [];
   Future attendenceList() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     setLoading(true);
@@ -38,8 +41,13 @@ class AttendenceProvider with ChangeNotifier {
         attendenceRespo = json.decode(response.body);
         attendenceData = attendenceRespo!['attendence'];
         setLoading(true);
-        print(data);
+        // print(data);
         attend = attendenceData!['monthwiseAttendence'];
+
+        AttendencePercentageModel tot =
+            AttendencePercentageModel.fromJson(data);
+        totPercentage = tot.percentage;
+        //log(totPercentage.toString());
 
         AttendenceModel att =
             AttendenceModel.fromJson(attendenceRespo!['attendence']);
@@ -47,6 +55,11 @@ class AttendenceProvider with ChangeNotifier {
         presentDays = att.presentDays;
         absentDays = att.absentDays;
         attendancePercentage = att.attendancePercentage;
+
+        List<MonthwiseAttendence> templist = List<MonthwiseAttendence>.from(
+            attendenceData!["monthwiseAttendence"]
+                .map((x) => MonthwiseAttendence.fromJson(x)));
+        attendList.addAll(templist);
 
         setLoading(false);
         notifyListeners();

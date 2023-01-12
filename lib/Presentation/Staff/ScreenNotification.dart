@@ -36,7 +36,7 @@ class StaffNotificationScreen extends StatelessWidget {
                   Tab(
                     text: "Received",
                   ),
-                  Tab(text: "Send History"),
+                  Tab(text: "Sent History"),
                 ],
               ),
               backgroundColor: UIGuide.light_Purple,
@@ -168,7 +168,7 @@ class StaffNotificationReceived extends StatelessWidget {
                                           ),
                                           const Spacer(),
                                           const Text(
-                                            'Send by: ',
+                                            'Sent by: ',
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 12),

@@ -33,67 +33,67 @@ class PayFee extends StatelessWidget {
       builder: (context, connection, child) => connection.isOnline == false
           ? const NoInternetConnection()
           : DefaultTabController(
-        length: 2,
-        child: Scaffold(
-            appBar: AppBar(
-              title: Row(
-                children: [
-                  const Spacer(),
-                  const Text('Payment'),
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PayFee()));
-                      },
-                      icon: const Icon(Icons.refresh_outlined))
-                ],
-              ),
-              titleSpacing: 00.0,
-              centerTitle: true,
-              toolbarHeight: 50.2,
-              toolbarOpacity: 0.8,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25)),
-              ),
-              backgroundColor: UIGuide.light_Purple,
-              bottom: TabBar(
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: UIGuide.light_Purple,
-                indicatorWeight: 0.1,
-                tabs: [
-                  const Tab(
-                    text: "Installment",
+              length: 2,
+              child: Scaffold(
+                  appBar: AppBar(
+                    title: Row(
+                      children: [
+                        const Spacer(),
+                        const Text('Payment'),
+                        const Spacer(),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PayFee()));
+                            },
+                            icon: const Icon(Icons.refresh_outlined))
+                      ],
+                    ),
+                    titleSpacing: 00.0,
+                    centerTitle: true,
+                    toolbarHeight: 50.2,
+                    toolbarOpacity: 0.8,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(25),
+                          bottomLeft: Radius.circular(25)),
+                    ),
+                    backgroundColor: UIGuide.light_Purple,
+                    bottom: TabBar(
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorColor: UIGuide.light_Purple,
+                      indicatorWeight: 0.1,
+                      tabs: [
+                        const Tab(
+                          text: "Installment",
+                        ),
+                        Consumer<FeesProvider>(builder: ((context, pro, child) {
+                          if (pro.allowPartialPayment != false) {
+                            return const Tab(
+                              text: 'Partial',
+                            );
+                          } else {
+                            return const Text('');
+                          }
+                        }))
+                      ],
+                    ),
                   ),
-                  Consumer<FeesProvider>(builder: ((context, pro, child) {
-                    if (pro.allowPartialPayment != false) {
-                      return const Tab(
-                        text: 'Partial',
-                      );
-                    } else {
-                      return const Text('');
-                    }
-                  }))
-                ],
-              ),
+                  body: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      const FeePayInstallment(),
+                      Consumer<FeesProvider>(builder: ((context, snap, child) {
+                        if (snap.allowPartialPayment != false) {
+                          return FeePartialPayment();
+                        }
+                        return const Text('');
+                      }))
+                    ],
+                  )),
             ),
-            body: TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                const FeePayInstallment(),
-                Consumer<FeesProvider>(builder: ((context, snap, child) {
-                  if (snap.allowPartialPayment != false) {
-                    return FeePartialPayment();
-                  }
-                  return const Text('');
-                }))
-              ],
-            )),
-      ),
     );
   }
 }
@@ -142,567 +142,566 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
             builder: (context, value, child) => value.loading
                 ? const ProgressBarFee()
                 : ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                kheight20,
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    physics: const BouncingScrollPhysics(),
                     children: [
-                      const Text(
-                        'Installment',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w900,
-                            color: UIGuide.light_Purple),
-                      ),
-                      // Consumer<FeesProvider>(
-                      //     builder: (context, snap, child) {
-                      //       //   child:
-                      //       return Padding(
-                      //         padding: const EdgeInsets.only(right: 20.0),
-                      //         child: Checkbox(
-                      //           value: snap.isselectAlll,
-                      //           onChanged: (bool? value) {
-                      //             setState(() {
-                      //               snap.selectAll();
-                      //             });
-                      //           },
-                      //           //       },
-                      //         ),
-                      //       );
-                      //     }),
-                    ],
-                  ),
-                ),
-                Scrollbar(
-                  controller: _controller,
-                  thumbVisibility: true,
-                  thickness: 6,
-                  radius: const Radius.circular(20),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 8),
-                    child: LimitedBox(
-                        maxHeight: 160,
-                        child: Consumer<FeesProvider>(
-                          builder: (context, value, child) =>
-                              ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  controller: _controller,
-                                  itemCount: value.feeList.isEmpty
-                                      ? 0
-                                      : value.feeList.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    print(value.feeList.length);
-                                    return CheckboxListTile(
-                                      activeColor: const Color.fromARGB(
-                                          255, 243, 243, 243),
-                                      checkColor: UIGuide.light_Purple,
-                                      selectedTileColor:
-                                      UIGuide.light_Purple,
-                                      value: value.selecteCategorys
-                                          .contains(value.feeList[index]
-                                          .installmentName ??
-                                          '--'),
-                                      onChanged: (bool? selected) async {
-                                        value.onFeeSelected(
-                                            selected!,
-                                            value.feeList[index]
-                                                .installmentName,
-                                            index,
-                                            value.feeList[index].netDue);
-                                      },
-                                      title: Text(
-                                        value.feeList[index].netDue ==
-                                            null
-                                            ? '--'
-                                            : value.feeList[index].netDue
-                                            .toString(),
-                                        textAlign: TextAlign.end,
+                      kheight20,
+                      value.feeList.isEmpty
+                          ? SizedBox(
+                              height: 0,
+                              width: 0,
+                            )
+                          : Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, bottom: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Installment',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w900,
+                                            color: UIGuide.light_Purple),
                                       ),
-                                      secondary: Text(
-                                        value.feeList[index]
-                                            .installmentName ??
-                                            '--',
+                                      Consumer<FeesProvider>(
+                                          builder: (context, snap, child) {
+                                        //   child:
+                                        return Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 20.0),
+                                          child: Checkbox(
+                                            value: snap.isselectAll,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                value = snap.isselectAll;
+                                              });
+                                            },
+                                            //       },
+                                          ),
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                ),
+                                Scrollbar(
+                                  controller: _controller,
+                                  thumbVisibility: true,
+                                  thickness: 6,
+                                  radius: const Radius.circular(20),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 8),
+                                    child: LimitedBox(
+                                        maxHeight: 160,
+                                        child: Consumer<FeesProvider>(
+                                          builder: (context, value, child) =>
+                                              ListView.builder(
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  controller: _controller,
+                                                  itemCount: value
+                                                          .feeList.isEmpty
+                                                      ? 0
+                                                      : value.feeList.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    print(value.feeList.length);
+                                                    return CheckboxListTile(
+                                                      activeColor:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              243,
+                                                              243,
+                                                              243),
+                                                      checkColor:
+                                                          UIGuide.light_Purple,
+                                                      selectedTileColor:
+                                                          UIGuide.light_Purple,
+                                                      value: value
+                                                          .selecteCategorys
+                                                          .contains(value
+                                                                  .feeList[
+                                                                      index]
+                                                                  .installmentName ??
+                                                              '--'),
+                                                      onChanged: (bool?
+                                                          selected) async {
+                                                        value.onFeeSelected(
+                                                            selected!,
+                                                            value.feeList[index]
+                                                                .installmentName,
+                                                            index,
+                                                            value.feeList[index]
+                                                                .netDue);
+                                                      },
+                                                      title: Text(
+                                                        value.feeList[index]
+                                                                    .netDue ==
+                                                                null
+                                                            ? '--'
+                                                            : value
+                                                                .feeList[index]
+                                                                .netDue
+                                                                .toString(),
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                      ),
+                                                      secondary: Text(
+                                                        value.feeList[index]
+                                                                .installmentName ??
+                                                            '--',
+                                                      ),
+                                                    );
+                                                  }),
+                                        )),
+                                  ),
+                                ),
+                                Consumer<FeesProvider>(
+                                  builder: (context, value, child) => Center(
+                                    child: Text(
+                                      'TotalFee:  ${value.totalFees}',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                      Consumer<FeesProvider>(
+                        builder: (context, bus, child) {
+                          if (bus.busFeeList.isNotEmpty) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 20, bottom: 10, top: 10),
+                                  child: Text(
+                                    'Bus Fee',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w900,
+                                        color: UIGuide.light_Purple),
+                                  ),
+                                ),
+                                Scrollbar(
+                                  controller: _controller2,
+                                  thumbVisibility: true,
+                                  thickness: 6,
+                                  radius: const Radius.circular(20),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 8),
+                                    child: LimitedBox(
+                                        maxHeight: 160,
+                                        child: Consumer<FeesProvider>(
+                                          builder: (context, value, child) =>
+                                              ListView.builder(
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  controller: _controller2,
+                                                  itemCount: value
+                                                          .busFeeList.isEmpty
+                                                      ? 0
+                                                      : value.busFeeList.length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return CheckboxListTile(
+                                                      activeColor:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              238,
+                                                              236,
+                                                              236),
+                                                      checkColor:
+                                                          UIGuide.light_Purple,
+                                                      selectedTileColor:
+                                                          UIGuide.light_Purple,
+                                                      value: value
+                                                          .selectedBusFee
+                                                          .contains(value
+                                                              .busFeeList[index]
+                                                              .installmentName),
+                                                      onChanged:
+                                                          (bool? selected) {
+                                                        value.onBusSelected(
+                                                            selected!,
+                                                            value
+                                                                .busFeeList[
+                                                                    index]
+                                                                .installmentName,
+                                                            index,
+                                                            value
+                                                                .busFeeList[
+                                                                    index]
+                                                                .netDue);
+
+                                                        print(selected);
+                                                      },
+                                                      title: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 75),
+                                                        child: Text(
+                                                          value
+                                                              .busFeeList[index]
+                                                              .netDue
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.end,
+                                                        ),
+                                                      ),
+                                                      secondary: Text(value
+                                                              .busFeeList[index]
+                                                              .installmentName ??
+                                                          '--'),
+                                                    );
+                                                  }),
+                                        )),
+                                  ),
+                                ),
+                                Consumer<FeesProvider>(
+                                  builder: (context, value, child) => Center(
+                                    child: Text(
+                                      'TotalBus fee :  ${value.totalBusFee}',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          }
+                        },
+                      ),
+                      kheight20,
+                      kheight20,
+                      Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Total : ',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w700),
+                            ),
+                            // totalFee()
+                            Consumer<FeesProvider>(
+                              builder: (context, value, child) =>
+                                  Text(value.total.toString()),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      GestureDetector(
+                        child: const Text(
+                          'Last Transaction Details',
+                          style: TextStyle(
+                            color: UIGuide.light_Purple,
+                            decoration: TextDecoration.underline,
+                            decorationStyle: TextDecorationStyle.dashed,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () async {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                  child: Consumer<FeesProvider>(
+                                      builder: (context, provider, child) {
+                                    String date =
+                                        provider.lastTransactionStartDate ??
+                                            '--';
+                                    var updatedDate =
+                                        DateFormat('yyyy-MM-dd').parse(date);
+                                    String newDate = updatedDate.toString();
+                                    String finalDate =
+                                        newDate.replaceRange(10, 23, '');
+                                    return SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          kheight10,
+                                          const Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'Your last transaction  details',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: UIGuide.light_Purple),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  'Transaction Date: ',
+                                                ),
+                                                Flexible(
+                                                  child: RichText(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    strutStyle:
+                                                        const StrutStyle(),
+                                                    maxLines: 3,
+                                                    text: TextSpan(
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: UIGuide
+                                                                .light_Purple),
+                                                        text: finalDate),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  'Transaction amount: ',
+                                                ),
+                                                Text(
+                                                  provider.lastTransactionAmount ==
+                                                          null
+                                                      ? ''
+                                                      : provider
+                                                          .lastTransactionAmount
+                                                          .toString(),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UIGuide.light_Purple),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  'Transaction Status: ',
+                                                ),
+                                                Consumer<FeesProvider>(
+                                                  builder:
+                                                      (context, value, child) {
+                                                    String stats =
+                                                        provider.lastOrderStatus ==
+                                                                null
+                                                            ? ''
+                                                            : provider
+                                                                .lastOrderStatus
+                                                                .toString();
+                                                    if (stats == "Success") {
+                                                      return const Text(
+                                                        "Success",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.green),
+                                                      );
+                                                    } else if (stats ==
+                                                        "Failed") {
+                                                      return const Text(
+                                                        "Failed",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.red),
+                                                      );
+                                                    } else if (stats ==
+                                                        "Cancelled") {
+                                                      return const Text(
+                                                        "Cancelled",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    192,
+                                                                    56,
+                                                                    7)),
+                                                      );
+                                                    } else if (stats ==
+                                                        "Processing") {
+                                                      return const Text(
+                                                        "Processing",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.orange),
+                                                      );
+                                                    } else if (stats ==
+                                                        "Pending") {
+                                                      return const Text(
+                                                        "Pending",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.orange),
+                                                      );
+                                                    } else {
+                                                      return const Text(
+                                                        "--",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: UIGuide
+                                                                .light_Purple),
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Text(
+                                                    provider.lastOrderStatus ==
+                                                            null
+                                                        ? ''
+                                                        : provider
+                                                            .lastOrderStatus
+                                                            .toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Consumer<FeesProvider>(
+                                            builder: (context, value, child) {
+                                              String status =
+                                                  provider.lastOrderStatus ==
+                                                          null
+                                                      ? ''
+                                                      : provider.lastOrderStatus
+                                                          .toString();
+                                              if (status == 'Success' ||
+                                                  status == 'Failed') {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Download receipt: ',
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () async {
+                                                          String orderID =
+                                                              await provider
+                                                                          .orderId ==
+                                                                      null
+                                                                  ? ''
+                                                                  : provider
+                                                                      .orderId
+                                                                      .toString();
+
+                                                          await Provider.of<
+                                                                      FeesProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .pdfDownload(
+                                                                  orderID);
+                                                          String extenstion =
+                                                              await provider
+                                                                      .extension ??
+                                                                  '--';
+
+                                                          SchedulerBinding
+                                                              .instance
+                                                              .addPostFrameCallback(
+                                                                  (_) {
+                                                            Navigator
+                                                                .pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          PdfDownload()),
+                                                            );
+                                                          });
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.download,
+                                                            color: UIGuide
+                                                                .light_Purple),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              } else {
+                                                return Container(
+                                                  height: 0,
+                                                  width: 0,
+                                                );
+                                              }
+                                            },
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                kWidth,
+                                                MaterialButton(
+                                                  height: 30,
+                                                  onPressed: () async {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text(
+                                                    'OK',
+                                                    style: TextStyle(
+                                                        color: UIGuide.WHITE),
+                                                  ),
+                                                  color: UIGuide.light_Purple,
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     );
                                   }),
-                        )
-
-                      // return ListView.builder(
-                      //   shrinkWrap: true,
-                      //   controller: _controller,
-                      //   itemCount: feeResponse == null
-                      //       ? 0
-                      //       : feeResponse!.length,
-                      //   itemBuilder: ((context, index) {
-                      //     return Table(
-                      //       //  border: TableBorder.all(),
-                      //       children: [
-                      //         TableRow(
-                      //             decoration: const BoxDecoration(
-                      //                 // color: Color.fromARGB(
-                      //                 //     255, 230, 227, 227),
-                      //                 ),
-                      //             children: [
-                      //               Text(
-                      //                   "\n${feeResponse![index]['installmentName']}"),
-                      //               Center(
-                      //                   child: Text(
-                      //                       '\n${feeResponse![index]['installmentNetDue'].toString()}')),
-                      //               Center(child: CheckBoxButton()),
-                      //             ]),
-                      //       ],
-                      //     );
-                      //   }),
-                      // );
-                      //   },
-                      // ),
-                    ),
-                  ),
-                ),
-                Consumer<FeesProvider>(
-                  builder: (context, value, child) => Center(
-                    child: Text(
-                      'TotalFee:  ${value.totalFees}',
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ),
-                ),
-                Consumer<FeesProvider>(
-                  builder: (context, bus, child) {
-                    if (bus.busFeeList.isNotEmpty) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(
-                                left: 20, bottom: 10, top: 10),
-                            child: Text(
-                              'Bus Fee',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900,
-                                  color: UIGuide.light_Purple),
-                            ),
-                          ),
-                          Scrollbar(
-                            controller: _controller2,
-                            thumbVisibility: true,
-                            thickness: 6,
-                            radius: const Radius.circular(20),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 8),
-                              child: LimitedBox(
-                                  maxHeight: 160,
-                                  child: Consumer<FeesProvider>(
-                                    builder: (context, value, child) =>
-                                        ListView.builder(
-                                            physics:
-                                            const BouncingScrollPhysics(),
-                                            shrinkWrap: true,
-                                            controller: _controller2,
-                                            itemCount: value
-                                                .busFeeList.isEmpty
-                                                ? 0
-                                                : value.busFeeList.length,
-                                            itemBuilder:
-                                                (BuildContext context,
-                                                int index) {
-                                              return CheckboxListTile(
-                                                activeColor:
-                                                const Color.fromARGB(
-                                                    255,
-                                                    238,
-                                                    236,
-                                                    236),
-                                                checkColor:
-                                                UIGuide.light_Purple,
-                                                selectedTileColor:
-                                                UIGuide.light_Purple,
-                                                value: value
-                                                    .selectedBusFee
-                                                    .contains(value
-                                                    .busFeeList[index]
-                                                    .installmentName),
-                                                onChanged:
-                                                    (bool? selected) {
-                                                  value.onBusSelected(
-                                                      selected!,
-                                                      value
-                                                          .busFeeList[
-                                                      index]
-                                                          .installmentName,
-                                                      index,
-                                                      value
-                                                          .busFeeList[
-                                                      index]
-                                                          .netDue);
-
-                                                  print(selected);
-                                                },
-                                                title: Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .only(left: 75),
-                                                  child: Text(
-                                                    value
-                                                        .busFeeList[index]
-                                                        .netDue
-                                                        .toString(),
-                                                    textAlign:
-                                                    TextAlign.end,
-                                                  ),
-                                                ),
-                                                secondary: Text(value
-                                                    .busFeeList[index]
-                                                    .installmentName ??
-                                                    '--'),
-                                              );
-                                            }),
-                                  )),
-                            ),
-                          ),
-                          Consumer<FeesProvider>(
-                            builder: (context, value, child) => Center(
-                              child: Text(
-                                'TotalBus fee :  ${value.totalBusFee}',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Container(
-                        height: 0,
-                        width: 0,
-                      );
-                    }
-                  },
-                ),
-                kheight20,
-                kheight20,
-                Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Total : ',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                                );
+                              });
+                        },
                       ),
-                      // totalFee()
-                      Consumer<FeesProvider>(
-                        builder: (context, value, child) =>
-                            Text(value.total.toString()),
+                      const SizedBox(
+                        height: 100,
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                GestureDetector(
-                  child: const Text(
-                    'Last Transaction Details',
-                    style: TextStyle(
-                      color: UIGuide.light_Purple,
-                      decoration: TextDecoration.underline,
-                      decorationStyle: TextDecorationStyle.dashed,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  onTap: () async {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            child: Consumer<FeesProvider>(
-                                builder: (context, provider, child) {
-                                  String date =
-                                      provider.lastTransactionStartDate ??
-                                          '--';
-                                  var updatedDate =
-                                  DateFormat('yyyy-MM-dd').parse(date);
-                                  String newDate = updatedDate.toString();
-                                  String finalDate =
-                                  newDate.replaceRange(10, 23, '');
-                                  return SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        kheight10,
-                                        const Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Your last transaction  details',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: UIGuide.light_Purple),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              const Text(
-                                                'Transaction Date: ',
-                                              ),
-                                              Flexible(
-                                                child: RichText(
-                                                  overflow:
-                                                  TextOverflow.ellipsis,
-                                                  strutStyle:
-                                                  const StrutStyle(),
-                                                  maxLines: 3,
-                                                  text: TextSpan(
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color: UIGuide
-                                                              .light_Purple),
-                                                      text: finalDate),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              const Text(
-                                                'Transaction amount: ',
-                                              ),
-                                              Text(
-                                                provider.lastTransactionAmount ==
-                                                    null
-                                                    ? ''
-                                                    : provider
-                                                    .lastTransactionAmount
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                    FontWeight.bold,
-                                                    color:
-                                                    UIGuide.light_Purple),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: [
-                                              const Text(
-                                                'Transaction Status: ',
-                                              ),
-                                              Consumer<FeesProvider>(
-                                                builder:
-                                                    (context, value, child) {
-                                                  String stats =
-                                                  provider.lastOrderStatus ==
-                                                      null
-                                                      ? ''
-                                                      : provider
-                                                      .lastOrderStatus
-                                                      .toString();
-                                                  if (stats == "Success") {
-                                                    return const Text(
-                                                      "Success",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color:
-                                                          Colors.green),
-                                                    );
-                                                  } else if (stats ==
-                                                      "Failed") {
-                                                    return const Text(
-                                                      "Failed",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color: Colors.red),
-                                                    );
-                                                  } else if (stats ==
-                                                      "Cancelled") {
-                                                    return const Text(
-                                                      "Cancelled",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color:
-                                                          Color.fromARGB(
-                                                              255,
-                                                              192,
-                                                              56,
-                                                              7)),
-                                                    );
-                                                  } else if (stats ==
-                                                      "Processing") {
-                                                    return const Text(
-                                                      "Processing",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color:
-                                                          Colors.orange),
-                                                    );
-                                                  } else if (stats ==
-                                                      "Pending") {
-                                                    return const Text(
-                                                      "Pending",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color:
-                                                          Colors.orange),
-                                                    );
-                                                  } else {
-                                                    return const Text(
-                                                      "--",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold,
-                                                          color: UIGuide
-                                                              .light_Purple),
-                                                    );
-                                                  }
-                                                },
-                                                child: Text(
-                                                  provider.lastOrderStatus ==
-                                                      null
-                                                      ? ''
-                                                      : provider
-                                                      .lastOrderStatus
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.bold,
-                                                      color: UIGuide
-                                                          .light_Purple),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Consumer<FeesProvider>(
-                                          builder: (context, value, child) {
-                                            String status =
-                                            provider.lastOrderStatus ==
-                                                null
-                                                ? ''
-                                                : provider.lastOrderStatus
-                                                .toString();
-                                            if (status == 'Success' ||
-                                                status == 'Failed') {
-                                              return Padding(
-                                                padding:
-                                                const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    const Text(
-                                                      'Download receipt: ',
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        String orderID =
-                                                        await provider
-                                                            .orderId ==
-                                                            null
-                                                            ? ''
-                                                            : provider
-                                                            .orderId
-                                                            .toString();
-
-                                                        await Provider.of<
-                                                            FeesProvider>(
-                                                            context,
-                                                            listen: false)
-                                                            .pdfDownload(
-                                                            orderID);
-                                                        String extenstion =
-                                                            await provider
-                                                                .extension ??
-                                                                '--';
-
-                                                        SchedulerBinding
-                                                            .instance
-                                                            .addPostFrameCallback(
-                                                                (_) {
-                                                              Navigator
-                                                                  .pushReplacement(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                        PdfDownload()),
-                                                              );
-                                                            });
-                                                      },
-                                                      child: const Icon(
-                                                          Icons.download,
-                                                          color: UIGuide
-                                                              .light_Purple),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            } else {
-                                              return Container(
-                                                height: 0,
-                                                width: 0,
-                                              );
-                                            }
-                                          },
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                            children: [
-                                              kWidth,
-                                              MaterialButton(
-                                                height: 30,
-                                                onPressed: () async {
-                                                  Navigator.pop(context);
-                                                },
-                                                child: const Text(
-                                                  'OK',
-                                                  style: TextStyle(
-                                                      color: UIGuide.WHITE),
-                                                ),
-                                                color: UIGuide.light_Purple,
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          );
-                        });
-                  },
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-              ],
-            ),
           ),
           Positioned(
             bottom: 2,
@@ -710,7 +709,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
             right: 10,
             child: Padding(
               padding:
-              const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 5),
+                  const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 5),
               child: Consumer<FeesProvider>(
                 builder: (_, trans, child) {
                   return MaterialButton(
@@ -722,7 +721,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                             elevation: 10,
                             shape: RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
+                                  BorderRadius.all(Radius.circular(20)),
                             ),
                             duration: Duration(seconds: 1),
                             margin: EdgeInsets.only(
@@ -764,7 +763,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   dialogType: DialogType.info,
                                   title: 'Do you want to continue the payment',
                                   desc:
-                                  "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
+                                      "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
                                   btnOkOnPress: () async {
 //  --------------------------------------------------------------------------------------------------------------    //
 ///////////////////  ---------------------------     PAYTM    -------------------------------  ////////////////////////
@@ -772,13 +771,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
 
                                     if (trans.gateway == 'Paytm') {
                                       await Provider.of<FeesProvider>(context,
-                                          listen: false)
+                                              listen: false)
                                           .getDataOne(
-                                          transType,
-                                          transId1,
-                                          trans.totalFees.toString(),
-                                          trans.total.toString(),
-                                          gateWay);
+                                              transType,
+                                              transId1,
+                                              trans.totalFees.toString(),
+                                              trans.total.toString(),
+                                              gateWay);
 
                                       String mid1 = trans.mid1 ?? '--';
                                       String orderId1 =
@@ -826,13 +825,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
 //  -----------------------------------------------------------------------------------------------------------------  //
                                     else if (trans.gateway == 'RazorPay') {
                                       await Provider.of<FeesProvider>(context,
-                                          listen: false)
+                                              listen: false)
                                           .getDataOneRAZORPAY(
-                                          transType,
-                                          transId1,
-                                          trans.totalFees.toString(),
-                                          trans.total.toString(),
-                                          gateWay);
+                                              transType,
+                                              transId1,
+                                              trans.totalFees.toString(),
+                                              trans.total.toString(),
+                                              gateWay);
 
                                       String key1 = trans.key1Razo ?? '--';
                                       String orede1 = trans.order1 ?? '--';
@@ -935,7 +934,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   dialogType: DialogType.info,
                                   title: 'Do you want to continue the payment',
                                   desc:
-                                  "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
+                                      "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
                                   btnOkOnPress: () async {
 //  --------------------------------------------------------------------------------------------------------------    //
 ///////////////////  ---------------------------     PAYTM    -------------------------------  ////////////////////////
@@ -943,13 +942,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
 
                                     if (trans.gateway == 'Paytm') {
                                       await Provider.of<FeesProvider>(context,
-                                          listen: false)
+                                              listen: false)
                                           .getDataOneBus(
-                                          transTypeB,
-                                          transId1B,
-                                          trans.totalBusFee.toString(),
-                                          trans.total.toString(),
-                                          gateWay);
+                                              transTypeB,
+                                              transId1B,
+                                              trans.totalBusFee.toString(),
+                                              trans.total.toString(),
+                                              gateWay);
 
                                       String mid1B = trans.mid1B ?? '--';
                                       String orderId1B =
@@ -999,13 +998,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
 //  -----------------------------------------------
                                     else if (trans.gateway == 'RazorPay') {
                                       await Provider.of<FeesProvider>(context,
-                                          listen: false)
+                                              listen: false)
                                           .getDataOneRAZORPAYBus(
-                                          transTypeB,
-                                          transId1B,
-                                          trans.totalBusFee.toString(),
-                                          trans.total.toString(),
-                                          gateWay);
+                                              transTypeB,
+                                              transId1B,
+                                              trans.totalBusFee.toString(),
+                                              trans.total.toString(),
+                                              gateWay);
 
                                       String key1 = trans.key1RazoBus ?? '--';
                                       String orede1 = trans.order1Bus ?? '--';
@@ -1112,20 +1111,20 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   dialogType: DialogType.info,
                                   title: 'Do you want to continue the payment',
                                   desc:
-                                  "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
+                                      "Please don't go 𝐁𝐚𝐜𝐤 once the payment has been initialized!",
                                   btnOkOnPress: () async {
                                     if (trans.gateway == 'Paytm') {
                                       await Provider.of<FeesProvider>(context,
-                                          listen: false)
+                                              listen: false)
                                           .getDataTwo(
-                                          transType1,
-                                          transID1,
-                                          trans.totalFees.toString(),
-                                          transType2,
-                                          transID2,
-                                          trans.totalBusFee.toString(),
-                                          trans.total.toString(),
-                                          gateway.toString());
+                                              transType1,
+                                              transID1,
+                                              trans.totalFees.toString(),
+                                              transType2,
+                                              transID2,
+                                              trans.totalBusFee.toString(),
+                                              trans.total.toString(),
+                                              gateway.toString());
 
                                       String mid2 = await trans.mid2 ?? '--';
                                       String orderId2 =
@@ -1172,16 +1171,16 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                     ///////////////////         RazorPay         ////////////////////////
                                     else if (trans.gateway == 'RazorPay') {
                                       await Provider.of<FeesProvider>(context,
-                                          listen: false)
+                                              listen: false)
                                           .getDataTwoRAZORPAY(
-                                          transType1,
-                                          transID1,
-                                          trans.totalFees.toString(),
-                                          transType2,
-                                          transID2,
-                                          trans.totalBusFee.toString(),
-                                          trans.total.toString(),
-                                          gateway.toString());
+                                              transType1,
+                                              transID1,
+                                              trans.totalFees.toString(),
+                                              transType2,
+                                              transID2,
+                                              trans.totalBusFee.toString(),
+                                              trans.total.toString(),
+                                              gateway.toString());
 
                                       String key2 = trans.key2Razo ?? '--';
                                       String orede2 = trans.order2 ?? '--';
@@ -1265,7 +1264,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                     elevation: 10,
                                     shape: RoundedRectangleBorder(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                          BorderRadius.all(Radius.circular(10)),
                                     ),
                                     duration: Duration(seconds: 1),
                                     margin: EdgeInsets.only(
@@ -1287,7 +1286,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                     elevation: 10,
                                     shape: RoundedRectangleBorder(
                                       borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                          BorderRadius.all(Radius.circular(10)),
                                     ),
                                     duration: Duration(seconds: 1),
                                     margin: EdgeInsets.only(
@@ -1306,7 +1305,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   elevation: 10,
                                   shape: RoundedRectangleBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                                        BorderRadius.all(Radius.circular(20)),
                                   ),
                                   duration: Duration(seconds: 1),
                                   margin: EdgeInsets.only(
@@ -1325,7 +1324,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(20)),
                                 ),
                                 duration: Duration(seconds: 5),
                                 margin: EdgeInsets.only(
@@ -1343,7 +1342,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(20)),
                                 ),
                                 duration: Duration(seconds: 5),
                                 margin: EdgeInsets.only(
@@ -1361,7 +1360,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                 elevation: 10,
                                 shape: RoundedRectangleBorder(
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                      BorderRadius.all(Radius.circular(20)),
                                 ),
                                 duration: Duration(seconds: 5),
                                 margin: EdgeInsets.only(
@@ -1380,7 +1379,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                               elevation: 10,
                               shape: RoundedRectangleBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(20)),
+                                    BorderRadius.all(Radius.circular(20)),
                               ),
                               duration: Duration(seconds: 5),
                               margin: EdgeInsets.only(
@@ -1420,13 +1419,13 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
   bool restrictAppInvoke = true;
 
   Future<void> _startTransaction(
-      String txnToken,
-      String mid,
-      String orderId,
-      String amount,
-      String callbackUrl,
-      bool isStaging,
-      ) async {
+    String txnToken,
+    String mid,
+    String orderId,
+    String amount,
+    String callbackUrl,
+    bool isStaging,
+  ) async {
     if (txnToken.isEmpty) {
       return;
     }
@@ -1483,383 +1482,383 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
         context: context,
         barrierDismissible: false,
         builder: (context) => Consumer<FinalStatusProvider>(
-          builder: (context, paytm, child) {
-            if (paytm.reponseCode == '01') {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+              builder: (context, paytm, child) {
+                if (paytm.reponseCode == '01') {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
                         children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "TRANSACTION SUCCESS",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -190,
-                        child: CircleAvatar(
-                            radius: 165,
-                            backgroundColor: Colors.transparent,
-                            child: LottieBuilder.asset(
-                              'assets/89618-gopay-succesfull-payment.json',
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            } else if (paytm.reponseCode == '810' ||
-                paytm.reponseCode == '501' ||
-                paytm.reponseCode == '401' ||
-                paytm.reponseCode == '335' ||
-                paytm.reponseCode == '334' ||
-                paytm.reponseCode == '295' ||
-                paytm.reponseCode == '235' ||
-                paytm.reponseCode == '227') {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "TRANSACTION FAILED",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -80,
-                        child: CircleAvatar(
-                            radius: 70,
-                            backgroundColor: Colors.white,
-                            child: SvgPicture.asset(UIGuide.failed)),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            } else if (paytm.reponseCode == '400' ||
-                paytm.reponseCode == '402') {
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "TRANSACTION PENDING",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -90,
-                        child: CircleAvatar(
-                            radius: 80,
-                            backgroundColor: Colors.transparent,
-                            child: SvgPicture.asset(UIGuide.pending)),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "Something went wrong",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const Positioned(
-                        top: -80,
-                        child: CircleAvatar(
-                          radius: 70,
-                          backgroundColor: Colors.orange,
-                          child: Icon(
-                            Icons.warning,
-                            size: 80,
-                            color: UIGuide.BLACK,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              content: Container(
-                height: size.height / 4.5,
-                width: size.width * 3,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: size.height / 10,
-                        ),
-                        const Text(
-                          "Something went wrong",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 20,
-                              color: UIGuide.light_Purple),
-                        ),
-                        kheight20,
-                        Expanded(
-                          child: Row(
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                    MaterialStateProperty.all(
-                                        UIGuide.light_Purple),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                StudentHome()),
-                                            (Route<dynamic> route) =>
-                                        false);
-                                  },
-                                  child: const Text(
-                                    'Back to Home',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 18,
-                                        color: UIGuide.WHITE),
-                                  ))
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "TRANSACTION SUCCESS",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
                             ],
+                          ),
+                          Positioned(
+                            top: -190,
+                            child: CircleAvatar(
+                                radius: 165,
+                                backgroundColor: Colors.transparent,
+                                child: LottieBuilder.asset(
+                                  'assets/89618-gopay-succesfull-payment.json',
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (paytm.reponseCode == '810' ||
+                    paytm.reponseCode == '501' ||
+                    paytm.reponseCode == '401' ||
+                    paytm.reponseCode == '335' ||
+                    paytm.reponseCode == '334' ||
+                    paytm.reponseCode == '295' ||
+                    paytm.reponseCode == '235' ||
+                    paytm.reponseCode == '227') {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "TRANSACTION FAILED",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Positioned(
+                            top: -80,
+                            child: CircleAvatar(
+                                radius: 70,
+                                backgroundColor: Colors.white,
+                                child: SvgPicture.asset(UIGuide.failed)),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (paytm.reponseCode == '400' ||
+                    paytm.reponseCode == '402') {
+                  AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "TRANSACTION PENDING",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Positioned(
+                            top: -90,
+                            child: CircleAvatar(
+                                radius: 80,
+                                backgroundColor: Colors.transparent,
+                                child: SvgPicture.asset(UIGuide.pending)),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "Something went wrong",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const Positioned(
+                            top: -80,
+                            child: CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.orange,
+                              child: Icon(
+                                Icons.warning,
+                                size: 80,
+                                color: UIGuide.BLACK,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  content: Container(
+                    height: size.height / 4.5,
+                    width: size.width * 3,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size.height / 10,
+                            ),
+                            const Text(
+                              "Something went wrong",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 20,
+                                  color: UIGuide.light_Purple),
+                            ),
+                            kheight20,
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                UIGuide.light_Purple),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        StudentHome()),
+                                                (Route<dynamic> route) =>
+                                                    false);
+                                      },
+                                      child: const Text(
+                                        'Back to Home',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 18,
+                                            color: UIGuide.WHITE),
+                                      ))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        const Positioned(
+                          top: -80,
+                          child: CircleAvatar(
+                            radius: 70,
+                            backgroundColor: Colors.orange,
+                            child: Icon(
+                              Icons.warning,
+                              size: 80,
+                              color: UIGuide.BLACK,
+                            ),
                           ),
                         )
                       ],
                     ),
-                    const Positioned(
-                      top: -80,
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundColor: Colors.orange,
-                        child: Icon(
-                          Icons.warning,
-                          size: 80,
-                          color: UIGuide.BLACK,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            );
-          },
-        ));
+                  ),
+                );
+              },
+            ));
   }
 
 //         ----------------------------------------------------------------------------------------            //
@@ -1909,18 +1908,18 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
   }
 
   void handlePaymentSuccessResponse(
-      PaymentSuccessResponse response,
-      ) async {
+    PaymentSuccessResponse response,
+  ) async {
     await _showAlertRazorPay(context, readableid!, orderidd!);
     print('------------------Success-----------------------------');
   }
 
 ///////////////////////////////////////////////
   _showAlertRazorPay(
-      BuildContext context,
-      String readable,
-      String orderID,
-      ) async {
+    BuildContext context,
+    String readable,
+    String orderID,
+  ) async {
     var size = MediaQuery.of(context).size;
     String order = (readable + "_" + orderID);
     await Provider.of<FinalStatusProvider>(context, listen: false)
@@ -1929,367 +1928,367 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
         context: context,
         barrierDismissible: false,
         builder: (context) => Consumer<FinalStatusProvider>(
-          builder: (context, razor, child) {
-            if (razor.reponseMsgRazor == 'captured') {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+              builder: (context, razor, child) {
+                if (razor.reponseMsgRazor == 'captured') {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
                         children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "TRANSACTION SUCCESS",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -190,
-                        child: CircleAvatar(
-                            radius: 165,
-                            backgroundColor: Colors.transparent,
-                            child: LottieBuilder.asset(
-                              'assets/89618-gopay-succesfull-payment.json',
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            } else if (razor.reponseMsgRazor == 'failed') {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "TRANSACTION FAILED",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -80,
-                        child: CircleAvatar(
-                            radius: 70,
-                            backgroundColor: Colors.white,
-                            child: SvgPicture.asset(UIGuide.failed)),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            } else if (razor.reponseCode == null) {
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "TRANSACTION PENDING",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -90,
-                        child: CircleAvatar(
-                            radius: 80,
-                            backgroundColor: Colors.transparent,
-                            child: SvgPicture.asset(UIGuide.pending)),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            } else {
-              AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                content: Container(
-                  height: size.height / 4.5,
-                  width: size.width * 3,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: size.height / 10,
-                          ),
-                          const Text(
-                            "Something went wrong",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                fontSize: 20,
-                                color: UIGuide.light_Purple),
-                          ),
-                          kheight20,
-                          Expanded(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          UIGuide.light_Purple),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                              builder:
-                                                  (context) =>
-                                                  StudentHome()),
-                                              (Route<dynamic> route) =>
-                                          false);
-                                    },
-                                    child: const Text(
-                                      'Back to Home',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 18,
-                                          color: UIGuide.WHITE),
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                        top: -90,
-                        child: CircleAvatar(
-                            radius: 80,
-                            backgroundColor: Colors.transparent,
-                            child: SvgPicture.asset(
-                                UIGuide.somethingWentWrong)),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              content: Container(
-                height: size.height / 4.5,
-                width: size.width * 3,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: size.height / 10,
-                        ),
-                        const Text(
-                          "Something went wrong",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 20,
-                              color: UIGuide.light_Purple),
-                        ),
-                        kheight20,
-                        Expanded(
-                          child: Row(
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                    MaterialStateProperty.all(
-                                        UIGuide.light_Purple),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                StudentHome()),
-                                            (Route<dynamic> route) =>
-                                        false);
-                                  },
-                                  child: const Text(
-                                    'Back to Home',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 18,
-                                        color: UIGuide.WHITE),
-                                  ))
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "TRANSACTION SUCCESS",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
                             ],
                           ),
+                          Positioned(
+                            top: -190,
+                            child: CircleAvatar(
+                                radius: 165,
+                                backgroundColor: Colors.transparent,
+                                child: LottieBuilder.asset(
+                                  'assets/89618-gopay-succesfull-payment.json',
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (razor.reponseMsgRazor == 'failed') {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "TRANSACTION FAILED",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Positioned(
+                            top: -80,
+                            child: CircleAvatar(
+                                radius: 70,
+                                backgroundColor: Colors.white,
+                                child: SvgPicture.asset(UIGuide.failed)),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (razor.reponseCode == null) {
+                  AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "TRANSACTION PENDING",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Positioned(
+                            top: -90,
+                            child: CircleAvatar(
+                                radius: 80,
+                                backgroundColor: Colors.transparent,
+                                child: SvgPicture.asset(UIGuide.pending)),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    content: Container(
+                      height: size.height / 4.5,
+                      width: size.width * 3,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height / 10,
+                              ),
+                              const Text(
+                                "Something went wrong",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 20,
+                                    color: UIGuide.light_Purple),
+                              ),
+                              kheight20,
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  UIGuide.light_Purple),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushAndRemoveUntil(
+                                                  MaterialPageRoute(
+                                                      builder:
+                                                          (context) =>
+                                                              StudentHome()),
+                                                  (Route<dynamic> route) =>
+                                                      false);
+                                        },
+                                        child: const Text(
+                                          'Back to Home',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                              color: UIGuide.WHITE),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Positioned(
+                            top: -90,
+                            child: CircleAvatar(
+                                radius: 80,
+                                backgroundColor: Colors.transparent,
+                                child: SvgPicture.asset(
+                                    UIGuide.somethingWentWrong)),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  content: Container(
+                    height: size.height / 4.5,
+                    width: size.width * 3,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size.height / 10,
+                            ),
+                            const Text(
+                              "Something went wrong",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 20,
+                                  color: UIGuide.light_Purple),
+                            ),
+                            kheight20,
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                UIGuide.light_Purple),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        StudentHome()),
+                                                (Route<dynamic> route) =>
+                                                    false);
+                                      },
+                                      child: const Text(
+                                        'Back to Home',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 18,
+                                            color: UIGuide.WHITE),
+                                      ))
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        Positioned(
+                          top: -90,
+                          child: CircleAvatar(
+                              radius: 80,
+                              backgroundColor: Colors.transparent,
+                              child:
+                                  SvgPicture.asset(UIGuide.somethingWentWrong)),
                         )
                       ],
                     ),
-                    Positioned(
-                      top: -90,
-                      child: CircleAvatar(
-                          radius: 80,
-                          backgroundColor: Colors.transparent,
-                          child:
-                          SvgPicture.asset(UIGuide.somethingWentWrong)),
-                    )
-                  ],
-                ),
-              ),
-            );
-          },
-        ));
+                  ),
+                );
+              },
+            ));
   }
 }
 
@@ -2322,7 +2321,7 @@ class PdfDownload extends StatelessWidget {
                         Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => StudentHome()),
-                                (Route<dynamic> route) => false);
+                            (Route<dynamic> route) => false);
                       },
                       child: const Icon(Icons.arrow_back_ios)),
                   kWidth,

@@ -184,7 +184,7 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
           child: TextFormField(
             controller: titleController,
             minLines: 1,
-            inputFormatters: [LengthLimitingTextInputFormatter(30)],
+            inputFormatters: [LengthLimitingTextInputFormatter(50)],
             maxLines: 1,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
@@ -205,7 +205,7 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
-            inputFormatters: [LengthLimitingTextInputFormatter(300)],
+            inputFormatters: [LengthLimitingTextInputFormatter(400)],
             controller: mattercontroller,
             minLines: 1,
             maxLines: 5,
@@ -231,47 +231,52 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
             Center(
               child: SizedBox(
                 width: 120,
-                child: MaterialButton(
-                  // minWidth: size.width - 200,
-                  color: Colors.white70,
-                  onPressed: (() async {
-                    final result = await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['pdf', 'png', 'jpeg', 'jpg']);
-                    if (result == null) {
-                      return;
-                    }
-                    final file = result.files.first;
-                    print('Name: ${file.name}');
-                    print('Path: ${file.path}');
-                    print('Extension: ${file.extension}');
-
-                    int sizee = file.size;
-
-                    if (sizee <= 200000) {
-                      await Provider.of<NoticeBoardAdminProvider>(context,
-                              listen: false)
-                          .noticeImageSave(context, file.path.toString());
-                      //openFile(file);
-                      if (file.name.length >= 6) {
-                        setState(() {
-                          checkname =
-                              file.name.replaceRange(6, file.name.length, '');
-                        });
-
-                        print(checkname);
+                child: Consumer<NoticeBoardAdminProvider>(
+                  builder: (context, value, child) => MaterialButton(
+                    // minWidth: size.width - 200,
+                    color: Colors.white70,
+                    onPressed: (() async {
+                      final result = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf', 'png', 'jpeg', 'jpg']);
+                      if (result == null) {
+                        return;
                       }
-                    } else {
-                      print('Size Exceed');
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                        "Size Exceed(Less than 200KB allowed)",
-                        textAlign: TextAlign.center,
-                      )));
-                    }
-                  }),
-                  // minWidth: size.width - 200,
-                  child: Text(checkname.isEmpty ? 'Choose File' : checkname),
+                      final file = result.files.first;
+                      print('Name: ${file.name}');
+                      print('Path: ${file.path}');
+                      print('Extension: ${file.extension}');
+
+                      int sizee = file.size;
+
+                      if (sizee <= 200000) {
+                        await Provider.of<NoticeBoardAdminProvider>(context,
+                                listen: false)
+                            .noticeImageSave(context, file.path.toString());
+
+                        attach = await value.id.toString();
+                        //openFile(file);
+                        if (file.name.length >= 6) {
+                          setState(() {
+                            checkname =
+                                file.name.replaceRange(6, file.name.length, '');
+                          });
+
+                          print(checkname);
+                        }
+                      } else {
+                        print('Size Exceed');
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                                content: Text(
+                          "Size Exceed(Less than 200KB allowed)",
+                          textAlign: TextAlign.center,
+                        )));
+                      }
+                    }),
+                    // minWidth: size.width - 200,
+                    child: Text(checkname.isEmpty ? 'Choose File' : checkname),
+                  ),
                 ),
               ),
             ),
@@ -518,8 +523,6 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                           .divisionCounter(result.length);
 
                       print(divisionData.join(','));
-
-                      attach = value.id.toString();
                     },
                   ),
                 ),
@@ -562,12 +565,12 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                   borderRadius: BorderRadius.all(Radius.circular(10.0))),
               color: UIGuide.light_Purple,
               onPressed: (() async {
-                print(attachmentid);
-                if (checkname.isEmpty) {
-                  attachmentid.clear();
-                } else {
-                  attachmentid.text = attach;
-                }
+                // print(attachmentid);
+                // if (checkname.isEmpty) {
+                // attachmentid.clear();
+                // } else {
+                attachmentid.text = attach;
+                //}
                 if (titleController.text.isNotEmpty &&
                     course.toString().isNotEmpty &&
                     division.toString().isNotEmpty &&
