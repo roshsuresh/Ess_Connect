@@ -70,7 +70,7 @@ class SibingsProvider with ChangeNotifier {
     }
   }
 
-  Future getSibling(BuildContext context, String childId,bool selected) async {
+  Future getSibling(BuildContext context, String childId) async {
     isLoading = true;
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var headers = {
@@ -94,7 +94,7 @@ class SibingsProvider with ChangeNotifier {
         MaterialPageRoute(builder: (context) => StudentHome()),
         (Route<dynamic> route) => false,
       );
-      selected = true;
+
       isLoading = false;
 
       notifyListeners();

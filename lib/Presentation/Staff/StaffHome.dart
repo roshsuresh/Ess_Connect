@@ -390,12 +390,12 @@ class _StaffHomeState extends State<StaffHome> {
                                               ),
                                             ),
                                           );
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           AttendenceEntry()),
-                                          // );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AttendenceEntry()),
+                                          );
                                         },
                                         child: Column(
                                           mainAxisAlignment:

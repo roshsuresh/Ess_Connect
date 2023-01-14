@@ -166,7 +166,8 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
 
   //Noticeboard  save
 
-  Future noticeBoardSave(
+  Future
+  noticeBoardSave(
       BuildContext context,
       String entryDate,
       String DisplayStartDate,
