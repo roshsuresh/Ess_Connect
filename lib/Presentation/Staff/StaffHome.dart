@@ -369,7 +369,6 @@ class _StaffHomeState extends State<StaffHome> {
                                           left: 10, right: 10),
                                       child: GestureDetector(
                                         onTap: () {
-<<<<<<< HEAD
                                           // ScaffoldMessenger.of(context)
                                           //     .showSnackBar(
                                           //   const SnackBar(
@@ -391,29 +390,6 @@ class _StaffHomeState extends State<StaffHome> {
                                           //     ),
                                           //   ),
                                           // );
-=======
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              elevation: 10,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10)),
-                                              ),
-                                              duration: Duration(seconds: 1),
-                                              margin: EdgeInsets.only(
-                                                  bottom: 80,
-                                                  left: 30,
-                                                  right: 30),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              content: Text(
-                                                'Something went wrong...',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          );
->>>>>>> 01bc06bd4fc0b877724c35925af0762090084e31
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -1130,26 +1106,7 @@ class StaffProfile extends StatelessWidget {
                           ),
                   ),
                 ],
-              )
-              //  child: AnimateGradient(
-              // controller: _controller,
-              // primaryBegin: Alignment.topLeft,
-              // primaryEnd: Alignment.bottomLeft,
-              // secondaryBegin: Alignment.bottomLeft,
-              // secondaryEnd: Alignment.topRight,
-              // primaryColors: const [
-              //   Color.fromARGB(255, 143, 193, 240),
-              //   Color.fromARGB(255, 131, 142, 238),
-              //   Color.fromARGB(255, 99, 101, 235),
-              // ],
-              // secondaryColors: const [
-              //   Color.fromARGB(255, 60, 78, 240),
-              //   Color.fromARGB(255, 111, 125, 248),
-              //   UIGuide.light_Purple,
-              // ],
-
-              //  )
-              ),
+              )),
         ),
         const SizedBox(
           height: 10,
@@ -1196,7 +1153,7 @@ class StaffFlashNews extends StatelessWidget {
                           fontSize: 14),
                       scrollAxis: Axis.horizontal,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      blankSpace: 30.0,
+                      blankSpace: 60.0,
                       velocity: 40.0,
                       pauseAfterRound: const Duration(seconds: 1),
                       showFadingOnlyWhenScrolling: true,

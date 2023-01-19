@@ -148,7 +148,7 @@ class Profile_Info extends StatelessWidget {
                         ),
                         Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(top:8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(
                                 provider.studPhoto == null
@@ -175,7 +175,6 @@ class Profile_Info extends StatelessWidget {
                             Row(
                               children: const [
                                 kWidth,
-
                                 Icon(Icons.person_outline_outlined),
                                 kWidth,
                                 Text(
@@ -184,7 +183,7 @@ class Profile_Info extends StatelessWidget {
                                 )
                               ],
                             ),
-                            Container  (
+                            Container(
                                 margin: const EdgeInsets.only(
                                     left: 10.0, right: 20.0),
                                 child: const Divider(
@@ -513,13 +512,9 @@ class Profile_Info extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-<<<<<<< HEAD
                                     color: const Color.fromARGB(
                                         255, 240, 243, 247),
                                     //color: Colors.white,
-=======
-                                    color: Color.fromARGB(255, 240, 243, 247),
->>>>>>> 01bc06bd4fc0b877724c35925af0762090084e31
                                     // border: Border.all(
                                     //   color: const Color.fromARGB(
                                     //       255, 230, 237, 245),
@@ -534,7 +529,6 @@ class Profile_Info extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-
                                       const Text(
                                         'Permanent Address',
                                         style: TextStyle(

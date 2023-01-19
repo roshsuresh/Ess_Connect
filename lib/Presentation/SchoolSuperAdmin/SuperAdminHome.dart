@@ -4,6 +4,7 @@ import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart'
 import 'package:essconnect/Application/AdminProviders/dashboardProvider.dart';
 import 'package:essconnect/Application/Module%20Providers.dart/Module.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
+import 'package:essconnect/Presentation/Admin/AttendanceTaken/Takenornot.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToGuardian.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
 import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
@@ -15,7 +16,11 @@ import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.d
 import 'package:essconnect/Presentation/Admin/NoticeBoard/NoticeboardScreen.dart';
 import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
+import 'package:essconnect/Presentation/Admin/demo.dart';
+import 'package:essconnect/Presentation/SchoolSuperAdmin/GalleryReceived.dart';
+import 'package:essconnect/Presentation/SchoolSuperAdmin/NoticeBoardSA.dart';
 import 'package:essconnect/Presentation/Staff/StaffHome.dart';
+import 'package:essconnect/Presentation/Staff/StudAttendenceEntry.dart';
 import 'package:essconnect/Presentation/Staff/StudReport.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
@@ -27,6 +32,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Application/StudentProviders/InternetConnection.dart';
 import '../../Constants.dart';
+import '../Admin/AttendanceTaken/AbsentReport.dart';
 import '../Login_Activation/Login_page.dart';
 import '../Student/PasswordChange.dart';
 
@@ -237,12 +243,14 @@ class SuperAdminHomeContents extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const StaffReport()),
+                            builder: (context) =>
+                                const GalleryReceivedSAdmin()),
                       );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Card(
                             elevation: 10,
@@ -255,21 +263,67 @@ class SuperAdminHomeContents extends StatelessWidget {
                               child: Container(
                                 height: 38,
                                 width: 38,
-                                decoration: BoxDecoration(
-                                  image: const DecorationImage(
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/01staffreport.jpg',
+                                      'assets/Gallery.png',
                                     ),
                                   ),
-                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),
                           ),
                           kheight10,
                           const Text(
-                            ' Staff Report',
+                            'Gallery',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NoticeBoardSA()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Noticeboard.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            'NoticeBoard',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -315,13 +369,12 @@ class SuperAdminHomeContents extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const StudentFeeSearch()),
+                            builder: (context) => const StaffReport()),
                       );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Card(
                             elevation: 10,
@@ -334,25 +387,26 @@ class SuperAdminHomeContents extends StatelessWidget {
                               child: Container(
                                 height: 38,
                                 width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
+                                decoration: BoxDecoration(
+                                  image: const DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      "assets/Fees.png",
+                                      'assets/01staffreport.jpg',
                                     ),
                                   ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),
                           ),
                           kheight10,
                           const Text(
-                            '    Student \nFees Report',
+                            ' Staff Report',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.bold),
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -420,28 +474,12 @@ class SuperAdminHomeContents extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          duration: Duration(seconds: 1),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Something went wrong...',
-                            textAlign: TextAlign.center,
-                          ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SMSFormats(),
                         ),
                       );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => MarkentryReportByAdmin(),
-                      //   ),
-                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -472,6 +510,53 @@ class SuperAdminHomeContents extends StatelessWidget {
                           kheight10,
                           const Text(
                             'Mark Entry\n   Report',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NotificationHistory()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Notification.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            'Notification\n     History',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -514,11 +599,11 @@ class SuperAdminHomeContents extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const FeeReport()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AttendenceEntry()),
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -566,7 +651,7 @@ class SuperAdminHomeContents extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const StudentFeeSearch()),
+                            builder: (context) => const AttendanceReport()),
                       );
                     },
                     child: Padding(
@@ -598,7 +683,7 @@ class SuperAdminHomeContents extends StatelessWidget {
                           ),
                           kheight10,
                           const Text(
-                            'Absent / Present \n         Report',
+                            'Absentees\n    Report',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -610,26 +695,11 @@ class SuperAdminHomeContents extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          duration: Duration(seconds: 1),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Something went wrong...',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AttendanceTakenReport()),
                       );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => Demo()),
-                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -876,154 +946,6 @@ class SuperAdminHomeContents extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NotificationHistory()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Notification.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'Notification\n     History',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              kheight10,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AdminGallery()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Gallery.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'Gallery',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NoticeBoardAdnin()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Noticeboard.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'NoticeBoard',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
                   Consumer<Curriculamprovider>(
                     builder: (context, curri, child) => GestureDetector(
                       onTap: () async {
@@ -1069,7 +991,7 @@ class SuperAdminHomeContents extends StatelessWidget {
                             ),
                             kheight10,
                             const Text(
-                              'Curriculum',
+                              'e-Classroom',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 11,
@@ -1082,7 +1004,8 @@ class SuperAdminHomeContents extends StatelessWidget {
                   ),
                 ],
               ),
-              kheight20,
+              kheight10,
+              kheight10,
               Row(children: <Widget>[
                 const Text(
                   ' ──  ',

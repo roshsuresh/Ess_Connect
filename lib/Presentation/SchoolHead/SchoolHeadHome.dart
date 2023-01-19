@@ -4,19 +4,22 @@ import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart'
 import 'package:essconnect/Application/AdminProviders/dashboardProvider.dart';
 import 'package:essconnect/Application/Module%20Providers.dart/Module.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
-import 'package:essconnect/Presentation/Admin/AttendanceTaken/AbsentReport.dart';
 import 'package:essconnect/Presentation/Admin/AttendanceTaken/Takenornot.dart';
+import 'package:essconnect/Presentation/Admin/Communication/ToGuardian.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
 import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
 import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.dart';
-import 'package:essconnect/Presentation/Admin/MarkentryReport.dart';
+import 'package:essconnect/Presentation/Admin/NoticeBoard/NoticeboardScreen.dart';
+import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
 import 'package:essconnect/Presentation/Admin/demo.dart';
+import 'package:essconnect/Presentation/SchoolSuperAdmin/GalleryReceived.dart';
+import 'package:essconnect/Presentation/SchoolSuperAdmin/NoticeBoardSA.dart';
+import 'package:essconnect/Presentation/Staff/StaffHome.dart';
 import 'package:essconnect/Presentation/Staff/StudAttendenceEntry.dart';
 import 'package:essconnect/Presentation/Staff/StudReport.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
-import 'package:essconnect/Presentation/Student/TimeTable.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -25,24 +28,18 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Application/StudentProviders/InternetConnection.dart';
 import '../../Constants.dart';
+import '../Admin/AttendanceTaken/AbsentReport.dart';
 import '../Login_Activation/Login_page.dart';
 import '../Student/PasswordChange.dart';
-import 'Communication/ToGuardian.dart';
-import 'FeeCollectionReport/FeeReport.dart';
-import 'FlashNews/FlashnewsScreen.dart';
-import 'Gallery/GalleryScreen.dart';
-import 'NoticeBoard/NoticeboardScreen.dart';
-import 'StaffReport.dart';
-import 'FeeDetails/StudFeeSearch.dart';
 
-class AdminHome extends StatefulWidget {
-  const AdminHome({Key? key}) : super(key: key);
+class SchoolHeadHomeScreen extends StatefulWidget {
+  const SchoolHeadHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<AdminHome> createState() => _AdminHomeState();
+  State<SchoolHeadHomeScreen> createState() => _SchoolHeadHomeScreenState();
 }
 
-class _AdminHomeState extends State<AdminHome> {
+class _SchoolHeadHomeScreenState extends State<SchoolHeadHomeScreen> {
   @override
   void initState() {
     super.initState();
@@ -62,10 +59,14 @@ class _AdminHomeState extends State<AdminHome> {
             : ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const AdminProfileTop(),
+                  const SuperAdminProfileTop(),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  StaffFlashNews(),
                   Container(
                     width: size.width,
-                    height: size.height - 170,
+                    height: size.height - 200,
                     decoration: BoxDecoration(
                         border:
                             Border.all(color: UIGuide.THEME_LIGHT, width: 1),
@@ -73,7 +74,7 @@ class _AdminHomeState extends State<AdminHome> {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
-                    child: const AdminHomeContent(),
+                    child: const SchoolHeadHomeScreenContents(),
                   )
                 ],
               ),
@@ -82,8 +83,8 @@ class _AdminHomeState extends State<AdminHome> {
   }
 }
 
-class AdminHomeContent extends StatelessWidget {
-  const AdminHomeContent({Key? key}) : super(key: key);
+class SchoolHeadHomeScreenContents extends StatelessWidget {
+  const SchoolHeadHomeScreenContents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -238,54 +239,8 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const StaffReport()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/01staffreport.jpg',
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            ' Staff Report',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ExamTimetable()),
+                            builder: (context) =>
+                                const GalleryReceivedSAdmin()),
                       );
                     },
                     child: Padding(
@@ -308,7 +263,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Timetable.png',
+                                      'assets/Gallery.png',
                                     ),
                                   ),
                                 ),
@@ -317,7 +272,54 @@ class AdminHomeContent extends StatelessWidget {
                           ),
                           kheight10,
                           const Text(
-                            '     Exam \n TimeTable',
+                            'Gallery',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NoticeBoardSA()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Noticeboard.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            'NoticeBoard',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -363,13 +365,12 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const FeeReport()),
+                            builder: (context) => const StaffReport()),
                       );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Card(
                             elevation: 10,
@@ -382,74 +383,26 @@ class AdminHomeContent extends StatelessWidget {
                               child: Container(
                                 height: 38,
                                 width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
+                                decoration: BoxDecoration(
+                                  image: const DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/01feescollectionreport.png',
+                                      'assets/01staffreport.jpg',
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Center(
-                            child: Text(
-                              'Fees Collection \n        Report',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const StudentFeeSearch()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      "assets/Fees.png",
-                                    ),
-                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
                             ),
                           ),
                           kheight10,
                           const Text(
-                            '    Student \nFees Report',
+                            ' Staff Report',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.bold),
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -517,28 +470,12 @@ class AdminHomeContent extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          duration: Duration(seconds: 1),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Something went wrong...',
-                            textAlign: TextAlign.center,
-                          ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SMSFormats(),
                         ),
                       );
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => MarkentryReportByAdmin(),
-                      //   ),
-                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -569,6 +506,53 @@ class AdminHomeContent extends StatelessWidget {
                           kheight10,
                           const Text(
                             'Mark Entry\n   Report',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NotificationHistory()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Notification.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            'Notification\n     History',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -695,7 +679,7 @@ class AdminHomeContent extends StatelessWidget {
                           ),
                           kheight10,
                           const Text(
-                            'Absentees\n   Report',
+                            'Absentees\n    Report',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -916,7 +900,7 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const NotificationHistory()),
+                            builder: (context) => ExamTimetable()),
                       );
                     },
                     child: Padding(
@@ -939,7 +923,7 @@ class AdminHomeContent extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Notification.png',
+                                      'assets/Timetable.png',
                                     ),
                                   ),
                                 ),
@@ -948,155 +932,7 @@ class AdminHomeContent extends StatelessWidget {
                           ),
                           kheight10,
                           const Text(
-                            'Notification\n     History',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AdminGallery()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Gallery.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'Gallery',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              kheight10,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ScreenFlashNews()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/01flashnews.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'Flash News',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NoticeBoardAdnin()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Noticeboard.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'NoticeBoard',
+                            '     Exam \n TimeTable',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -1164,7 +1000,8 @@ class AdminHomeContent extends StatelessWidget {
                   ),
                 ],
               ),
-              kheight20,
+              kheight10,
+              kheight10,
               Row(children: <Widget>[
                 const Text(
                   ' ──  ',
@@ -1332,14 +1169,14 @@ class AdminHomeContent extends StatelessWidget {
   }
 }
 
-class AdminProfileTop extends StatefulWidget {
-  const AdminProfileTop({Key? key}) : super(key: key);
+class SuperAdminProfileTop extends StatefulWidget {
+  const SuperAdminProfileTop({Key? key}) : super(key: key);
 
   @override
-  State<AdminProfileTop> createState() => _AdminProfileTopState();
+  State<SuperAdminProfileTop> createState() => _SuperAdminProfileTopState();
 }
 
-class _AdminProfileTopState extends State<AdminProfileTop> {
+class _SuperAdminProfileTopState extends State<SuperAdminProfileTop> {
   @override
   void initState() {
     super.initState();

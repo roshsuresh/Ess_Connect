@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:core';
 import 'dart:io';
+import 'package:essconnect/Application/AdminProviders/Attendanceprovider.dart';
 import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
 import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
 import 'package:essconnect/Application/StudentProviders/DiaryProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
+import 'package:essconnect/Application/SuperAdminProviders/NoticeBoardProvidersSA.dart';
+import 'package:essconnect/Presentation/SchoolHead/SchoolHeadHome.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/SuperAdminHome.dart';
 import 'package:essconnect/routes.dart';
 import 'package:essconnect/utils/constants.dart';
@@ -246,9 +249,12 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(create: (context) => DiaryProvidersstud()),
         ChangeNotifierProvider(create: (context) => ExamTTAdmProviders()),
         ChangeNotifierProvider(create: (context) => ExamTTAdmProvidersStaff()),
+        ChangeNotifierProvider(create: (context) => AttendanceReportProvider()),
+        ChangeNotifierProvider(
+            create: (context) => NoticeBoardProvidersSAdmin()),
       ],
       child: MaterialApp(
-        title: 'Ess Connect',
+        title: 'Ess Connect Pro',
         theme: ThemeData(
           primaryColor: UIGuide.light_Purple,
           inputDecorationTheme: InputDecorationTheme(
@@ -263,55 +269,6 @@ class _GjInfoTechState extends State<GjInfoTech> {
     );
   }
 }
-
-// class SplashFuturePage extends StatefulWidget {
-//   SplashFuturePage({Key? key}) : super(key: key);
-
-//   @override
-//   _SplashFuturePageState createState() => _SplashFuturePageState();
-// }
-
-// class _SplashFuturePageState extends State<SplashFuturePage> {
-//   SharedPreferences? prefs;
-//   Future<Widget> _checkSession() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     if (prefs.getBool('activated') != null) {
-//       if (prefs.getString('accesstoken') != null) {
-//         var data = await parseJWT();
-//         if (data['role'] == "SystemAdmin") {
-//           return Future.value(AdminHome());
-//         } else if (data['role'] == "Teacher") {
-//           return Future.value(StaffHome());
-//         } else {
-//           return Future.value(StudentHome());
-//         }
-//       } else {
-//         return Future.value(LoginPage());
-//       }
-//     } else {
-//       return Future.value(const ActivatePage());
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return EasySplashScreen(
-//       durationInSeconds: 2,
-//       logo: Image.asset('assets/logo.png'),
-//       title: const Text(
-//         "Ess Online",
-//         style: TextStyle(
-//           fontSize: 18,
-//           fontWeight: FontWeight.bold,
-//         ),
-//       ),
-//       backgroundColor: Colors.grey.shade400,
-//       showLoader: true,
-//       loadingText: Text("Loading..."),
-//       futureNavigator: _checkSession(),
-//     );
-//   }
-// }
 
 class SplashFuturePage extends StatefulWidget {
   SplashFuturePage({Key? key}) : super(key: key);
@@ -349,6 +306,11 @@ class _SplashFuturePageState extends State<SplashFuturePage>
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => SuperAdminHome()),
+          );
+        } else if (data['role'] == "SchoolHead") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => SchoolHeadHomeScreen()),
           );
         } else {
           Navigator.pushReplacement(

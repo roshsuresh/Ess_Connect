@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Admin/AdminHome.dart';
+import 'package:essconnect/Presentation/SchoolHead/SchoolHeadHome.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/SuperAdminHome.dart';
 import 'package:essconnect/Presentation/Student/Student_home.dart';
 import 'package:essconnect/utils/LoadingIndication.dart';
@@ -348,7 +349,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       LoginModel res = LoginModel.fromJson(data);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('accesstoken', res.accessToken);
-      // await  Provider.of<ProfileProvider>(context).profileData();
 
       Provider.of<LoginProvider>(context, listen: false).getToken(context);
       var parsedResponse = await parseJWT();
@@ -397,6 +397,18 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) => SuperAdminHome()));
+      } else if (parsedResponse['role'] == "SchoolHead") {
+        if (isLoading) return;
+        setState(() {
+          isLoading = true;
+        });
+
+        await Future.delayed(const Duration(seconds: 3));
+
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => SchoolHeadHomeScreen()));
       } else {
         Navigator.pushReplacement(
             context,

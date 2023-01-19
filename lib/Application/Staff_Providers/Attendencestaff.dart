@@ -231,8 +231,7 @@ class AttendenceStaffProvider with ChangeNotifier {
   //save
 
   Future attendanceSave(
-      BuildContext context,List finallList,String date
-      ) async {
+      BuildContext context, List finallList, String date) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
 
     var headers = {
@@ -245,6 +244,7 @@ class AttendenceStaffProvider with ChangeNotifier {
 
     request.body = json.encode(finallList);
 
+    log("finalelist      $finallList".toString());
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -253,17 +253,18 @@ class AttendenceStaffProvider with ChangeNotifier {
       print('Correct........______________________________');
       print(await response.stream.bytesToString());
       await AwesomeDialog(
-          context: context,
-          dialogType: DialogType.success,
-          animType: AnimType.rightSlide,
-          headerAnimationLoop: false,
-          title: 'Success',
-          desc: 'Successfully Saved',
-          btnOkOnPress: () {
-            return;
-          },
-          btnOkIcon: Icons.cancel,
-          btnOkColor: Colors.green)
+              dismissOnTouchOutside: false,
+              dismissOnBackKeyPress: false,
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              headerAnimationLoop: false,
+              title: 'Success',
+              desc: 'Successfully Saved',
+              btnOkOnPress: () async {
+                await clearStudentList();
+              },
+              btnOkColor: Colors.green)
           .show();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -283,38 +284,62 @@ class AttendenceStaffProvider with ChangeNotifier {
     }
   }
 
+  //delete
 
-  //savenew
- // String? date;
- //  Future<bool> saveattendance(AttendanceSaveModel model) async {
- //    SharedPreferences _pref = await SharedPreferences.getInstance();
- //
- //    var headers = {
- //      'Content-Type': 'application/json',
- //      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
- //    };
- //
- //    var request = http.Request('POST',
- //        Uri.parse('${UIGuide.baseURL}/mobileapp/staff/saveattendance/$date'));
- //    request.body = jsonEncode(model.toJson());
- //    print(jsonEncode(model.toJson()));
- //
- //    http.StreamedResponse response = await request.send();
- //
- //    if (response.statusCode == 200) {
- //      // print(jsonDecode(await response.stream.bytesToString()));
- //      List<dynamic> lis = jsonDecode(await response.stream.bytesToString());
- //      Map<String, dynamic> re = lis[0];
- //      print(re.toString());
- //
- //      notifyListeners();
- //    } else {
- //      print(response.reasonPhrase);
- //    }
- //    return true;
- //  }
+  Future attendanceDelete(
+      String divisionid, String date, BuildContext context) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
 
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+    var request = http.Request(
+        'DELETE',
+        Uri.parse(
+            '${UIGuide.baseURL}/mobileapp/staff/deleteAttendence/?attendanceDate=$date&divisionId=$divisionid'));
+    request.headers.addAll(headers);
+    print(request);
+    http.StreamedResponse response = await request.send();
 
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      print('correct');
+      // await AwesomeDialog(
+      //     dismissOnTouchOutside: false,
+      //     dismissOnBackKeyPress: false,
+      //     context: context,
+      //     dialogType: DialogType.error,
+      //     animType: AnimType.rightSlide,
+      //     headerAnimationLoop: false,
+      //     title: 'Delete',
+      //     desc: 'Deleted Successfully',
+      //     btnOkOnPress: () async {
+      //       await clearStudentList();
+      //
+      //     },
+      //
+      //     btnOkColor: Colors.red)
+      // .show();
+      await clearStudentList();
+      notifyListeners();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'No data to delete....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      print('Error in noticeDelete stf');
+    }
+  }
 
   clearStudentList() {
     studentsAttendenceView.clear();
@@ -327,16 +352,6 @@ class AttendenceStaffProvider with ChangeNotifier {
   //       .firstWhere((element) => element.admNo == model.admNo);
   //   return selected.select!;
   // }
-
-  void selectItem(StudentsAttendenceView_stf model) {
-    StudentsAttendenceView_stf selected = studentsAttendenceView
-        .firstWhere((element) => element.admNo == model.admNo);
-    selected.select ??= true;
-    selected.select ??= false;
-    selected.select = !selected.select!;
-    print(selected.toJson());
-    notifyListeners();
-  }
 
   //submit
 
@@ -391,8 +406,8 @@ class AttendenceStaffProvider with ChangeNotifier {
     _mydatetime = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 5)),
-      lastDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
       builder: (context, child) {
         return Theme(
             data: ThemeData.light().copyWith(
