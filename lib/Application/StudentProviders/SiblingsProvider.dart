@@ -94,7 +94,9 @@ class SibingsProvider with ChangeNotifier {
         MaterialPageRoute(builder: (context) => StudentHome()),
         (Route<dynamic> route) => false,
       );
+
       isLoading = false;
+
       notifyListeners();
     } else {
       print('something went wrong in siblings list provider');

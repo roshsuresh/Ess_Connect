@@ -103,10 +103,10 @@ class Profile_Info extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Table(
-                                      border: TableBorder.all(
-                                          color: UIGuide.light_Purple,
-                                          style: BorderStyle.solid,
-                                          width: .5),
+                                      // border: TableBorder.all(
+                                      //     color: UIGuide.light_Purple,
+                                      //     style: BorderStyle.solid,
+                                      //     width: .5),
                                       children: [
                                         TableRow(children: [
                                           Column(
@@ -147,14 +147,17 @@ class Profile_Info extends StatelessWidget {
                               )),
                         ),
                         Center(
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              provider.studPhoto == null
-                                  ? 'https://png.pngtree.com/element_our/png/20181129/male-student-icon-png_251938.jpg'
-                                  : provider.studPhoto.toString(),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                provider.studPhoto == null
+                                    ? 'https://png.pngtree.com/element_our/png/20181129/male-student-icon-png_251938.jpg'
+                                    : provider.studPhoto.toString(),
+                              ),
+                              radius: 65,
+                              backgroundColor: UIGuide.WHITE,
                             ),
-                            radius: 65,
-                            backgroundColor: UIGuide.WHITE,
                           ),
                         )
                       ],
@@ -168,9 +171,11 @@ class Profile_Info extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            kheight10,
                             Row(
                               children: const [
                                 kWidth,
+
                                 Icon(Icons.person_outline_outlined),
                                 kWidth,
                                 Text(
@@ -179,7 +184,7 @@ class Profile_Info extends StatelessWidget {
                                 )
                               ],
                             ),
-                            Container(
+                            Container  (
                                 margin: const EdgeInsets.only(
                                     left: 10.0, right: 20.0),
                                 child: const Divider(
@@ -508,9 +513,13 @@ class Profile_Info extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
+<<<<<<< HEAD
                                     color: const Color.fromARGB(
                                         255, 240, 243, 247),
                                     //color: Colors.white,
+=======
+                                    color: Color.fromARGB(255, 240, 243, 247),
+>>>>>>> 01bc06bd4fc0b877724c35925af0762090084e31
                                     // border: Border.all(
                                     //   color: const Color.fromARGB(
                                     //       255, 230, 237, 245),
@@ -525,6 +534,7 @@ class Profile_Info extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+
                                       const Text(
                                         'Permanent Address',
                                         style: TextStyle(

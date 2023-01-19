@@ -81,6 +81,7 @@ class StudentsAttendenceView_stf {
   String? admNo;
   int? rollNo;
   String? name;
+  bool? terminatedStatus;
   bool? select;
   bool? selectedd;
   String? absent;
@@ -94,6 +95,7 @@ class StudentsAttendenceView_stf {
       this.admNo,
       this.rollNo,
       this.name,
+        this.terminatedStatus,
       this.select,
       this.selectedd,
       this.absent});
@@ -124,4 +126,54 @@ class StudentsAttendenceView_stf {
     data['id'] = id;
     return data;
   }
+}
+
+
+
+class AttendanceSaveModel {
+  AttendanceSaveModel({
+    this.studAttId,
+    this.divisionId,
+    this.id,
+    this.forenoon,
+    this.afternoon,
+    this.admNo,
+    this.rollNo,
+    this.name,
+    this.terminatedStatus,
+  });
+
+  dynamic studAttId;
+  String? divisionId;
+  String? id;
+  String? forenoon;
+  String? afternoon;
+  String? admNo;
+  int? rollNo;
+  String? name;
+  bool? terminatedStatus;
+
+  factory AttendanceSaveModel.fromJson(Map<String, dynamic> json) => AttendanceSaveModel(
+    studAttId: json["studAttId"],
+    divisionId: json["divisionId"],
+    id: json["id"],
+    forenoon: json["forenoon"],
+    afternoon: json["afternoon"],
+    admNo: json["admNo"],
+    rollNo: json["rollNo"],
+    name: json["name"],
+    terminatedStatus: json["terminatedStatus"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "studAttId": studAttId,
+    "divisionId": divisionId,
+    "id": id,
+    "forenoon": forenoon,
+    "afternoon": afternoon,
+    "admNo": admNo,
+    "rollNo": rollNo,
+    "name": name,
+    "terminatedStatus": terminatedStatus,
+  };
 }

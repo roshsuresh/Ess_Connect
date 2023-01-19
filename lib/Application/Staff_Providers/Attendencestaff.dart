@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Domain/Staff/StaffAttandenceModel.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -181,9 +182,11 @@ class AttendenceStaffProvider with ChangeNotifier {
   }
 
   //view Attendence
-  String? attt;
+  String? forattt;
+  String? aftattt;
   attendView() {
-    attt;
+    forattt;
+    aftattt;
     notifyListeners();
   }
 
@@ -224,6 +227,94 @@ class AttendenceStaffProvider with ChangeNotifier {
     }
     return true;
   }
+
+  //save
+
+  Future attendanceSave(
+      BuildContext context,List finallList,String date
+      ) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var request = http.Request('POST',
+        Uri.parse('${UIGuide.baseURL}/mobileapp/staff/saveattendance/$date'));
+
+    request.body = json.encode(finallList);
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print('Correct........______________________________');
+      print(await response.stream.bytesToString());
+      await AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          headerAnimationLoop: false,
+          title: 'Success',
+          desc: 'Successfully Saved',
+          btnOkOnPress: () {
+            return;
+          },
+          btnOkIcon: Icons.cancel,
+          btnOkColor: Colors.green)
+          .show();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      print('Error Response in attendance');
+    }
+  }
+
+
+  //savenew
+ // String? date;
+ //  Future<bool> saveattendance(AttendanceSaveModel model) async {
+ //    SharedPreferences _pref = await SharedPreferences.getInstance();
+ //
+ //    var headers = {
+ //      'Content-Type': 'application/json',
+ //      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+ //    };
+ //
+ //    var request = http.Request('POST',
+ //        Uri.parse('${UIGuide.baseURL}/mobileapp/staff/saveattendance/$date'));
+ //    request.body = jsonEncode(model.toJson());
+ //    print(jsonEncode(model.toJson()));
+ //
+ //    http.StreamedResponse response = await request.send();
+ //
+ //    if (response.statusCode == 200) {
+ //      // print(jsonDecode(await response.stream.bytesToString()));
+ //      List<dynamic> lis = jsonDecode(await response.stream.bytesToString());
+ //      Map<String, dynamic> re = lis[0];
+ //      print(re.toString());
+ //
+ //      notifyListeners();
+ //    } else {
+ //      print(response.reasonPhrase);
+ //    }
+ //    return true;
+ //  }
+
+
 
   clearStudentList() {
     studentsAttendenceView.clear();

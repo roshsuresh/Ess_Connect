@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:essconnect/Application/Staff_Providers/Attendencestaff.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -99,6 +101,7 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                     ],
                   ),
                 ),
+<<<<<<< HEAD
               )
             : ListView(
                 physics: const BouncingScrollPhysics(),
@@ -437,6 +440,219 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                   )
                 ],
               );
+=======
+              ],
+            ),
+            kheight10,
+            Consumer<AttendenceStaffProvider>(
+               builder: (context, val, child) => val.loading
+        ? Column(
+        children: [
+        const SizedBox(
+        height: 150,
+        ),
+        spinkitLoader(),
+        ],
+        )
+            : Column(
+        children: [
+        Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Table(
+        columnWidths: const {
+        0: FlexColumnWidth(1),
+        1: FlexColumnWidth(3),
+        2: FlexColumnWidth(1),
+        // 3: FlexColumnWidth(1.5),
+        },
+        children: const [
+        TableRow(
+        decoration: BoxDecoration(
+        color: Color.fromARGB(255, 228, 224, 224),
+        ),
+        children: [
+        SizedBox(
+        height: 30,
+        child: Center(
+        child: Text(
+        'Roll No.',
+        style: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 12),
+        )),
+        ),
+        SizedBox(
+        height: 30,
+        child: Center(
+        child: Text(
+        'Name           ',
+        style: TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 12),
+        ),
+        ),
+        ),
+        SizedBox(
+        height: 30,
+        child: Center(
+        child: Text(
+        'Attendance',
+        style: TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 12),
+        )),
+        ),
+        ]),
+        ],
+        ),
+        ),
+        Consumer<AttendenceStaffProvider>(
+        builder: (context, value, child) {
+        return value.loading
+        ? spinkitLoader()
+            : LimitedBox(
+        maxHeight: 530,
+        child: Scrollbar(
+        child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: value.studentsAttendenceView.length,
+        itemBuilder: ((context, index) {
+        String att = value
+            .studentsAttendenceView[index]
+            .absent ??
+        '--';
+        value.forattt = value
+            .studentsAttendenceView[index].forenoon;
+
+        return Column(
+        children: [
+        Table(
+        columnWidths: const {
+        0: FlexColumnWidth(1.0),
+        1: FlexColumnWidth(3),
+        2: FlexColumnWidth(1),
+        },
+        children: [
+        TableRow(
+        decoration: const BoxDecoration(),
+        children: [
+        Text(
+        value
+            .studentsAttendenceView[
+        index]
+            .rollNo ==
+        null
+        ? '0'
+            : value
+            .studentsAttendenceView[
+        index]
+            .rollNo
+            .toString(),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+        fontSize: 12),
+        ),
+        Text(
+        value
+            .studentsAttendenceView[
+        index]
+            .name ??
+        '--',
+        textAlign: TextAlign.start,
+        style: const TextStyle(
+        fontSize: 14),
+        ),
+        GestureDetector(
+        onTap: () async {
+        await value.attendView();
+        value.forattt = value
+            .studentsAttendenceView[
+        index]
+            .forenoon;
+        value.aftattt = value.studentsAttendenceView[index].afternoon;
+
+        if (value.aftattt == 'A' || value.forattt == 'A') {
+        value.forattt = 'P';
+        value.aftattt = 'P';
+        print(value.forattt);
+        print(value.aftattt);
+
+        } else if (value.forattt ==
+        'P' || value.aftattt =='P') {
+        value.forattt = "A";
+        value.aftattt ="A";
+        print(
+        "-------fornoon${value.forattt}");
+        print(
+        "-------afternoon${value.aftattt}");
+        }
+        value.selectItem(value
+            .studentsAttendenceView[
+        index]);
+        if (value
+            .studentsAttendenceView[
+        index]
+            .select !=
+        null &&
+        value
+            .studentsAttendenceView[
+        index]
+            .select!) {
+        att = value
+            .studentsAttendenceView[
+        index]
+            .absent ??
+        '--';
+        print('Absent');
+        print(att);
+        } else {
+        att = "P";
+        print('Present');
+        }
+        },
+        child: Container(
+        color: Colors.transparent,
+        width: 25,
+        height: 22,
+        child: SizedBox(
+        width: 25,
+        height: 22,
+        child: value
+            .studentsAttendenceView[
+        index]
+            .select !=
+        null &&
+        value
+            .studentsAttendenceView[
+        index]
+            .select! &&
+        value.forattt == 'A'
+        ? SvgPicture.asset(
+        UIGuide.absent,
+        )
+            : SvgPicture.asset(
+        UIGuide.present,
+        ),
+        ),
+        ),
+        ),
+        ]),
+        ],
+        ),
+        kheight20,
+        ],
+        );
+        }),
+        ),
+        ),
+        );
+        },
+        ),
+        ],
+        ),
+            )
+          ],
+        );
+>>>>>>> 01bc06bd4fc0b877724c35925af0762090084e31
       }),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
@@ -446,17 +662,37 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
             children: [
               kWidth,
               const Spacer(),
-              MaterialButton(
-                onPressed: () async {
-                  await Provider.of<AttendenceStaffProvider>(context,
-                          listen: false)
-                      .submitStudent(context);
-                },
-                color: UIGuide.light_Purple,
-                child: const Text(
-                  'Save',
-                  style: TextStyle(color: Colors.white),
-                ),
+              Consumer<AttendenceStaffProvider>(
+                builder: (context , value,child) {
+                  return MaterialButton(
+                    onPressed: () async {
+                      List obj = [];
+                      print("length:  ${value.studentsAttendenceView.length}");
+                      for(int i=0;i<value.studentsAttendenceView.length;i++){
+                       obj.add({
+                           "studAttId": null,
+                           "divisionId": value.studentsAttendenceView[i].divisionId,
+                           "id": value.studentsAttendenceView[i].id,
+                           "forenoon": value.forattt,
+                           "afternoon": value.aftattt,
+                           "admNo": value.studentsAttendenceView[i].admNo,
+                           "rollNo": value.studentsAttendenceView[i].rollNo,
+                           "name": value.studentsAttendenceView[i].name,
+                           "terminatedStatus": false,
+                       });
+                        }
+                      log("Litsssss   $obj");
+                      await value.attendanceSave(context, obj,dateFinal);
+                    },
+
+                    color: UIGuide.light_Purple,
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+
+                }
               ),
               kWidth,
               MaterialButton(
@@ -475,219 +711,226 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
   }
 }
 
-class AttendenceviewWidget extends StatefulWidget {
-  AttendenceviewWidget({Key? key}) : super(key: key);
-
-  @override
-  State<AttendenceviewWidget> createState() => _AttendenceviewWidgetState();
-}
-
-class _AttendenceviewWidgetState extends State<AttendenceviewWidget> {
-  String att = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AttendenceStaffProvider>(
-      builder: (context, val, child) => val.loading
-          ? Column(
-              children: [
-                const SizedBox(
-                  height: 150,
-                ),
-                spinkitLoader(),
-              ],
-            )
-          : Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Table(
-                    columnWidths: const {
-                      0: FlexColumnWidth(1),
-                      1: FlexColumnWidth(3),
-                      2: FlexColumnWidth(1),
-                      // 3: FlexColumnWidth(1.5),
-                    },
-                    children: const [
-                      TableRow(
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 228, 224, 224),
-                          ),
-                          children: [
-                            SizedBox(
-                              height: 30,
-                              child: Center(
-                                  child: Text(
-                                'Roll No.',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12),
-                              )),
-                            ),
-                            SizedBox(
-                              height: 30,
-                              child: Center(
-                                child: Text(
-                                  'Name           ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                              child: Center(
-                                  child: Text(
-                                'Attendance',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12),
-                              )),
-                            ),
-                          ]),
-                    ],
-                  ),
-                ),
-                Consumer<AttendenceStaffProvider>(
-                  builder: (context, value, child) {
-                    return value.loading
-                        ? spinkitLoader()
-                        : LimitedBox(
-                            maxHeight: 530,
-                            child: Scrollbar(
-                              child: ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: value.studentsAttendenceView.length,
-                                itemBuilder: ((context, index) {
-                                  String att = value
-                                          .studentsAttendenceView[index]
-                                          .absent ??
-                                      '--';
-                                  value.attt = value
-                                      .studentsAttendenceView[index].forenoon;
-
-                                  return Column(
-                                    children: [
-                                      Table(
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(1.0),
-                                          1: FlexColumnWidth(3),
-                                          2: FlexColumnWidth(1),
-                                        },
-                                        children: [
-                                          TableRow(
-                                              decoration: const BoxDecoration(),
-                                              children: [
-                                                Text(
-                                                  value
-                                                              .studentsAttendenceView[
-                                                                  index]
-                                                              .rollNo ==
-                                                          null
-                                                      ? '0'
-                                                      : value
-                                                          .studentsAttendenceView[
-                                                              index]
-                                                          .rollNo
-                                                          .toString(),
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                      fontSize: 12),
-                                                ),
-                                                Text(
-                                                  value
-                                                          .studentsAttendenceView[
-                                                              index]
-                                                          .name ??
-                                                      '--',
-                                                  textAlign: TextAlign.start,
-                                                  style: const TextStyle(
-                                                      fontSize: 14),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    await value.attendView();
-                                                    value.attt = value
-                                                        .studentsAttendenceView[
-                                                            index]
-                                                        .forenoon;
-
-                                                    if (value.attt == 'A') {
-                                                      value.attt = 'P';
-                                                      print(value.attt);
-                                                    } else if (value.attt ==
-                                                        'P') {
-                                                      value.attt = "A";
-                                                      print(
-                                                          "-------------${value.attt}");
-                                                    }
-                                                    value.selectItem(value
-                                                            .studentsAttendenceView[
-                                                        index]);
-                                                    if (value
-                                                                .studentsAttendenceView[
-                                                                    index]
-                                                                .select !=
-                                                            null &&
-                                                        value
-                                                            .studentsAttendenceView[
-                                                                index]
-                                                            .select!) {
-                                                      att = value
-                                                              .studentsAttendenceView[
-                                                                  index]
-                                                              .absent ??
-                                                          '--';
-                                                      print('Absent');
-                                                      print(att);
-                                                    } else {
-                                                      att = "P";
-                                                      print('Present');
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    color: Colors.transparent,
-                                                    width: 25,
-                                                    height: 22,
-                                                    child: SizedBox(
-                                                      width: 25,
-                                                      height: 22,
-                                                      child: value
-                                                                      .studentsAttendenceView[
-                                                                          index]
-                                                                      .select !=
-                                                                  null &&
-                                                              value
-                                                                  .studentsAttendenceView[
-                                                                      index]
-                                                                  .select! &&
-                                                              value.attt == 'P'
-                                                          ? SvgPicture.asset(
-                                                              UIGuide.absent,
-                                                            )
-                                                          : SvgPicture.asset(
-                                                              UIGuide.present,
-                                                            ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ]),
-                                        ],
-                                      ),
-                                      kheight20,
-                                    ],
-                                  );
-                                }),
-                              ),
-                            ),
-                          );
-                  },
-                ),
-              ],
-            ),
-    );
-  }
-}
+// class AttendenceviewWidget extends StatefulWidget {
+//   AttendenceviewWidget({Key? key}) : super(key: key);
+//
+//   @override
+//   State<AttendenceviewWidget> createState() => _AttendenceviewWidgetState();
+// }
+//
+// class _AttendenceviewWidgetState extends State<AttendenceviewWidget> {
+//   String att = '';
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<AttendenceStaffProvider>(
+//       builder: (context, val, child) => val.loading
+//           ? Column(
+//               children: [
+//                 const SizedBox(
+//                   height: 150,
+//                 ),
+//                 spinkitLoader(),
+//               ],
+//             )
+//           : Column(
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.all(5.0),
+//                   child: Table(
+//                     columnWidths: const {
+//                       0: FlexColumnWidth(1),
+//                       1: FlexColumnWidth(3),
+//                       2: FlexColumnWidth(1),
+//                       // 3: FlexColumnWidth(1.5),
+//                     },
+//                     children: const [
+//                       TableRow(
+//                           decoration: BoxDecoration(
+//                             color: Color.fromARGB(255, 228, 224, 224),
+//                           ),
+//                           children: [
+//                             SizedBox(
+//                               height: 30,
+//                               child: Center(
+//                                   child: Text(
+//                                 'Roll No.',
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.w500, fontSize: 12),
+//                               )),
+//                             ),
+//                             SizedBox(
+//                               height: 30,
+//                               child: Center(
+//                                 child: Text(
+//                                   'Name           ',
+//                                   style: TextStyle(
+//                                       fontWeight: FontWeight.w500,
+//                                       fontSize: 12),
+//                                 ),
+//                               ),
+//                             ),
+//                             SizedBox(
+//                               height: 30,
+//                               child: Center(
+//                                   child: Text(
+//                                 'Attendance',
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.w500, fontSize: 12),
+//                               )),
+//                             ),
+//                           ]),
+//                     ],
+//                   ),
+//                 ),
+//                 Consumer<AttendenceStaffProvider>(
+//                   builder: (context, value, child) {
+//                     return value.loading
+//                         ? spinkitLoader()
+//                         : LimitedBox(
+//                             maxHeight: 530,
+//                             child: Scrollbar(
+//                               child: ListView.builder(
+//                                 physics: const BouncingScrollPhysics(),
+//                                 shrinkWrap: true,
+//                                 itemCount: value.studentsAttendenceView.length,
+//                                 itemBuilder: ((context, index) {
+//                                   String att = value
+//                                           .studentsAttendenceView[index]
+//                                           .absent ??
+//                                       '--';
+//                                   value.forattt = value
+//                                       .studentsAttendenceView[index].forenoon;
+//
+//                                   return Column(
+//                                     children: [
+//                                       Table(
+//                                         columnWidths: const {
+//                                           0: FlexColumnWidth(1.0),
+//                                           1: FlexColumnWidth(3),
+//                                           2: FlexColumnWidth(1),
+//                                         },
+//                                         children: [
+//                                           TableRow(
+//                                               decoration: const BoxDecoration(),
+//                                               children: [
+//                                                 Text(
+//                                                   value
+//                                                               .studentsAttendenceView[
+//                                                                   index]
+//                                                               .rollNo ==
+//                                                           null
+//                                                       ? '0'
+//                                                       : value
+//                                                           .studentsAttendenceView[
+//                                                               index]
+//                                                           .rollNo
+//                                                           .toString(),
+//                                                   textAlign: TextAlign.center,
+//                                                   style: const TextStyle(
+//                                                       fontSize: 12),
+//                                                 ),
+//                                                 Text(
+//                                                   value
+//                                                           .studentsAttendenceView[
+//                                                               index]
+//                                                           .name ??
+//                                                       '--',
+//                                                   textAlign: TextAlign.start,
+//                                                   style: const TextStyle(
+//                                                       fontSize: 14),
+//                                                 ),
+//                                                 GestureDetector(
+//                                                   onTap: () async {
+//                                                     await value.attendView();
+//                                                     value.forattt = value
+//                                                         .studentsAttendenceView[
+//                                                             index]
+//                                                         .forenoon;
+//                                                     value.aftattt = value.studentsAttendenceView[index].afternoon;
+//
+//                                                     if (value.aftattt == 'A' || value.forattt == 'A') {
+//                                                       value.forattt = 'P';
+//                                                       value.aftattt = 'P';
+//                                                       print(value.forattt);
+//                                                       print(value.aftattt);
+//
+//                                                     } else if (value.forattt ==
+//                                                         'P' || value.aftattt =='P') {
+//                                                       value.forattt = "A";
+//                                                       value.aftattt ="A";
+//                                                       print(
+//                                                           "-------fornoon${value.forattt}");
+//                                                       print(
+//                                                           "-------afternoon${value.aftattt}");
+//                                                     }
+//                                                     value.selectItem(value
+//                                                             .studentsAttendenceView[
+//                                                         index]);
+//                                                     if (value
+//                                                                 .studentsAttendenceView[
+//                                                                     index]
+//                                                                 .select !=
+//                                                             null &&
+//                                                         value
+//                                                             .studentsAttendenceView[
+//                                                                 index]
+//                                                             .select!) {
+//                                                       att = value
+//                                                               .studentsAttendenceView[
+//                                                                   index]
+//                                                               .absent ??
+//                                                           '--';
+//                                                       print('Absent');
+//                                                       print(att);
+//                                                     } else {
+//                                                       att = "P";
+//                                                       print('Present');
+//                                                     }
+//                                                   },
+//                                                   child: Container(
+//                                                     color: Colors.transparent,
+//                                                     width: 25,
+//                                                     height: 22,
+//                                                     child: SizedBox(
+//                                                       width: 25,
+//                                                       height: 22,
+//                                                       child: value
+//                                                                       .studentsAttendenceView[
+//                                                                           index]
+//                                                                       .select !=
+//                                                                   null &&
+//                                                               value
+//                                                                   .studentsAttendenceView[
+//                                                                       index]
+//                                                                   .select! &&
+//                                                               value.forattt == 'P'
+//                                                           ? SvgPicture.asset(
+//                                                               UIGuide.absent,
+//                                                             )
+//                                                           : SvgPicture.asset(
+//                                                               UIGuide.present,
+//                                                             ),
+//                                                     ),
+//                                                   ),
+//                                                 ),
+//                                               ]),
+//                                         ],
+//                                       ),
+//                                       kheight20,
+//                                     ],
+//                                   );
+//                                 }),
+//                               ),
+//                             ),
+//                           );
+//                   },
+//                 ),
+//               ],
+//             ),
+//     );
+//   }
+// }
 
 class DualAttendenceviewWidget extends StatelessWidget {
   const DualAttendenceviewWidget({Key? key}) : super(key: key);
