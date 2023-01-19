@@ -4,7 +4,9 @@ import 'package:essconnect/Application/AdminProviders/FlashNewsProviders.dart';
 import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Domain/Admin/Course&DivsionList.dart';
+import 'package:essconnect/Domain/Staff/ExamTTModelStaff.dart';
 import 'package:essconnect/utils/constants.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +61,8 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
     var size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
-      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      physics:
+          const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       child: Column(
         children: [
           const SizedBox(
@@ -92,7 +95,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
           kheight10,
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               SizedBox(
                 width: size.width * .45,
                 height: 35,
@@ -133,45 +136,63 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
               SizedBox(
                 width: size.width * .45,
                 height: 35,
-                child: MaterialButton(
-                  color: Colors.white,
-                  onPressed: (() async {
-                    final result = await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['png', 'jpeg', 'jpg', 'pdf']);
-                    if (result == null) {
-                      return;
-                    }
-                    final file = result.files.first;
-                    print('Name: ${file.name}');
-                    print('Path: ${file.path}');
-                    print('Extension: ${file.extension}');
+                child: Consumer<ExamTTAdmProvidersStaff>(
+                  builder: (context, value, child) => value.loading
+                      ? Container(
+                          child: const Center(
+                              child: Text(
+                          'Uploading Image....',
+                          style: TextStyle(color: UIGuide.light_Purple),
+                        )))
+                      : MaterialButton(
+                          color: Colors.white,
+                          onPressed: (() async {
+                            final result = await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                allowedExtensions: [
+                                  'png',
+                                  'jpeg',
+                                  'jpg',
+                                  'pdf'
+                                ]);
+                            if (result == null) {
+                              return;
+                            }
+                            final file = result.files.first;
+                            print('Name: ${file.name}');
+                            print('Path: ${file.path}');
+                            print('Extension: ${file.extension}');
 
-                    int sizee = file.size;
+                            int sizee = file.size;
 
-                    if (sizee <= 200000) {
-                      await Provider.of<ExamTTAdmProvidersStaff>(context,
-                              listen: false)
-                          .examImageSave(context, file.path.toString());
-                      if (file.name.length >= 6) {
-                        setState(() {
-                          checkname =
-                              file.name.replaceRange(6, file.name.length, '');
-                        });
+                            if (sizee <= 200000) {
+                              await Provider.of<ExamTTAdmProvidersStaff>(
+                                      context,
+                                      listen: false)
+                                  .examImageSave(context, file.path.toString());
+                              attach = value.id.toString();
+                              if (file.name.length >= 6) {
+                                setState(() {
+                                  checkname = file.name
+                                      .replaceRange(6, file.name.length, '');
+                                });
 
-                        print(checkname);
-                      }
-                    } else {
-                      print('Size Exceed');
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                        "Size Exceed (Less than 200KB allowed)",
-                        textAlign: TextAlign.center,
-                      )));
-                    }
-                  }),
-                  child: Text(
-                      checkname == null ? 'Choose File' : checkname.toString()),
+                                print(checkname);
+                              }
+                            } else {
+                              print('Size Exceed');
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                      content: Text(
+                                "Size Exceed (Less than 200KB allowed)",
+                                textAlign: TextAlign.center,
+                              )));
+                            }
+                          }),
+                          child: Text(checkname == null
+                              ? 'Choose File'
+                              : checkname.toString()),
+                        ),
                 ),
               ),
               Spacer()
@@ -300,15 +321,15 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                                       return ListTile(
                                         onTap: () async {
                                           studReportcourseController.text =
-                                              snapshot.courseList[index]
-                                                      .courseId ??
+                                              snapshot.courseList[index].id ??
                                                   '---';
                                           studReportcourseController1.text =
-                                              snapshot.courseList[index].name ==
+                                              snapshot.courseList[index]
+                                                          .courseName ==
                                                       null
                                                   ? '---'
-                                                  : snapshot
-                                                      .courseList[index].name
+                                                  : snapshot.courseList[index]
+                                                      .courseName
                                                       .toString();
 
                                           courseId = studReportcourseController
@@ -326,10 +347,12 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                                           Navigator.of(context).pop();
                                         },
                                         title: Text(
-                                          snapshot.courseList[index].name ==
+                                          snapshot.courseList[index]
+                                                      .courseName ==
                                                   null
                                               ? '---'
-                                              : snapshot.courseList[index].name
+                                              : snapshot
+                                                  .courseList[index].courseName
                                                   .toString(),
                                           textAlign: TextAlign.center,
                                         ),
@@ -361,6 +384,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
                                 labelText: "  Select Course",
+                                labelStyle: TextStyle(color: UIGuide.BLACK),
                                 hintText: "Course",
                               ),
                               enabled: false,
@@ -444,8 +468,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                       onConfirm: (results) async {
                         divisionData = [];
                         for (var i = 0; i < results.length; i++) {
-                          DivisionListModel data =
-                              results[i] as DivisionListModel;
+                          DivisionsExam data = results[i] as DivisionsExam;
                           print(data.text);
                           print(data.value);
                           divisionData.add(data.value);
@@ -456,7 +479,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                         await Provider.of<ExamTTAdmProvidersStaff>(context,
                                 listen: false)
                             .divisionCounter(results.length);
-                        attach = value.id.toString();
+
                         print(divisionData.join(','));
                       },
                     ),
@@ -487,11 +510,11 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                       duration: Duration(seconds: 1),
                     ));
                   }
-                  if (checkname!.isEmpty) {
-                    attachmentid.clear();
-                  } else {
-                    attachmentid.text = attach;
-                  }
+                  // if (checkname!.isEmpty) {
+                  //   attachmentid.clear();
+                  // } else {
+                  //   attachmentid.text = attach;
+                  // }
                   if (descriptioncontroller.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(

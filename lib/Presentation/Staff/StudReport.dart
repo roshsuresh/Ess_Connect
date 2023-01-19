@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Presentation/Staff/Searchstudent.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Application/Staff_Providers/StudListProvider.dart';
@@ -22,13 +25,13 @@ class StudReport extends StatelessWidget {
               titleSpacing: 20.0,
               centerTitle: true,
               toolbarHeight: 40.2,
-              // toolbarOpacity: 0.8,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(25),
                     bottomLeft: Radius.circular(25)),
               ),
               bottom: const TabBar(
+                physics: NeverScrollableScrollPhysics(),
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorColor: Colors.white,
                 indicatorWeight: 5,
@@ -53,11 +56,13 @@ class StudReport extends StatelessWidget {
                     icon: const Icon(Icons.search))
               ],
             ),
-            body: const TabBarView(children: [
-              StudCurrentStudying(),
-              StudRelievedStaff(),
-              StudentReportBoth_Staff(),
-            ])));
+            body: const TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  StudCurrentStudying(),
+                  StudRelievedStaff(),
+                  StudentReportBoth_Staff(),
+                ])));
   }
 }
 
@@ -123,16 +128,10 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                   shrinkWrap: true,
                                   itemCount: studReportinitvalues_stf!.length,
                                   itemBuilder: (context, index) {
-                                    // print(snapshot
-
-                                    //     .attendenceInitialValues.length);
-
                                     value.removeSectionAll();
                                     return ListTile(
                                       selectedTileColor: Colors.blue.shade100,
                                       selectedColor: UIGuide.PRIMARY2,
-                                      // selected:
-                                      //     studReportinitvalues_stf![index],
                                       onTap: () async {
                                         print(
                                             'guh.....${studReportinitvalues_stf![index]}');
@@ -149,9 +148,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                             studReportInitialValuesController
                                                 .text
                                                 .toString();
-
-                                        // snapshot.addSelectedCourse(
-                                        //     attendecourse![index]);
+                                        await value.clearViewList();
                                         print(sectionId);
                                         await Provider.of<
                                                     StudReportListProvider_stf>(
@@ -478,37 +475,62 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                             btnOkIcon: Icons.cancel,
                             btnOkColor: Colors.red)
                         .show();
+                  } else {
+                    courseId = studReportcourseController.text.toString();
+                    print(courseId);
+                    divisionId = studReportDivisionController.text.toString();
+                    print(divisionId);
+                    print(sectionId);
+                    sectionId =
+                        studReportInitialValuesController.text.toString();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .sectionClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeSectionAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .courseClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeCourseAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .divisionClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeDivisionAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .clearViewList();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .viewStudentReportList(sectionId, courseId, divisionId);
+                    if (Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .viewStudReportListt
+                        .isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          duration: Duration(seconds: 2),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Data not foumd',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    } else {
+                      print('object');
+                    }
                   }
-                  courseId = studReportcourseController.text.toString();
-                  print(courseId);
-                  divisionId = studReportDivisionController.text.toString();
-                  print(divisionId);
-                  print(sectionId);
-                  sectionId = studReportInitialValuesController.text.toString();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .sectionClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeSectionAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .courseClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeCourseAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .divisionClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeDivisionAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .clearViewList();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .viewStudentReportList(sectionId, courseId, divisionId);
                 }),
                 child: const Text('View'),
               ),
@@ -522,7 +544,12 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
             child: Consumer<StudReportListProvider_stf>(
               builder: (context, provider, child) => provider.loading
                   ? spinkitLoader()
-                  : Scrollbar(
+                  :
+                  // provider.viewStudReportListt.isEmpty
+                  //     ? LottieBuilder.network(
+                  //         "https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json")
+                  //     :
+                  Scrollbar(
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: provider.viewStudReportListt.length == null
@@ -534,7 +561,8 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                               .toString();
                           if (status.toString() == false.toString()) {
                             return Padding(
-                              padding: const EdgeInsets.all(3.0),
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 4, bottom: 4),
                               child: Container(
                                 width: size.width - 4,
                                 height: 93,
@@ -547,7 +575,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     const SizedBox(
-                                      height: 2,
+                                      height: 2.5,
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -561,7 +589,7 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                         );
                                       },
                                       child: Container(
-                                        width: size.width - 10,
+                                        width: size.width - 6,
                                         height: 90,
                                         decoration: const BoxDecoration(
                                             color: Color.fromARGB(
@@ -1023,7 +1051,7 @@ class StudProfileView_Staff extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Permenent Address',
+                            'Permanent Address',
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w700),
                           ),
@@ -1207,6 +1235,7 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                                 .toString();
 
                                         print(sectionId);
+                                        await value.clearViewList();
                                         await Provider.of<
                                                     StudReportListProvider_stf>(
                                                 context,
@@ -1518,35 +1547,60 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                             btnOkIcon: Icons.cancel,
                             btnOkColor: Colors.red)
                         .show();
-                  }
-                  sectionId = studReportInitialValuesController.text.toString();
-                  courseId = StudReportcourseController.text.toString();
-                  divisionId = StudReportDivisionController.text.toString();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .sectionClear();
+                  } else {
+                    sectionId =
+                        studReportInitialValuesController.text.toString();
+                    courseId = StudReportcourseController.text.toString();
+                    divisionId = StudReportDivisionController.text.toString();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .sectionClear();
 
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeSectionAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .courseClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeCourseAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .divisionClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeDivisionAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .clearViewList();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .viewStudentReportList(sectionId, courseId, divisionId);
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeSectionAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .courseClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeCourseAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .divisionClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeDivisionAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .clearViewList();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .viewStudentReportList(sectionId, courseId, divisionId);
+                    if (Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .viewStudReportListt
+                        .isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          duration: Duration(seconds: 2),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Data not foumd',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    } else {
+                      print('object');
+                    }
+                  }
                 }),
                 child: const Text('View'),
               ),
@@ -1957,6 +2011,7 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                                         // snapshot.addSelectedCourse(
                                         //     attendecourse![index]);
                                         print(sectionId);
+                                        await value.clearViewList();
                                         await Provider.of<
                                                     StudReportListProvider_stf>(
                                                 context,
@@ -2270,35 +2325,60 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                             btnOkIcon: Icons.cancel,
                             btnOkColor: Colors.red)
                         .show();
-                  }
-                  sectionId = studReportInitialValuesController.text.toString();
-                  courseId = StudReportcourseController.text.toString();
-                  divisionId = StudReportDivisionController.text.toString();
+                  } else {
+                    sectionId =
+                        studReportInitialValuesController.text.toString();
+                    courseId = StudReportcourseController.text.toString();
+                    divisionId = StudReportDivisionController.text.toString();
 
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .sectionClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeSectionAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .courseClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeCourseAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .divisionClear();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .removeDivisionAll();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .clearViewList();
-                  await Provider.of<StudReportListProvider_stf>(context,
-                          listen: false)
-                      .viewStudentReportList(sectionId, courseId, divisionId);
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .sectionClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeSectionAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .courseClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeCourseAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .divisionClear();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .removeDivisionAll();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .clearViewList();
+                    await Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .viewStudentReportList(sectionId, courseId, divisionId);
+                    if (Provider.of<StudReportListProvider_stf>(context,
+                            listen: false)
+                        .viewStudReportListt
+                        .isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          duration: Duration(seconds: 2),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Data not foumd',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    } else {
+                      print('object');
+                    }
+                  }
                 }),
                 child: const Text('View'),
               ),

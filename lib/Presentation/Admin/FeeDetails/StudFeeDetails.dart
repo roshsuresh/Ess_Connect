@@ -1105,16 +1105,16 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                               MainAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            const Text(
-                                                              'Total PaidAmount :',
-                                                              style: TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                            ),
-                                                            kWidth,
-                                                            kWidth,
+                                                            // const Text(
+                                                            //   'Total PaidAmount :',
+                                                            //   style: TextStyle(
+                                                            //       fontSize: 14,
+                                                            //       fontWeight:
+                                                            //           FontWeight
+                                                            //               .w500),
+                                                            // ),
+                                                            // kWidth,
+                                                            // kWidth,
                                                             Consumer<
                                                                 FeeDetailsProvider>(
                                                               builder: (context,
@@ -1123,9 +1123,8 @@ class _StudFeeDetailsState extends State<StudFeeDetails> {
                                                                   Text(
                                                                 value.allPaidAmount ==
                                                                         null
-                                                                    ? '--'
-                                                                    : value
-                                                                        .allPaidAmount
+                                                                    ? ''
+                                                                    : 'Total PaidAmount :${value.allPaidAmount}'
                                                                         .toString(),
                                                                 style: const TextStyle(
                                                                     fontSize:

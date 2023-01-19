@@ -7,6 +7,7 @@ import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
 import 'package:essconnect/Application/StudentProviders/DiaryProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
+import 'package:essconnect/Presentation/SchoolSuperAdmin/SuperAdminHome.dart';
 import 'package:essconnect/routes.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -339,33 +340,33 @@ class _SplashFuturePageState extends State<SplashFuturePage>
             context,
             MaterialPageRoute(builder: (context) => AdminHome()),
           );
-          // return Future.value(AdminHome());
         } else if (data['role'] == "Teacher") {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => StaffHome()),
           );
-          // return Future.value(StaffHome());
+        } else if (data['role'] == "SchoolSuperAdmin") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => SuperAdminHome()),
+          );
         } else {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => StudentHome()),
           );
-          //  return Future.value(StudentHome());
         }
       } else {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => LoginPage()),
         );
-        //return Future.value(LoginPage());
       }
     } else {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => ActivatePage()),
       );
-      //  return Future.value(const ActivatePage());
     }
   }
 
@@ -429,7 +430,7 @@ class _SplashFuturePageState extends State<SplashFuturePage>
                 duration: const Duration(milliseconds: 1000),
                 opacity: _textOpacity,
                 child: Text(
-                  'ESS CONNECT',
+                  'Ess Connect Pro',
                   style: TextStyle(
                     color: UIGuide.light_Purple,
                     fontWeight: FontWeight.bold,

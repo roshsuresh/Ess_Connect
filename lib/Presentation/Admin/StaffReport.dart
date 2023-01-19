@@ -30,6 +30,7 @@ class StaffReport extends StatelessWidget {
                   bottomLeft: Radius.circular(25)),
             ),
             bottom: const TabBar(
+              physics: NeverScrollableScrollPhysics(),
               indicatorSize: TabBarIndicatorSize.label,
               indicatorColor: Colors.white,
               indicatorWeight: 5,

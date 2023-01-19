@@ -4,6 +4,7 @@ import 'package:essconnect/Application/AdminProviders/FlashNewsProviders.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Domain/Admin/Course&DivsionList.dart';
 import 'package:essconnect/utils/constants.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -131,45 +132,62 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
               SizedBox(
                 width: size.width * .45,
                 height: 35,
-                child: MaterialButton(
-                  color: Colors.white,
-                  onPressed: (() async {
-                    final result = await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['png', 'jpeg', 'jpg', 'pdf']);
-                    if (result == null) {
-                      return;
-                    }
-                    final file = result.files.first;
-                    print('Name: ${file.name}');
-                    print('Path: ${file.path}');
-                    print('Extension: ${file.extension}');
+                child: Consumer<ExamTTAdmProviders>(
+                  builder: (context, value, child) => value.loaddg
+                      ? Container(
+                          child: const Center(
+                              child: Text(
+                          'Uploading Image....',
+                          style: TextStyle(color: UIGuide.light_Purple),
+                        )))
+                      : MaterialButton(
+                          color: Colors.white,
+                          onPressed: (() async {
+                            final result = await FilePicker.platform.pickFiles(
+                                type: FileType.custom,
+                                allowedExtensions: [
+                                  'png',
+                                  'jpeg',
+                                  'jpg',
+                                  'pdf'
+                                ]);
+                            if (result == null) {
+                              return;
+                            }
+                            final file = result.files.first;
+                            print('Name: ${file.name}');
+                            print('Path: ${file.path}');
+                            print('Extension: ${file.extension}');
 
-                    int sizee = file.size;
+                            int sizee = file.size;
 
-                    if (sizee <= 200000) {
-                      await Provider.of<ExamTTAdmProviders>(context,
-                              listen: false)
-                          .examImageSave(context, file.path.toString());
-                      if (file.name.length >= 6) {
-                        setState(() {
-                          checkname =
-                              file.name.replaceRange(6, file.name.length, '');
-                        });
+                            if (sizee <= 200000) {
+                              await Provider.of<ExamTTAdmProviders>(context,
+                                      listen: false)
+                                  .examImageSave(context, file.path.toString());
+                              attach = value.id.toString();
+                              if (file.name.length >= 6) {
+                                setState(() {
+                                  checkname = file.name
+                                      .replaceRange(6, file.name.length, '');
+                                });
 
-                        print(checkname);
-                      }
-                    } else {
-                      print('Size Exceed');
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text(
-                        "Size Exceed (Less than 200KB allowed)",
-                        textAlign: TextAlign.center,
-                      )));
-                    }
-                  }),
-                  child: Text(
-                      checkname == null ? 'Choose File' : checkname.toString()),
+                                print(checkname);
+                              }
+                            } else {
+                              print('Size Exceed');
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                      content: Text(
+                                "Size Exceed (Less than 200KB allowed)",
+                                textAlign: TextAlign.center,
+                              )));
+                            }
+                          }),
+                          child: Text(checkname == null
+                              ? 'Choose File'
+                              : checkname.toString()),
+                        ),
                 ),
               ),
               Spacer()
@@ -453,7 +471,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                         await Provider.of<ExamTTAdmProviders>(context,
                                 listen: false)
                             .divisionCounter(results.length);
-                        attach = value.id.toString();
+
                         print(divisionData.join(','));
                       },
                     ),

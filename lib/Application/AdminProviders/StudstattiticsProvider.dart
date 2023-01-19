@@ -8,6 +8,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StudStatiticsProvider with ChangeNotifier {
   List<StatisticsData> statiticsList = [];
   List<TotalStatitics> totalList = [];
+  clearAllList() {
+    statiticsList.clear();
+    totalList.clear();
+    notifyListeners();
+  }
+
   Future<bool> getstatitics(String section, String course) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:essconnect/Domain/Admin/schoolPhotoModel.dart';
 import 'package:essconnect/Domain/Staff/StudentReport_staff.dart';
 import 'package:essconnect/utils/constants.dart';
@@ -58,6 +59,7 @@ class SchoolPhotoProviders with ChangeNotifier {
       if (response.statusCode == 200) {
         print("corect");
         final data = json.decode(response.body);
+        log(data.toString());
         Map<String, dynamic> stl = data['studentReportInitialValues'];
         List<StudReportSectionList> templist = List<StudReportSectionList>.from(
             stl["sectionList"].map((x) => StudReportSectionList.fromJson(x)));
@@ -65,7 +67,7 @@ class SchoolPhotoProviders with ChangeNotifier {
         dropDown = stdReportInitialValues.map((subjectdata) {
           return MultiSelectItem(subjectdata, subjectdata.text!);
         }).toList();
-       
+
         notifyListeners();
       } else {
         print("Error in notification response");

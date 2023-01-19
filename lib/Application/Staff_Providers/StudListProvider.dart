@@ -290,6 +290,7 @@ class StudReportListProvider_stf with ChangeNotifier {
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
+      print(data);
       List<ViewStudentReport> templist = List<ViewStudentReport>.from(
           data["viewStudentReport"].map((x) => ViewStudentReport.fromJson(x)));
       viewStudReportListt.addAll(templist);

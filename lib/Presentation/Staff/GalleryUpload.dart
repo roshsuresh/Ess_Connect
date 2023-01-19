@@ -1,4 +1,5 @@
 import 'package:essconnect/Application/Staff_Providers/GallerySendProviderStaff.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,17 +20,23 @@ class StaffGallery extends StatelessWidget {
         length: 3,
         child: Scaffold(
             appBar: AppBar(
-              title: const Text('Gallery'),
-              titleSpacing: 20.0,
-              centerTitle: true,
-              toolbarHeight: 40,
-              toolbarOpacity: 0.8,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25)),
+              title: Row(
+                children: [
+                  const Spacer(),
+                  const Text('Gallery'),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const StaffGallery()));
+                      },
+                      icon: const Icon(Icons.refresh))
+                ],
               ),
               bottom: const TabBar(
+                physics: NeverScrollableScrollPhysics(),
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorColor: Colors.white,
                 indicatorWeight: 5,
@@ -45,10 +52,71 @@ class StaffGallery extends StatelessWidget {
               ),
               backgroundColor: UIGuide.light_Purple,
             ),
-            body: const TabBarView(children: [
+            body: TabBarView(children: [
               StaffGalleryView(),
-              StaffGalleryUPload(),
-              GalleryListStaff()
+              Consumer<GallerySendProvider_Stf>(
+                builder: (context, value, child) {
+                  if (value.isClassTeacher != false) {
+                    return StaffGalleryUPload();
+                  } else {
+                    return Container(
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.sentiment_dissatisfied_outlined,
+                              size: 60,
+                              color: Colors.grey,
+                            ),
+                            kheight10,
+                            Text(
+                              "Sorry you don't have access",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
+              GalleryListStaff(),
+              // Consumer<GallerySendProvider_Stf>(
+              //   builder: (context, value, child) {
+              //     if (value.isClassTeacher != false) {
+              //       return GalleryListStaff();
+              //     } else {
+              //       return Container(
+              //         child: Center(
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.center,
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: const [
+              //               Icon(
+              //                 Icons.sentiment_dissatisfied_outlined,
+              //                 size: 60,
+              //                 color: Colors.grey,
+              //               ),
+              //               kheight10,
+              //               Text(
+              //                 "Sorry you don't have access",
+              //                 style: TextStyle(
+              //                     fontSize: 20,
+              //                     fontWeight: FontWeight.w600,
+              //                     color: Colors.grey),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       );
+              //     }
+              //   },
+              // ),
             ])));
   }
 }
@@ -61,7 +129,7 @@ class StaffGalleryUPload extends StatefulWidget {
 }
 
 class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
-  DateTime? _mydatetime;
+  // DateTime? _mydatetime;
 
   String? datee;
 
@@ -140,58 +208,64 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
           child: SizedBox(
             width: 120,
             child: Consumer<GallerySendProvider_Stf>(
-              builder: (context, value, child) => MaterialButton(
-                // minWidth: size.width - 200,
-                color: Colors.white70,
-                onPressed: (() async {
-                  final result = await FilePicker.platform.pickFiles(
-                      type: FileType.custom,
-                      //  allowMultiple: true,
-                      allowedExtensions: ['png', 'jpeg', 'jpg']);
-                  if (result == null) {
-                    return;
-                  }
+              builder: (context, value, child) => value.loading
+                  ? spinkitLoader()
+                  : MaterialButton(
+                      // minWidth: size.width - 200,
+                      color: Colors.white70,
+                      onPressed: (() async {
+                        final result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            //  allowMultiple: true,
+                            allowedExtensions: ['png', 'jpeg', 'jpg']);
+                        if (result == null) {
+                          return;
+                        }
 
-                  final file = result.files.first;
-                  print('Name: ${file.name}');
-                  print('Path: ${file.path}');
-                  print('Extension: ${file.extension}');
-                  print('Size : ${file.size}');
-                  int sizee = file.size;
+                        final file = result.files.first;
+                        print('Name: ${file.name}');
+                        print('Path: ${file.path}');
+                        print('Extension: ${file.extension}');
+                        print('Size : ${file.size}');
+                        int sizee = file.size;
 
-                  if (sizee <= 200000) {
-                    await Provider.of<GallerySendProvider_Stf>(context,
-                            listen: false)
-                        .galleryImageSave(context, file.path.toString());
-                    attachmentid = value.id ?? '';
-                    if (file.name.length >= 6) {
-                      setState(() {
-                        checkname =
-                            file.name.replaceRange(6, file.name.length, '');
-                      });
+                        if (sizee <= 200000) {
+                          await Provider.of<GallerySendProvider_Stf>(context,
+                                  listen: false)
+                              .galleryImageSave(context, file.path.toString());
+                          attachmentid = value.id ?? '';
+                          if (file.name.length >= 6) {
+                            setState(() {
+                              checkname = file.name
+                                  .replaceRange(6, file.name.length, '');
+                            });
 
-                      print(checkname);
-                    }
-                  } else {
-                    print('Size Exceed');
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      duration: Duration(seconds: 1),
-                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                      behavior: SnackBarBehavior.floating,
-                      content: Text(
-                        "Size Exceed(Less than 200KB allowed)",
-                        textAlign: TextAlign.center,
-                      ),
-                    ));
-                  }
-                }),
-                child: Text(
-                    checkname == null ? 'Choose File' : checkname.toString()),
-              ),
+                            print(checkname);
+                          }
+                        } else {
+                          print('Size Exceed');
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            duration: Duration(seconds: 1),
+                            margin: EdgeInsets.only(
+                                bottom: 80, left: 30, right: 30),
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                              "Size Exceed(Less than 200KB allowed)",
+                              textAlign: TextAlign.center,
+                            ),
+                          ));
+                        }
+                      }),
+                      child: Text(checkname == null
+                          ? 'Choose File'
+                          : checkname.toString()),
+                    ),
             ),
           ),
         ),
@@ -552,32 +626,25 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                           coursevalueController.text,
                           divisionvalueController.text,
                           attachmentid);
-                }
 
-                print(datee);
-                print(time);
-                print(timeNow);
-                print(titleController);
-                print(coursevalueController);
-                print(divisionvalueController);
-                print(attachmentid);
-                coursevalueController.clear();
-                titleController.clear();
-                divisionvalueController.clear();
-                divisionvalueController1.clear();
-                coursevalueController1.clear();
-                await Provider.of<GallerySendProvider_Stf>(context,
-                        listen: false)
-                    .removeCourseAll();
-                await Provider.of<GallerySendProvider_Stf>(context,
-                        listen: false)
-                    .courseClear();
-                await Provider.of<GallerySendProvider_Stf>(context,
-                        listen: false)
-                    .removeDivisionAll();
-                await Provider.of<GallerySendProvider_Stf>(context,
-                        listen: false)
-                    .divisionClear();
+                  coursevalueController.clear();
+                  titleController.clear();
+                  divisionvalueController.clear();
+                  divisionvalueController1.clear();
+                  coursevalueController1.clear();
+                  await Provider.of<GallerySendProvider_Stf>(context,
+                          listen: false)
+                      .removeCourseAll();
+                  await Provider.of<GallerySendProvider_Stf>(context,
+                          listen: false)
+                      .courseClear();
+                  await Provider.of<GallerySendProvider_Stf>(context,
+                          listen: false)
+                      .removeDivisionAll();
+                  await Provider.of<GallerySendProvider_Stf>(context,
+                          listen: false)
+                      .divisionClear();
+                }
               }),
               child: const Text(
                 'Save',

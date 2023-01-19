@@ -33,7 +33,8 @@ class Profile_Info extends StatelessWidget {
           return provider.loading
               ? spinkitLoader()
               : ListView(
-                  physics: const ClampingScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(
+                      parent: ClampingScrollPhysics()),
                   children: [
                     Stack(
                       children: [
@@ -162,7 +163,7 @@ class Profile_Info extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: width,
-                        height: 370,
+                        height: 332,
                         color: const Color.fromARGB(255, 240, 243, 247),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -507,11 +508,13 @@ class Profile_Info extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 230, 237, 245),
-                                    ),
+                                    color: const Color.fromARGB(
+                                        255, 240, 243, 247),
+                                    //color: Colors.white,
+                                    // border: Border.all(
+                                    //   color: const Color.fromARGB(
+                                    //       255, 230, 237, 245),
+                                    // ),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(5))),
                                 width: width,

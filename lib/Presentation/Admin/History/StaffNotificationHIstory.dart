@@ -10,11 +10,11 @@ class StaffNotificationHistoryy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<NotificationToStaffAdminProviders>(context,
           listen: false);
-      p.getNotificationHistory();
       p.historyList.clear();
+      await p.getNotificationHistory();
     });
     var size = MediaQuery.of(context).size;
     return Consumer<NotificationToStaffAdminProviders>(
@@ -125,7 +125,7 @@ class StaffNotificationHistoryy extends StatelessWidget {
                                             MainAxisAlignment.end,
                                         children: [
                                           const Text(
-                                            'Created At: ',
+                                            'Created: ',
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 color: UIGuide.light_Purple),

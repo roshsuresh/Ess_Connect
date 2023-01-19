@@ -104,10 +104,17 @@ class ExamTTAdmProviders with ChangeNotifier {
 
   //find image id
 
+  bool _loaddg = false;
+  bool get loaddg => _loaddg;
+  setLoadddd(bool valu) {
+    _loaddg = valu;
+    notifyListeners();
+  }
+
   String? id;
   Future examImageSave(BuildContext context, String path) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
+    setLoadddd(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${pref.getString('accesstoken')}'
@@ -117,11 +124,12 @@ class ExamTTAdmProviders with ChangeNotifier {
     request.files.add(await http.MultipartFile.fromPath('file', path));
     request.headers.addAll(headers);
     print(path);
-
+    setLoadddd(true);
     http.StreamedResponse response = await request.send();
     print(request);
 
     if (response.statusCode == 200) {
+      setLoadddd(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -142,6 +150,7 @@ class ExamTTAdmProviders with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
+      setLoadddd(false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
@@ -157,6 +166,7 @@ class ExamTTAdmProviders with ChangeNotifier {
         ),
       ));
       print(response.reasonPhrase);
+      setLoadddd(false);
     }
   }
 

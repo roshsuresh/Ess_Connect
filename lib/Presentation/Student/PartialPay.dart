@@ -106,12 +106,15 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                               width: 0,
                             )
                           : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 const Padding(
                                   padding:
                                       EdgeInsets.only(left: 20, bottom: 10),
                                   child: Text(
                                     'Installment',
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w900,
@@ -121,7 +124,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                 Scrollbar(
                                   controller: _controllerr,
                                   thumbVisibility: true,
-                                  thickness: 6,
+                                  thickness: 10,
                                   radius: const Radius.circular(20),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -252,7 +255,7 @@ class _FeePartialPaymentState extends State<FeePartialPayment> {
                                 Scrollbar(
                                   controller: _controllerr2,
                                   thumbVisibility: true,
-                                  thickness: 6,
+                                  thickness: 10,
                                   radius: const Radius.circular(10),
                                   child: Padding(
                                     padding: const EdgeInsets.only(

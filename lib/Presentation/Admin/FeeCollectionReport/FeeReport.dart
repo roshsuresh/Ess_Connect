@@ -262,7 +262,6 @@ class _FeeReportState extends State<FeeReport> {
               SizedBox(
                 width: size.width * .42,
                 child: MaterialButton(
-                  //   minWidth: size.width - 250,
                   child: Center(child: Text('From ${time}')),
                   color: Colors.white,
                   onPressed: (() async {
@@ -347,10 +346,54 @@ class _FeeReportState extends State<FeeReport> {
                     // Provider.of<SchoolPhotoProviders>(context, listen: false)
                     //     .divisionDrop
                     //     .clear();
-                    await Provider.of<FeeReportProvider>(context, listen: false)
-                        .clearcollectionList();
-                    await Provider.of<FeeReportProvider>(context, listen: false)
-                        .getFeeReportView(section, course, time, timeNow);
+
+                    DateTime dt1 = _mydatetimeFrom!;
+                    DateTime dt2 = _mydatetimeTo!;
+                    Duration diff = dt2.difference(dt1);
+                    if (diff.inDays >= 0 && diff.inDays <= 30) {
+                      await Provider.of<FeeReportProvider>(context,
+                              listen: false)
+                          .clearcollectionList();
+                      await Provider.of<FeeReportProvider>(context,
+                              listen: false)
+                          .getFeeReportView(section, course, time, timeNow);
+                    } else if (diff.isNegative) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          duration: Duration(seconds: 3),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'From date should be lesser than To date',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20)),
+                          ),
+                          duration: Duration(seconds: 3),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Please select date range between 30 days',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      );
+                    }
                   }),
                   child: const Text(
                     'View',

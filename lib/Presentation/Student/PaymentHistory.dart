@@ -53,7 +53,7 @@ class PaymentHistory extends StatelessWidget {
                             1: FlexColumnWidth(2.1),
                             2: FlexColumnWidth(2.3),
                             3: FlexColumnWidth(2.2),
-                            4: FlexColumnWidth(1.2)
+                            4: FlexColumnWidth(1.8)
                           },
                           children: const [
                             TableRow(
@@ -66,7 +66,7 @@ class PaymentHistory extends StatelessWidget {
                                 ),
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.all(4.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Center(
                                         child: Text(
                                       'Sl.',
@@ -76,7 +76,7 @@ class PaymentHistory extends StatelessWidget {
                                     )),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(4.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Center(
                                         child: Text(
                                       'Bill Date',
@@ -85,7 +85,7 @@ class PaymentHistory extends StatelessWidget {
                                     )),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(4.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Center(
                                         child: Text(
                                       'Payment \n  Mode',
@@ -94,7 +94,7 @@ class PaymentHistory extends StatelessWidget {
                                     )),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(4.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Center(
                                         child: Text(
                                       'Amount \n   paid',
@@ -103,7 +103,7 @@ class PaymentHistory extends StatelessWidget {
                                     )),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.all(4.0),
+                                    padding: EdgeInsets.all(3.0),
                                     child: Center(
                                         child: Text(
                                       'Receipt',
@@ -117,123 +117,128 @@ class PaymentHistory extends StatelessWidget {
                       ),
                       LimitedBox(
                         maxHeight: size.height - 150,
-                        child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: value.historyList.isEmpty
-                                ? 0
-                                : value.historyList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              String newtime =
-                                  value.historyList[index].billDate.toString();
+                        child: Scrollbar(
+                          child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: value.historyList.isEmpty
+                                  ? 0
+                                  : value.historyList.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                String newtime = value
+                                    .historyList[index].billDate
+                                    .toString();
 
-                              var updatedDate =
-                                  DateFormat('yyyy-MM-dd').parse(newtime);
-                              String newDate = updatedDate.toString();
-                              String finalCreatedDate =
-                                  newDate.replaceRange(10, 23, '');
+                                var updatedDate =
+                                    DateFormat('yyyy-MM-dd').parse(newtime);
+                                String newDate = updatedDate.toString();
+                                String finalCreatedDate =
+                                    newDate.replaceRange(10, 23, '');
 
-                              return GestureDetector(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Table(
-                                    columnWidths: const {
-                                      0: FlexColumnWidth(.6),
-                                      1: FlexColumnWidth(2.1),
-                                      2: FlexColumnWidth(2.3),
-                                      3: FlexColumnWidth(2.2),
-                                      4: FlexColumnWidth(1.2)
-                                    },
-                                    children: [
-                                      TableRow(
-                                          decoration: const BoxDecoration(
-                                            color: Color.fromARGB(
-                                                255, 238, 235, 235),
-                                          ),
-                                          children: [
-                                            Text(
-                                              "\n${(index + 1).toString()}",
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  const TextStyle(fontSize: 13),
+                                return GestureDetector(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Table(
+                                      columnWidths: const {
+                                        0: FlexColumnWidth(.6),
+                                        1: FlexColumnWidth(2.1),
+                                        2: FlexColumnWidth(2.3),
+                                        3: FlexColumnWidth(2.2),
+                                        4: FlexColumnWidth(1.8)
+                                      },
+                                      children: [
+                                        TableRow(
+                                            decoration: const BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 238, 235, 235),
                                             ),
-                                            Center(
-                                                child: Text(
-                                              '\n${finalCreatedDate.toString()}',
-                                              style:
-                                                  const TextStyle(fontSize: 13),
-                                            )),
-                                            Center(
-                                                child: Text(
-                                              '\n${value.historyList[index].paymentMode}',
-                                              style:
-                                                  const TextStyle(fontSize: 13),
-                                            )),
-                                            Center(
-                                                child: Text(
-                                              '\n${value.historyList[index].billAmount}',
-                                              style:
-                                                  const TextStyle(fontSize: 13),
-                                            )),
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.remove_red_eye,
-                                                size: 20,
+                                            children: [
+                                              Text(
+                                                "\n${(index + 1).toString()}",
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                    fontSize: 13),
                                               ),
-                                              onPressed: () async {
-                                                // String reAttach = value
-                                                //     .historyList[index].orderId
-                                                //     .toString();
-                                                // await Provider.of<
-                                                //             PaymentHistoryProvider>(
-                                                //         context,
-                                                //         listen: false)
-                                                //     .feeHistoryAttachment(
-                                                //         reAttach);
-                                                // if (value.extension.toString() ==
-                                                //     '.pdf') {
-                                                //   Navigator.push(
-                                                //       context,
-                                                //       MaterialPageRoute(
-                                                //           builder: (context) =>
-                                                //               PdfDownloadFee()));
-                                                // } else {
-                                                //   Navigator.push(
-                                                //       context,
-                                                //       MaterialPageRoute(
-                                                //           builder: (context) =>
-                                                //               const NoAttachmentScreenFee()));
-                                                // }
-                                              },
-                                            )
-                                          ]),
-                                    ],
+                                              Center(
+                                                  child: Text(
+                                                '\n${finalCreatedDate.toString()}',
+                                                style: const TextStyle(
+                                                    fontSize: 13),
+                                              )),
+                                              Center(
+                                                  child: Text(
+                                                '\n${value.historyList[index].paymentMode}',
+                                                style: const TextStyle(
+                                                    fontSize: 13),
+                                              )),
+                                              Center(
+                                                  child: Text(
+                                                '\n${value.historyList[index].billAmount}',
+                                                style: const TextStyle(
+                                                    fontSize: 13),
+                                              )),
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.remove_red_eye,
+                                                  size: 20,
+                                                ),
+                                                onPressed: () async {
+                                                  String reAttach = value
+                                                      .historyList[index]
+                                                      .orderId
+                                                      .toString();
+                                                  await Provider.of<
+                                                              PaymentHistoryProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .feeHistoryAttachment(
+                                                          reAttach);
+                                                  if (value.extension
+                                                          .toString() ==
+                                                      '.pdf') {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PdfDownloadFee()));
+                                                  } else {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const NoAttachmentScreenFee()));
+                                                  }
+                                                },
+                                              )
+                                            ]),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                onTap: () async {
-                                  String reAttach = value
-                                      .historyList[index].orderId
-                                      .toString();
-                                  await Provider.of<PaymentHistoryProvider>(
+                                  onTap: () async {
+                                    String reAttach = value
+                                        .historyList[index].orderId
+                                        .toString();
+                                    await Provider.of<PaymentHistoryProvider>(
+                                            context,
+                                            listen: false)
+                                        .feeHistoryAttachment(reAttach);
+                                    if (value.extension.toString() == '.pdf') {
+                                      Navigator.push(
                                           context,
-                                          listen: false)
-                                      .feeHistoryAttachment(reAttach);
-                                  if (value.extension.toString() == '.pdf') {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PdfDownloadFee()));
-                                  } else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const NoAttachmentScreenFee()));
-                                  }
-                                },
-                              );
-                            }),
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PdfDownloadFee()));
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const NoAttachmentScreenFee()));
+                                    }
+                                  },
+                                );
+                              }),
+                        ),
                       )
                     ],
                   );

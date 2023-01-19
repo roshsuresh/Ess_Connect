@@ -32,7 +32,25 @@ class Student_statistics_admin extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Student Statistics'),
+          title: Row(
+            children: [
+              const Spacer(),
+              const Text(
+                'Student Statistics',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              const Spacer(),
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Student_statistics_admin()));
+                  },
+                  icon: const Icon(Icons.refresh_outlined)),
+              kWidth
+            ],
+          ),
           titleSpacing: 00.0,
           centerTitle: true,
           toolbarHeight: 60.2,
@@ -128,6 +146,7 @@ class Student_statistics_admin extends StatelessWidget {
                           await Provider.of<SchoolPhotoProviders>(context,
                                   listen: false)
                               .getCourseList(section);
+
                           print("data $subjectData");
 
                           print(subjectData.join(','));

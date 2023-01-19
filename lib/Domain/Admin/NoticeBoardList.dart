@@ -60,3 +60,48 @@ class NoticeBoardListAdmin {
     return data;
   }
 }
+
+class NoticeBoardCategory {
+  Null? intlName;
+  bool? isReserved;
+  String? schoolId;
+  String? name;
+  int? sortOrder;
+  bool? active;
+  bool? selected;
+  String? id;
+
+  NoticeBoardCategory(
+      {this.intlName,
+      this.isReserved,
+      this.schoolId,
+      this.name,
+      this.sortOrder,
+      this.active,
+      this.selected,
+      this.id});
+
+  NoticeBoardCategory.fromJson(Map<String, dynamic> json) {
+    intlName = json['intlName'];
+    isReserved = json['isReserved'];
+    schoolId = json['schoolId'];
+    name = json['name'];
+    sortOrder = json['sortOrder'];
+    active = json['active'];
+    selected = json['selected'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['intlName'] = this.intlName;
+    data['isReserved'] = this.isReserved;
+    data['schoolId'] = this.schoolId;
+    data['name'] = this.name;
+    data['sortOrder'] = this.sortOrder;
+    data['active'] = this.active;
+    data['selected'] = this.selected;
+    data['id'] = this.id;
+    return data;
+  }
+}

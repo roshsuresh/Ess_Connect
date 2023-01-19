@@ -300,8 +300,8 @@ class AttendenceStaffProvider with ChangeNotifier {
     _mydatetime = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2100),
+      firstDate: DateTime.now().subtract(const Duration(days: 5)),
+      lastDate: DateTime.now(),
       builder: (context, child) {
         return Theme(
             data: ThemeData.light().copyWith(

@@ -1,5 +1,6 @@
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:pdfdownload/pdfdownload.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -146,7 +147,7 @@ class ReportCard extends StatelessWidget {
                                                 Corect_tym == null
                                                     ? '---'
                                                     : Corect_tym.toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     color:
@@ -172,17 +173,23 @@ class ReportCard extends StatelessWidget {
                                                         FontWeight.w400),
                                               ),
                                             ),
-                                            const Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "view",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: UIGuide.light_Purple,
-                                                    fontWeight:
-                                                        FontWeight.w400),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: SizedBox(
+                                                height: 25,
+                                                width: 25,
+                                                // color: Color.fromARGB(
+                                                //     255, 241, 241, 241),
+                                                child: LottieBuilder.network(
+                                                            "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
+                                                        null
+                                                    ? Icon(Icons
+                                                        .remove_red_eye_outlined)
+                                                    : LottieBuilder.network(
+                                                        "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
                                               ),
-                                            )
+                                            ),
                                           ]),
                                     ],
                                   ),

@@ -15,6 +15,11 @@ class NotificationReceivedProviderStudent with ChangeNotifier {
 
   // List? notificationstud;
 
+  clearReceivedList() async {
+    receivedList.clear();
+    notifyListeners();
+  }
+
   List<StudNotificationReceivedList> receivedList = [];
   Future getNotificationReceived() async {
     Map<String, dynamic> parse = await parseJWT();

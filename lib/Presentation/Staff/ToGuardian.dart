@@ -236,6 +236,7 @@ class _Notification_StaffToGuardainState
                                                 notificationCourseController
                                                     .text
                                                     .toString();
+                                            await snapshot.clearStudentList();
                                             await Provider.of<
                                                         NotificationToGuardian_Providers>(
                                                     context,

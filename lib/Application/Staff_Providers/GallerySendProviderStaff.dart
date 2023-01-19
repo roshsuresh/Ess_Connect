@@ -84,6 +84,10 @@ class GallerySendProvider_Stf with ChangeNotifier {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = await json.decode(response.body);
+      GallerySendStaffInitialvalues sd =
+          GallerySendStaffInitialvalues.fromJson(data['initialValues']);
+
+      isClassTeacher = sd.isClassTeacher;
       Map<String, dynamic> galleryiniti = await data['initialValues'];
 
       List<GalleryCourseListStaff> templist = List<GalleryCourseListStaff>.from(
@@ -176,7 +180,7 @@ class GallerySendProvider_Stf with ChangeNotifier {
   String? id;
   Future galleryImageSave(BuildContext context, String path) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-
+    setLoadingg(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -188,11 +192,11 @@ class GallerySendProvider_Stf with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    setLoadingg(true);
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
-
+      setLoadingg(true);
       GalleryImageId idd = GalleryImageId.fromJson(data);
       id = idd.id;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -204,10 +208,11 @@ class GallerySendProvider_Stf with ChangeNotifier {
         margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
         behavior: SnackBarBehavior.floating,
         content: Text(
-          'Uploaded Successfully',
+          'Image added...',
           textAlign: TextAlign.center,
         ),
       ));
+      setLoadingg(false);
       print('...............   $id');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -224,6 +229,7 @@ class GallerySendProvider_Stf with ChangeNotifier {
         ),
       ));
       print(response.reasonPhrase);
+      setLoadingg(false);
     }
   }
 

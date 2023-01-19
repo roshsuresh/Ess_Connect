@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Admin/AdminHome.dart';
+import 'package:essconnect/Presentation/SchoolSuperAdmin/SuperAdminHome.dart';
 import 'package:essconnect/Presentation/Student/Student_home.dart';
 import 'package:essconnect/utils/LoadingIndication.dart';
 import 'package:essconnect/utils/constants.dart';
@@ -382,6 +383,20 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (BuildContext context) => StaffHome()));
+      }
+      //SchoolSuperAdmin
+      else if (parsedResponse['role'] == "SchoolSuperAdmin") {
+        if (isLoading) return;
+        setState(() {
+          isLoading = true;
+        });
+
+        await Future.delayed(const Duration(seconds: 3));
+
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => SuperAdminHome()));
       } else {
         Navigator.pushReplacement(
             context,

@@ -52,8 +52,26 @@ class Timetable extends StatelessWidget {
   }
 }
 
-class Classtimetable extends StatelessWidget {
+class Classtimetable extends StatefulWidget {
   Classtimetable({Key? key}) : super(key: key);
+
+  @override
+  State<Classtimetable> createState() => _ClasstimetableState();
+}
+
+class _ClasstimetableState extends State<Classtimetable> {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Provider.of<Timetableprovider>(context, listen: false)
+          .getDivisionId();
+      var dividd =
+          await Provider.of<Timetableprovider>(context, listen: false).divIDD ??
+              '--';
+      await Provider.of<Timetableprovider>(context, listen: false)
+          .getTimeTable(dividd);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +91,7 @@ class Classtimetable extends StatelessWidget {
                         kheight20,
                         Table(
                           border: TableBorder.all(
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                              color: const Color.fromARGB(255, 255, 255, 255)),
                           columnWidths: const {
                             0: FlexColumnWidth(4),
                             1: FlexColumnWidth(2),
@@ -90,7 +108,7 @@ class Classtimetable extends StatelessWidget {
                                       child: Text(
                                         'Class TimeTable',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ),
                                   ),
@@ -100,7 +118,7 @@ class Classtimetable extends StatelessWidget {
                                         child: Text(
                                       'View',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.w500),
+                                          fontWeight: FontWeight.w700),
                                     )),
                                   ),
                                 ]),
@@ -144,12 +162,12 @@ class Classtimetable extends StatelessWidget {
                                             // color: Color.fromARGB(
                                             //     255, 241, 241, 241),
                                             child: LottieBuilder.network(
-                                                        "https://assets9.lottiefiles.com/private_files/lf30_jk4hpapf.json") ==
+                                                        "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
                                                     null
                                                 ? const Icon(Icons
                                                     .remove_red_eye_outlined)
                                                 : LottieBuilder.network(
-                                                    "https://assets9.lottiefiles.com/private_files/lf30_jk4hpapf.json"),
+                                                    "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
                                           ),
                                         ),
                                       ]),
@@ -181,15 +199,30 @@ class Classtimetable extends StatelessWidget {
   }
 }
 
-class Examtimetable extends StatelessWidget {
+class Examtimetable extends StatefulWidget {
   Examtimetable({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<Examtimetable> createState() => _ExamtimetableState();
+}
+
+class _ExamtimetableState extends State<Examtimetable> {
+  void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      Provider.of<Timetableprovider>(context, listen: false).examList.clear();
       await Provider.of<Timetableprovider>(context, listen: false)
-          .getExamTimeTable();
+          .getDivisionId();
+      var dividd =
+          await Provider.of<Timetableprovider>(context, listen: false).divIDD ??
+              '--';
+      await Provider.of<Timetableprovider>(context, listen: false)
+          .getExamTimeTable(dividd);
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -198,117 +231,128 @@ class Examtimetable extends StatelessWidget {
         child: Consumer<Timetableprovider>(
           builder: (context, value, child) => value.loading
               ? spinkitLoader()
-              : value.url == null
-                  ? Container(
-                      child: LottieBuilder.network(
-                          'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json'),
-                    )
-                  : ListView(
-                      children: [
-                        kheight20,
-                        Table(
-                          border: TableBorder.all(
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                          columnWidths: const {
-                            0: FlexColumnWidth(4),
-                            1: FlexColumnWidth(2),
-                          },
-                          children: const [
-                            TableRow(
-                                decoration: BoxDecoration(
-                                  color: UIGuide.light_black,
+              : ListView(
+                  children: [
+                    kheight20,
+                    Table(
+                      border: TableBorder.all(
+                          color: Color.fromARGB(255, 255, 255, 255)),
+                      columnWidths: const {
+                        0: FlexColumnWidth(4),
+                        1: FlexColumnWidth(2),
+                      },
+                      children: const [
+                        TableRow(
+                            decoration: BoxDecoration(
+                              color: UIGuide.light_black,
+                            ),
+                            children: [
+                              SizedBox(
+                                height: 30,
+                                child: Center(
+                                  child: Text(
+                                    'Exam TimeTable',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                  ),
                                 ),
-                                children: [
-                                  SizedBox(
-                                    height: 30,
-                                    child: Center(
-                                      child: Text(
-                                        'Exam TimeTable',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                    child: Center(
-                                        child: Text(
-                                      'View',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500),
-                                    )),
-                                  ),
-                                ]),
-                          ],
-                        ),
-                        Consumer<Timetableprovider>(
-                          builder: (context, value, child) {
-                            return GestureDetector(
-                              child: Table(
-                                border: TableBorder.all(
-                                    color: Color.fromARGB(255, 255, 255, 255)),
-                                columnWidths: const {
-                                  0: FlexColumnWidth(4),
-                                  1: FlexColumnWidth(2),
-                                },
-                                children: [
-                                  TableRow(
-                                      decoration: const BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 245, 242, 242),
-                                      ),
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Center(
-                                            child: Text(
-                                              value.nameExam == null
-                                                  ? '--'
-                                                  : value.nameExam.toString(),
-                                              style:
-                                                  const TextStyle(fontSize: 15),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Container(
-                                            height: 25,
-                                            width: 25,
-                                            // color: Color.fromARGB(
-                                            //     255, 241, 241, 241),
-                                            child: LottieBuilder.network(
-                                                        "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
-                                                    null
-                                                ? const Icon(Icons
-                                                    .remove_red_eye_outlined)
-                                                : LottieBuilder.network(
-                                                    "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
-                                          ),
-                                        ),
-                                      ]),
-                                ],
                               ),
-                              onTap: () async {
-                                if (value.extensionExam == '.pdf') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ExamPdfView()),
-                                  );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ImageViewExam()),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        )
+                              SizedBox(
+                                height: 30,
+                                child: Center(
+                                    child: Text(
+                                  'View',
+                                  style: TextStyle(fontWeight: FontWeight.w700),
+                                )),
+                              ),
+                            ]),
                       ],
                     ),
+                    Consumer<Timetableprovider>(
+                      builder: (context, value, child) {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: value.examList.isEmpty
+                                ? 0
+                                : value.examList.length,
+                            itemBuilder: ((context, index) {
+                              return GestureDetector(
+                                child: Table(
+                                  border: TableBorder.all(
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                  columnWidths: const {
+                                    0: FlexColumnWidth(4),
+                                    1: FlexColumnWidth(2),
+                                  },
+                                  children: [
+                                    TableRow(
+                                        decoration: const BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 245, 242, 242),
+                                        ),
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Center(
+                                              child: Text(
+                                                value.examList[index]
+                                                            .examDescription ==
+                                                        null
+                                                    ? '--'
+                                                    : value.examList[index]
+                                                        .examDescription
+                                                        .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              height: 25,
+                                              width: 25,
+                                              // color: Color.fromARGB(
+                                              //     255, 241, 241, 241),
+                                              child: LottieBuilder.network(
+                                                          "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
+                                                      null
+                                                  ? const Icon(Icons
+                                                      .remove_red_eye_outlined)
+                                                  : LottieBuilder.network(
+                                                      "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
+                                            ),
+                                          ),
+                                        ]),
+                                  ],
+                                ),
+                                onTap: () async {
+                                  String att =
+                                      await value.examList[index].id ?? '--';
+                                  await value.viewAttachment(att);
+                                  if (value.examList[index].extension ==
+                                      '.pdf') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ExamPdfView()),
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ImageViewExam()),
+                                    );
+                                  }
+                                },
+                              );
+                            }));
+                      },
+                    )
+                  ],
+                ),
         ),
       ),
     );
@@ -427,9 +471,9 @@ class ExamPdfView extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 15.0),
                 child: DownloandPdf(
                   isUseIcon: true,
-                  pdfUrl: value.urlexam.toString().isEmpty
+                  pdfUrl: value.urlExam.toString().isEmpty
                       ? '--'
-                      : value.urlexam.toString(),
+                      : value.urlExam.toString(),
                   fileNames: value.nameExam.toString().isEmpty
                       ? '---'
                       : value.nameExam.toString(),
@@ -439,7 +483,7 @@ class ExamPdfView extends StatelessWidget {
             ],
           ),
           body: SfPdfViewer.network(
-            value.urlexam.toString().isEmpty ? '--' : value.urlexam.toString(),
+            value.urlExam == null ? '--' : value.urlExam.toString(),
           )),
     );
   }
@@ -473,13 +517,13 @@ class ImageViewExam extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<Timetableprovider>(builder: (context, provider, _) {
       if (provider.extensionExam.toString() == '.jpg') {
-        final imgResult = provider.urlexam.toString();
+        final imgResult = provider.urlExam.toString();
         return imageview(imgResult);
       } else if (provider.extensionExam.toString() == '.png') {
-        final imgResult2 = provider.urlexam.toString();
+        final imgResult2 = provider.urlExam.toString();
         return imageview(imgResult2);
       } else if (provider.extensionExam.toString() == '.jpeg') {
-        final imgResult3 = provider.urlexam.toString();
+        final imgResult3 = provider.urlExam.toString();
         return imageview(imgResult3);
       } else {
         return const Scaffold(

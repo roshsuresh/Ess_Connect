@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Domain/Admin/Course&DivsionList.dart';
 import 'package:essconnect/Domain/Admin/ExamTTModel.dart';
+import 'package:essconnect/Domain/Staff/ExamTTModelStaff.dart';
 import 'package:essconnect/Domain/Staff/GallerySendStaff.dart';
+import 'package:essconnect/Domain/Staff/NoticeboardSendModel.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,39 +13,72 @@ import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ExamTTAdmProvidersStaff with ChangeNotifier {
-  List<CourseListModel> courseList = [];
-  //List<MultiSelectItem> courseDropDown = [];
+  bool? isClassTeacher;
+  List<CourseExam> courseList = [];
   Future getCourseList() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
 
-    var request = http.Request(
-        'GET', Uri.parse('${UIGuide.baseURL}/mobileapp/common/courselist'));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
+    var response = await http.get(
+        Uri.parse("${UIGuide.baseURL}/upload-exam-timetable/initialValues"),
+        headers: headers);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> data =
-          jsonDecode(await response.stream.bytesToString());
+      final data = await json.decode(response.body);
+      Map<String, dynamic> initialStf = await data['initialcombovalues'];
 
-      List<CourseListModel> templist = List<CourseListModel>.from(
-          data["courseList"].map((x) => CourseListModel.fromJson(x)));
+      ExamTTmodelStaff sd =
+          ExamTTmodelStaff.fromJson(data!['initialcombovalues']);
+
+      isClassTeacher = sd.isClassTeacher;
+      List<CourseExam> templist = List<CourseExam>.from(
+          initialStf['courses'].map((x) => CourseExam.fromJson(x)));
       courseList.addAll(templist);
-
-      // courseDropDown = courseList.map((subjectdata) {
-      //   return MultiSelectItem(subjectdata, subjectdata.name!);
-      // }).toList();
 
       notifyListeners();
     } else {
-      print("Error in Course response");
+      print('Error in Notice stf');
     }
+    return true;
   }
+
+  // List<CourseListModel> courseList = [];
+  // //List<MultiSelectItem> courseDropDown = [];
+  // Future getCourseList() async {
+  //   SharedPreferences _pref = await SharedPreferences.getInstance();
+  //   var headers = {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+  //   };
+
+  //   var request = http.Request(
+  //       'GET', Uri.parse('${UIGuide.baseURL}/mobileapp/common/courselist'));
+
+  //   request.headers.addAll(headers);
+
+  //   http.StreamedResponse response = await request.send();
+
+  //   if (response.statusCode == 200) {
+  //     Map<String, dynamic> data =
+  //         jsonDecode(await response.stream.bytesToString());
+
+  //     List<CourseListModel> templist = List<CourseListModel>.from(
+  //         data["courseList"].map((x) => CourseListModel.fromJson(x)));
+  //     courseList.addAll(templist);
+
+  //     // courseDropDown = courseList.map((subjectdata) {
+  //     //   return MultiSelectItem(subjectdata, subjectdata.name!);
+  //     // }).toList();
+
+  //     notifyListeners();
+  //   } else {
+  //     print("Error in Course response");
+  //   }
+  // }
 
   int divisionLen = 0;
   divisionCounter(int leng) async {
@@ -60,7 +94,7 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
   }
   //Division
 
-  List<DivisionListModel> divisionList = [];
+  List<DivisionsExam> divisionList = [];
   List<MultiSelectItem> divisionDropDown = [];
   Future<bool> getDivisionList(String courseId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -72,7 +106,7 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
     var request = http.Request(
         'GET',
         Uri.parse(
-            '${UIGuide.baseURL}/mobileapp/staffdet/studentreport/divisions/$courseId'));
+            '${UIGuide.baseURL}/upload-exam-timetable/divisionbycourse/$courseId'));
 
     request.headers.addAll(headers);
 
@@ -84,8 +118,8 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
 
       log(data.toString());
 
-      List<DivisionListModel> templist = List<DivisionListModel>.from(
-          data["divisionbyCourse"].map((x) => DivisionListModel.fromJson(x)));
+      List<DivisionsExam> templist = List<DivisionsExam>.from(
+          data["divisions"].map((x) => DivisionsExam.fromJson(x)));
       divisionList.addAll(templist);
       divisionDropDown = divisionList.map((subjectdata) {
         return MultiSelectItem(subjectdata, subjectdata.text!);
@@ -107,7 +141,7 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
   String? id;
   Future examImageSave(BuildContext context, String path) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
+    setLoading(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${pref.getString('accesstoken')}'
@@ -120,8 +154,9 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
 
     http.StreamedResponse response = await request.send();
     print(request);
-
+    setLoading(true);
     if (response.statusCode == 200) {
+      setLoading(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -142,6 +177,7 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
+      setLoading(false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
@@ -156,6 +192,7 @@ class ExamTTAdmProvidersStaff with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
+      setLoading(false);
       print(response.reasonPhrase);
     }
   }

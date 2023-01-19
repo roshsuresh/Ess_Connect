@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:essconnect/Domain/Admin/NoticeBoardList.dart';
+import 'package:essconnect/Domain/Staff/StudentReport_staff.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
@@ -14,6 +17,62 @@ List? noticeCategoryAdmin;
 
 class NoticeBoardAdminProvider with ChangeNotifier {
   //category
+  String toggleVal = 'All';
+  int indval = 0;
+  onToggleChanged(int ind) {
+    if (ind == 0) {
+      toggleVal = 'All';
+      indval = ind;
+      print(toggleVal);
+      notifyListeners();
+    } else if (ind == 1) {
+      toggleVal = 'student';
+      print(toggleVal);
+      indval = ind;
+      notifyListeners();
+    } else {
+      toggleVal = 'staff';
+      print(toggleVal);
+      indval = ind;
+      notifyListeners();
+    }
+  }
+
+  List<StudReportSectionList> stdReportInitialValues = [];
+  List<MultiSelectItem> dropDown = [];
+  Future stdReportSectionStaff() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var response = await http.get(
+        Uri.parse(
+            "${UIGuide.baseURL}/mobileapp/staffdet/studentreportinitialvalues"),
+        headers: headers);
+
+    try {
+      if (response.statusCode == 200) {
+        print("corect");
+        final data = json.decode(response.body);
+
+        Map<String, dynamic> stl = data['studentReportInitialValues'];
+        List<StudReportSectionList> templist = List<StudReportSectionList>.from(
+            stl["sectionList"].map((x) => StudReportSectionList.fromJson(x)));
+        stdReportInitialValues.addAll(templist);
+        dropDown = stdReportInitialValues.map((subjectdata) {
+          return MultiSelectItem(subjectdata, subjectdata.text!);
+        }).toList();
+
+        notifyListeners();
+      } else {
+        print("Error in notification response");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future noticeboardCategory() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -77,6 +136,17 @@ class NoticeBoardAdminProvider with ChangeNotifier {
     } else {
       print("Error in Course response");
     }
+  }
+
+  int sectionLen = 0;
+  sectionCounter(int len) async {
+    sectionLen = 0;
+    if (len == 0) {
+      sectionLen = 0;
+    } else {
+      sectionLen = len;
+    }
+    notifyListeners();
   }
 
   int courseLen = 0;
@@ -143,23 +213,35 @@ class NoticeBoardAdminProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loaddg = false;
+  bool get loaddg => _loaddg;
+  setLoadddd(bool valu) {
+    _loaddg = valu;
+    notifyListeners();
+  }
+
   String? id;
   Future noticeImageSave(BuildContext context, String path) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-
+    setLoadddd(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
     };
+    print(headers);
     var request = http.MultipartRequest(
         'POST', Uri.parse('${UIGuide.baseURL}/files/single/School'));
-    request.fields.addAll({'': ''});
+    //  request.fields.addAll({'': ''});
     request.files.add(await http.MultipartFile.fromPath('', path));
     request.headers.addAll(headers);
-
+    setLoadddd(true);
     http.StreamedResponse response = await request.send();
-
+    print(http.MultipartRequest(
+        'POST', Uri.parse('${UIGuide.baseURL}/files/single/School')));
+    print(response.statusCode);
+    print(path);
     if (response.statusCode == 200) {
+      setLoadddd(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -174,10 +256,11 @@ class NoticeBoardAdminProvider with ChangeNotifier {
         margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
         behavior: SnackBarBehavior.floating,
         content: Text(
-          'Uploaded Successfully',
+          'File added...',
           textAlign: TextAlign.center,
         ),
       ));
+      setLoadddd(false);
       print('...............   $id');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -193,6 +276,7 @@ class NoticeBoardAdminProvider with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
+      setLoadddd(false);
       print(response.reasonPhrase);
     }
   }
@@ -200,7 +284,9 @@ class NoticeBoardAdminProvider with ChangeNotifier {
   // save NoticeBoard
 
   final List course = [];
+  final List section = [];
   final List division = [];
+
   Future noticeBoardSave(
       BuildContext context,
       String entryDate,
@@ -211,6 +297,7 @@ class NoticeBoardAdminProvider with ChangeNotifier {
       String toggle,
       course,
       division,
+      section,
       String CategoryId,
       String AttachmentId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -227,13 +314,13 @@ class NoticeBoardAdminProvider with ChangeNotifier {
       "DisplayEndDate": DisplayEndDate,
       "Title": Titlee,
       "Matter": Matter,
-      "DisplayTo": toggle,
-      "StaffRole": "null",
+      "displayTo": 'all',
+      "StaffRole": null,
       "CourseId": course,
       "DivisionId": division,
-      "SectionList": "null",
+      "SectionList": section,
       "CategoryId": CategoryId,
-      "ForClassTeachersOnly": "false",
+      "ForClassTeachersOnly": false,
       "AttachmentId": AttachmentId
     });
     print(request.body = json.encode({
@@ -242,13 +329,13 @@ class NoticeBoardAdminProvider with ChangeNotifier {
       "DisplayEndDate": DisplayEndDate,
       "Title": Titlee,
       "Matter": Matter,
-      "DisplayTo": toggle,
-      "StaffRole": "null",
+      "displayTo": toggle,
+      "StaffRole": null,
       "CourseId": course,
       "DivisionId": division,
-      "SectionList": "null",
+      "SectionList": section,
       "CategoryId": CategoryId,
-      "ForClassTeachersOnly": "false",
+      "ForClassTeachersOnly": false,
       "AttachmentId": AttachmentId
     }));
     request.headers.addAll(headers);
@@ -284,6 +371,154 @@ class NoticeBoardAdminProvider with ChangeNotifier {
         ),
       ));
       print('Error Response notice send admin');
+    }
+  }
+
+  //NoticeBoard category
+
+  clearListcategoryListt() {
+    categoryListt.clear();
+    notifyListeners();
+  }
+
+  List<NoticeBoardCategory> categoryListt = [];
+  Future<bool> categoryList() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoadddd(true);
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+    var request = http.Request('GET',
+        Uri.parse('${UIGuide.baseURL}/settings/general/noticeboardcategory'));
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    print('object');
+    if (response.statusCode == 200) {
+      setLoadddd(true);
+      List data = jsonDecode(await response.stream.bytesToString());
+
+      //log(data.toString());
+
+      List<NoticeBoardCategory> templist = List<NoticeBoardCategory>.from(
+          data.map((x) => NoticeBoardCategory.fromJson(x)));
+      categoryListt.addAll(templist);
+      setLoadddd(false);
+      notifyListeners();
+    } else {
+      setLoadddd(false);
+      print('Error in category ');
+    }
+    return true;
+  }
+
+  // add category
+
+  Future categorySave(
+    BuildContext context,
+    String name,
+    String sortOrder,
+  ) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+    var request = http.Request('POST',
+        Uri.parse('${UIGuide.baseURL}/settings/general/noticeboardcategory'));
+    request.body = json.encode({
+      "active": true,
+      "name": name,
+      "selected": false,
+      "sortOrder": sortOrder
+    });
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 201) {
+      print('Correct______..........______');
+
+      AwesomeDialog(
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              headerAnimationLoop: false,
+              title: 'Success',
+              desc: 'Uploaded Successfully',
+              btnOkOnPress: () {},
+              btnOkIcon: Icons.cancel,
+              btnOkColor: Colors.green)
+          .show();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      print('Error Response notice send admin');
+    }
+  }
+
+  Future categoryDelete(String eventID, BuildContext context) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+    var request = http.Request(
+        'DELETE',
+        Uri.parse(
+            '${UIGuide.baseURL}/settings/general/noticeboardcategory/$eventID'));
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 204) {
+      print(await response.stream.bytesToString());
+      print('correct');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Deleted Successfully',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      notifyListeners();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      print('Error in category delete');
     }
   }
 }

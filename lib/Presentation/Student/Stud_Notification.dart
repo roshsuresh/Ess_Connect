@@ -18,6 +18,7 @@ class Stud_Notification extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<NotificationReceivedProviderStudent>(context,
           listen: false);
+      p.clearReceivedList();
       await p.getNotificationReceived();
     });
     var size = MediaQuery.of(context).size;

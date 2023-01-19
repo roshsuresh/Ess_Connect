@@ -34,13 +34,11 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
       noticeboardInitialStf = await data['initialValues'];
       noticeCourseStf = await noticeboardInitialStf!['courseList'];
       noticeCategoryStf = await noticeboardInitialStf!['category'];
-      // print(noticeCourseStf);
+
       NoticeboardInitialValues sd =
           NoticeboardInitialValues.fromJson(data['initialValues']);
 
       isClassTeacher = sd.isClassTeacher;
-      // print('fghfhgjhgh.......$isClassTeacher');
-      //log(data.toString());
 
       notifyListeners();
     } else {
@@ -123,10 +121,17 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
     return true;
   }
 
+  bool _loadingg = false;
+  bool get loadingg => _loadingg;
+  setLoadingg(bool value) {
+    _loadingg = value;
+    notifyListeners();
+  }
+
   String? id;
   Future noticeImageSave(BuildContext context, String path) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-
+    setLoadingg(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -138,8 +143,9 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    setLoadingg(true);
     if (response.statusCode == 200) {
+      setLoadingg(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -155,12 +161,27 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
         margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
         behavior: SnackBarBehavior.floating,
         content: Text(
-          'Uploaded Successfully',
+          'File added...',
           textAlign: TextAlign.center,
         ),
       ));
+      setLoadingg(false);
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something went wrong',
+          textAlign: TextAlign.center,
+        ),
+      ));
       print(response.reasonPhrase);
+      setLoadingg(false);
     }
   }
 

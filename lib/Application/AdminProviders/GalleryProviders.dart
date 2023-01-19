@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Domain/Admin/GalleryEdit.dart';
 import 'package:essconnect/Domain/Staff/GallerySendStaff.dart';
+import 'package:essconnect/Domain/Staff/StudentReport_staff.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,74 @@ List? galleryAdm;
 Map? editGallery;
 
 class GalleryProviderAdmin with ChangeNotifier {
+  String toggleVal = 'All';
+  int indval = 0;
+  onToggleChanged(int ind) {
+    if (ind == 0) {
+      toggleVal = 'All';
+      indval = ind;
+      print(toggleVal);
+      notifyListeners();
+    } else if (ind == 1) {
+      toggleVal = 'student';
+      print(toggleVal);
+      indval = ind;
+      notifyListeners();
+    } else {
+      toggleVal = 'staff';
+      print(toggleVal);
+      indval = ind;
+      notifyListeners();
+    }
+  }
+
+  int sectionLen = 0;
+  sectionCounter(int len) async {
+    sectionLen = 0;
+    if (len == 0) {
+      sectionLen = 0;
+    } else {
+      sectionLen = len;
+    }
+    notifyListeners();
+  }
+
+  List<StudReportSectionList> stdReportInitialValues = [];
+  List<MultiSelectItem> dropDown = [];
+  Future stdReportSectionStaff() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var response = await http.get(
+        Uri.parse(
+            "${UIGuide.baseURL}/mobileapp/staffdet/studentreportinitialvalues"),
+        headers: headers);
+
+    try {
+      if (response.statusCode == 200) {
+        print("corect");
+        final data = json.decode(response.body);
+        // log(data.toString());
+        Map<String, dynamic> stl = data['studentReportInitialValues'];
+        List<StudReportSectionList> templist = List<StudReportSectionList>.from(
+            stl["sectionList"].map((x) => StudReportSectionList.fromJson(x)));
+        stdReportInitialValues.addAll(templist);
+        dropDown = stdReportInitialValues.map((subjectdata) {
+          return MultiSelectItem(subjectdata, subjectdata.text!);
+        }).toList();
+
+        notifyListeners();
+      } else {
+        print("Error in notification response");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 //Course
   List<CourseListModel> courseList = [];
   List<MultiSelectItem> courseDropDown = [];
@@ -119,10 +188,17 @@ class GalleryProviderAdmin with ChangeNotifier {
 
   //find image id
 
+  bool _loaddg = false;
+  bool get loaddg => _loaddg;
+  setLoadddd(bool valu) {
+    _loaddg = valu;
+    notifyListeners();
+  }
+
   String? id;
   Future galleryImageSave(BuildContext context, String path) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
+    setLoading(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${pref.getString('accesstoken')}'
@@ -135,8 +211,9 @@ class GalleryProviderAdmin with ChangeNotifier {
 
     http.StreamedResponse response = await request.send();
     print(request);
-
+    setLoading(true);
     if (response.statusCode == 200) {
+      setLoading(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -144,6 +221,7 @@ class GalleryProviderAdmin with ChangeNotifier {
       id = idd.id;
       print(path);
       print('...............   $id');
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
         shape: RoundedRectangleBorder(
@@ -157,7 +235,11 @@ class GalleryProviderAdmin with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
+      setLoading(false);
+
+      notifyListeners();
     } else {
+      setLoading(false);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
         shape: RoundedRectangleBorder(
@@ -173,11 +255,13 @@ class GalleryProviderAdmin with ChangeNotifier {
       ));
       print(response.reasonPhrase);
     }
+    notifyListeners();
   }
 
   //gallery save
   final List coursee = [];
   final List divisionn = [];
+  final List section = [];
   Future gallerySave(
       context,
       String entryDate,
@@ -186,6 +270,7 @@ class GalleryProviderAdmin with ChangeNotifier {
       String titlee,
       coursee,
       divisionn,
+      section,
       String toggle,
       String attachmentId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -209,22 +294,9 @@ class GalleryProviderAdmin with ChangeNotifier {
       "photoList": [
         {"fileId": attachmentId, "isMaster": true}
       ],
-      "sectionId": null,
+      "sectionId": section,
       "staffRole": null,
       "title": titlee
-
-      // "EntryDate": entryDate,
-      // "DisplayStartDate": DisplayStartDate,
-      // "DisplayEndDate": DisplayEndDate,
-      // "Title": Titlee,
-      // "CourseId": coursee,
-      // "DivisionId": divisionn,
-      // "ForClassTeacherOnly": "false",
-      // "DisplayTo": toggle,
-      // "StaffRole": "null",
-      // "PhotoList": [
-      //   {"PhotoCaption": "null", "FileId": AttachmentId, "IsMaster": "true"},
-      // ]
     });
     print(json.encode({
       "cancel": null,
@@ -238,7 +310,7 @@ class GalleryProviderAdmin with ChangeNotifier {
       "photoList": [
         {"fileId": attachmentId, "isMaster": true}
       ],
-      "sectionId": null,
+      "sectionId": section,
       "staffRole": null,
       "title": titlee
     }));

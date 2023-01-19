@@ -1,5 +1,6 @@
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import '../../Application/StudentProviders/AttendenceProvider.dart';
 import '../../Constants.dart';
@@ -39,245 +40,273 @@ class Attendence extends StatelessWidget {
           child: Consumer<AttendenceProvider>(
             builder: (context, value, child) => value.loading
                 ? spinkitLoader()
-                : ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      Center(
-                        child: Container(
-                          width: size.width - 59,
-                          // margin: const EdgeInsets.all(20.0),
-                          padding: const EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: UIGuide.light_Purple, width: .5),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Consumer<AttendenceProvider>(
-                            builder: (_, provider, child) {
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Center(
-                                    child: Table(
-                                      // border: TableBorder.all(
-                                      //     color: UIGuide.light_Purple),
-                                      children: [
-                                        TableRow(children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}',
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}',
-                                            ),
-                                          ),
-                                        ]),
-                                        TableRow(children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}',
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                                'Percentage % : ${provider.totPercentage == null ? '--' : provider.totPercentage.toString()}'),
-                                          ),
-                                        ])
-                                      ],
-                                    ),
-                                  ),
-                                  // Row(
-                                  //   children: [
-                                  //     kWidth,
-                                  //     Text(
-                                  //         'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}'),
-
-                                  //     //  const Spacer(),
-                                  //     Text(
-                                  //         'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}'),
-                                  //     kWidth,
-                                  //     kWidth
-                                  //   ],
-                                  // ),
-                                  // kheight10,
-                                  // kheight10,
-                                  // Row(
-                                  //   children: [
-                                  //     kWidth,
-                                  //     Text(
-                                  //         'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}'),
-                                  //     //  const Spacer(),
-                                  //     Text(
-                                  //         'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
-                                  //     kWidth,
-                                  //     kWidth
-                                  //   ],
-                                  // ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      kheight10,
-                      Table(
-                        border: TableBorder.all(
-                            color: Color.fromARGB(255, 215, 216, 216),
-                            width: .2),
-                        children: const [
-                          TableRow(
+                : value.attendList.isEmpty
+                    ? Container(
+                        child: LottieBuilder.network(
+                            'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json'),
+                      )
+                    : ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: [
+                          Center(
+                            child: Container(
+                              width: size.width - 59,
+                              padding: const EdgeInsets.all(5.0),
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 231, 233, 235)),
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 19.0, bottom: 4, left: 4, right: 4),
-                                  child: Text(
-                                    'Month',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 4.0, bottom: 4, left: 4, right: 4),
-                                  child: Text(
-                                    'No of \n Working \n Days',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10.0, bottom: 4, left: 4, right: 4),
-                                  child: Text(
-                                    'Days \n Present',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 10.0, bottom: 4, left: 4, right: 4),
-                                  child: Text(
-                                    'Days \n absent',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  ' \n %',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ])
-                        ],
-                      ),
-                      Consumer<AttendenceProvider>(
-                        builder: (_, value, child) => ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: value.attendList.isEmpty
-                                ? 0
-                                : value.attendList.length,
-                            shrinkWrap: true,
-                            itemBuilder: ((context, index) {
-                              // String percentage =
-                              //     attend![index]['monthres'].toString();
-                              // if (percentage.length >= 5) {
-                              //   percentage.replaceRange(
-                              //       6, percentage.length, '');
-                              // }
+                                  border: Border.all(
+                                      color: UIGuide.light_Purple, width: .5),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Consumer<AttendenceProvider>(
+                                builder: (_, provider, child) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Table(
+                                          // border: TableBorder.all(
+                                          //     color: UIGuide.light_Purple),
+                                          children: [
+                                            TableRow(children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}',
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}',
+                                                ),
+                                              ),
+                                            ]),
+                                            TableRow(children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}',
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                    'Percentage % : ${provider.totPercentage == null ? '--' : provider.totPercentage.toString()}'),
+                                              ),
+                                            ])
+                                          ],
+                                        ),
+                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     kWidth,
+                                      //     Text(
+                                      //         'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}'),
 
-                              return Table(
-                                border: TableBorder.all(
-                                    color: const Color.fromARGB(
-                                        255, 245, 243, 243)),
-                                children: [
-                                  TableRow(children: [
+                                      //     //  const Spacer(),
+                                      //     Text(
+                                      //         'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}'),
+                                      //     kWidth,
+                                      //     kWidth
+                                      //   ],
+                                      // ),
+                                      // kheight10,
+                                      // kheight10,
+                                      // Row(
+                                      //   children: [
+                                      //     kWidth,
+                                      //     Text(
+                                      //         'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}'),
+                                      //     //  const Spacer(),
+                                      //     Text(
+                                      //         'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
+                                      //     kWidth,
+                                      //     kWidth
+                                      //   ],
+                                      // ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          Table(
+                            border: TableBorder.all(
+                                color: Color.fromARGB(255, 215, 216, 216),
+                                width: .2),
+                            children: const [
+                              TableRow(
+                                  decoration: BoxDecoration(
+                                      color:
+                                          Color.fromARGB(255, 231, 233, 235)),
+                                  children: [
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 19.0,
+                                          bottom: 4,
+                                          left: 4,
+                                          right: 4),
                                       child: Text(
-                                        value.attendList[index].month ?? '--',
-                                        //'${attend![index]['month'] == null ? '--' : attend![index]['month'].toString()} \n',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400),
+                                        'Month',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 4.0,
+                                          bottom: 4,
+                                          left: 4,
+                                          right: 4),
                                       child: Text(
-                                        value.attendList[index]
-                                                    .totalWorkingDays ==
-                                                null
-                                            ? '--'
-                                            : value.attendList[index]
-                                                .totalWorkingDays
-                                                .toString(),
-                                        // '${attend![index]['totalWorkingDays'].toString()} \n',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400),
+                                        'No of \n Working \n Days',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 10.0,
+                                          bottom: 4,
+                                          left: 4,
+                                          right: 4),
                                       child: Text(
-                                        value.attendList[index].daysPresent ==
-                                                null
-                                            ? '--'
-                                            : value
-                                                .attendList[index].daysPresent
-                                                .toString(),
-                                        //   '${attend![index]['daysPresent'].toString()} \n',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400),
+                                        'Days \n Present',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.only(
+                                          top: 10.0,
+                                          bottom: 4,
+                                          left: 4,
+                                          right: 4),
                                       child: Text(
-                                        value.attendList[index].daysAbsent ==
-                                                null
-                                            ? '--'
-                                            : value.attendList[index].daysAbsent
-                                                .toString(),
-
-                                        // '${attend![index]['daysAbsent'].toString()} \n',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400),
+                                        'Days \n absent',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        value.attendList[index].monthres == null
-                                            ? '--'
-                                            : value.attendList[index].monthres
-                                                .toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w400),
-                                        textAlign: TextAlign.center,
-                                      ),
+                                    Text(
+                                      ' \n %',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ])
-                                ],
-                              );
-                            })),
+                            ],
+                          ),
+                          Consumer<AttendenceProvider>(
+                            builder: (_, value, child) => ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: value.attendList.isEmpty
+                                    ? 0
+                                    : value.attendList.length,
+                                shrinkWrap: true,
+                                itemBuilder: ((context, index) {
+                                  // String percentage =
+                                  //     attend![index]['monthres'].toString();
+                                  // if (percentage.length >= 5) {
+                                  //   percentage.replaceRange(
+                                  //       6, percentage.length, '');
+                                  // }
+
+                                  return Table(
+                                    border: TableBorder.all(
+                                        color: const Color.fromARGB(
+                                            255, 245, 243, 243)),
+                                    children: [
+                                      TableRow(children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            value.attendList[index].month ??
+                                                '--',
+                                            //'${attend![index]['month'] == null ? '--' : attend![index]['month'].toString()} \n',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            value.attendList[index]
+                                                        .totalWorkingDays ==
+                                                    null
+                                                ? '--'
+                                                : value.attendList[index]
+                                                    .totalWorkingDays
+                                                    .toString(),
+                                            // '${attend![index]['totalWorkingDays'].toString()} \n',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            value.attendList[index]
+                                                        .daysPresent ==
+                                                    null
+                                                ? '--'
+                                                : value.attendList[index]
+                                                    .daysPresent
+                                                    .toString(),
+                                            //   '${attend![index]['daysPresent'].toString()} \n',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            value.attendList[index]
+                                                        .daysAbsent ==
+                                                    null
+                                                ? '--'
+                                                : value.attendList[index]
+                                                    .daysAbsent
+                                                    .toString(),
+
+                                            // '${attend![index]['daysAbsent'].toString()} \n',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            value.attendList[index].monthres ==
+                                                    null
+                                                ? '--'
+                                                : value
+                                                    .attendList[index].monthres
+                                                    .toString(),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ])
+                                    ],
+                                  );
+                                })),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
           ),
         ));
   }

@@ -166,30 +166,30 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                             fontWeight: FontWeight.w900,
                                             color: UIGuide.light_Purple),
                                       ),
-                                      Consumer<FeesProvider>(
-                                          builder: (context, snap, child) {
-                                        //   child:
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 20.0),
-                                          child: Checkbox(
-                                            value: snap.isselectAll,
-                                            onChanged: (bool? value) {
-                                              setState(() {
-                                                value = snap.isselectAll;
-                                              });
-                                            },
-                                            //       },
-                                          ),
-                                        );
-                                      }),
+                                      // Consumer<FeesProvider>(
+                                      //     builder: (context, snap, child) {
+                                      //   //   child:
+                                      //   return Padding(
+                                      //     padding: const EdgeInsets.only(
+                                      //         right: 20.0),
+                                      //     child: Checkbox(
+                                      //       value: snap.isselectAll,
+                                      //       onChanged: (bool? value) {
+                                      //         setState(() {
+                                      //           value = snap.isselectAll;
+                                      //         });
+                                      //       },
+                                      //       //       },
+                                      //     ),
+                                      //   );
+                                      // }),
                                     ],
                                   ),
                                 ),
                                 Scrollbar(
                                   controller: _controller,
                                   thumbVisibility: true,
-                                  thickness: 6,
+                                  thickness: 10,
                                   radius: const Radius.circular(20),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -292,7 +292,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                 Scrollbar(
                                   controller: _controller2,
                                   thumbVisibility: true,
-                                  thickness: 6,
+                                  thickness: 10,
                                   radius: const Radius.circular(20),
                                   child: Padding(
                                     padding: const EdgeInsets.only(

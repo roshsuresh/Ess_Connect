@@ -177,6 +177,9 @@ class _Notification_AdminToGuardainState
                             ),
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
+                        await Provider.of<NotificationToGuardianAdmin>(context,
+                                listen: false)
+                            .clearStudentList();
                         subjectData = [];
                         for (var i = 0; i < results.length; i++) {
                           StudReportSectionList data =

@@ -335,7 +335,7 @@ class _StaffHomeState extends State<StaffHome> {
                                 kheight10,
                                 Row(children: <Widget>[
                                   const Text(
-                                    ' ──    ',
+                                    ' ──  ',
                                     style: TextStyle(
                                       color: Colors.black26,
                                     ),
@@ -369,33 +369,33 @@ class _StaffHomeState extends State<StaffHome> {
                                           left: 10, right: 10),
                                       child: GestureDetector(
                                         onTap: () {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              elevation: 10,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10)),
-                                              ),
-                                              duration: Duration(seconds: 1),
-                                              margin: EdgeInsets.only(
-                                                  bottom: 80,
-                                                  left: 30,
-                                                  right: 30),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              content: Text(
-                                                'Something went wrong...',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          );
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           AttendenceEntry()),
+                                          // ScaffoldMessenger.of(context)
+                                          //     .showSnackBar(
+                                          //   const SnackBar(
+                                          //     elevation: 10,
+                                          //     shape: RoundedRectangleBorder(
+                                          //       borderRadius: BorderRadius.all(
+                                          //           Radius.circular(10)),
+                                          //     ),
+                                          //     duration: Duration(seconds: 1),
+                                          //     margin: EdgeInsets.only(
+                                          //         bottom: 80,
+                                          //         left: 30,
+                                          //         right: 30),
+                                          //     behavior:
+                                          //         SnackBarBehavior.floating,
+                                          //     content: Text(
+                                          //       'Something went wrong...',
+                                          //       textAlign: TextAlign.center,
+                                          //     ),
+                                          //   ),
                                           // );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AttendenceEntry()),
+                                          );
                                         },
                                         child: Column(
                                           mainAxisAlignment:
@@ -874,7 +874,7 @@ class _StaffHomeState extends State<StaffHome> {
                         kheight20,
                         Row(children: <Widget>[
                           const Text(
-                            ' ──    ',
+                            ' ──  ',
                             style: TextStyle(
                               color: Colors.black26,
                             ),

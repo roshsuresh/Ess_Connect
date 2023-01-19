@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Application/Staff_Providers/NoticeboardSend.dart';
 import 'package:essconnect/Presentation/Staff/ReceivedNoticeBoard.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,15 +35,16 @@ class StaffNoticeBoard extends StatelessWidget {
                 indicatorColor: Colors.white,
                 indicatorWeight: 5,
                 tabs: [
+                  Tab(text: "Received"),
                   Tab(
                     text: "Send",
                   ),
-                  Tab(text: "Received"),
                 ],
               ),
               backgroundColor: UIGuide.light_Purple,
             ),
             body: TabBarView(children: [
+              StaffNoticeBoardReceived(),
               Consumer<StaffNoticeboardSendProviders>(
                 builder: (context, value, child) {
                   if (value.isClassTeacher != false) {
@@ -74,7 +76,6 @@ class StaffNoticeBoard extends StatelessWidget {
                   }
                 },
               ),
-              StaffNoticeBoardReceived(),
             ])));
   }
 }
@@ -151,56 +152,35 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                         builder: (context) {
                           return Dialog(
                               child: Container(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: noticeCategoryStf!.length,
-                                    itemBuilder: (context, index) {
-// print(snapshot
-//     .attendenceInitialValues.length);
-// value.removeCourseAll();
-                                      return ListTile(
-                                        selectedTileColor: Colors.blue.shade100,
-                                        selectedColor: UIGuide.PRIMARY2,
+                            child: LimitedBox(
+                              maxHeight: size.height - 300,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: noticeCategoryStf!.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      selectedTileColor: Colors.blue.shade100,
+                                      selectedColor: UIGuide.PRIMARY2,
+                                      onTap: () async {
+                                        print({noticeCategoryStf![index]});
+                                        categoryvalueController.text =
+                                            await noticeCategoryStf![index]
+                                                    ['value'] ??
+                                                '--';
+                                        categoryvalueController1.text =
+                                            await noticeCategoryStf![index]
+                                                    ['text'] ??
+                                                '--';
 
-                                        // selected: snapshot.isCourseSelected(
-                                        //     attendecourse![index]),
-                                        onTap: () async {
-                                          print({noticeCategoryStf![index]});
-                                          categoryvalueController.text =
-                                              await noticeCategoryStf![index]
-                                                      ['value'] ??
-                                                  '--';
-                                          categoryvalueController1.text =
-                                              await noticeCategoryStf![index]
-                                                      ['text'] ??
-                                                  '--';
-                                          // courseId =
-                                          //     markEntryInitialValuesController
-                                          //         .text
-                                          //         .toString();
-
-                                          // snapshot.addSelectedCourse(
-                                          //     attendecourse![index]);
-                                          //   print(courseId);
-                                          // await Provider.of<
-                                          //             AttendenceStaffProvider>(
-                                          //         context,
-                                          //         listen: false)
-                                          //     .getAttendenceDivisionValues(
-                                          //         courseId);
-                                          Navigator.of(context).pop();
-                                        },
-                                        title: Text(
-                                          noticeCategoryStf![index]['text'] ??
-                                              '--',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      );
-                                    }),
-                              ],
+                                        Navigator.of(context).pop();
+                                      },
+                                      title: Text(
+                                        noticeCategoryStf![index]['text'] ??
+                                            '--',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    );
+                                  }),
                             ),
                           ));
                         });
@@ -307,58 +287,65 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
           child: SizedBox(
             width: 120,
             child: Consumer<StaffNoticeboardSendProviders>(
-              builder: (context, value, child) => MaterialButton(
-                // minWidth: size.width - 200,
-                color: Colors.white70,
-                onPressed: (() async {
-                  final result = await FilePicker.platform.pickFiles(
-                      type: FileType.custom,
-                      allowedExtensions: ['pdf', 'png', 'jpeg', 'jpg']);
-                  if (result == null) {
-                    return;
-                  }
-                  final file = result.files.first;
-                  print('Name: ${file.name}');
-                  print('Path: ${file.path}');
-                  print('Extension: ${file.extension}');
+              builder: (context, value, child) => value.loadingg
+                  ? spinkitLoader()
+                  : MaterialButton(
+                      // minWidth: size.width - 200,
+                      color: Colors.white70,
+                      onPressed: (() async {
+                        final result = await FilePicker.platform.pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['pdf', 'png', 'jpeg', 'jpg']);
+                        if (result == null) {
+                          return;
+                        }
+                        final file = result.files.first;
+                        print('Name: ${file.name}');
+                        print('Path: ${file.path}');
+                        print('Extension: ${file.extension}');
 
-                  int sizee = file.size;
+                        int sizee = file.size;
 
-                  if (sizee <= 200000) {
-                    await Provider.of<StaffNoticeboardSendProviders>(context,
-                            listen: false)
-                        .noticeImageSave(context, file.path.toString());
-                    attachmentid = value.id ?? '';
-                    //openFile(file);
-                    if (file.name.length >= 6) {
-                      setState(() {
-                        checkname =
-                            file.name.replaceRange(6, file.name.length, '');
-                      });
+                        if (sizee <= 200000) {
+                          await Provider.of<StaffNoticeboardSendProviders>(
+                                  context,
+                                  listen: false)
+                              .noticeImageSave(context, file.path.toString());
+                          attachmentid = value.id ?? '';
+                          //openFile(file);
+                          if (file.name.length >= 6) {
+                            setState(() {
+                              checkname = file.name
+                                  .replaceRange(6, file.name.length, '');
+                            });
 
-                      print(checkname);
-                    }
-                  } else {
-                    print('Size Exceed');
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      duration: Duration(seconds: 1),
-                      margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                      behavior: SnackBarBehavior.floating,
-                      content: Text(
-                        "Size Exceed(Less than 200KB allowed)",
-                        textAlign: TextAlign.center,
-                      ),
-                    ));
-                  }
-                }),
-                // minWidth: size.width - 200,
-                child: Text(
-                    checkname == null ? 'Choose File' : checkname.toString()),
-              ),
+                            print(checkname);
+                          }
+                        } else {
+                          print('Size Exceed');
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            duration: Duration(seconds: 1),
+                            margin: EdgeInsets.only(
+                                bottom: 80, left: 30, right: 30),
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                              "Size Exceed(Less than 200KB allowed)",
+                              textAlign: TextAlign.center,
+                            ),
+                          ));
+                        }
+                      }),
+                      // minWidth: size.width - 200,
+                      child: Text(checkname == null
+                          ? 'Choose File'
+                          : checkname.toString()),
+                    ),
             ),
           ),
         ),

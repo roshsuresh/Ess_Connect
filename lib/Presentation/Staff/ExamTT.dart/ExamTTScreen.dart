@@ -1,13 +1,20 @@
+import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
+import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTList.dart';
 import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTUpload.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExamTimetableStaff extends StatelessWidget {
   const ExamTimetableStaff({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var p = Provider.of<ExamTTAdmProvidersStaff>(context, listen: false);
+      // await p.getCourseList();
+    });
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -49,7 +56,71 @@ class ExamTimetableStaff extends StatelessWidget {
           backgroundColor: UIGuide.light_Purple,
         ),
         body: TabBarView(
-          children: [ExamTTUploadStaff(), ExamTTHistoryStaff()],
+          children: [
+            Consumer<ExamTTAdmProvidersStaff>(
+              builder: (context, value, child) {
+                if (value.isClassTeacher != false) {
+                  return ExamTTUploadStaff();
+                } else {
+                  return Container(
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.sentiment_dissatisfied_outlined,
+                            size: 60,
+                            color: Colors.grey,
+                          ),
+                          kheight10,
+                          Text(
+                            "Sorry you don't have access",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+            // Consumer<ExamTTAdmProvidersStaff>(
+            //   builder: (context, value, child) {
+            //     if (value.isClassTeacher != false) {
+            //       return ExamTTHistoryStaff();
+            //     } else {
+            //       return Container(
+            //         child: Center(
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: const [
+            //               Icon(
+            //                 Icons.sentiment_dissatisfied_outlined,
+            //                 size: 60,
+            //                 color: Colors.grey,
+            //               ),
+            //               kheight10,
+            //               Text(
+            //                 "Sorry you don't have access",
+            //                 style: TextStyle(
+            //                     fontSize: 20,
+            //                     fontWeight: FontWeight.w600,
+            //                     color: Colors.grey),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     }
+            //   },
+            // ),
+            ExamTTHistoryStaff()
+          ],
         ),
       ),
     );

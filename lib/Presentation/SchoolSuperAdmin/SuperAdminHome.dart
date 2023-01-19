@@ -4,16 +4,21 @@ import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart'
 import 'package:essconnect/Application/AdminProviders/dashboardProvider.dart';
 import 'package:essconnect/Application/Module%20Providers.dart/Module.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
+import 'package:essconnect/Presentation/Admin/Communication/ToGuardian.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
 import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
+import 'package:essconnect/Presentation/Admin/FeeCollectionReport/FeeReport.dart';
+import 'package:essconnect/Presentation/Admin/FeeDetails/StudFeeSearch.dart';
+import 'package:essconnect/Presentation/Admin/FlashNews/FlashnewsScreen.dart';
+import 'package:essconnect/Presentation/Admin/Gallery/GalleryScreen.dart';
 import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.dart';
-import 'package:essconnect/Presentation/Admin/MarkentryReport.dart';
+import 'package:essconnect/Presentation/Admin/NoticeBoard/NoticeboardScreen.dart';
+import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
-import 'package:essconnect/Presentation/Admin/demo.dart';
+import 'package:essconnect/Presentation/Staff/StaffHome.dart';
 import 'package:essconnect/Presentation/Staff/StudReport.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
-import 'package:essconnect/Presentation/Student/TimeTable.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -24,22 +29,15 @@ import '../../Application/StudentProviders/InternetConnection.dart';
 import '../../Constants.dart';
 import '../Login_Activation/Login_page.dart';
 import '../Student/PasswordChange.dart';
-import 'Communication/ToGuardian.dart';
-import 'FeeCollectionReport/FeeReport.dart';
-import 'FlashNews/FlashnewsScreen.dart';
-import 'Gallery/GalleryScreen.dart';
-import 'NoticeBoard/NoticeboardScreen.dart';
-import 'StaffReport.dart';
-import 'FeeDetails/StudFeeSearch.dart';
 
-class AdminHome extends StatefulWidget {
-  const AdminHome({Key? key}) : super(key: key);
+class SuperAdminHome extends StatefulWidget {
+  const SuperAdminHome({Key? key}) : super(key: key);
 
   @override
-  State<AdminHome> createState() => _AdminHomeState();
+  State<SuperAdminHome> createState() => _SuperAdminHomeState();
 }
 
-class _AdminHomeState extends State<AdminHome> {
+class _SuperAdminHomeState extends State<SuperAdminHome> {
   @override
   void initState() {
     super.initState();
@@ -59,10 +57,14 @@ class _AdminHomeState extends State<AdminHome> {
             : ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const AdminProfileTop(),
+                  const SuperAdminProfileTop(),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  StaffFlashNews(),
                   Container(
                     width: size.width,
-                    height: size.height - 170,
+                    height: size.height - 200,
                     decoration: BoxDecoration(
                         border:
                             Border.all(color: UIGuide.THEME_LIGHT, width: 1),
@@ -70,7 +72,7 @@ class _AdminHomeState extends State<AdminHome> {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
-                    child: const AdminHomeContent(),
+                    child: const SuperAdminHomeContents(),
                   )
                 ],
               ),
@@ -79,8 +81,8 @@ class _AdminHomeState extends State<AdminHome> {
   }
 }
 
-class AdminHomeContent extends StatelessWidget {
-  const AdminHomeContent({Key? key}) : super(key: key);
+class SuperAdminHomeContents extends StatelessWidget {
+  const SuperAdminHomeContents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -277,53 +279,6 @@ class AdminHomeContent extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ExamTimetable()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/Timetable.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            '     Exam \n TimeTable',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
               kheight10,
@@ -355,55 +310,6 @@ class AdminHomeContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FeeReport()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/01feescollectionreport.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Center(
-                            child: Text(
-                              'Fees Collection \n        Report',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -928,6 +834,53 @@ class AdminHomeContent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
+                            builder: (context) => ExamTimetable()),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Card(
+                            elevation: 10,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 38,
+                                width: 38,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 20,
+                                    image: AssetImage(
+                                      'assets/Timetable.png',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          kheight10,
+                          const Text(
+                            '     Exam \n TimeTable',
+                            style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
                             builder: (context) => const NotificationHistory()),
                       );
                     },
@@ -970,6 +923,13 @@ class AdminHomeContent extends StatelessWidget {
                       ),
                     ),
                   ),
+                ],
+              ),
+              kheight10,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -1008,60 +968,6 @@ class AdminHomeContent extends StatelessWidget {
                           kheight10,
                           const Text(
                             'Gallery',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              kheight10,
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ScreenFlashNews()),
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 10,
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 38,
-                                width: 38,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 20,
-                                    image: AssetImage(
-                                      'assets/01flashnews.png',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          kheight10,
-                          const Text(
-                            'Flash News',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.black87,
@@ -1344,14 +1250,14 @@ class AdminHomeContent extends StatelessWidget {
   }
 }
 
-class AdminProfileTop extends StatefulWidget {
-  const AdminProfileTop({Key? key}) : super(key: key);
+class SuperAdminProfileTop extends StatefulWidget {
+  const SuperAdminProfileTop({Key? key}) : super(key: key);
 
   @override
-  State<AdminProfileTop> createState() => _AdminProfileTopState();
+  State<SuperAdminProfileTop> createState() => _SuperAdminProfileTopState();
 }
 
-class _AdminProfileTopState extends State<AdminProfileTop> {
+class _SuperAdminProfileTopState extends State<SuperAdminProfileTop> {
   @override
   void initState() {
     super.initState();
