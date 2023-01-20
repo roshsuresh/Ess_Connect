@@ -1,12 +1,16 @@
 import 'dart:convert';
+import 'dart:developer';
 
-import 'package:essconnect/Domain/Admin/SMSFormatModel.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:essconnect/Presentation/Admin/AttendanceTaken/SmsPage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../Domain/Admin/AttendanceModel.dart';
+import '../../Domain/Admin/SMSFormatModel.dart';
 import '../../Presentation/Admin/Communication/ToGuardian.dart';
+
 import '../../utils/constants.dart';
 
 class AttendanceReportProvider with ChangeNotifier {
@@ -19,6 +23,7 @@ class AttendanceReportProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  List lastList = [];
   List<AttendanceModel> attendanceList = [];
 
   Future getAttReportView(
@@ -93,6 +98,49 @@ class AttendanceReportProvider with ChangeNotifier {
     return true;
   }
 
+  //smsProvider
+  String? smstype;
+  String? senderId;
+  String? providerName;
+  //String? providerId;
+
+  Future<bool> getProvider() async {
+    setLoading(true);
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    notifyListeners();
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+    var request = http.Request('GET',
+        Uri.parse('${UIGuide.baseURL}/mobileapp/staffdet/sms/currentprovider'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data =
+          jsonDecode(await response.stream.bytesToString());
+
+      Map<String, dynamic> providerrrr = data['currentSmsProvider'];
+      print(data);
+      print(providerrrr);
+      CurrentSmsProvider prov =
+          CurrentSmsProvider.fromJson(data['currentSmsProvider']);
+      providerName = prov.providerName;
+      print("provid,$providerName".toString());
+
+      print('correct');
+      setLoading(false);
+      notifyListeners();
+    } else {
+      print('Error in attendance report');
+      setLoading(false);
+    }
+    return true;
+  }
+
   clearList() {
     attendanceList.clear();
     notifyListeners();
@@ -108,7 +156,16 @@ class AttendanceReportProvider with ChangeNotifier {
         attendanceList.firstWhere((element) => element.admNo == model.admNo);
     selected.selected ??= false;
     selected.selected = !selected.selected!;
-    print(selected.toJson());
+
+    // selected.selected! ? lastList.add(selected.toJson()) : lastList.remove(selected);
+    print("List   ${selected.toJson()}");
+    //lastList.add(selected.toJson());
+    print("lssssss $lastList");
+    notifyListeners();
+  }
+
+  clearSelectedList() {
+    lastList.clear();
     notifyListeners();
   }
 
@@ -134,6 +191,7 @@ class AttendanceReportProvider with ChangeNotifier {
     selectedList.clear();
     selectedList =
         attendanceList.where((element) => element.selected == true).toList();
+
     if (selectedList.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
@@ -158,6 +216,41 @@ class AttendanceReportProvider with ChangeNotifier {
             builder: (context) => Text_Matter_NotificationAdmin(
               toList: selectedList.map((e) => e.studentId!).toList(),
               type: "Student",
+            ),
+          ));
+    }
+  }
+
+//smslist
+  List<AttendanceModel> selectedsmsList = [];
+  submitSmsStudent(BuildContext context, String date) {
+    selectedsmsList.clear();
+    selectedsmsList =
+        attendanceList.where((element) => element.selected == true).toList();
+    if (selectedsmsList.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Select any student...',
+          textAlign: TextAlign.center,
+        ),
+      ));
+    } else {
+      print('selected.....');
+      print(
+          attendanceList.where((element) => element.selected == true).toList());
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SMSFormats(
+              toList: selectedsmsList.map((e) => e.studentId!).toList(),
+              time: date,
             ),
           ));
     }
@@ -221,5 +314,83 @@ class AttendanceReportProvider with ChangeNotifier {
       print('Error in dashboard');
     }
     return response.statusCode;
+  }
+
+  //sendsms
+
+  String? issuccess;
+  String? isfailed;
+  Future sendSmsAttendance(
+      BuildContext context, String date, String formatId) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var request = http.Request('POST',
+        Uri.parse('${UIGuide.baseURL}/studentAbsentPresentReport/send-sms'));
+    print(Uri.parse('${UIGuide.baseURL}/studentAbsentPresentReport/send-sms'));
+    request.body = json.encode({
+      "ExampleMessage": "",
+      "SendEmailorSMS": "SMS",
+      "content": null,
+      "StudEntry": selectedsmsList,
+      "formatId": formatId,
+      "group": "guardianGeneralSMS",
+      "attendanceDate": date
+    });
+
+    print(json.encode({
+      "ExampleMessage": "",
+      "SendEmailorSMS": "SMS",
+      "content": null,
+      "StudEntry": selectedsmsList,
+      "formatId": formatId,
+      "group": "guardianGeneralSMS",
+      "attendanceDate": date
+    }));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 201) {
+      Map<String, dynamic> data =
+          jsonDecode(await response.stream.bytesToString());
+      AttendanceSmsSave smsrrsponse = AttendanceSmsSave.fromJson(data);
+      issuccess = smsrrsponse.sendSuccess.toString();
+      isfailed = smsrrsponse.sendFailed.toString();
+      print(
+          ' _ _ _ _ _ _ _ _ _ _ _ _ _ Correct_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _');
+      await AwesomeDialog(
+              dismissOnTouchOutside: false,
+              dismissOnBackKeyPress: false,
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              headerAnimationLoop: false,
+              title: 'Send Successfully',
+              desc: 'Success: $issuccess \n Failed: $isfailed',
+              btnOkOnPress: () async {},
+              btnOkColor: Colors.green)
+          .show();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      print('Error Response in attendance');
+    }
   }
 }

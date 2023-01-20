@@ -181,6 +181,7 @@ class _Notification_StaffToGuardainState
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -201,62 +202,52 @@ class _Notification_StaffToGuardainState
                           context: context,
                           builder: (context) {
                             return Dialog(
-                                child: Container(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: snapshot
-                                          .communicationToGuardianInitialValues
-                                          .length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          selectedTileColor:
-                                              Colors.blue.shade100,
-                                          selectedColor: UIGuide.PRIMARY2,
-
-                                          // selected: snapshot.isCourseSelected(
-                                          //     attendecourse![index]),
-
-                                          onTap: () async {
-                                            notificationCourseController
-                                                .text = snapshot
-                                                    .communicationToGuardianInitialValues[
-                                                        index]
-                                                    .value ??
-                                                '--';
-                                            notificationCourseController1
-                                                .text = snapshot
-                                                    .communicationToGuardianInitialValues[
-                                                        index]
-                                                    .text ??
-                                                '--';
-                                            courseId =
-                                                notificationCourseController
-                                                    .text
-                                                    .toString();
-                                            await snapshot.clearStudentList();
-                                            await Provider.of<
-                                                        NotificationToGuardian_Providers>(
-                                                    context,
-                                                    listen: false)
-                                                .communicationToGuardianDivisionStaff(
-                                                    courseId);
-                                            Navigator.of(context).pop();
-                                          },
-                                          title: Text(
-                                            snapshot
-                                                    .communicationToGuardianInitialValues[
-                                                        index]
-                                                    .text ??
-                                                '--',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        );
-                                      }),
-                                ],
-                              ),
+                                child: LimitedBox(
+                              maxHeight: size.height - 300,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot
+                                      .communicationToGuardianInitialValues
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      selectedTileColor: Colors.blue.shade100,
+                                      selectedColor: UIGuide.PRIMARY2,
+                                      onTap: () async {
+                                        notificationCourseController
+                                            .text = snapshot
+                                                .communicationToGuardianInitialValues[
+                                                    index]
+                                                .value ??
+                                            '--';
+                                        notificationCourseController1
+                                            .text = snapshot
+                                                .communicationToGuardianInitialValues[
+                                                    index]
+                                                .text ??
+                                            '--';
+                                        courseId = notificationCourseController
+                                            .text
+                                            .toString();
+                                        await snapshot.clearStudentList();
+                                        await Provider.of<
+                                                    NotificationToGuardian_Providers>(
+                                                context,
+                                                listen: false)
+                                            .communicationToGuardianDivisionStaff(
+                                                courseId);
+                                        Navigator.of(context).pop();
+                                      },
+                                      title: Text(
+                                        snapshot
+                                                .communicationToGuardianInitialValues[
+                                                    index]
+                                                .text ??
+                                            '--',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    );
+                                  }),
                             ));
                           });
                     },
@@ -320,59 +311,49 @@ class _Notification_StaffToGuardainState
                           context: context,
                           builder: (context) {
                             return Dialog(
-                                child: Container(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: snapshot
-                                          .notificationDivisionList.length,
-                                      itemBuilder: (context, index) {
+                                child: LimitedBox(
+                              maxHeight: size.height - 300,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      snapshot.notificationDivisionList.length,
+                                  itemBuilder: (context, index) {
+                                    print(snapshot
+                                        .notificationDivisionList.length);
+                                    return ListTile(
+                                      onTap: () async {
                                         print(snapshot
-                                            .notificationDivisionList.length);
-                                        return ListTile(
-                                          onTap: () async {
-                                            print(snapshot
+                                            .notificationDivisionList[index]
+                                            .order);
+                                        notificationDivisionListController
+                                            .text = snapshot
                                                 .notificationDivisionList[index]
-                                                .order);
+                                                .value ??
+                                            '---';
+                                        notificationDivisionListController1
+                                            .text = snapshot
+                                                .notificationDivisionList[index]
+                                                .text ??
+                                            '---';
+                                        print(notificationDivisionListController
+                                            .text);
+                                        divisionId =
                                             notificationDivisionListController
-                                                .text = snapshot
-                                                    .notificationDivisionList[
-                                                        index]
-                                                    .value ??
-                                                '---';
-                                            notificationDivisionListController1
-                                                .text = snapshot
-                                                    .notificationDivisionList[
-                                                        index]
-                                                    .text ??
-                                                '---';
-                                            print(
-                                                notificationDivisionListController
-                                                    .text);
-                                            divisionId =
-                                                notificationDivisionListController
-                                                    .text
-                                                    .toString();
-                                            courseId =
-                                                notificationCourseController1
-                                                    .text
-                                                    .toString();
-                                            Navigator.of(context).pop();
-                                          },
-                                          title: Text(
-                                            snapshot
-                                                    .notificationDivisionList[
-                                                        index]
-                                                    .text ??
-                                                '---',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        );
-                                      }),
-                                ],
-                              ),
+                                                .text
+                                                .toString();
+                                        courseId = notificationCourseController1
+                                            .text
+                                            .toString();
+                                        Navigator.of(context).pop();
+                                      },
+                                      title: Text(
+                                        snapshot.notificationDivisionList[index]
+                                                .text ??
+                                            '---',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    );
+                                  }),
                             ));
                           });
                     },

@@ -419,8 +419,7 @@ class _StaffHomeState extends State<StaffHome> {
                                                     image: DecorationImage(
                                                       opacity: 20,
                                                       image: AssetImage(
-                                                        'assets/Attendance.png',
-                                                      ),
+                                                          'assets/Attendance entry.png'),
                                                     ),
                                                   ),
                                                 ),

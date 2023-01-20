@@ -146,7 +146,7 @@ class ExamTTAdmProviders with ChangeNotifier {
         margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
         behavior: SnackBarBehavior.floating,
         content: Text(
-          'Image added...',
+          'File added...',
           textAlign: TextAlign.center,
         ),
       ));

@@ -6,10 +6,8 @@ import 'package:pdfdownload/pdfdownload.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
 import '../../Application/StudentProviders/NoticProvider.dart';
 import '../../Constants.dart';
-import '../../utils/LoadingIndication.dart';
 import '../../utils/TextWrap(moreOption).dart';
 import '../../utils/constants.dart';
 

@@ -493,7 +493,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                 onPressed: (() async {
                   attachmentid.text = attach;
 
-                  if (attachmentid.toString().isEmpty) {
+                  if (attachmentid.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
                         'Select Image..',
@@ -502,11 +502,11 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                       duration: Duration(seconds: 1),
                     ));
                   }
-                  if (checkname!.isEmpty) {
-                    attachmentid.clear();
-                  } else {
-                    attachmentid.text = attach;
-                  }
+                  // if (checkname!.isEmpty) {
+                  //   attachmentid.clear();
+                  // } else {
+                  //   attachmentid.text = attach;
+                  // }
                   if (descriptioncontroller.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
@@ -517,6 +517,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                     ));
                   } else if (descriptioncontroller.text.isNotEmpty &&
                       studReportcourseController.text.isNotEmpty &&
+                      attachmentid.text.isNotEmpty &&
                       division.toString().isNotEmpty) {
                     print('object');
                     print("attachmentid   $attachmentid");

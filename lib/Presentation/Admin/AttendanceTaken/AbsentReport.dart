@@ -21,7 +21,7 @@ class AttendanceReport extends StatefulWidget {
 
 class _AttendanceReportState extends State<AttendanceReport> {
   DateTime? _mydatetime;
-
+  String smsDate = '-';
   List subjectData = [];
   List diviData = [];
   DateTime? curdate;
@@ -36,7 +36,9 @@ class _AttendanceReportState extends State<AttendanceReport> {
   void initState() {
     curdate = DateTime.now();
     newdate = DateFormat('dd-MMM-yyyy').format(curdate!);
+    smsDate = DateFormat('yyyy-MM-dd').format(curdate!);
     timeNow = newdate!;
+
     type = 'sms';
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -45,6 +47,8 @@ class _AttendanceReportState extends State<AttendanceReport> {
       p.courseDrop.clear();
       var c = Provider.of<AttendanceReportProvider>(context, listen: false);
       c.clearList();
+      c.clearSelectedList();
+      c.isselectAll = false;
       p.dropDown.clear();
       p.stdReportInitialValues.clear();
       p.courselist.clear();
@@ -93,6 +97,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
         children: [
           Row(
             children: [
+              //  const Spacer(),
               Consumer<SchoolPhotoProviders>(
                 builder: (context, value, child) => Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -256,6 +261,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
                   ),
                 ),
               ),
+              //  const Spacer()
             ],
           ),
           Row(
@@ -358,6 +364,8 @@ class _AttendanceReportState extends State<AttendanceReport> {
                   child: MaterialButton(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
+
+                    // minWidth: size.width - 250,
                     color: Colors.white,
                     onPressed: (() async {
                       _mydatetime = await showDatePicker(
@@ -382,6 +390,11 @@ class _AttendanceReportState extends State<AttendanceReport> {
                         timeNow =
                             DateFormat('dd-MMM-yyyy').format(_mydatetime!);
                         print(timeNow);
+                        smsDate = DateFormat('yyyy-MM-dd').format(_mydatetime!);
+
+                        // smsDate = smsDate =='-'  ? DateFormat('yyyy-MM-dd').format(_mydatetime!):t
+                        // print("Smsdate $smsDate
+                        //     );
                       });
                     }),
                     // minWidth: size.width - 250,
@@ -393,7 +406,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
                   ),
                 ),
               ),
-              // const Spacer()
+              //const Spacer()
             ],
           ),
           Row(
@@ -434,47 +447,48 @@ class _AttendanceReportState extends State<AttendanceReport> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //        RadioListTile(
+              //        title: Text("Text Sms"),
+              //         value: "sms",
+              //        groupValue: type,
+              //          onChanged: (value){
+              //         setState(() {
+              //          type = value.toString();
+              //        });
+              //       },
+              //        ),
+              //
+              // RadioListTile(
+              // title: Text("Notification"),
+              // value: "notification",
+              // groupValue: type,
+              // onChanged: (value){
+              // setState(() {
+              // type = value.toString();
+              // });
+              // },
+              // ),
               SizedBox(
                 width: 120,
-                child: MaterialButton(
-                  color: UIGuide.light_Purple,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: UIGuide.light_Purple),
                   onPressed: (() async {
                     await Provider.of<AttendanceReportProvider>(context,
                             listen: false)
                         .clearList();
                     await Provider.of<AttendanceReportProvider>(context,
                             listen: false)
-                        .getAttReportView(section, course, division, timeNow);
-                    if (Provider.of<AttendanceReportProvider>(context,
+                        .clearSelectedList();
+
+                    await Provider.of<AttendanceReportProvider>(context,
                             listen: false)
-                        .attendanceList
-                        .isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          duration: Duration(seconds: 2),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'No data found..!',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      );
-                    }
+                        .getAttReportView(section, course, division, timeNow);
                   }),
                   child: const Text(
                     'View',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -490,7 +504,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
             children: [
               TableRow(children: [
                 const Text(
-                  '   SlNo.',
+                  '   Sl.No.',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 const Text(
@@ -501,6 +515,9 @@ class _AttendanceReportState extends State<AttendanceReport> {
                   builder: (context, value, child) => GestureDetector(
                       onTap: () {
                         value.selectAll();
+                        type == 'sms'
+                            ? value.lastList = value.attendanceList
+                            : print("eroor");
                       },
                       child: value.isselectAll
                           ? Padding(
@@ -530,7 +547,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
                     )
                   : Scrollbar(
                       child: LimitedBox(
-                        maxHeight: size.height - 320,
+                        maxHeight: size.height / 2.4,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: value.attendanceList.isEmpty
@@ -553,20 +570,46 @@ class _AttendanceReportState extends State<AttendanceReport> {
         elevation: 3.0,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: MaterialButton(
-            color: UIGuide.light_Purple,
-            onPressed: () {
-              type == 'Notification'
-                  ? Provider.of<AttendanceReportProvider>(context,
+          child: Consumer<AttendanceReportProvider>(
+            builder: (context, value, child) => MaterialButton(
+              color: UIGuide.light_Purple,
+              onPressed: () async {
+                if (type == 'Notification') {
+                  await Provider.of<AttendanceReportProvider>(context,
                           listen: false)
-                      .submitStudent(context)
-                  : print("sms");
-            },
-            child: const Text('Proceed',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400)),
+                      .submitStudent(context);
+                } else {
+                  await value.getProvider();
+                  if (value.providerName == null) {
+                    await ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        duration: Duration(seconds: 1),
+                        margin:
+                            EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                        behavior: SnackBarBehavior.floating,
+                        content: Text(
+                          'Sms Provider Not Found.....!',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
+                  } else {
+                    await Provider.of<AttendanceReportProvider>(context,
+                            listen: false)
+                        .submitSmsStudent(context, smsDate.toString());
+                  }
+                }
+              },
+              child: const Text('Proceed',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400)),
+            ),
           ),
         ),
       ),

@@ -10,10 +10,11 @@ class GalleryListStaff extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<GallerySendProvider_Stf>(context, listen: false);
-      p.galleryViewListStaff(context);
+
       p.galleryViewList.clear();
+      await p.galleryViewListStaff(context);
     });
     var size = MediaQuery.of(context).size;
     return Consumer<GallerySendProvider_Stf>(

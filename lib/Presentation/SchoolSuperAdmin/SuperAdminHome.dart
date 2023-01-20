@@ -8,12 +8,7 @@ import 'package:essconnect/Presentation/Admin/AttendanceTaken/Takenornot.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToGuardian.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
 import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
-import 'package:essconnect/Presentation/Admin/FeeCollectionReport/FeeReport.dart';
-import 'package:essconnect/Presentation/Admin/FeeDetails/StudFeeSearch.dart';
-import 'package:essconnect/Presentation/Admin/FlashNews/FlashnewsScreen.dart';
-import 'package:essconnect/Presentation/Admin/Gallery/GalleryScreen.dart';
 import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.dart';
-import 'package:essconnect/Presentation/Admin/NoticeBoard/NoticeboardScreen.dart';
 import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
 import 'package:essconnect/Presentation/Admin/demo.dart';
@@ -64,7 +59,7 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   const SuperAdminProfileTop(),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
                   StaffFlashNews(),
@@ -105,15 +100,7 @@ class SuperAdminHomeContents extends StatelessWidget {
             children: [
               kheight20,
               Row(children: <Widget>[
-                // Expanded(
-                //   child: Container(
-                //       margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                //       child: const Divider(
-                //         color: Colors.black45,
-                //         height: 36,
-                //       )),
-                // ),
-                Text(
+                const Text(
                   ' ──  ',
                   style: TextStyle(
                     color: Colors.black26,
@@ -338,7 +325,7 @@ class SuperAdminHomeContents extends StatelessWidget {
               kheight10,
               kheight10,
               Row(children: <Widget>[
-                Text(
+                const Text(
                   ' ──  ',
                   style: TextStyle(
                     color: Colors.black26,
@@ -474,12 +461,28 @@ class SuperAdminHomeContents extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SMSFormats(),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          duration: Duration(seconds: 1),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Something went wrong...',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SMSFormats(),
+                      //   ),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -571,7 +574,7 @@ class SuperAdminHomeContents extends StatelessWidget {
               kheight10,
               kheight10,
               Row(children: <Widget>[
-                Text(
+                const Text(
                   ' ──  ',
                   style: TextStyle(
                     color: Colors.black26,
@@ -625,8 +628,7 @@ class SuperAdminHomeContents extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Attendance.png',
-                                    ),
+                                        'assets/Attendance entry.png'),
                                   ),
                                 ),
                               ),
@@ -674,7 +676,7 @@ class SuperAdminHomeContents extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      "assets/Fees.png",
+                                      'assets/Attendance.png',
                                     ),
                                   ),
                                 ),
@@ -744,7 +746,7 @@ class SuperAdminHomeContents extends StatelessWidget {
               kheight10,
               kheight10,
               Row(children: <Widget>[
-                Text(
+                const Text(
                   ' ──  ',
                   style: TextStyle(
                     color: Colors.black26,

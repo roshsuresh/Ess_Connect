@@ -9,7 +9,6 @@ import 'package:essconnect/Presentation/Admin/Communication/ToGuardian.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
 import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
 import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.dart';
-import 'package:essconnect/Presentation/Admin/NoticeBoard/NoticeboardScreen.dart';
 import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
 import 'package:essconnect/Presentation/Admin/demo.dart';
@@ -470,12 +469,28 @@ class SchoolHeadHomeScreenContents extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SMSFormats(),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          duration: Duration(seconds: 1),
+                          margin:
+                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                          behavior: SnackBarBehavior.floating,
+                          content: Text(
+                            'Something went wrong...',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => SMSFormats(),
+                      //   ),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -621,8 +636,7 @@ class SchoolHeadHomeScreenContents extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      'assets/Attendance.png',
-                                    ),
+                                        'assets/Attendance entry.png'),
                                   ),
                                 ),
                               ),
@@ -670,7 +684,7 @@ class SchoolHeadHomeScreenContents extends StatelessWidget {
                                   image: DecorationImage(
                                     opacity: 20,
                                     image: AssetImage(
-                                      "assets/Fees.png",
+                                      'assets/Attendance.png',
                                     ),
                                   ),
                                 ),
@@ -694,7 +708,8 @@ class SchoolHeadHomeScreenContents extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AttendanceTakenReport()),
+                            builder: (context) =>
+                                const AttendanceTakenReport()),
                       );
                     },
                     child: Padding(
@@ -740,7 +755,7 @@ class SchoolHeadHomeScreenContents extends StatelessWidget {
               kheight10,
               kheight10,
               Row(children: <Widget>[
-                Text(
+                const Text(
                   ' ──  ',
                   style: TextStyle(
                     color: Colors.black26,
