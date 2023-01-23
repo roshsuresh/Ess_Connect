@@ -147,7 +147,7 @@ class FeesProvider with ChangeNotifier {
           selecteCategorys.removeAt(lastindex);
           feeList[lastindex].selected = false;
           feeList[lastindex].enabled = true;
-          final double? tot = feeList[lastindex].installmentNetDue;
+          final double? tot = feeList[lastindex].netDue;
           totalFees = totalFees - tot!;
           total = totalFees + totalBusFee;
           notifyListeners();
@@ -190,12 +190,12 @@ class FeesProvider with ChangeNotifier {
 
         print(index);
         final double tot = feeNetDue;
-        print(busfeeName);
-        print(tot);
+        print("busfeeName: $busfeeName");
+        print("tot  $tot");
         totalBusFee = tot + totalBusFee;
-        print(totalBusFee);
+        print("totalBusFee  $totalBusFee");
         total = totalFees + totalBusFee;
-        print(total);
+        print("total  $total");
         print("selecteCategorys   $selectedBusFee");
         notifyListeners();
       }
@@ -210,9 +210,14 @@ class FeesProvider with ChangeNotifier {
           selectedBusFee.removeAt(lastindex);
           busFeeList[lastindex].selected = false;
           busFeeList[lastindex].enabled = true;
-          final double? tot = busFeeList[lastindex].installmentNetDue;
-          totalFees = totalFees - tot!;
+          final double? tot = busFeeList[lastindex].netDue;
+          print('tot $tot');
+          print("totalBusFee  $totalBusFee");
+          totalBusFee = totalBusFee - tot!;
+          print('REmoved totalfee $totalBusFee');
           total = totalFees + totalBusFee;
+          print(total);
+
           notifyListeners();
         } else if (busFeeList[index + 1].selected == true) {
           print("demooo");

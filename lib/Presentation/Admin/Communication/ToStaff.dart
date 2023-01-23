@@ -173,29 +173,41 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                 child: SizedBox(
                   width: size.width * .42,
                   height: 44,
-                  child: MaterialButton(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    onPressed: () async {
-                      await Provider.of<NotificationToStaffAdminProviders>(
-                              context,
-                              listen: false)
-                          .clearStaffList();
+                  child: Consumer<NotificationToStaffAdminProviders>(
+                    builder: (context, val, child) => val.loading
+                        ? Center(
+                            child: Text(
+                            "Loading",
+                            style: TextStyle(
+                                color: UIGuide.light_Purple, fontSize: 16),
+                          ))
+                        : MaterialButton(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
+                            onPressed: () async {
+                              await Provider.of<
+                                          NotificationToStaffAdminProviders>(
+                                      context,
+                                      listen: false)
+                                  .clearStaffList();
 
-                      await Provider.of<NotificationToStaffAdminProviders>(
-                              context,
-                              listen: false)
-                          .getNotificationView(section);
-                      // var p = await Provider.of<SchoolPhotoProviders>(context,
-                      //     listen: false);
-                      // subjectData.clear();
+                              await Provider.of<
+                                          NotificationToStaffAdminProviders>(
+                                      context,
+                                      listen: false)
+                                  .getNotificationView(section);
+                              // var p = await Provider.of<SchoolPhotoProviders>(context,
+                              //     listen: false);
+                              // subjectData.clear();
 
-                      //section = '';
+                              //section = '';
 
-                      // p.stdReportInitialValues.clear();
-                    },
-                    color: UIGuide.THEME_LIGHT,
-                    child: const Text('View'),
+                              // p.stdReportInitialValues.clear();
+                            },
+                            color: UIGuide.THEME_LIGHT,
+                            child: const Text('View'),
+                          ),
                   ),
                 ),
               )
@@ -250,7 +262,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                       child: Center(child: spinkitLoader()),
                     )
                   : LimitedBox(
-                      maxHeight: size.height - 265,
+                      maxHeight: size.height - 300,
                       child: ListView.builder(
                         shrinkWrap: true,
                         itemCount: value.stafflist.isEmpty

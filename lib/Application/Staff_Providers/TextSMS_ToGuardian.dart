@@ -96,9 +96,6 @@ class TextSMS_ToGuardian_Providers with ChangeNotifier {
           List<TextSMSToGuardianCourseList>.from(smsiniti["courseList"]
               .map((x) => TextSMSToGuardianCourseList.fromJson(x)));
       smscourseList.addAll(templist);
-
-      // isClassTeacher = sd.isClassTeacher;
-
       notifyListeners();
     } else {
       print('Error in Notice stf');

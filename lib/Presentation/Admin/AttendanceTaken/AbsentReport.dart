@@ -468,28 +468,42 @@ class _AttendanceReportState extends State<AttendanceReport> {
               // });
               // },
               // ),
-              SizedBox(
-                width: 120,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: UIGuide.light_Purple),
-                  onPressed: (() async {
-                    await Provider.of<AttendanceReportProvider>(context,
-                            listen: false)
-                        .clearList();
-                    await Provider.of<AttendanceReportProvider>(context,
-                            listen: false)
-                        .clearSelectedList();
+              Consumer<AttendanceReportProvider>(
+                builder: (context, val, child) => SizedBox(
+                  width: 120,
+                  height: 44,
+                  child: val.loading
+                      ? Center(
+                          child: Container(
+                              child: Text(
+                          'Loading Data...',
+                          style: TextStyle(
+                              color: UIGuide.light_Purple,
+                              fontWeight: FontWeight.bold),
+                        )))
+                      : TextButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: UIGuide.light_Purple),
+                          onPressed: (() async {
+                            await Provider.of<AttendanceReportProvider>(context,
+                                    listen: false)
+                                .clearList();
+                            await Provider.of<AttendanceReportProvider>(context,
+                                    listen: false)
+                                .clearSelectedList();
 
-                    await Provider.of<AttendanceReportProvider>(context,
-                            listen: false)
-                        .getAttReportView(section, course, division, timeNow);
-                  }),
-                  child: const Text(
-                    'View',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
+                            await Provider.of<AttendanceReportProvider>(context,
+                                    listen: false)
+                                .getAttReportView(
+                                    section, course, division, timeNow);
+                          }),
+                          child: const Text(
+                            'View',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                 ),
               ),
             ],

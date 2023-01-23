@@ -231,128 +231,136 @@ class _ExamtimetableState extends State<Examtimetable> {
         child: Consumer<Timetableprovider>(
           builder: (context, value, child) => value.loading
               ? spinkitLoader()
-              : ListView(
-                  children: [
-                    kheight20,
-                    Table(
-                      border: TableBorder.all(
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                      columnWidths: const {
-                        0: FlexColumnWidth(4),
-                        1: FlexColumnWidth(2),
-                      },
-                      children: const [
-                        TableRow(
-                            decoration: BoxDecoration(
-                              color: UIGuide.light_black,
-                            ),
-                            children: [
-                              SizedBox(
-                                height: 30,
-                                child: Center(
-                                  child: Text(
-                                    'Exam TimeTable',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w700),
-                                  ),
+              : value.examList.isEmpty
+                  ? LottieBuilder.network(
+                      'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json')
+                  : ListView(
+                      children: [
+                        kheight20,
+                        Table(
+                          border: TableBorder.all(
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          columnWidths: const {
+                            0: FlexColumnWidth(4),
+                            1: FlexColumnWidth(2),
+                          },
+                          children: const [
+                            TableRow(
+                                decoration: BoxDecoration(
+                                  color: UIGuide.light_black,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Center(
-                                    child: Text(
-                                  'View',
-                                  style: TextStyle(fontWeight: FontWeight.w700),
-                                )),
-                              ),
-                            ]),
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        'Exam TimeTable',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    child: Center(
+                                        child: Text(
+                                      'View',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700),
+                                    )),
+                                  ),
+                                ]),
+                          ],
+                        ),
+                        Consumer<Timetableprovider>(
+                          builder: (context, value, child) {
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: value.examList.isEmpty
+                                    ? 0
+                                    : value.examList.length,
+                                itemBuilder: ((context, index) {
+                                  return GestureDetector(
+                                    child: Table(
+                                      border: TableBorder.all(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                      columnWidths: const {
+                                        0: FlexColumnWidth(4),
+                                        1: FlexColumnWidth(2),
+                                      },
+                                      children: [
+                                        TableRow(
+                                            decoration: const BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 245, 242, 242),
+                                            ),
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Center(
+                                                  child: Text(
+                                                    value.examList[index]
+                                                                .examDescription ==
+                                                            null
+                                                        ? '--'
+                                                        : value.examList[index]
+                                                            .examDescription
+                                                            .toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  height: 25,
+                                                  width: 25,
+                                                  // color: Color.fromARGB(
+                                                  //     255, 241, 241, 241),
+                                                  child: LottieBuilder.network(
+                                                              "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
+                                                          null
+                                                      ? const Icon(Icons
+                                                          .remove_red_eye_outlined)
+                                                      : LottieBuilder.network(
+                                                          "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
+                                                ),
+                                              ),
+                                            ]),
+                                      ],
+                                    ),
+                                    onTap: () async {
+                                      String att =
+                                          await value.examList[index].id ??
+                                              '--';
+                                      await value.viewAttachment(att);
+                                      if (value.examList[index].extension ==
+                                          '.pdf') {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ExamPdfView()),
+                                        );
+                                      } else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ImageViewExam()),
+                                        );
+                                      }
+                                    },
+                                  );
+                                }));
+                          },
+                        )
                       ],
                     ),
-                    Consumer<Timetableprovider>(
-                      builder: (context, value, child) {
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: value.examList.isEmpty
-                                ? 0
-                                : value.examList.length,
-                            itemBuilder: ((context, index) {
-                              return GestureDetector(
-                                child: Table(
-                                  border: TableBorder.all(
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                  columnWidths: const {
-                                    0: FlexColumnWidth(4),
-                                    1: FlexColumnWidth(2),
-                                  },
-                                  children: [
-                                    TableRow(
-                                        decoration: const BoxDecoration(
-                                          color: Color.fromARGB(
-                                              255, 245, 242, 242),
-                                        ),
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Center(
-                                              child: Text(
-                                                value.examList[index]
-                                                            .examDescription ==
-                                                        null
-                                                    ? '--'
-                                                    : value.examList[index]
-                                                        .examDescription
-                                                        .toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              height: 25,
-                                              width: 25,
-                                              // color: Color.fromARGB(
-                                              //     255, 241, 241, 241),
-                                              child: LottieBuilder.network(
-                                                          "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
-                                                      null
-                                                  ? const Icon(Icons
-                                                      .remove_red_eye_outlined)
-                                                  : LottieBuilder.network(
-                                                      "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
-                                            ),
-                                          ),
-                                        ]),
-                                  ],
-                                ),
-                                onTap: () async {
-                                  String att =
-                                      await value.examList[index].id ?? '--';
-                                  await value.viewAttachment(att);
-                                  if (value.examList[index].extension ==
-                                      '.pdf') {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ExamPdfView()),
-                                    );
-                                  } else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ImageViewExam()),
-                                    );
-                                  }
-                                },
-                              );
-                            }));
-                      },
-                    )
-                  ],
-                ),
         ),
       ),
     );

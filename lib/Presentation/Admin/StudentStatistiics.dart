@@ -3,6 +3,7 @@ import 'package:essconnect/Application/AdminProviders/StudstattiticsProvider.dar
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Domain/Staff/StudentReport_staff.dart';
 import 'package:essconnect/utils/constants.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
@@ -243,27 +244,42 @@ class Student_statistics_admin extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MaterialButton(
-                  minWidth: 100, color: UIGuide.light_Purple,
-                  // shape: ButtonStyle(shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),),
-                  onPressed: () async {
-                    Provider.of<StudStatiticsProvider>(context, listen: false)
-                        .statiticsList
-                        .clear();
-                    Provider.of<StudStatiticsProvider>(context, listen: false)
-                        .totalList
-                        .clear();
-                    await Provider.of<StudStatiticsProvider>(context,
-                            listen: false)
-                        .getstatitics(section, course);
-                  },
-                  child: const Text(
-                    'View',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700),
-                  ),
+                Consumer<StudStatiticsProvider>(
+                  builder: (context, value, child) => value.loading
+                      ? const SizedBox(
+                          height: 40,
+                          width: 100,
+                          child: Center(
+                              child: Text(
+                            'Loading...',
+                            style: TextStyle(
+                                color: UIGuide.light_Purple, fontSize: 16),
+                          )))
+                      : MaterialButton(
+                          height: 40,
+                          minWidth: 100, color: UIGuide.light_Purple,
+                          // shape: ButtonStyle(shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),),
+                          onPressed: () async {
+                            Provider.of<StudStatiticsProvider>(context,
+                                    listen: false)
+                                .statiticsList
+                                .clear();
+                            Provider.of<StudStatiticsProvider>(context,
+                                    listen: false)
+                                .totalList
+                                .clear();
+                            await Provider.of<StudStatiticsProvider>(context,
+                                    listen: false)
+                                .getstatitics(section, course);
+                          },
+                          child: const Text(
+                            'View',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
                 ),
               ],
             ),
@@ -282,7 +298,6 @@ class Student_statistics_admin extends StatelessWidget {
                 children: const [
                   TableRow(
                       decoration: BoxDecoration(
-                        // border: Border.all(color: UIGuide.THEME_LIGHT),
                         color: const Color.fromARGB(255, 228, 224, 224),
                       ),
                       children: [
@@ -339,73 +354,82 @@ class Student_statistics_admin extends StatelessWidget {
             Consumer<StudStatiticsProvider>(builder: (context, value, child) {
               return LimitedBox(
                   maxHeight: size.height - 200,
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: value.statiticsList.isEmpty
-                          ? 0
-                          : value.statiticsList.length,
-                      itemBuilder: ((context, index) {
-                        return Column(
-                          children: [
-                            Table(
-                              //border: TableBorder.all(color: Color.fromARGB(255, 245, 245, 245)),
-                              columnWidths: const {
-                                0: FlexColumnWidth(1),
-                                1: FlexColumnWidth(2),
-                                2: FlexColumnWidth(1),
-                                3: FlexColumnWidth(1),
-                                4: FlexColumnWidth(1),
-                              },
+                  child: value.loading
+                      ? spinkitLoader()
+                      : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: value.statiticsList.isEmpty
+                              ? 0
+                              : value.statiticsList.length,
+                          itemBuilder: ((context, index) {
+                            return Column(
                               children: [
-                                TableRow(
-                                    decoration: const BoxDecoration(
-                                        //  border: Border.all(color: UIGuide.THEME_LIGHT)
-                                        ),
-                                    children: [
-                                      Text(
-                                        (index + 1).toString(),
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                      Text(
-                                        value.statiticsList[index].course ??
-                                            '--',
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
-                                      Text(
-                                        value.statiticsList[index].male == null
-                                            ? '--'
-                                            : value.statiticsList[index].male
-                                                .toString(),
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(fontSize: 14),
-                                      ),
-                                      Text(
-                                        value.statiticsList[index].feMale ==
-                                                null
-                                            ? '--'
-                                            : value.statiticsList[index].feMale
-                                                .toString(),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        value.statiticsList[index].totalCount ==
-                                                null
-                                            ? '--'
-                                            : value
-                                                .statiticsList[index].totalCount
-                                                .toString(),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ]),
+                                Table(
+                                  //border: TableBorder.all(color: Color.fromARGB(255, 245, 245, 245)),
+                                  columnWidths: const {
+                                    0: FlexColumnWidth(1),
+                                    1: FlexColumnWidth(2),
+                                    2: FlexColumnWidth(1),
+                                    3: FlexColumnWidth(1),
+                                    4: FlexColumnWidth(1),
+                                  },
+                                  children: [
+                                    TableRow(
+                                        decoration: const BoxDecoration(
+                                            //  border: Border.all(color: UIGuide.THEME_LIGHT)
+                                            ),
+                                        children: [
+                                          Text(
+                                            (index + 1).toString(),
+                                            textAlign: TextAlign.center,
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                          Text(
+                                            value.statiticsList[index].course ??
+                                                '--',
+                                            textAlign: TextAlign.center,
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                          ),
+                                          Text(
+                                            value.statiticsList[index].male ==
+                                                    null
+                                                ? '--'
+                                                : value
+                                                    .statiticsList[index].male
+                                                    .toString(),
+                                            textAlign: TextAlign.center,
+                                            style:
+                                                const TextStyle(fontSize: 14),
+                                          ),
+                                          Text(
+                                            value.statiticsList[index].feMale ==
+                                                    null
+                                                ? '--'
+                                                : value
+                                                    .statiticsList[index].feMale
+                                                    .toString(),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            value.statiticsList[index]
+                                                        .totalCount ==
+                                                    null
+                                                ? '--'
+                                                : value.statiticsList[index]
+                                                    .totalCount
+                                                    .toString(),
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ]),
+                                  ],
+                                ),
+                                kheight20,
                               ],
-                            ),
-                            kheight20,
-                          ],
-                        );
-                      })));
+                            );
+                          })));
             }),
             Consumer<StudStatiticsProvider>(
               builder: (context, value, child) => Padding(

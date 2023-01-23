@@ -14,8 +14,16 @@ class StudStatiticsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loading = false;
+  bool get loading => _loading;
+  setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
   Future<bool> getstatitics(String section, String course) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
 
     var headers = {
       'Content-Type': 'application/json',
@@ -31,6 +39,7 @@ class StudStatiticsProvider with ChangeNotifier {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      setLoading(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -42,7 +51,9 @@ class StudStatiticsProvider with ChangeNotifier {
       totalList.addAll(templistt);
 
       notifyListeners();
+      setLoading(false);
     } else {
+      setLoading(false);
       print('Error in Statitics admin');
     }
     return true;

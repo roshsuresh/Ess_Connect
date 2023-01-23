@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart';
 import 'package:essconnect/Application/AdminProviders/dashboardProvider.dart';
 import 'package:essconnect/Application/Module%20Providers.dart/Module.dart';
@@ -46,9 +47,10 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<ConnectivityProvider>(context, listen: false);
-      Provider.of<ModuleProviders>(context, listen: false).getModuleDetails();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Provider.of<ConnectivityProvider>(context, listen: false);
+      await Provider.of<ModuleProviders>(context, listen: false)
+          .getModuleDetails();
     });
   }
 
@@ -99,36 +101,31 @@ class AdminHomeContent extends StatelessWidget {
           child: Column(
             children: [
               kheight20,
-              Row(children: <Widget>[
-                // Expanded(
-                //   child: Container(
-                //       margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                //       child: const Divider(
-                //         color: Colors.black45,
-                //         height: 36,
-                //       )),
-                // ),
-                Text(
-                  ' ──  ',
-                  style: TextStyle(
-                    color: Colors.black26,
+              Consumer<ModuleProviders>(
+                builder: (context, module, child) => Row(children: <Widget>[
+                  const Text(
+                    ' ──  ',
+                    style: TextStyle(
+                      color: Colors.black26,
+                    ),
                   ),
-                ),
-                const Text(
-                  'General Info',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      color: UIGuide.light_Purple, fontWeight: FontWeight.w900),
-                ),
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-                      child: const Divider(
-                        color: Colors.black45,
-                        height: 36,
-                      )),
-                ),
-              ]),
+                  const Text(
+                    'General Info',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: UIGuide.light_Purple,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  Expanded(
+                    child: Container(
+                        margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+                        child: const Divider(
+                          color: Colors.black45,
+                          height: 36,
+                        )),
+                  ),
+                ]),
+              ),
               kheight20,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

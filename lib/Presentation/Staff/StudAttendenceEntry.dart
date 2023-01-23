@@ -17,25 +17,29 @@ class AttendenceEntry extends StatefulWidget {
 }
 
 class _AttendenceEntryState extends State<AttendenceEntry> {
-  String date = '';
+  // String date = '';
   String? forattd;
   String? aftattd;
-
+  DateTime? curdate;
+  String? newdate;
+  String dateFinal = '--';
+  DateTime? _mydatetime;
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<AttendenceStaffProvider>(context, listen: false);
-      Provider.of<AttendenceStaffProvider>(context, listen: false)
-          .timee
-          .toString();
-      p.clearAllFilters();
+
+      curdate = DateTime.now();
+      newdate = DateFormat('yyyy-MM-dd').format(curdate!);
+      dateFinal = newdate!;
+      await p.clearAllFilters();
       p.selectedCourse.clear();
-      p.courseClear();
-      p.divisionClear();
-      p.attendenceCourseStaff();
-      p.removeDivisionAll();
-      p.clearStudentList();
+      await p.courseClear();
+      await p.divisionClear();
+      await p.attendenceCourseStaff();
+      await p.removeDivisionAll();
+      await p.clearStudentList();
       p.studentsAttendenceView.clear();
     });
   }
@@ -48,15 +52,15 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
   final markEntryInitialValuesController1 = TextEditingController();
   final markEntryDivisionListController = TextEditingController();
   final markEntryDivisionListController1 = TextEditingController();
-  var dateController1 = TextEditingController();
+  // var dateController1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    String dateFinal =
-        Provider.of<AttendenceStaffProvider>(context, listen: false)
-            .timeNew
-            .toString();
-    print(dateFinal);
+    // String dateFinal =
+    //     Provider.of<AttendenceStaffProvider>(context, listen: false)
+    //         .timeNew
+    //         .toString();
+    // print(dateFinal);
 
     var size = MediaQuery.of(context).size;
     print('object');
@@ -89,16 +93,33 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                 MaterialButton(
                     color: Colors.white,
                     child: Text(
-                      Provider.of<AttendenceStaffProvider>(context,
-                                  listen: false)
-                              .timeNew ??
-                          'select date',
+                      dateFinal == '--' ? newdate.toString() : dateFinal,
                       style: const TextStyle(color: UIGuide.light_Purple),
                     ),
                     onPressed: () async {
-                      await Provider.of<AttendenceStaffProvider>(context,
-                              listen: false)
-                          .getDate(context);
+                      _mydatetime = await showDatePicker(
+                        context: context,
+                        initialDate: _mydatetime ?? DateTime.now(),
+                        firstDate: DateTime(2022),
+                        lastDate: DateTime(2030),
+                        builder: (context, child) {
+                          return Theme(
+                              data: ThemeData.light().copyWith(
+                                primaryColor: UIGuide.light_Purple,
+                                colorScheme: const ColorScheme.light(
+                                  primary: UIGuide.light_Purple,
+                                ),
+                                buttonTheme: const ButtonThemeData(
+                                    textTheme: ButtonTextTheme.primary),
+                              ),
+                              child: child!);
+                        },
+                      );
+                      setState(() {
+                        dateFinal =
+                            DateFormat('yyyy-MM-dd').format(_mydatetime!);
+                        print(dateFinal);
+                      });
                     }),
               ],
             ),
@@ -331,80 +352,104 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
+                  height: 40,
                   width: 150,
-                  child: MaterialButton(
-                      color: UIGuide.light_Purple,
-                      child: const Text(
-                        'View',
-                        style: TextStyle(
-                            color: UIGuide.WHITE, fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        print(dateFinal);
-                        dateFinal = Provider.of<AttendenceStaffProvider>(
-                                    context,
-                                    listen: false)
-                                .timeNew ??
-                            date.toString();
-                        if (dateFinal.isEmpty) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            duration: Duration(seconds: 1),
-                            margin: EdgeInsets.only(
-                                bottom: 80, left: 30, right: 30),
-                            behavior: SnackBarBehavior.floating,
-                            content: Text(
-                              "Select Date..!",
-                              textAlign: TextAlign.center,
-                            ),
-                          ));
-                        } else if (markEntryInitialValuesController
-                                .text.isEmpty &&
-                            markEntryDivisionListController.text.isEmpty) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            duration: Duration(seconds: 1),
-                            margin: EdgeInsets.only(
-                                bottom: 80, left: 30, right: 30),
-                            behavior: SnackBarBehavior.floating,
-                            content: Text(
-                              "Select mandatory fileds...!",
-                              textAlign: TextAlign.center,
-                            ),
-                          ));
-                        } else {
-//  setState(() {
-                          dateFinal =
+                  child: value.loading
+                      ? Container(
+                          child: const Center(
+                              child: Text(
+                          "Loading...",
+                          style: TextStyle(
+                              color: UIGuide.light_Purple,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        )))
+                      : MaterialButton(
+                          color: UIGuide.light_Purple,
+                          child: const Text(
+                            'View',
+                            style: TextStyle(
+                                color: UIGuide.WHITE,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () async {
+                            await value.loading
+                                ? CircularProgressIndicator()
+                                : await Provider.of<AttendenceStaffProvider>(
+                                        context,
+                                        listen: false)
+                                    .clearStudentList();
+                            print(dateFinal);
+                            // dateFinal = Provider.of<AttendenceStaffProvider>(
+                            //             context,
+                            //             listen: false)
+                            //         .timeNew ??
+                            //     date.toString();
+                            if (dateFinal.isEmpty) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                duration: Duration(seconds: 1),
+                                margin: EdgeInsets.only(
+                                    bottom: 80, left: 30, right: 30),
+                                behavior: SnackBarBehavior.floating,
+                                content: Text(
+                                  "Select Date..!",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ));
+                            } else if (markEntryInitialValuesController
+                                    .text.isEmpty &&
+                                markEntryDivisionListController.text.isEmpty) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                duration: Duration(seconds: 1),
+                                margin: EdgeInsets.only(
+                                    bottom: 80, left: 30, right: 30),
+                                behavior: SnackBarBehavior.floating,
+                                content: Text(
+                                  "Select mandatory fileds...!",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ));
+                            } else {
+                              // dateFinal =
+                              //     await Provider.of<AttendenceStaffProvider>(
+                              //             context,
+                              //             listen: false)
+                              //         .timeNew
+                              //         .toString();
+
+                              await value.loading
+                                  ? spinkitLoader
+                                  : await Provider.of<AttendenceStaffProvider>(
+                                          context,
+                                          listen: false)
+                                      .clearStudentList();
+                              // await Provider.of<AttendenceStaffProvider>(
+                              //         context,
+                              //         listen: false)
+                              //     .divisionClear();
+                              // await Provider.of<AttendenceStaffProvider>(
+                              //         context,
+                              //         listen: false)
+                              //     .removeDivisionAll();
                               await Provider.of<AttendenceStaffProvider>(
                                       context,
                                       listen: false)
-                                  .timeNew
-                                  .toString();
-                          // });
-                          await Provider.of<AttendenceStaffProvider>(context,
-                                  listen: false)
-                              .clearStudentList();
-                          await Provider.of<AttendenceStaffProvider>(context,
-                                  listen: false)
-                              .divisionClear();
-                          await Provider.of<AttendenceStaffProvider>(context,
-                                  listen: false)
-                              .removeDivisionAll();
-                          await Provider.of<AttendenceStaffProvider>(context,
-                                  listen: false)
-                              .getstudentsAttendenceView(dateFinal, divisionId);
-                        }
-                      }),
+                                  .getstudentsAttendenceView(
+                                      dateFinal, divisionId);
+                            }
+                          }),
                 ),
               ],
             ),
@@ -619,7 +664,7 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                             columnWidths: const {
                               0: FlexColumnWidth(1),
                               1: FlexColumnWidth(3),
-                              2: FlexColumnWidth(1),
+                              2: FlexColumnWidth(1.5),
                               3: FlexColumnWidth(1.5),
                             },
                             children: const [
@@ -696,160 +741,154 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                                                             null
                                                         ? Colors.white
                                                         : UIGuide.light_black),
-                                            child: Column(
+                                            child: Table(
+                                              columnWidths: const {
+                                                0: FlexColumnWidth(1.0),
+                                                1: FlexColumnWidth(3),
+                                                2: FlexColumnWidth(1.5),
+                                                3: FlexColumnWidth(1.5),
+                                              },
                                               children: [
-                                                Table(
-                                                  columnWidths: const {
-                                                    0: FlexColumnWidth(1.0),
-                                                    1: FlexColumnWidth(3),
-                                                    2: FlexColumnWidth(1),
-                                                    3: FlexColumnWidth(1.5),
-                                                  },
+                                                TableRow(
+                                                  decoration:
+                                                      const BoxDecoration(),
                                                   children: [
-                                                    TableRow(
-                                                      decoration:
-                                                          const BoxDecoration(),
-                                                      children: [
-                                                        Text(
-                                                          value
-                                                                      .studentsAttendenceView[
-                                                                          index]
-                                                                      .rollNo ==
-                                                                  null
-                                                              ? '0'
-                                                              : value
+                                                    Text(
+                                                      value
                                                                   .studentsAttendenceView[
                                                                       index]
-                                                                  .rollNo
-                                                                  .toString(),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 12),
-                                                        ),
-                                                        Text(
-                                                          value
+                                                                  .rollNo ==
+                                                              null
+                                                          ? '0'
+                                                          : value
+                                                              .studentsAttendenceView[
+                                                                  index]
+                                                              .rollNo
+                                                              .toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: const TextStyle(
+                                                          fontSize: 12),
+                                                    ),
+                                                    Text(
+                                                      value
+                                                              .studentsAttendenceView[
+                                                                  index]
+                                                              .name ??
+                                                          '--',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: const TextStyle(
+                                                          fontSize: 14),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (value
                                                                   .studentsAttendenceView[
                                                                       index]
-                                                                  .name ??
-                                                              '--',
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 14),
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              if (value
+                                                                  .forenoon ==
+                                                              'A') {
+                                                            value
+                                                                .studentsAttendenceView[
+                                                                    index]
+                                                                .forenoon = 'P';
+                                                          } else {
+                                                            value
+                                                                .studentsAttendenceView[
+                                                                    index]
+                                                                .forenoon = 'A';
+                                                          }
+                                                          forattd = value
+                                                              .studentsAttendenceView[
+                                                                  index]
+                                                              .forenoon;
+
+                                                          print(
+                                                              "Forenonnn   $forattd");
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: SizedBox(
+                                                          width: 28,
+                                                          height: 26,
+                                                          child: value
                                                                       .studentsAttendenceView[
                                                                           index]
                                                                       .forenoon ==
-                                                                  'A') {
-                                                                value
-                                                                    .studentsAttendenceView[
-                                                                        index]
-                                                                    .forenoon = 'P';
-                                                              } else {
-                                                                value
-                                                                    .studentsAttendenceView[
-                                                                        index]
-                                                                    .forenoon = 'A';
-                                                              }
-                                                              forattd = value
+                                                                  'A'
+                                                              ? SvgPicture
+                                                                  .asset(
+                                                                  UIGuide
+                                                                      .absent,
+                                                                )
+                                                              : SvgPicture
+                                                                  .asset(
+                                                                  UIGuide
+                                                                      .present,
+                                                                ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          if (value
                                                                   .studentsAttendenceView[
                                                                       index]
-                                                                  .forenoon;
+                                                                  .afternoon ==
+                                                              'A') {
+                                                            value
+                                                                .studentsAttendenceView[
+                                                                    index]
+                                                                .afternoon = 'P';
+                                                          } else {
+                                                            value
+                                                                .studentsAttendenceView[
+                                                                    index]
+                                                                .afternoon = 'A';
+                                                          }
+                                                          forattd = value
+                                                              .studentsAttendenceView[
+                                                                  index]
+                                                              .afternoon;
 
-                                                              print(
-                                                                  "Forenonnn   $forattd");
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 28,
-                                                            height: 26,
-                                                            child: SizedBox(
-                                                              width: 28,
-                                                              height: 26,
-                                                              child: value
-                                                                          .studentsAttendenceView[
-                                                                              index]
-                                                                          .forenoon ==
-                                                                      'A'
-                                                                  ? SvgPicture
-                                                                      .asset(
-                                                                      UIGuide
-                                                                          .absent,
-                                                                    )
-                                                                  : SvgPicture
-                                                                      .asset(
-                                                                      UIGuide
-                                                                          .present,
-                                                                    ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              if (value
+                                                          print(
+                                                              "Forenonnn   $aftattd");
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: SizedBox(
+                                                          width: 28,
+                                                          height: 26,
+                                                          child: value
                                                                       .studentsAttendenceView[
                                                                           index]
                                                                       .afternoon ==
-                                                                  'A') {
-                                                                value
-                                                                    .studentsAttendenceView[
-                                                                        index]
-                                                                    .afternoon = 'P';
-                                                              } else {
-                                                                value
-                                                                    .studentsAttendenceView[
-                                                                        index]
-                                                                    .afternoon = 'A';
-                                                              }
-                                                              forattd = value
-                                                                  .studentsAttendenceView[
-                                                                      index]
-                                                                  .afternoon;
-
-                                                              print(
-                                                                  "Forenonnn   $aftattd");
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 10,
-                                                            child: SizedBox(
-                                                              width: 5,
-                                                              height: 22,
-                                                              child: value
-                                                                          .studentsAttendenceView[
-                                                                              index]
-                                                                          .afternoon ==
-                                                                      'A'
-                                                                  ? SvgPicture
-                                                                      .asset(
-                                                                      UIGuide
-                                                                          .absent,
-                                                                    )
-                                                                  : SvgPicture
-                                                                      .asset(
-                                                                      UIGuide
-                                                                          .present,
-                                                                    ),
-                                                            ),
-                                                          ),
+                                                                  'A'
+                                                              ? SvgPicture
+                                                                  .asset(
+                                                                  UIGuide
+                                                                      .absent,
+                                                                )
+                                                              : SvgPicture
+                                                                  .asset(
+                                                                  UIGuide
+                                                                      .present,
+                                                                ),
                                                         ),
-                                                      ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
-                                                kheight20,
                                               ],
                                             ),
                                           ),
@@ -900,8 +939,7 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                     log("Litsssss   $obj");
 
                     if (markEntryDivisionListController.text.isEmpty &&
-                        markEntryInitialValuesController.text.isEmpty &&
-                        dateFinal.isEmpty) {
+                        markEntryInitialValuesController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         elevation: 10,
                         shape: RoundedRectangleBorder(
@@ -916,8 +954,25 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
                           textAlign: TextAlign.center,
                         ),
                       ));
+                    } else if (obj.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        duration: Duration(seconds: 1),
+                        margin:
+                            EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                        behavior: SnackBarBehavior.floating,
+                        content: Text(
+                          "No data to save...",
+                          textAlign: TextAlign.center,
+                        ),
+                      ));
                     } else {
-                      await value.attendanceSave(context, obj, dateFinal);
+                      value.loadingg
+                          ? spinkitLoader()
+                          : await value.attendanceSave(context, obj, dateFinal);
                     }
                   },
                   color: UIGuide.light_Purple,

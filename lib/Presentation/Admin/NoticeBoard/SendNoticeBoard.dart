@@ -93,7 +93,7 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
               child: MaterialButton(
                   //  minWidth: size.width - 250,
                   color: Colors.white70,
-                  child: Text('Date: ${datee.toString()}'),
+                  child: Text(datee.toString()),
                   onPressed: () async {
                     return;
                   }),

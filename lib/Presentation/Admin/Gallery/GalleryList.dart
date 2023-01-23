@@ -132,7 +132,7 @@ class GalleryListAdmin extends StatelessWidget {
                                                                       const StrutStyle(
                                                                           fontSize:
                                                                               13),
-                                                                  maxLines: 3,
+                                                                  maxLines: 2,
                                                                   text: TextSpan(
                                                                       style: const TextStyle(
                                                                           fontSize:

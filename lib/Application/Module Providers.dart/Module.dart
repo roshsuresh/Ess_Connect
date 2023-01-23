@@ -8,18 +8,18 @@ class ModuleProviders extends ChangeNotifier {
   bool timetable = false;
   bool curiculam = false;
   bool offlineAttendence = false;
+  bool offlineTab = false;
+  bool attendenceEntry = false;
   Future getModuleDetails() async {
-    print('12121');
     var parsedResponse = await parseJWT();
-
     final newParse = await parsedResponse['Modules'];
     print(newParse);
     String data = await newParse;
-    print('12121');
+
     if (data.contains('FEE')) {
-      fees = true;
+      fees = await true;
       notifyListeners();
-      print('!!!!!!!!!!!!!!!!!!!!');
+      print('Fees Module Provided');
     }
     if (data.contains('TT')) {
       timetable = true;
@@ -33,8 +33,24 @@ class ModuleProviders extends ChangeNotifier {
       curiculam = true;
       notifyListeners();
     }
+    if (data.contains('OFFLINE_ATT')) {
+      offlineAttendence = true;
+      notifyListeners();
+    }
+    if (data.contains('OFFLINE_TAB')) {
+      offlineTab = true;
+      notifyListeners();
+    }
+    if (data.contains('OFFLINE_TAB')) {
+      offlineTab = true;
+      notifyListeners();
+    }
+    if (data.contains('ATT')) {
+      attendenceEntry = true;
+      notifyListeners();
+    }
 
-    log('Module Checked'.toString());
+    log('Module Checked '.toString());
 
     notifyListeners();
   }

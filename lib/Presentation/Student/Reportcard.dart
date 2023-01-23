@@ -37,169 +37,175 @@ class ReportCard extends StatelessWidget {
         child: Consumer<ReportCardProvider>(
           builder: (context, value, child) => value.loading
               ? spinkitLoader()
-              : ListView(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  children: [
-                    kheight20,
-                    Table(
-                      border: TableBorder.all(
-                          color: const Color.fromARGB(255, 245, 243, 243)),
-                      columnWidths: const {
-                        0: FlexColumnWidth(3),
-                        1: FlexColumnWidth(5),
-                        2: FlexColumnWidth(2),
-                      },
-                      children: const [
-                        TableRow(
-                            decoration: BoxDecoration(
-                              color: UIGuide.light_black,
-                            ),
-                            children: [
-                              SizedBox(
-                                height: 30,
-                                child: Center(
-                                    child: Text(
-                                  'Date',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                )),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Center(
-                                  child: Text(
-                                    'Description',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
-                                  ),
+              : reportResponse.isEmpty
+                  ? LottieBuilder.network(
+                      'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json')
+                  : ListView(
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
+                      children: [
+                        kheight20,
+                        Table(
+                          border: TableBorder.all(
+                              color: const Color.fromARGB(255, 245, 243, 243)),
+                          columnWidths: const {
+                            0: FlexColumnWidth(3),
+                            1: FlexColumnWidth(5),
+                            2: FlexColumnWidth(2),
+                          },
+                          children: const [
+                            TableRow(
+                                decoration: BoxDecoration(
+                                  color: UIGuide.light_black,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Center(
-                                    child: Text(
-                                  'View',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                )),
-                              ),
-                            ]),
-                      ],
-                    ),
-                    LimitedBox(
-                      maxHeight: size.height - 30,
-                      child: Consumer<ReportCardProvider>(
-                        builder: (context, provider, child) {
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: reportResponse == null
-                                  ? 0
-                                  : reportResponse.length,
-                              itemBuilder: ((context, index) {
-                                String time =
-                                    reportResponse[index]['uploadedDate'];
-                                String Corect_tym =
-                                    time.replaceRange(10, 20, '');
-                                print('dob $Corect_tym');
-                                String reAttach =
-                                    reportResponse[index]['fileId'];
-                                print(reAttach);
-                                return GestureDetector(
-                                  onTap: () async {
-                                    final attch =
-                                        await Provider.of<ReportCardProvider>(
-                                                context,
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                    child: Center(
+                                        child: Text(
+                                      'Date',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    child: Center(
+                                      child: Text(
+                                        'Description',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                    child: Center(
+                                        child: Text(
+                                      'View',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    )),
+                                  ),
+                                ]),
+                          ],
+                        ),
+                        LimitedBox(
+                          maxHeight: size.height - 30,
+                          child: Consumer<ReportCardProvider>(
+                            builder: (context, provider, child) {
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: reportResponse == null
+                                      ? 0
+                                      : reportResponse.length,
+                                  itemBuilder: ((context, index) {
+                                    String time =
+                                        reportResponse[index]['uploadedDate'];
+                                    String Corect_tym =
+                                        time.replaceRange(10, 20, '');
+                                    print('dob $Corect_tym');
+                                    String reAttach =
+                                        reportResponse[index]['fileId'];
+                                    print(reAttach);
+                                    return GestureDetector(
+                                      onTap: () async {
+                                        final attch = await Provider.of<
+                                                    ReportCardProvider>(context,
                                                 listen: false)
                                             .reportCardAttachment(reAttach);
-                                    if (provider.extension.toString() ==
-                                        '.pdf') {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PdfDownload()),
-                                      );
-                                    } else {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const NoAttachmentScreen()),
-                                      );
-                                    }
-                                  },
-                                  child: Table(
-                                    border: TableBorder.all(
-                                        color: const Color.fromARGB(
-                                            255, 245, 243, 243)),
-                                    columnWidths: const {
-                                      0: FlexColumnWidth(3),
-                                      1: FlexColumnWidth(5),
-                                      2: FlexColumnWidth(2),
-                                    },
-                                    children: [
-                                      TableRow(
-                                          decoration: const BoxDecoration(),
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                Corect_tym == null
-                                                    ? '---'
-                                                    : Corect_tym.toString(),
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w400,
-                                                    color:
-                                                        UIGuide.light_Purple),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                reportResponse[index]
-                                                            ['description'] ==
-                                                        null
-                                                    ? '----'
-                                                    : reportResponse[index]
-                                                            ['description']
-                                                        .toString(),
-                                                style: const TextStyle(
-                                                    color: UIGuide.light_Purple,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: SizedBox(
-                                                height: 25,
-                                                width: 25,
-                                                // color: Color.fromARGB(
-                                                //     255, 241, 241, 241),
-                                                child: LottieBuilder.network(
-                                                            "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
-                                                        null
-                                                    ? Icon(Icons
-                                                        .remove_red_eye_outlined)
-                                                    : LottieBuilder.network(
-                                                        "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
-                                              ),
-                                            ),
-                                          ]),
-                                    ],
-                                  ),
-                                );
-                              }));
-                        },
-                      ),
-                    )
-                  ],
-                ),
+                                        if (provider.extension.toString() ==
+                                            '.pdf') {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PdfDownload()),
+                                          );
+                                        } else {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const NoAttachmentScreen()),
+                                          );
+                                        }
+                                      },
+                                      child: Table(
+                                        border: TableBorder.all(
+                                            color: const Color.fromARGB(
+                                                255, 245, 243, 243)),
+                                        columnWidths: const {
+                                          0: FlexColumnWidth(3),
+                                          1: FlexColumnWidth(5),
+                                          2: FlexColumnWidth(2),
+                                        },
+                                        children: [
+                                          TableRow(
+                                              decoration: const BoxDecoration(),
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    Corect_tym == null
+                                                        ? '---'
+                                                        : Corect_tym.toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    reportResponse[index][
+                                                                'description'] ==
+                                                            null
+                                                        ? '----'
+                                                        : reportResponse[index]
+                                                                ['description']
+                                                            .toString(),
+                                                    style: const TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: SizedBox(
+                                                    height: 25,
+                                                    width: 25,
+                                                    // color: Color.fromARGB(
+                                                    //     255, 241, 241, 241),
+                                                    child: LottieBuilder.network(
+                                                                "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
+                                                            null
+                                                        ? Icon(Icons
+                                                            .remove_red_eye_outlined)
+                                                        : LottieBuilder.network(
+                                                            "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
+                                                  ),
+                                                ),
+                                              ]),
+                                        ],
+                                      ),
+                                    );
+                                  }));
+                            },
+                          ),
+                        )
+                      ],
+                    ),
         ),
       ),
     );

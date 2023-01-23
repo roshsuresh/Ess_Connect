@@ -228,7 +228,7 @@ class StudReportListProvider_stf with ChangeNotifier {
 
   List<StudReportDivision> divisionlist = [];
 
-  Future<bool> getDivisionList(String sectionId) async {
+  Future<bool> getDivisionList(String courseId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
 
     var headers = {
@@ -238,7 +238,7 @@ class StudReportListProvider_stf with ChangeNotifier {
     var request = http.Request(
         'GET',
         Uri.parse(
-            '${UIGuide.baseURL}/mobileapp/staffdet/studentreport/division/$sectionId'));
+            '${UIGuide.baseURL}/mobileapp/staffdet/studentreport/divisions/$courseId'));
     request.body = json.encode({"SchoolId": _pref.getString('schoolId')});
     request.headers.addAll(headers);
 
@@ -251,7 +251,7 @@ class StudReportListProvider_stf with ChangeNotifier {
       log(data.toString());
 
       List<StudReportDivision> templist = List<StudReportDivision>.from(
-          data["division"].map((x) => StudReportDivision.fromJson(x)));
+          data["divisionbyCourse"].map((x) => StudReportDivision.fromJson(x)));
       divisionlist.addAll(templist);
 
       notifyListeners();

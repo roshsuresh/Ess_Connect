@@ -337,29 +337,41 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 120,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
-                      backgroundColor: UIGuide.light_Purple),
-                  onPressed: (() async {
-                    await Provider.of<AttendanceReportProvider>(context,
-                            listen: false)
-                        .cleartakenList();
+              Consumer<AttendanceReportProvider>(
+                builder: (context, loadd, child) => SizedBox(
+                  width: 120,
+                  child: loadd.loading
+                      ? Center(
+                          child: Container(
+                              child: Text(
+                          'Loading Data...',
+                          style: TextStyle(
+                              color: UIGuide.light_Purple,
+                              fontWeight: FontWeight.bold),
+                        )))
+                      : TextButton(
+                          style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              backgroundColor: UIGuide.light_Purple),
+                          onPressed: (() async {
+                            await Provider.of<AttendanceReportProvider>(context,
+                                    listen: false)
+                                .cleartakenList();
 
-                    await Provider.of<AttendanceReportProvider>(context,
-                            listen: false)
-                        .getAttendanceTaken(
-                            context, timeNow, section, course, type);
-                  }),
-                  child: const Text(
-                    'View',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
+                            await Provider.of<AttendanceReportProvider>(context,
+                                    listen: false)
+                                .getAttendanceTaken(
+                                    context, timeNow, section, course, type);
+                          }),
+                          child: const Text(
+                            'View',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                 ),
               ),
             ],
@@ -404,7 +416,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                                     padding: const EdgeInsets.only(bottom: 1.0),
                                     child: Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'SL. :',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -418,7 +430,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                                     padding: const EdgeInsets.only(bottom: 1.0),
                                     child: Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Division :',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -437,7 +449,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                                     padding: const EdgeInsets.only(bottom: 1.0),
                                     child: Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Class Teacher :',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -458,7 +470,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                                     padding: const EdgeInsets.only(bottom: 1.0),
                                     child: Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Alotted Staff :',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,

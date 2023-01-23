@@ -98,7 +98,7 @@ class NotificationToGuardianAdmin with ChangeNotifier {
       {required String sentTo}) async {
     Map<String, dynamic> data = await parseJWT();
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    print(_pref.getString('token'));
+
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'

@@ -79,7 +79,6 @@ class _FeeReportState extends State<FeeReport> {
         backgroundColor: UIGuide.light_Purple,
       ),
       body: ListView(
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [

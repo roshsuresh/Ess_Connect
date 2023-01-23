@@ -135,7 +135,6 @@ class NoticeBoardSA extends StatelessWidget {
                                         kWidth,
                                         Text(
                                           finalCreatedDate,
-                                          //  value.noticeBoard[index].entryDate ?? '--',
                                           style: const TextStyle(fontSize: 12),
                                         ),
                                         const Spacer(), kWidth, kWidth, kWidth,

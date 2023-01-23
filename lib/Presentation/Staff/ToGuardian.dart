@@ -411,52 +411,70 @@ class _Notification_StaffToGuardainState
             children: [
               SizedBox(
                 width: 120,
-                child: MaterialButton(
-                    color: UIGuide.light_Purple,
-                    child: const Text(
-                      'View',
-                      style: TextStyle(
-                          color: UIGuide.WHITE, fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () async {
-                      if (notificationCourseController.text.isEmpty &&
-                          notificationDivisionListController.text.isEmpty) {
-                        return AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                headerAnimationLoop: false,
-                                title: 'Error',
-                                desc: 'Select course & Division',
-                                btnOkOnPress: () {
-                                  return;
-                                },
-                                btnOkIcon: Icons.cancel,
-                                btnOkColor: Colors.red)
-                            .show();
-                      } else {
-                        await Provider.of<NotificationToGuardian_Providers>(
-                                context,
-                                listen: false)
-                            .clearStudentList();
-                        await Provider.of<NotificationToGuardian_Providers>(
-                                context,
-                                listen: false)
-                            .divisionClear();
-                        await Provider.of<NotificationToGuardian_Providers>(
-                                context,
-                                listen: false)
-                            .removeDivisionAll();
-                        divisionId =
-                            notificationDivisionListController.text.toString();
-                        courseId = notificationCourseController.text.toString();
+                height: 35,
+                child: Consumer<NotificationToGuardian_Providers>(
+                  builder: (context, val, child) => val.loading
+                      ? Center(
+                          child: Text(
+                          "Loading",
+                          style: TextStyle(
+                              color: UIGuide.light_Purple, fontSize: 16),
+                        ))
+                      : MaterialButton(
+                          color: UIGuide.light_Purple,
+                          child: const Text(
+                            'View',
+                            style: TextStyle(
+                                color: UIGuide.WHITE,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () async {
+                            if (notificationCourseController.text.isEmpty &&
+                                notificationDivisionListController
+                                    .text.isEmpty) {
+                              return AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.error,
+                                      animType: AnimType.rightSlide,
+                                      headerAnimationLoop: false,
+                                      title: 'Error',
+                                      desc: 'Select course & Division',
+                                      btnOkOnPress: () {
+                                        return;
+                                      },
+                                      btnOkIcon: Icons.cancel,
+                                      btnOkColor: Colors.red)
+                                  .show();
+                            } else {
+                              await Provider.of<
+                                          NotificationToGuardian_Providers>(
+                                      context,
+                                      listen: false)
+                                  .clearStudentList();
+                              await Provider.of<
+                                          NotificationToGuardian_Providers>(
+                                      context,
+                                      listen: false)
+                                  .divisionClear();
+                              await Provider.of<
+                                          NotificationToGuardian_Providers>(
+                                      context,
+                                      listen: false)
+                                  .removeDivisionAll();
+                              divisionId = notificationDivisionListController
+                                  .text
+                                  .toString();
+                              courseId =
+                                  notificationCourseController.text.toString();
 
-                        await Provider.of<NotificationToGuardian_Providers>(
-                                context,
-                                listen: false)
-                            .getNotificationView(courseId, divisionId);
-                      }
-                    }),
+                              await Provider.of<
+                                          NotificationToGuardian_Providers>(
+                                      context,
+                                      listen: false)
+                                  .getNotificationView(courseId, divisionId);
+                            }
+                          }),
+                ),
               ),
             ],
           ),

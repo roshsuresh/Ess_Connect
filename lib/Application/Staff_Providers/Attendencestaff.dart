@@ -211,14 +211,10 @@ class AttendenceStaffProvider with ChangeNotifier {
       setLoading(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
-
-      //    print(data);
-
       List<StudentsAttendenceView_stf> templist =
           List<StudentsAttendenceView_stf>.from(data["studentsAttendenceView"]
               .map((x) => StudentsAttendenceView_stf.fromJson(x)));
       studentsAttendenceView.addAll(templist);
-      print('correct');
       setLoading(false);
       notifyListeners();
     } else {
@@ -228,11 +224,18 @@ class AttendenceStaffProvider with ChangeNotifier {
     return true;
   }
 
+  bool _loadingg = false;
+  bool get loadingg => _loadingg;
+  setLoadingg(bool value) {
+    _loadingg = value;
+    notifyListeners();
+  }
   //save
 
   Future attendanceSave(
       BuildContext context, List finallList, String date) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoadingg(true);
 
     var headers = {
       'Content-Type': 'application/json',
@@ -248,8 +251,9 @@ class AttendenceStaffProvider with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-
+    setLoadingg(true);
     if (response.statusCode == 200) {
+      setLoadingg(true);
       print('Correct........______________________________');
       print(await response.stream.bytesToString());
       await AwesomeDialog(
@@ -266,6 +270,9 @@ class AttendenceStaffProvider with ChangeNotifier {
               },
               btnOkColor: Colors.green)
           .show();
+
+      setLoadingg(false);
+      notifyListeners();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
@@ -280,6 +287,7 @@ class AttendenceStaffProvider with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
+      setLoadingg(false);
       print('Error Response in attendance');
     }
   }
@@ -342,7 +350,9 @@ class AttendenceStaffProvider with ChangeNotifier {
   }
 
   clearStudentList() {
+    setLoading(true);
     studentsAttendenceView.clear();
+    setLoading(false);
     notifyListeners();
   }
   //single attendence
@@ -397,38 +407,38 @@ class AttendenceStaffProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  DateTime? _mydatetime;
-  String? timeNew;
+  // DateTime? _mydatetime;
+  // String? timeNew;
 
-  String? timee = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  // String? timee = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
-  getDate(BuildContext context) async {
-    _mydatetime = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2100),
-      builder: (context, child) {
-        return Theme(
-            data: ThemeData.light().copyWith(
-              primaryColor: UIGuide.light_Purple,
-              colorScheme: const ColorScheme.light(
-                primary: UIGuide.light_Purple,
-              ),
-              buttonTheme:
-                  const ButtonThemeData(textTheme: ButtonTextTheme.primary),
-            ),
-            child: child!);
-      },
-    );
+  // getDate(BuildContext context) async {
+  //   _mydatetime = await showDatePicker(
+  //     context: context,
+  //     initialDate: DateTime.now(),
+  //     firstDate: DateTime(2020),
+  //     lastDate: DateTime(2100),
+  //     builder: (context, child) {
+  //       return Theme(
+  //           data: ThemeData.light().copyWith(
+  //             primaryColor: UIGuide.light_Purple,
+  //             colorScheme: const ColorScheme.light(
+  //               primary: UIGuide.light_Purple,
+  //             ),
+  //             buttonTheme:
+  //                 const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+  //           ),
+  //           child: child!);
+  //     },
+  //   );
 
-    timeNew = DateFormat('yyyy-MM-dd').format(_mydatetime!) == null
-        ? timee
-        : DateFormat('yyyy-MM-dd').format(_mydatetime!).toString();
-    timee = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    print(timeNew);
+  //   timeNew = DateFormat('yyyy-MM-dd').format(_mydatetime!) == null
+  //       ? timee
+  //       : DateFormat('yyyy-MM-dd').format(_mydatetime!).toString();
+  //   timee = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  //   print(timeNew);
 
-    print(_mydatetime);
-    notifyListeners();
-  }
+  //   print(_mydatetime);
+  //   notifyListeners();
+  // }
 }

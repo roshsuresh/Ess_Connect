@@ -4,6 +4,7 @@ import 'package:essconnect/Domain/Staff/SearchStudReport.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -133,17 +134,24 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                   );
                 }
                 if (provider.searchStudent.isEmpty) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.sentiment_dissatisfied_outlined,
-                        size: 120,
-                        color: Colors.grey,
-                      ),
-                      Text("Sorry, We couldn't find the text you have entered")
-                    ],
-                  );
+                  Future.delayed(Duration(seconds: 2));
+                  return provider.loading
+                      ? spinkitLoader()
+                      : Center(
+                          child: LottieBuilder.network(
+                              'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json'),
+                        );
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: const [
+                  //     Icon(
+                  //       Icons.sentiment_dissatisfied_outlined,
+                  //       size: 120,
+                  //       color: Colors.grey,
+                  //     ),
+                  //     Text("Sorry, We couldn't find the text you have entered")
+                  //   ],
+                  // );
                 }
                 return provider.loading
                     ? spinkitLoader()

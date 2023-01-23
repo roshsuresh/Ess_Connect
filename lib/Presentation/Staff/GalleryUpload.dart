@@ -150,9 +150,8 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
   final titleController = TextEditingController();
   String attachmentid = '';
 
-  @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+  void initState() {
+    super.initState();
     datee = DateFormat('dd/MMM/yyyy').format(DateTime.now());
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var p = Provider.of<GallerySendProvider_Stf>(context, listen: false);
@@ -165,6 +164,12 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
       p.removeDivisionAll();
       // titleController.clear();
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
@@ -383,12 +388,15 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                                         selectedTileColor: Colors.blue.shade100,
                                         selectedColor: UIGuide.PRIMARY2,
                                         onTap: () async {
-                                          coursevalueController.text = snapshot
-                                                  .courselistt[index].value ??
-                                              '--';
-                                          coursevalueController1.text = snapshot
-                                                  .courselistt[index].text ??
-                                              '--';
+                                          divisionvalueController1.clear();
+                                          coursevalueController.text =
+                                              await snapshot.courselistt[index]
+                                                      .value ??
+                                                  '--';
+                                          coursevalueController1.text =
+                                              await snapshot.courselistt[index]
+                                                      .text ??
+                                                  '--';
                                           String courseId =
                                               coursevalueController.text
                                                   .toString();
@@ -487,8 +495,6 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                                     itemCount: snapshot.divisionlistt.length,
                                     itemBuilder: (context, index) {
                                       return ListTile(
-                                        selectedTileColor: Colors.blue.shade100,
-                                        selectedColor: UIGuide.PRIMARY2,
                                         onTap: () async {
                                           divisionvalueController.text =
                                               snapshot.divisionlistt[index]
@@ -503,8 +509,6 @@ class _StaffGalleryUPloadState extends State<StaffGalleryUPload> {
                                           String divisionId =
                                               divisionvalueController.text
                                                   .toString();
-                                          snapshot.addSelectedDivision(
-                                              snapshot.divisionlistt[index]);
 
                                           Navigator.of(context).pop();
                                         },

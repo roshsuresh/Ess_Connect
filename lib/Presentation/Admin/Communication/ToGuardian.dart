@@ -390,28 +390,40 @@ class _Notification_AdminToGuardainState
                 child: SizedBox(
                   width: size.width * .43,
                   height: 44,
-                  child: MaterialButton(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    onPressed: () async {
-                      // var p = await Provider.of<SchoolPhotoProviders>(context,
-                      //     listen: false);
-                      // p.courselist.clear();
-                      // p.divisionlist.clear();
-                      // Provider.of<NotificationToGuardianAdmin>(context,
-                      //         listen: false)
-                      //     .notificationView
-                      //     .clear();
-                      await Provider.of<NotificationToGuardianAdmin>(context,
-                              listen: false)
-                          .clearStudentList();
-                      await Provider.of<NotificationToGuardianAdmin>(context,
-                              listen: false)
-                          .getNotificationView(
-                              course.toLowerCase(), division.toLowerCase());
-                    },
-                    color: UIGuide.THEME_LIGHT,
-                    child: const Text('View'),
+                  child: Consumer<NotificationToGuardianAdmin>(
+                    builder: (context, val, child) => val.loading
+                        ? Center(
+                            child: Text(
+                            'Loading...',
+                            style: TextStyle(
+                                color: UIGuide.light_Purple, fontSize: 16),
+                          ))
+                        : MaterialButton(
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
+                            onPressed: () async {
+                              // var p = await Provider.of<SchoolPhotoProviders>(context,
+                              //     listen: false);
+                              // p.courselist.clear();
+                              // p.divisionlist.clear();
+                              // Provider.of<NotificationToGuardianAdmin>(context,
+                              //         listen: false)
+                              //     .notificationView
+                              //     .clear();
+                              await Provider.of<NotificationToGuardianAdmin>(
+                                      context,
+                                      listen: false)
+                                  .clearStudentList();
+                              await Provider.of<NotificationToGuardianAdmin>(
+                                      context,
+                                      listen: false)
+                                  .getNotificationView(course.toLowerCase(),
+                                      division.toLowerCase());
+                            },
+                            color: UIGuide.THEME_LIGHT,
+                            child: const Text('View'),
+                          ),
                   ),
                 ),
               )
@@ -467,7 +479,7 @@ class _Notification_AdminToGuardainState
                     )
                   : Scrollbar(
                       child: LimitedBox(
-                        maxHeight: size.height - 320,
+                        maxHeight: size.height - 330,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: value.notificationView.isEmpty
