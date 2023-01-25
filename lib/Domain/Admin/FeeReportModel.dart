@@ -20,10 +20,9 @@ class FeeCollectionReportDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.allFeeCollect != null) {
-      data['allFeeCollect'] =
-          this.allFeeCollect!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (allFeeCollect != null) {
+      data['allFeeCollect'] = allFeeCollect!.map((v) => v.toJson()).toList();
     }
 
     data['generalTotal'] = this.generalTotal;

@@ -281,7 +281,6 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                       print(timeNow);
                     });
                   }),
-                  //  minWidth: size.width - 216,
                   child: Center(child: Text('To  $timeNow')),
                 ),
               ),
@@ -554,7 +553,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
             ),
           ),
           Center(
-            child: Container(
+            child: SizedBox(
               height: size.width / 2,
               width: size.width / 2,
               child: LottieBuilder.network(

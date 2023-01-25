@@ -42,19 +42,19 @@ class StaffReportByAdmin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['sectionId'] = this.sectionId;
-    data['section'] = this.section;
-    data['designation'] = this.designation;
-    data['mobileNo'] = this.mobileNo;
-    data['emailId'] = this.emailId;
-    data['staffRole'] = this.staffRole;
-    data['staffPhoto'] = this.staffPhoto;
-    data['gender'] = this.gender;
-    data['address'] = this.address;
-    data['dateOfBirth'] = this.dateOfBirth;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['sectionId'] = sectionId;
+    data['section'] = section;
+    data['designation'] = designation;
+    data['mobileNo'] = mobileNo;
+    data['emailId'] = emailId;
+    data['staffRole'] = staffRole;
+    data['staffPhoto'] = staffPhoto;
+    data['gender'] = gender;
+    data['address'] = address;
+    data['dateOfBirth'] = dateOfBirth;
     return data;
   }
 }

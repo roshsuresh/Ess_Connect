@@ -14,15 +14,6 @@ class spinkitLoader extends StatelessWidget {
     Colors.indigo,
     Color.fromARGB(255, 0, 207, 235),
   ];
-  final List<Color> _kDefaultColors = [
-    UIGuide.light_Purple,
-    Color.fromARGB(255, 13, 72, 128),
-    Color.fromARGB(255, 43, 101, 156),
-    Color.fromARGB(255, 67, 119, 168),
-    Color.fromARGB(255, 97, 156, 211),
-    Color.fromARGB(255, 159, 201, 240),
-    Color.fromARGB(255, 181, 206, 231),
-  ];
 
   @override
   Widget build(BuildContext context) {

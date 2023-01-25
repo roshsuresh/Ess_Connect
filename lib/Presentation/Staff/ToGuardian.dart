@@ -414,7 +414,7 @@ class _Notification_StaffToGuardainState
                 height: 35,
                 child: Consumer<NotificationToGuardian_Providers>(
                   builder: (context, val, child) => val.loading
-                      ? Center(
+                      ? const Center(
                           child: Text(
                           "Loading",
                           style: TextStyle(

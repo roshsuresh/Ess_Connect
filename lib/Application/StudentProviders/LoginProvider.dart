@@ -11,6 +11,7 @@ class LoginProvider with ChangeNotifier {
   bool isLoginned = false;
   String imageUrl = "";
   String schoolName = "";
+  String schoolid = "";
   String subDomain = "";
   Future<int> getActivation(String key) async {
     String res;
@@ -34,9 +35,14 @@ class LoginProvider with ChangeNotifier {
 
       schoolName = ac.schoolName!;
       subDomain = ac.subDomain!;
+      schoolid = ac.schoolId!;
       print(schoolName);
       SharedPreferences _pref = await SharedPreferences.getInstance();
       _pref.setString("schoolId", ac.schoolId!);
+      _pref.setString("subDomain", ac.subDomain!);
+      print(_pref.getString('subDomain'));
+      print('-----');
+
       notifyListeners();
     } else {
       print("Error in API calling");
@@ -72,7 +78,7 @@ class LoginProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       log("student Token added");
     } else {
-      log("student not added");
+      log("student not added.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-!");
       debugPrint(response.reasonPhrase);
     }
   }

@@ -21,6 +21,8 @@ class StaffTimetableProvider with ChangeNotifier {
 
   Future getTimeTable() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    print(_pref.getString('subDomain'));
     setLoading(true);
     var headers = {
       'Content-Type': 'application/json',

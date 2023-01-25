@@ -448,21 +448,11 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                                     shrinkWrap: true,
                                     itemCount: noticeCourseStf!.length,
                                     itemBuilder: (context, index) {
-                                      // print(snapshot
-
-                                      //     .attendenceInitialValues.length);
-
-                                      // value.removeCourseAll();
                                       return ListTile(
                                         selectedTileColor: Colors.blue.shade100,
                                         selectedColor: UIGuide.PRIMARY2,
-
-                                        // selected: snapshot.isCourseSelected(
-                                        //     attendecourse![index]),
-
                                         onTap: () async {
-                                          print(
-                                              'guh.....${noticeCourseStf![index]}');
+                                          divisionvalueController1.clear();
                                           coursevalueController.text =
                                               await noticeCourseStf![index]
                                                       ['value'] ??
@@ -567,16 +557,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                                   shrinkWrap: true,
                                   itemCount: snapshot.divisionlistt.length,
                                   itemBuilder: (context, index) {
-                                    // print(snapshot
-
-                                    //     .attendenceInitialValues.length);
-
-                                    // value.removeCourseAll();
                                     return ListTile(
-                                      selectedTileColor: Colors.blue.shade100,
-                                      selectedColor: UIGuide.PRIMARY2,
-                                      // selected: snapshot.isDivisionSelected(
-                                      //     snapshot.noticeDivision[index]),
                                       onTap: () async {
                                         divisionvalueController.text = snapshot
                                                 .divisionlistt[index].value ??

@@ -175,7 +175,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                   height: 44,
                   child: Consumer<NotificationToStaffAdminProviders>(
                     builder: (context, val, child) => val.loading
-                        ? Center(
+                        ? const Center(
                             child: Text(
                             "Loading",
                             style: TextStyle(

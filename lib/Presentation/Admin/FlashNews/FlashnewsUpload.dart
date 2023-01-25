@@ -54,7 +54,7 @@ class _FlashNewsUploadState extends State<FlashNewsUpload> {
           child: TextFormField(
             controller: titleController,
             minLines: 1,
-            inputFormatters: [LengthLimitingTextInputFormatter(50)],
+            inputFormatters: [LengthLimitingTextInputFormatter(80)],
             maxLines: 1,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(

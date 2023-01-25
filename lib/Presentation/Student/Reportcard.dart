@@ -185,8 +185,6 @@ class ReportCard extends StatelessWidget {
                                                   child: SizedBox(
                                                     height: 25,
                                                     width: 25,
-                                                    // color: Color.fromARGB(
-                                                    //     255, 241, 241, 241),
                                                     child: LottieBuilder.network(
                                                                 "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
                                                             null

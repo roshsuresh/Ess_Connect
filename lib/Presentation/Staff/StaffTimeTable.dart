@@ -41,16 +41,18 @@ class Staff_Timetable extends StatelessWidget {
           children: [
             kheight20,
             Table(
+              border: TableBorder.all(color: Colors.white),
               columnWidths: const {
                 0: FlexColumnWidth(4),
                 1: FlexColumnWidth(2),
               },
-              children: const [
+              children: [
                 TableRow(
                     decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
                       color: Color.fromARGB(255, 228, 224, 224),
                     ),
-                    children: [
+                    children: const [
                       SizedBox(
                         height: 30,
                         child: Center(
@@ -77,14 +79,17 @@ class Staff_Timetable extends StatelessWidget {
                     ? spinkitLoader()
                     : GestureDetector(
                         child: Table(
+                          border: TableBorder.all(color: Colors.white),
                           columnWidths: const {
                             0: FlexColumnWidth(4),
                             1: FlexColumnWidth(2),
                           },
                           children: [
                             TableRow(
-                                decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 245, 242, 242),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.white),
+                                  color:
+                                      const Color.fromARGB(255, 245, 242, 242),
                                 ),
                                 children: [
                                   Padding(
@@ -96,9 +101,9 @@ class Staff_Timetable extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: const Icon(Icons.remove_red_eye),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.remove_red_eye),
                                   ),
                                 ]),
                           ],

@@ -41,10 +41,7 @@ class ModuleProviders extends ChangeNotifier {
       offlineTab = true;
       notifyListeners();
     }
-    if (data.contains('OFFLINE_TAB')) {
-      offlineTab = true;
-      notifyListeners();
-    }
+
     if (data.contains('ATT')) {
       attendenceEntry = true;
       notifyListeners();

@@ -12,10 +12,10 @@ class SMSfomatModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['text'] = this.text;
-    data['value'] = this.value;
-    data['isApproved'] = this.isApproved;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['text'] = text;
+    data['value'] = value;
+    data['isApproved'] = isApproved;
     return data;
   }
 }
@@ -39,12 +39,12 @@ class SMSContentModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['smsBody'] = this.smsBody;
-    data['content'] = this.content;
-    data['isApproved'] = this.isApproved;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['smsBody'] = smsBody;
+    data['content'] = content;
+    data['isApproved'] = isApproved;
     return data;
   }
 }

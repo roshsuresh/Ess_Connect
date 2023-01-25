@@ -12,7 +12,6 @@ class GalleryListStaff extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var p = Provider.of<GallerySendProvider_Stf>(context, listen: false);
-
       p.galleryViewList.clear();
       await p.galleryViewListStaff(context);
     });

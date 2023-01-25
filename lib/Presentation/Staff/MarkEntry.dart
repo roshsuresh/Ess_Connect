@@ -89,71 +89,64 @@ class _MarkEntryState extends State<MarkEntry> {
                               context: context,
                               builder: (context) {
                                 return Dialog(
-                                    child: Container(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: snapshot
-                                              .markEntryInitialValues.length,
-                                          itemBuilder: (context, index) {
+                                    child: LimitedBox(
+                                  maxHeight: size.height - 300,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot
+                                          .markEntryInitialValues.length,
+                                      itemBuilder: (context, index) {
+                                        print(snapshot
+                                            .markEntryInitialValues.length);
+                                        value.removeCourseAll();
+                                        return ListTile(
+                                          selectedTileColor:
+                                              Colors.blue.shade100,
+                                          selectedColor: UIGuide.PRIMARY2,
+                                          selected: snapshot.isCourseSelected(
+                                              snapshot.markEntryInitialValues[
+                                                  index]),
+                                          onTap: () async {
                                             print(snapshot
                                                 .markEntryInitialValues.length);
-                                            value.removeCourseAll();
-                                            return ListTile(
-                                              selectedTileColor:
-                                                  Colors.blue.shade100,
-                                              selectedColor: UIGuide.PRIMARY2,
-                                              selected: snapshot
-                                                  .isCourseSelected(snapshot
-                                                          .markEntryInitialValues[
-                                                      index]),
-                                              onTap: () async {
-                                                print(snapshot
-                                                    .markEntryInitialValues
-                                                    .length);
+                                            markEntryInitialValuesController
+                                                .text = snapshot
+                                                    .markEntryInitialValues[
+                                                        index]
+                                                    .id ??
+                                                '--';
+                                            markEntryInitialValuesController1
+                                                .text = snapshot
+                                                    .markEntryInitialValues[
+                                                        index]
+                                                    .courseName ??
+                                                '--';
+                                            courseId =
                                                 markEntryInitialValuesController
-                                                    .text = snapshot
-                                                        .markEntryInitialValues[
-                                                            index]
-                                                        .id ??
-                                                    '--';
-                                                markEntryInitialValuesController1
-                                                    .text = snapshot
-                                                        .markEntryInitialValues[
-                                                            index]
-                                                        .courseName ??
-                                                    '--';
-                                                courseId =
-                                                    markEntryInitialValuesController
-                                                        .text
-                                                        .toString();
+                                                    .text
+                                                    .toString();
 
-                                                snapshot.addSelectedCourse(snapshot
-                                                        .markEntryInitialValues[
-                                                    index]);
-                                                print(courseId);
-                                                await Provider.of<
-                                                            MarkEntryProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .getMarkEntryDivisionValues(
-                                                        courseId);
-                                                Navigator.of(context).pop();
-                                              },
-                                              title: Text(
-                                                snapshot
-                                                        .markEntryInitialValues[
-                                                            index]
-                                                        .courseName ??
-                                                    '--',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            );
-                                          }),
-                                    ],
-                                  ),
+                                            snapshot.addSelectedCourse(snapshot
+                                                .markEntryInitialValues[index]);
+                                            print(courseId);
+                                            await Provider.of<
+                                                        MarkEntryProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getMarkEntryDivisionValues(
+                                                    courseId);
+                                            Navigator.of(context).pop();
+                                          },
+                                          title: Text(
+                                            snapshot
+                                                    .markEntryInitialValues[
+                                                        index]
+                                                    .courseName ??
+                                                '--',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        );
+                                      }),
                                 ));
                               });
                         },

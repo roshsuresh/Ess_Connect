@@ -98,10 +98,11 @@ class StaffNotificationReceived extends StatelessWidget {
                               left: 6.0, right: 6, bottom: 3, top: 3),
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 234, 234, 236),
+                                color: const Color.fromARGB(255, 234, 234, 236),
                                 border: Border.all(
-                                    color: Color.fromARGB(255, 136, 187, 235)),
-                                borderRadius: BorderRadius.only(
+                                    color: const Color.fromARGB(
+                                        255, 136, 187, 235)),
+                                borderRadius: const BorderRadius.only(
                                     topRight: Radius.circular(20),
                                     bottomLeft: Radius.circular(20))),
                             width: size.width,
@@ -109,7 +110,7 @@ class StaffNotificationReceived extends StatelessWidget {
                               padding: const EdgeInsets.all(6.0),
                               child: Container(
                                 width: size.width - 4,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     // border: Border.all(
                                     //     color: UIGuide.light_Purple),

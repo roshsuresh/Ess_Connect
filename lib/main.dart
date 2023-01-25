@@ -3,6 +3,7 @@ import 'dart:core';
 import 'dart:io';
 import 'package:essconnect/Application/AdminProviders/Attendanceprovider.dart';
 import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
+import 'package:essconnect/Application/Module%20Providers.dart/MobileAppCheckin.dart';
 import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
@@ -252,6 +253,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(create: (context) => AttendanceReportProvider()),
         ChangeNotifierProvider(
             create: (context) => NoticeBoardProvidersSAdmin()),
+        ChangeNotifierProvider(create: (context) => MobileAppCheckinProvider()),
       ],
       child: MaterialApp(
         title: 'Ess Connect Pro',

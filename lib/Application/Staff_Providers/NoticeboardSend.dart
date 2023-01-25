@@ -187,8 +187,7 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
 
   //Noticeboard  save
 
-  Future
-  noticeBoardSave(
+  Future noticeBoardSave(
       BuildContext context,
       String entryDate,
       String DisplayStartDate,
@@ -281,6 +280,7 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
 
   Future getnoticeList() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoadingg(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -291,14 +291,18 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
         headers: headers);
     try {
       if (response.statusCode == 200) {
+        setLoadingg(true);
         final data = json.decode(response.body);
 
         staffNoticeView = data["noticeBoardView"];
+        setLoadingg(false);
         notifyListeners();
       } else {
+        setLoadingg(false);
         print("Error in Response");
       }
     } catch (e) {
+      setLoadingg(false);
       print(e);
     }
   }

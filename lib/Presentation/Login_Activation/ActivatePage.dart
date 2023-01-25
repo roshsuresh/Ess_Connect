@@ -1,3 +1,5 @@
+import 'package:essconnect/Application/Module%20Providers.dart/MobileAppCheckin.dart';
+import 'package:essconnect/Domain/Admin/MobileAppCkeckinModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rect_getter/rect_getter.dart';
@@ -222,102 +224,141 @@ class _ActivatePageState extends State<ActivatePage>
                                 ),
                                 child: secretKey(secretKeyController)),
                           ),
-                          RectGetter(
-                            key: rectGetterKey,
-                            child: InkWell(
-                              onTap: () async {
-                                sizeAnimationController.forward();
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                if (_formKey.currentState!.validate()) {
-                                  _formKey.currentState!.save();
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                  int statusCode = await Provider.of<
-                                          LoginProvider>(context, listen: false)
-                                      .getActivation(secretKeyController.text);
-                                  if (statusCode == 200) {
-                                    print(statusCode);
-                                    //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPageWeb()));
-                                    setState(() {
-                                      isLoading = false;
-                                      showBottomDialogSchool();
-                                    });
-                                  } else {
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    final snackBar = SnackBar(
-                                      content: Container(
-                                        //color: Colors.white,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 2.0,
-                                                color: Colors.transparent),
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        //margin: EdgeInsets.fromLTRB(100, 0, 0, 300),
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 15.0),
-                                            child: Text(
-                                              'Invalid School Code',
-                                              style: TextStyle(
-                                                  color: Colors.red.shade600,
-                                                  fontSize: 15),
+                          Consumer<LoginProvider>(
+                            builder: (context, loginn, child) => RectGetter(
+                              key: rectGetterKey,
+                              child: Consumer<MobileAppCheckinProvider>(
+                                builder: (context, checkk, child) => InkWell(
+                                  onTap: () async {
+                                    sizeAnimationController.forward();
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      int statusCode =
+                                          await Provider.of<LoginProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .getActivation(
+                                                  secretKeyController.text);
+                                      if (statusCode == 200) {
+                                        print(statusCode);
+                                        String schlId = loginn.schoolid == null
+                                            ? '--'
+                                            : loginn.schoolid.toString();
+                                        await checkk.getMobile(schlId);
+                                        if (checkk.existapp == true) {
+                                          print(
+                                              "------------------------------IsMobileAppChecked---------------------------");
+                                          setState(() {
+                                            isLoading = false;
+                                            showBottomDialogSchool();
+                                          });
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              elevation: 10,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                              ),
+                                              duration: Duration(seconds: 1),
+                                              margin: EdgeInsets.only(
+                                                  bottom: 80,
+                                                  left: 30,
+                                                  right: 30),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              content: Text(
+                                                'Something went wrong...',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPageWeb()));
+                                      } else {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                        final snackBar = SnackBar(
+                                          content: Container(
+                                            //color: Colors.white,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 2.0,
+                                                    color: Colors.transparent),
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            //margin: EdgeInsets.fromLTRB(100, 0, 0, 300),
+                                            child: Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 15.0),
+                                                child: Text(
+                                                  'Invalid School Code',
+                                                  style: TextStyle(
+                                                      color:
+                                                          Colors.red.shade600,
+                                                      fontSize: 15),
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                      elevation: 1000,
-                                      behavior: SnackBarBehavior.floating,
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
+                                          backgroundColor: Colors.transparent,
+                                          elevation: 1000,
+                                          behavior: SnackBarBehavior.floating,
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
 
-                                    // final snackBar = SnackBar(content: Container(
-                                    //   //color: Colors.white,
-                                    //   decoration: BoxDecoration( border: Border.all(width: 2.0, color: Colors.transparent), borderRadius: BorderRadius.circular(20)),
-                                    //   margin: EdgeInsets.fromLTRB(30, 0, 0, 25),
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.only(top:15.0),
-                                    //     child: Text('Invalid School Code',style: TextStyle(
-                                    //         color: Colors.red.shade600,
-                                    //         fontSize: 16
-                                    //     ),),
-                                    //   ),
-                                    // ),);
-                                    //  ScaffoldMessenger.of(context)
-                                    //      .showSnackBar(snackBar);
-                                  }
-                                } else {
-                                  return;
-                                }
-                              },
-                              child: AnimatedBuilder(
-                                animation: sizeAnimation,
-                                builder: (BuildContext context, Widget? child) {
-                                  print(
-                                      '${(width * 0.4) + sizeAnimation.value} size animation');
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: (width * 0.4 - 20) +
-                                          sizeAnimation.value,
-                                      height: 40 + sizeAnimation.value,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: const DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/act_button.png'),
-                                              fit: BoxFit.fill)),
-                                    ),
-                                  );
-                                },
+                                        // final snackBar = SnackBar(content: Container(
+                                        //   //color: Colors.white,
+                                        //   decoration: BoxDecoration( border: Border.all(width: 2.0, color: Colors.transparent), borderRadius: BorderRadius.circular(20)),
+                                        //   margin: EdgeInsets.fromLTRB(30, 0, 0, 25),
+                                        //   child: Padding(
+                                        //     padding: const EdgeInsets.only(top:15.0),
+                                        //     child: Text('Invalid School Code',style: TextStyle(
+                                        //         color: Colors.red.shade600,
+                                        //         fontSize: 16
+                                        //     ),),
+                                        //   ),
+                                        // ),);
+                                        //  ScaffoldMessenger.of(context)
+                                        //      .showSnackBar(snackBar);
+                                      }
+                                    } else {
+                                      return;
+                                    }
+                                  },
+                                  child: AnimatedBuilder(
+                                    animation: sizeAnimation,
+                                    builder:
+                                        (BuildContext context, Widget? child) {
+                                      print(
+                                          '${(width * 0.4) + sizeAnimation.value} size animation');
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: (width * 0.4 - 20) +
+                                              sizeAnimation.value,
+                                          height: 40 + sizeAnimation.value,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              image: const DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/act_button.png'),
+                                                  fit: BoxFit.fill)),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                           ),

@@ -311,8 +311,7 @@ class ExamTTAdmProviders with ChangeNotifier {
 
     http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 204) {
-      print(await response.stream.bytesToString());
+    if (response.statusCode == 200) {
       print('correct');
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
@@ -330,6 +329,19 @@ class ExamTTAdmProviders with ChangeNotifier {
 
       notifyListeners();
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something went wrong..!',
+          textAlign: TextAlign.center,
+        ),
+      ));
       print('Error in ExamDelete admin');
     }
   }

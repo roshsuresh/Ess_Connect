@@ -33,8 +33,7 @@ class Profile_Info extends StatelessWidget {
           return provider.loading
               ? spinkitLoader()
               : ListView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                      parent: ClampingScrollPhysics()),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     Stack(
                       children: [
@@ -103,10 +102,6 @@ class Profile_Info extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Table(
-                                      // border: TableBorder.all(
-                                      //     color: UIGuide.light_Purple,
-                                      //     style: BorderStyle.solid,
-                                      //     width: .5),
                                       children: [
                                         TableRow(children: [
                                           Column(
@@ -169,6 +164,7 @@ class Profile_Info extends StatelessWidget {
                         height: 332,
                         color: const Color.fromARGB(255, 240, 243, 247),
                         child: SingleChildScrollView(
+                          physics: const NeverScrollableScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -527,16 +523,10 @@ class Profile_Info extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 240, 243, 247),
-                                      //color: Colors.white,
-                                      // border: Border.all(
-                                      //   color: const Color.fromARGB(
-                                      //       255, 230, 237, 245),
-                                      // ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
+                                  decoration: const BoxDecoration(
+                                      color: Color.fromARGB(255, 240, 243, 247),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
                                   width: width,
                                   height: 115,
                                   child: Padding(

@@ -1,6 +1,5 @@
 import 'package:essconnect/Application/Staff_Providers/GallerySendProviderStaff.dart';
 import 'package:essconnect/Constants.dart';
-import 'package:essconnect/utils/LoadingIndication.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';

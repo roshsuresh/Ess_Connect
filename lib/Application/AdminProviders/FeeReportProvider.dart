@@ -27,15 +27,12 @@ class FeeReportProvider with ChangeNotifier {
         Uri.parse(
             "${UIGuide.baseURL}/fee-collection/fees-collection-report?feeCategory=ALL&section=$section&courses=$course&displayStartDate=$start&displayEndDate=$end"),
         headers: headers);
-    // print(
-    //     "${UIGuide.baseURL}/fee-collection/fees-collection-report?section=$section&courses=$course&feeCategory=ALL&displayStartDate=10-Dec-2022&displayEndDate=21-Dec-2022");
     if (response.statusCode == 200) {
       print('correct');
       Map<String, dynamic> data = json.decode(response.body);
       Map<String, dynamic> fee = data['feeCollectionReportDetails'];
       FeeCollectionReportDetails ac = FeeCollectionReportDetails.fromJson(fee);
       allTotal = ac.allTotal!;
-      //  print(data);
       List<AllFeeCollect> templist = List<AllFeeCollect>.from(
           fee['allFeeCollect'].map((x) => AllFeeCollect.fromJson(x)));
       collectionList.addAll(templist);

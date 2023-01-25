@@ -45,6 +45,14 @@ class StudReport extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StudReport()));
+                    },
+                    icon: const Icon(Icons.refresh)),
+                IconButton(
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -477,83 +485,101 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                 }),
               ),
               const Spacer(),
-              MaterialButton(
-                color: UIGuide.THEME_LIGHT,
-                onPressed: (() async {
-                  if (studReportDivisionController.text.isEmpty &&
-                      studReportInitialValuesController.text.isEmpty &&
-                      studReportDivisionController.text.isEmpty) {
-                    return AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            title: 'Warning',
-                            desc: 'Select mandatory fields',
-                            btnOkOnPress: () {
-                              return;
-                            },
-                            btnOkIcon: Icons.cancel,
-                            btnOkColor: Colors.red)
-                        .show();
-                  } else {
-                    courseId = studReportcourseController.text.toString();
-                    print(courseId);
-                    divisionId = studReportDivisionController.text.toString();
-                    print(divisionId);
-                    print(sectionId);
-                    sectionId =
-                        studReportInitialValuesController.text.toString();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .sectionClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeSectionAll();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .courseClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeCourseAll();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .divisionClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeDivisionAll();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .clearViewList();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .viewStudentReportList(sectionId, courseId, divisionId);
-                    if (Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .viewStudReportListt
-                        .isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          duration: Duration(seconds: 2),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Data not foumd',
-                            textAlign: TextAlign.center,
-                          ),
+              Consumer<StudReportListProvider_stf>(
+                builder: (context, value, child) => value.loading
+                    ? Center(
+                        child: Text(
+                          'Loading...',
+                          style: TextStyle(color: UIGuide.light_Purple),
                         ),
-                      );
-                    } else {
-                      print('object');
-                    }
-                  }
-                }),
-                child: const Text('View'),
+                      )
+                    : MaterialButton(
+                        color: UIGuide.THEME_LIGHT,
+                        onPressed: (() async {
+                          if (studReportDivisionController.text.isEmpty &&
+                              studReportInitialValuesController.text.isEmpty &&
+                              studReportDivisionController.text.isEmpty) {
+                            return AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    animType: AnimType.rightSlide,
+                                    headerAnimationLoop: false,
+                                    title: 'Warning',
+                                    desc: 'Select mandatory fields',
+                                    btnOkOnPress: () {
+                                      return;
+                                    },
+                                    btnOkIcon: Icons.cancel,
+                                    btnOkColor: Colors.red)
+                                .show();
+                          } else {
+                            courseId =
+                                studReportcourseController.text.toString();
+                            print(courseId);
+                            divisionId =
+                                studReportDivisionController.text.toString();
+                            print(divisionId);
+                            print(sectionId);
+                            sectionId = studReportInitialValuesController.text
+                                .toString();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .sectionClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeSectionAll();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .courseClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeCourseAll();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .divisionClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeDivisionAll();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .clearViewList();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .viewStudentReportList(
+                                    sectionId, courseId, divisionId);
+                            if (Provider.of<StudReportListProvider_stf>(context,
+                                    listen: false)
+                                .viewStudReportListt
+                                .isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                  margin: EdgeInsets.only(
+                                      bottom: 80, left: 30, right: 30),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'Data not foumd',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              print('object');
+                            }
+                          }
+                        }),
+                        child: const Text('View'),
+                      ),
               ),
               const Spacer()
               // kWidth,
@@ -1576,81 +1602,99 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                 }),
               ),
               const Spacer(),
-              MaterialButton(
-                color: UIGuide.THEME_LIGHT,
-                onPressed: (() async {
-                  if (StudReportDivisionController.text.isEmpty &&
-                      studReportInitialValuesController.text.isEmpty &&
-                      StudReportDivisionController.text.isEmpty) {
-                    return AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            title: 'Warning',
-                            desc: 'Select mandatory fields',
-                            btnOkOnPress: () {
-                              return;
-                            },
-                            btnOkIcon: Icons.cancel,
-                            btnOkColor: Colors.red)
-                        .show();
-                  } else {
-                    sectionId =
-                        studReportInitialValuesController.text.toString();
-                    courseId = StudReportcourseController.text.toString();
-                    divisionId = StudReportDivisionController.text.toString();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .sectionClear();
-
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeSectionAll();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .courseClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeCourseAll();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .divisionClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeDivisionAll();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .clearViewList();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .viewStudentReportList(sectionId, courseId, divisionId);
-                    if (Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .viewStudReportListt
-                        .isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          duration: Duration(seconds: 2),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Data not foumd',
-                            textAlign: TextAlign.center,
-                          ),
+              Consumer<StudReportListProvider_stf>(
+                builder: (context, value, child) => value.loading
+                    ? Center(
+                        child: Text(
+                          'Loading...',
+                          style: TextStyle(color: UIGuide.light_Purple),
                         ),
-                      );
-                    } else {
-                      print('object');
-                    }
-                  }
-                }),
-                child: const Text('View'),
+                      )
+                    : MaterialButton(
+                        color: UIGuide.THEME_LIGHT,
+                        onPressed: (() async {
+                          if (StudReportDivisionController.text.isEmpty &&
+                              studReportInitialValuesController.text.isEmpty &&
+                              StudReportDivisionController.text.isEmpty) {
+                            return AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    animType: AnimType.rightSlide,
+                                    headerAnimationLoop: false,
+                                    title: 'Warning',
+                                    desc: 'Select mandatory fields',
+                                    btnOkOnPress: () {
+                                      return;
+                                    },
+                                    btnOkIcon: Icons.cancel,
+                                    btnOkColor: Colors.red)
+                                .show();
+                          } else {
+                            sectionId = studReportInitialValuesController.text
+                                .toString();
+                            courseId =
+                                StudReportcourseController.text.toString();
+                            divisionId =
+                                StudReportDivisionController.text.toString();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .sectionClear();
+
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeSectionAll();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .courseClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeCourseAll();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .divisionClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeDivisionAll();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .clearViewList();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .viewStudentReportList(
+                                    sectionId, courseId, divisionId);
+                            if (Provider.of<StudReportListProvider_stf>(context,
+                                    listen: false)
+                                .viewStudReportListt
+                                .isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                  margin: EdgeInsets.only(
+                                      bottom: 80, left: 30, right: 30),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'Data not foumd',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              print('object');
+                            }
+                          }
+                        }),
+                        child: const Text('View'),
+                      ),
               ),
               const Spacer()
             ],
@@ -2380,83 +2424,101 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                 }),
               ),
               const Spacer(),
-              MaterialButton(
-                color: UIGuide.THEME_LIGHT,
-                onPressed: (() async {
-                  if (StudReportDivisionController.text.isEmpty &&
-                      studReportInitialValuesController.text.isEmpty &&
-                      StudReportDivisionController.text.isEmpty) {
-                    return AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            title: 'Warning',
-                            desc: 'Select mandatory fields',
-                            btnOkOnPress: () {
-                              return;
-                            },
-                            btnOkIcon: Icons.cancel,
-                            btnOkColor: Colors.red)
-                        .show();
-                  } else {
-                    courseId = StudReportcourseController.text.toString();
-                    print(courseId);
-                    divisionId = StudReportDivisionController.text.toString();
-                    print(divisionId);
-                    print(sectionId);
-                    sectionId =
-                        studReportInitialValuesController.text.toString();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .sectionClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeSectionAll();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .courseClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeCourseAll();
-                    // await Provider.of<StudReportListProvider_stf>(context,
-                    //         listen: false)
-                    //     .divisionClear();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .removeDivisionAll();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .clearViewList();
-                    await Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .viewStudentReportList(sectionId, courseId, divisionId);
-                    if (Provider.of<StudReportListProvider_stf>(context,
-                            listen: false)
-                        .viewStudReportListt
-                        .isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          duration: Duration(seconds: 2),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Data not foumd',
-                            textAlign: TextAlign.center,
-                          ),
+              Consumer<StudReportListProvider_stf>(
+                builder: (context, value, child) => value.loading
+                    ? Center(
+                        child: Text(
+                          'Loading...',
+                          style: TextStyle(color: UIGuide.light_Purple),
                         ),
-                      );
-                    } else {
-                      print('object');
-                    }
-                  }
-                }),
-                child: const Text('View'),
+                      )
+                    : MaterialButton(
+                        color: UIGuide.THEME_LIGHT,
+                        onPressed: (() async {
+                          if (StudReportDivisionController.text.isEmpty &&
+                              studReportInitialValuesController.text.isEmpty &&
+                              StudReportDivisionController.text.isEmpty) {
+                            return AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    animType: AnimType.rightSlide,
+                                    headerAnimationLoop: false,
+                                    title: 'Warning',
+                                    desc: 'Select mandatory fields',
+                                    btnOkOnPress: () {
+                                      return;
+                                    },
+                                    btnOkIcon: Icons.cancel,
+                                    btnOkColor: Colors.red)
+                                .show();
+                          } else {
+                            courseId =
+                                StudReportcourseController.text.toString();
+                            print(courseId);
+                            divisionId =
+                                StudReportDivisionController.text.toString();
+                            print(divisionId);
+                            print(sectionId);
+                            sectionId = studReportInitialValuesController.text
+                                .toString();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .sectionClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeSectionAll();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .courseClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeCourseAll();
+                            // await Provider.of<StudReportListProvider_stf>(context,
+                            //         listen: false)
+                            //     .divisionClear();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .removeDivisionAll();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .clearViewList();
+                            await Provider.of<StudReportListProvider_stf>(
+                                    context,
+                                    listen: false)
+                                .viewStudentReportList(
+                                    sectionId, courseId, divisionId);
+                            if (Provider.of<StudReportListProvider_stf>(context,
+                                    listen: false)
+                                .viewStudReportListt
+                                .isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                  margin: EdgeInsets.only(
+                                      bottom: 80, left: 30, right: 30),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'Data not foumd',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              print('object');
+                            }
+                          }
+                        }),
+                        child: const Text('View'),
+                      ),
               ),
               const Spacer()
               // kWidth,

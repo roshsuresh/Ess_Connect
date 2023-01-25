@@ -1016,7 +1016,6 @@ class _StudentHomeState extends State<StudentHome> {
                                             child: GestureDetector(
                                               onTap: () {
                                                 _noAcess();
-                                                // _modalBottomSheetMenu();
                                               },
                                               child: Column(
                                                 mainAxisAlignment:
@@ -1043,7 +1042,6 @@ class _StudentHomeState extends State<StudentHome> {
                                                             const BoxDecoration(
                                                           image:
                                                               DecorationImage(
-                                                            //  opacity: 0.3,
                                                             image: AssetImage(
                                                               'assets/payNew.png',
                                                             ),

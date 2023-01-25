@@ -96,16 +96,6 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                         ),
                       ),
                       style: const TextStyle(color: UIGuide.light_Purple),
-                      // onChanged: (value) {
-                      //   print(value);
-                      //   search = value;
-                      //   if (value.isNotEmpty) {
-                      //     Provider.of<Screen_Search_Providers>(context, listen: false)
-                      //         .getSearch_View(value);
-                      //   } else {
-                      //     return;
-                      //   }
-                      // },
                     ),
                   ),
                 ],
@@ -141,17 +131,6 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                           child: LottieBuilder.network(
                               'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json'),
                         );
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: const [
-                  //     Icon(
-                  //       Icons.sentiment_dissatisfied_outlined,
-                  //       size: 120,
-                  //       color: Colors.grey,
-                  //     ),
-                  //     Text("Sorry, We couldn't find the text you have entered")
-                  //   ],
-                  // );
                 }
                 return provider.loading
                     ? spinkitLoader()

@@ -41,14 +41,20 @@ class PayFee extends StatelessWidget {
                         const Spacer(),
                         const Text('Payment'),
                         const Spacer(),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PayFee()));
-                            },
-                            icon: const Icon(Icons.refresh_outlined))
+                        Provider.of<FeesProvider>(context).loading
+                            ? Text(
+                                'Loading...',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PayFee()));
+                                },
+                                icon: const Icon(Icons.refresh_outlined))
                       ],
                     ),
                     titleSpacing: 00.0,

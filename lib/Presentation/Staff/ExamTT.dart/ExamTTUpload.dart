@@ -222,7 +222,6 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                 width: size.width * .45,
                 height: 35,
                 child: MaterialButton(
-                  //  minWidth: size.width - 216,
                   color: Colors.white,
                   onPressed: (() async {
                     _mydatetimeFrom = await showDatePicker(
@@ -249,7 +248,6 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                       print(time);
                     });
                   }),
-                  //  minWidth: size.width - 216,
                   child: Center(child: Text('From  $time')),
                 ),
               ),
@@ -258,7 +256,6 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                 width: size.width * .45,
                 height: 35,
                 child: MaterialButton(
-                  //  minWidth: size.width - 216,
                   color: Colors.white,
                   onPressed: (() async {
                     _mydatetimeTo = await showDatePicker(
@@ -280,13 +277,11 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                             child: child!);
                       },
                     );
-
                     setState(() {
                       timeNow = DateFormat('yyyy-MM-dd').format(_mydatetimeTo!);
                       print(timeNow);
                     });
                   }),
-                  //  minWidth: size.width - 216,
                   child: Center(child: Text('To  $timeNow')),
                 ),
               ),
@@ -504,7 +499,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                   if (attachmentid.toString().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
-                        'Select Image..',
+                        'Select File..',
                         textAlign: TextAlign.center,
                       ),
                       duration: Duration(seconds: 1),
