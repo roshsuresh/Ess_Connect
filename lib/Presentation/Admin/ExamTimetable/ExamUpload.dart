@@ -281,6 +281,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                       print(timeNow);
                     });
                   }),
+                  //  minWidth: size.width - 216,
                   child: Center(child: Text('To  $timeNow')),
                 ),
               ),
@@ -314,6 +315,13 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                                     itemBuilder: (context, index) {
                                       return ListTile(
                                         onTap: () async {
+                                          await Provider.of<ExamTTAdmProviders>(
+                                                  context,
+                                                  listen: false)
+                                              .divisionClear();
+
+                                          divisionData.clear();
+                                          snapshot.divisionLen = 0;
                                           studReportcourseController.text =
                                               snapshot.courseList[index]
                                                       .courseId ??
@@ -470,7 +478,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                         await Provider.of<ExamTTAdmProviders>(context,
                                 listen: false)
                             .divisionCounter(results.length);
-
+                        results.clear();
                         print(divisionData.join(','));
                       },
                     ),
@@ -553,7 +561,7 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
             ),
           ),
           Center(
-            child: SizedBox(
+            child: Container(
               height: size.width / 2,
               width: size.width / 2,
               child: LottieBuilder.network(

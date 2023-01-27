@@ -139,6 +139,20 @@ class _FeeReportState extends State<FeeReport> {
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
                         subjectData = [];
+                        diviData.clear();
+                        value.courseLen = 0;
+                        value.divisionLen = 0;
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearCourse();
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearDivision();
+
+                        await Provider.of<FeeReportProvider>(context,
+                                listen: false)
+                            .collectionList;
+
                         for (var i = 0; i < results.length; i++) {
                           StudReportSectionList data =
                               results[i] as StudReportSectionList;
@@ -148,6 +162,11 @@ class _FeeReportState extends State<FeeReport> {
                           subjectData.map((e) => data.value);
                           print("${subjectData.map((e) => data.value)}");
                         }
+                        setState(() {
+                          value.courselist.clear();
+                          value.courseDrop.clear();
+                          value.courseLen = 0;
+                        });
                         section = subjectData.join(',');
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
@@ -235,6 +254,7 @@ class _FeeReportState extends State<FeeReport> {
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .courseCounter(results.length);
+                        results.clear();
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .getDivisionList(course);

@@ -124,6 +124,16 @@ class Student_statistics_admin extends StatelessWidget {
                         chipDisplay: MultiSelectChipDisplay.none(),
                         onConfirm: (results) async {
                           subjectData = [];
+                          diviData.clear();
+                          value.courseLen = 0;
+                          value.divisionLen = 0;
+                          await Provider.of<SchoolPhotoProviders>(context,
+                                  listen: false)
+                              .clearCourse();
+                          await Provider.of<StudStatiticsProvider>(context,
+                                  listen: false)
+                              .clearAllList();
+
                           for (var i = 0; i < results.length; i++) {
                             StudReportSectionList data =
                                 results[i] as StudReportSectionList;
@@ -215,6 +225,9 @@ class Student_statistics_admin extends StatelessWidget {
                         chipDisplay: MultiSelectChipDisplay.none(),
                         onConfirm: (results) async {
                           diviData = [];
+                          await Provider.of<StudStatiticsProvider>(context,
+                                  listen: false)
+                              .clearAllList();
                           for (var i = 0; i < results.length; i++) {
                             StudReportCourse data =
                                 results[i] as StudReportCourse;
@@ -228,6 +241,7 @@ class Student_statistics_admin extends StatelessWidget {
                           await Provider.of<SchoolPhotoProviders>(context,
                                   listen: false)
                               .courseCounter(results.length);
+                          results.clear();
                           await Provider.of<SchoolPhotoProviders>(context,
                                   listen: false)
                               .getDivisionList(course);

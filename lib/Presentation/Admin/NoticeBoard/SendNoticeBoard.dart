@@ -581,7 +581,11 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                         chipDisplay: MultiSelectChipDisplay.none(),
                         onConfirm: (result) async {
                           courseData = [];
-
+                          courseData.clear();
+                          value.divisionLen = 0;
+                          await Provider.of<NoticeBoardAdminProvider>(context,
+                                  listen: false)
+                              .divisionClear();
                           for (var i = 0; i < result.length; i++) {
                             CourseListModel data = result[i] as CourseListModel;
                             print(data.name);
@@ -679,6 +683,7 @@ class _SendNoticeBoardAdminState extends State<SendNoticeBoardAdmin> {
                           await Provider.of<NoticeBoardAdminProvider>(context,
                                   listen: false)
                               .divisionCounter(result.length);
+                          result.clear();
 
                           print(divisionData.join(','));
                         },

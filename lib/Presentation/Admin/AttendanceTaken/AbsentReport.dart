@@ -24,6 +24,7 @@ class _AttendanceReportState extends State<AttendanceReport> {
   String smsDate = '-';
   List subjectData = [];
   List diviData = [];
+  List courseData = [];
   DateTime? curdate;
   String? newdate;
   String timeNow = '--';
@@ -154,6 +155,21 @@ class _AttendanceReportState extends State<AttendanceReport> {
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
                         subjectData = [];
+                        diviData.clear();
+                        courseData.clear();
+                        value.courseLen = 0;
+                        value.divisionLen = 0;
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearCourse();
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearDivision();
+
+                        await Provider.of<AttendanceReportProvider>(context,
+                                listen: false)
+                            .clearList();
+
                         for (var i = 0; i < results.length; i++) {
                           StudReportSectionList data =
                               results[i] as StudReportSectionList;
@@ -167,12 +183,15 @@ class _AttendanceReportState extends State<AttendanceReport> {
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .sectionCounter(results.length);
+                        // await Provider.of<SchoolPhotoProviders>(context,
+                        //         listen: false)
+                        //     .clearCourse();
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .getCourseList(section);
-                        print("data $subjectData");
+                        print("data $section");
 
-                        print(subjectData.join('&'));
+                        print(subjectData.join(','));
                       },
                     ),
                   ),
@@ -186,15 +205,14 @@ class _AttendanceReportState extends State<AttendanceReport> {
                     width: size.width * .43,
                     height: 50,
                     child: MultiSelectDialogField(
-                      // height: 200,
                       items: value.courseDrop,
                       listType: MultiSelectListType.CHIP,
                       title: const Text(
                         "Select Course",
                         style: TextStyle(color: Colors.black),
                       ),
-                      // selectedColor: Color.fromARGB(255, 157, 232, 241),
                       selectedItemsTextStyle: const TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.w900,
                           color: UIGuide.light_Purple),
                       confirmText: const Text(
@@ -237,25 +255,47 @@ class _AttendanceReportState extends State<AttendanceReport> {
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
                         diviData = [];
-                        value.clearDivision();
-                        for (var i = 0; i < results.length; i++) {
+                        courseData.clear();
+                        value.divisionLen = 0;
+                        print("coursddeleteeee   $courseData");
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearDivision();
+
+                        await Provider.of<AttendanceReportProvider>(context,
+                                listen: false)
+                            .clearList();
+                        for (var a = 0; a < results.length; a++) {
                           StudReportCourse data =
-                              results[i] as StudReportCourse;
-                          print(data.value);
-                          print(data.text);
+                              results[a] as StudReportCourse;
+
                           diviData.add(data.value);
                           diviData.map((e) => data.value);
                           print("${diviData.map((e) => data.value)}");
                         }
+                        print('diviData course== $diviData');
+                        course = '';
                         course = diviData.join(',');
+
+                        // await Provider.of<NotificationToGuardianAdmin>(context,
+                        //         listen: false)
+                        //     .clearStudentList();
+
+                        // courseData.clear();
+                        // value.divisionDrop.clear();
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .courseCounter(results.length);
+                        results.clear();
+                        // await Provider.of<SchoolPhotoProviders>(context,
+                        //         listen: false)
+                        //     .clearDivision();
+
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .getDivisionList(course);
 
-                        print(diviData.join(','));
+                        print("course   $course");
                       },
                     ),
                   ),
@@ -321,27 +361,28 @@ class _AttendanceReportState extends State<AttendanceReport> {
                               ),
                             ),
                       chipDisplay: MultiSelectChipDisplay.none(),
-                      onConfirm: (results) async {
-                        diviData = [];
+                      onConfirm: (results) {
+                        courseData = [];
                         for (var i = 0; i < results.length; i++) {
                           StudReportDivision data =
                               results[i] as StudReportDivision;
                           print(data.text);
                           print(data.value);
-                          diviData.add(data.value);
-                          diviData.map((e) => data.value);
-                          print("${diviData.map((e) => data.value)}");
+                          courseData.add(data.value);
+                          courseData.map((e) => data.value);
+                          print("${courseData.map((e) => data.value)}");
                         }
-                        division = diviData.join(',');
-                        await Provider.of<SchoolPhotoProviders>(context,
+                        print("Coursedataaaa    $courseData");
+                        division = courseData.join(',');
+                        //results.clear();
+                        Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .divisionCounter(results.length);
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .getDivisionList(division);
-                        print("data $diviData");
+                        results.clear();
+                        // Provider.of<SchoolPhotoProviders>(context, listen: false)
+                        //     .getCourseList(div);
 
-                        print(diviData.join('&'));
+                        print("data div  $division");
                       },
                     ),
                   ),

@@ -177,10 +177,22 @@ class _Notification_AdminToGuardainState
                             ),
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
+                        subjectData = [];
+                        diviData.clear();
+                        courseData.clear();
+                        value.courseLen = 0;
+                        value.divisionLen = 0;
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearCourse();
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearDivision();
+
                         await Provider.of<NotificationToGuardianAdmin>(context,
                                 listen: false)
                             .clearStudentList();
-                        subjectData = [];
+
                         for (var i = 0; i < results.length; i++) {
                           StudReportSectionList data =
                               results[i] as StudReportSectionList;
@@ -266,10 +278,20 @@ class _Notification_AdminToGuardainState
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
                         diviData = [];
+                        courseData.clear();
+                        value.divisionLen = 0;
+                        print("coursddeleteeee   $courseData");
+                        await Provider.of<SchoolPhotoProviders>(context,
+                                listen: false)
+                            .clearDivision();
 
+                        await Provider.of<NotificationToGuardianAdmin>(context,
+                                listen: false)
+                            .clearStudentList();
                         for (var a = 0; a < results.length; a++) {
                           StudReportCourse data =
                               results[a] as StudReportCourse;
+
                           diviData.add(data.value);
                           diviData.map((e) => data.value);
                           print("${diviData.map((e) => data.value)}");
@@ -287,6 +309,7 @@ class _Notification_AdminToGuardainState
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .courseCounter(results.length);
+                        results.clear();
                         // await Provider.of<SchoolPhotoProviders>(context,
                         //         listen: false)
                         //     .clearDivision();
@@ -370,11 +393,13 @@ class _Notification_AdminToGuardainState
                           courseData.map((e) => data.value);
                           print("${courseData.map((e) => data.value)}");
                         }
-
+                        print("Coursedataaaa    $courseData");
                         division = courseData.join(',');
+                        //results.clear();
                         Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .divisionCounter(results.length);
+                        results.clear();
                         // Provider.of<SchoolPhotoProviders>(context, listen: false)
                         //     .getCourseList(div);
 

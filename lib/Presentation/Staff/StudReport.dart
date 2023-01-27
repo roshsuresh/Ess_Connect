@@ -164,8 +164,6 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                         studReportcourseController1.clear();
                                         studReportDivisionController1.clear();
 
-                                        print(
-                                            'guh.....${studReportinitvalues_stf![index]}');
                                         studReportInitialValuesController.text =
                                             await studReportinitvalues_stf![
                                                     index]['value'] ??

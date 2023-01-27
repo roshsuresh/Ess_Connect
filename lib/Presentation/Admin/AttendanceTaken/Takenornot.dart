@@ -148,6 +148,12 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
                         subjectData = [];
+                        diviData.clear();
+                        value.clearCourse();
+                        await Provider.of<AttendanceReportProvider>(context,
+                                listen: false)
+                            .cleartakenList();
+
                         for (var i = 0; i < results.length; i++) {
                           StudReportSectionList data =
                               results[i] as StudReportSectionList;
@@ -232,6 +238,9 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                       onConfirm: (results) async {
                         diviData = [];
                         value.clearDivision();
+                        await Provider.of<AttendanceReportProvider>(context,
+                                listen: false)
+                            .cleartakenList();
                         for (var i = 0; i < results.length; i++) {
                           StudReportCourse data =
                               results[i] as StudReportCourse;
@@ -245,6 +254,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .courseCounter(results.length);
+                        results.clear();
                         await Provider.of<SchoolPhotoProviders>(context,
                                 listen: false)
                             .getDivisionList(course);

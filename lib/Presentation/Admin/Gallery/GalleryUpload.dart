@@ -421,6 +421,12 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                         chipDisplay: MultiSelectChipDisplay.none(),
                         onConfirm: (results) async {
                           courseData = [];
+                          courseData.clear();
+                          value.divisionLen = 0;
+                          print("coursddeleteeee   $courseData");
+                          await Provider.of<GalleryProviderAdmin>(context,
+                                  listen: false)
+                              .divisionClear();
                           for (var i = 0; i < results.length; i++) {
                             CourseListModel data =
                                 results[i] as CourseListModel;
@@ -515,6 +521,7 @@ class _AdminGalleryUploadState extends State<AdminGalleryUpload> {
                           await Provider.of<GalleryProviderAdmin>(context,
                                   listen: false)
                               .divisionCounter(results.length);
+                          results.clear();
                           print(divisionData.join(','));
                           //  attach = value.id.toString();
                         },
