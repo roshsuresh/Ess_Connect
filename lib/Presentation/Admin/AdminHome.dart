@@ -1092,7 +1092,7 @@ class AdminHomeContent extends StatelessWidget {
                                           image: DecorationImage(
                                             opacity: 20,
                                             image: AssetImage(
-                                              'assets/Tabulation.png',
+                                              'assets/attendance report.png',
                                             ),
                                           ),
                                         ),
@@ -1135,7 +1135,7 @@ class AdminHomeContent extends StatelessWidget {
                                           image: DecorationImage(
                                             opacity: 20,
                                             image: AssetImage(
-                                              'assets/Tabulation.png',
+                                              'assets/attendance report.png',
                                             ),
                                           ),
                                         ),

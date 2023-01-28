@@ -54,6 +54,7 @@ class PaymentHistoryProvider with ChangeNotifier {
   String? extension;
   String? path;
   String? url;
+  String? id;
   Future feeHistoryAttachment(String orderId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     var headers = {
@@ -73,6 +74,7 @@ class PaymentHistoryProvider with ChangeNotifier {
         name = reattach.name;
         url = reattach.url;
         extension = reattach.extension;
+        id = reattach.id;
         notifyListeners();
       } else {
         print("Error in fee history response");

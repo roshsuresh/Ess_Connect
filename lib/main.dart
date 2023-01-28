@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:async';
 import 'dart:core';
 import 'dart:io';
@@ -21,6 +22,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Application/AdminProviders/FeeDetailsProvider.dart';
@@ -74,12 +76,12 @@ import 'Presentation/Staff/StaffHome.dart';
 import 'Presentation/Student/Student_home.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  RemoteNotification? notification = message.notification;
+  RemoteNotification notification = message.notification;
   print('Handling a background message ${message.messageId}');
 
   flutterLocalNotificationsPlugin.show(
     notification.hashCode,
-    notification!.title,
+    notification.title,
     notification.body,
     NotificationDetails(
       android: AndroidNotificationDetails(channel.id, channel.name,
@@ -88,16 +90,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   );
 }
 
-late AndroidNotificationChannel channel;
+AndroidNotificationChannel channel;
 
-late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   if (!kIsWeb) {
     channel = const AndroidNotificationChannel(
       'offer_notification_channel', // id
@@ -131,9 +133,15 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]).then((value) => runApp(GjInfoTech()));
 
-  await FlutterDownloader.initialize(debug: true);
+// await FlutterDownloader.initialize(debug: true);
   //await Permission.storage.request();
+  // await Permission.photos.request();
+  await Permission.notification.request();
+  await Permission.manageExternalStorage.request();
+  // await Permission.videos.request();
 
+  await Permission.storage.request();
+  await Permission.accessMediaLocation.request();
   runApp(GjInfoTech());
 }
 
@@ -144,7 +152,7 @@ class GjInfoTech extends StatefulWidget {
 }
 
 class _GjInfoTechState extends State<GjInfoTech> {
-  SharedPreferences? prefs;
+  SharedPreferences prefs;
   _checkSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -153,7 +161,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
     }
   }
 
-  bool? activated;
+  bool activated;
 
   @override
   void initState() {
@@ -164,8 +172,8 @@ class _GjInfoTechState extends State<GjInfoTech> {
       }
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
       if (notification != null && android != null && !kIsWeb) {
         flutterLocalNotificationsPlugin.show(
           notification.hashCode,
@@ -273,7 +281,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
 }
 
 class SplashFuturePage extends StatefulWidget {
-  SplashFuturePage({Key? key}) : super(key: key);
+  SplashFuturePage({Key key}) : super(key: key);
 
   @override
   State<SplashFuturePage> createState() => _SplashFuturePageState();
@@ -286,8 +294,8 @@ class _SplashFuturePageState extends State<SplashFuturePage>
   double _textOpacity = 0.0;
   double _containerOpacity = 0.0;
 
-  late AnimationController _controller;
-  Animation<double>? animation1;
+  AnimationController _controller;
+  Animation<double> animation1;
 
   Future _checkSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

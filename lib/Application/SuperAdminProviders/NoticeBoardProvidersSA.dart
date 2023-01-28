@@ -58,6 +58,7 @@ class NoticeBoardProvidersSAdmin with ChangeNotifier {
   String? name;
   String? extension;
   String? url;
+  String? idd;
   String? createdAt;
 
   Future staffNoticeBoardAttach(String id) async {
@@ -86,6 +87,7 @@ class NoticeBoardProvidersSAdmin with ChangeNotifier {
         name = notice.name;
         extension = notice.extension;
         url = notice.url;
+        idd = notice.id;
         createdAt = notice.createdAt;
         print(name);
 

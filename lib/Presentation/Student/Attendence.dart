@@ -50,7 +50,7 @@ class Attendence extends StatelessWidget {
                         children: [
                           Center(
                             child: Container(
-                              width: size.width - 59,
+                              width: size.width - 45,
                               padding: const EdgeInsets.all(5.0),
                               decoration: BoxDecoration(
                                   border: Border.all(

@@ -371,7 +371,7 @@ class AttendanceReportProvider with ChangeNotifier {
               dialogType: DialogType.success,
               animType: AnimType.rightSlide,
               headerAnimationLoop: false,
-              title: 'Send Successfully',
+              title: 'Sent Successfully',
               desc: 'Success: $issuccess \n Failed: $isfailed',
               btnOkOnPress: () async {},
               btnOkColor: Colors.green)

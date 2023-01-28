@@ -11,6 +11,7 @@ class Timetableprovider with ChangeNotifier {
   String? createdAt;
   String? extension;
   String? name;
+  String? id;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -75,6 +76,7 @@ class Timetableprovider with ChangeNotifier {
         createdAt = prev.createdAt;
         name = prev.name;
         extension = prev.extension;
+        id = prev.extension;
         print(name);
         setLoading(false);
         notifyListeners();
@@ -88,6 +90,7 @@ class Timetableprovider with ChangeNotifier {
   }
 
   String? nameExam;
+  String? idExam;
   String? extensionExam;
 
   String? urlExam;
@@ -112,6 +115,7 @@ class Timetableprovider with ChangeNotifier {
         nameExam = reattach.name;
         urlExam = reattach.url;
         extensionExam = reattach.extension;
+        idExam = reattach.id;
         notifyListeners();
       } else {
         print("Error in response");

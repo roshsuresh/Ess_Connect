@@ -13,6 +13,7 @@ class ReportCardProvider with ChangeNotifier {
   String? extension;
   bool isLoading = false;
   String? url;
+  String? id;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -67,6 +68,7 @@ class ReportCardProvider with ChangeNotifier {
         name = reattach.name;
         url = reattach.url;
         extension = reattach.extension;
+        id = reattach.id;
         log('.................$url');
         print(data);
         notifyListeners();

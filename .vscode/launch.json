@@ -8,27 +8,21 @@
             "name": "essconnect",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--no-sound-null-safety"
-                ]
+           
         },
         {
             "name": "essconnect (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile",
-            "args": [
-                "--no-sound-null-safety"
-                ]
+           
         },
         {
             "name": "essconnect (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release",
-            "args": [
-                "--no-sound-null-safety"
-                ]
+            
         }
     ]
 }

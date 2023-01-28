@@ -325,6 +325,7 @@ class FeesProvider with ChangeNotifier {
   String? extension;
   String? name;
   String? url;
+  String? idd;
 
   Future pdfDownload(String orderID) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -347,6 +348,7 @@ class FeesProvider with ChangeNotifier {
         extension = att.extension;
         name = att.name;
         url = att.url;
+        idd = att.id;
         print(url);
 
         notifyListeners();

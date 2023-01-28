@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:open_file/open_file.dart';
+
 import 'package:provider/provider.dart';
 import '../../Constants.dart';
 import '../../utils/constants.dart';
@@ -677,25 +677,6 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                           divisionvalueController.text,
                           categoryvalueController.text,
                           attachmentid!);
-
-                  print(datee);
-                  print(time);
-                  print(timeNow);
-                  print(titleController);
-                  print(mattercontroller);
-                  print(coursevalueController);
-                  print(divisionvalueController);
-                  print(categoryvalueController);
-                  print(attachmentid);
-
-                  titleController.clear();
-                  mattercontroller.clear();
-                  coursevalueController.clear();
-                  divisionvalueController.clear();
-                  categoryvalueController.clear();
-                  coursevalueController1.clear();
-                  divisionvalueController1.clear();
-                  categoryvalueController1.clear();
                 }
               }),
               child: const Text(
@@ -708,10 +689,6 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
         ),
       ],
     );
-  }
-
-  void openFile(PlatformFile file) {
-    OpenFile.open(file.path);
   }
 }
 

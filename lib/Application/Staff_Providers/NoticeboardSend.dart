@@ -312,6 +312,7 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
   String? name;
   String? extension;
   String? url;
+  String? idd;
   String? createdAt;
 
   Future staffNoticeBoardAttach(String id) async {
@@ -340,6 +341,7 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
         extension = notice.extension;
         url = notice.url;
         createdAt = notice.createdAt;
+        idd = notice.id;
         print(name);
 
         notifyListeners();
