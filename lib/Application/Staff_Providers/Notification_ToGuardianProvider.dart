@@ -300,12 +300,36 @@ class NotificationToGuardian_Providers with ChangeNotifier {
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Notification Send Successfully")));
-      debugPrint(await response.stream.bytesToString());
+        const SnackBar(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          duration: Duration(seconds: 1),
+          margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            'Notification Sent Successfully',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Something Went Wrong")));
-      debugPrint(response.reasonPhrase);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          duration: Duration(seconds: 1),
+          margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            "Something Went Wrong",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     }
   }
 

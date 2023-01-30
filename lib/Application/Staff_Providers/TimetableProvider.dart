@@ -11,6 +11,7 @@ class StaffTimetableProvider with ChangeNotifier {
   String? name;
   String? extension;
   String? url;
+  String? id;
 
   bool _loading = false;
   bool get loading => _loading;
@@ -42,6 +43,7 @@ class StaffTimetableProvider with ChangeNotifier {
         name = tabl.name;
         extension = tabl.extension;
         url = tabl.url;
+        id = tabl.id;
         print(name);
         setLoading(false);
 

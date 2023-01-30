@@ -15,6 +15,7 @@ class NoticeProvider with ChangeNotifier {
   String noticeId = "";
   String? extension;
   String? name;
+  String? idd;
 
   String? url;
 
@@ -76,6 +77,7 @@ class NoticeProvider with ChangeNotifier {
         extension = attach.extension;
         url = attach.url;
         name = attach.name;
+        idd = attach.id;
         print("object  $extension");
         notifyListeners();
       } else {

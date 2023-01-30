@@ -1,8 +1,13 @@
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:material_dialogs/material_dialogs.dart';
-import 'package:pdfdownload/pdfdownload.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -427,10 +432,71 @@ class NoticeBoard extends StatelessWidget {
   }
 }
 
-class PDFDownload extends StatelessWidget {
+class PDFDownload extends StatefulWidget {
   PDFDownload({
     Key? key,
   }) : super(key: key);
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
+
+  @override
+  State<PDFDownload> createState() => _PDFDownloadState();
+}
+
+class _PDFDownloadState extends State<PDFDownload> {
+  final ReceivePort _port = ReceivePort();
+  @override
+  void initState() {
+    super.initState();
+
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = data[1];
+      int progress = data[2];
+
+      setState(() {});
+    });
+
+    FlutterDownloader.registerCallback(PDFDownload.downloadCallback);
+  }
+
+  @pragma('vm:entry-point')
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort? send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
+  }
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  Future<void> requestDownload(String _url, String _name) async {
+    final dir = await getExternalStorageDirectory();
+    var _localPath = dir!.path;
+    print("pathhhh  $_localPath");
+    final savedDir = Directory(_localPath);
+    await savedDir.create(recursive: true).then((value) async {
+      String? _taskid = await FlutterDownloader.enqueue(
+        savedDir: _localPath,
+        url: _url,
+        fileName: "$_name.pdf",
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+
+      print(_taskid);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -445,22 +511,21 @@ class PDFDownload extends StatelessWidget {
             backgroundColor: UIGuide.light_Purple,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: DownloandPdf(
-                  isUseIcon: true,
-                  pdfUrl: value.url.toString().isEmpty
-                      ? '--'
-                      : value.url.toString(),
-                  fileNames: value.name.toString().isEmpty
-                      ? '---'
-                      : value.name.toString(),
-                  color: Colors.white,
-                ),
-              ),
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(
+                      onPressed: () async {
+                        await requestDownload(
+                          value.url == null ? '--' : value.url.toString(),
+                          value.idd == null
+                              ? '---'
+                              : value.idd.toString() + value.name.toString(),
+                        );
+                      },
+                      icon: const Icon(Icons.download_outlined))),
             ],
           ),
           body: SfPdfViewer.network(
-            value.url.toString().isEmpty ? '--' : value.url.toString(),
+            value.url == null ? '--' : value.url.toString(),
           )),
     );
   }

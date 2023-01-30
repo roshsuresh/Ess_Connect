@@ -324,30 +324,51 @@ class Transactiontype {
 class FilePathPdfDownload {
   String? name;
   String? extension;
+  String? path;
   String? url;
+  bool? isTemporary;
+  bool? isDeleted;
+  Null? images;
+  String? createdAt;
+  String? id;
 
-  FilePathPdfDownload({
-    this.name,
-    this.extension,
-    this.url,
-  });
+  FilePathPdfDownload(
+      {this.name,
+      this.extension,
+      this.path,
+      this.url,
+      this.isTemporary,
+      this.isDeleted,
+      this.images,
+      this.createdAt,
+      this.id});
 
   FilePathPdfDownload.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     extension = json['extension'];
-
+    path = json['path'];
     url = json['url'];
+    isTemporary = json['isTemporary'];
+    isDeleted = json['isDeleted'];
+    images = json['images'];
+    createdAt = json['createdAt'];
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['extension'] = this.extension;
+    data['path'] = this.path;
     data['url'] = this.url;
+    data['isTemporary'] = this.isTemporary;
+    data['isDeleted'] = this.isDeleted;
+    data['images'] = this.images;
+    data['createdAt'] = this.createdAt;
+    data['id'] = this.id;
     return data;
   }
 }
-
 //status Payment
 
 class StatusPayment {

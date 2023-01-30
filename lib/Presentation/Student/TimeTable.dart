@@ -1,7 +1,13 @@
+import 'dart:developer';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:material_dialogs/material_dialogs.dart';
-import 'package:pdfdownload/pdfdownload.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -367,10 +373,74 @@ class _ExamtimetableState extends State<Examtimetable> {
   }
 }
 
-class PdfDownloader extends StatelessWidget {
+//
+
+class PdfDownloader extends StatefulWidget {
   PdfDownloader({
     Key? key,
   }) : super(key: key);
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
+
+  @override
+  State<PdfDownloader> createState() => _PdfDownloaderState();
+}
+
+class _PdfDownloaderState extends State<PdfDownloader> {
+  final ReceivePort _port = ReceivePort();
+  @override
+  void initState() {
+    super.initState();
+
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = data[1];
+      int progress = data[2];
+
+      setState(() {});
+    });
+
+    FlutterDownloader.registerCallback(PdfDownloader.downloadCallback);
+  }
+
+  @pragma('vm:entry-point')
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort? send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
+  }
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  Future<void> requestDownload(String _url, String _name) async {
+    final dir = await getExternalStorageDirectory();
+    var _localPath = dir!.path;
+    print("pathhhh  $_localPath");
+    final savedDir = Directory(_localPath);
+    await savedDir.create(recursive: true).then((value) async {
+      String? _taskid = await FlutterDownloader.enqueue(
+        savedDir: _localPath,
+        url: _url,
+        fileName: "$_name.pdf",
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+      log("nweurlll $_url");
+
+      print(_taskid);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -385,22 +455,21 @@ class PdfDownloader extends StatelessWidget {
             backgroundColor: UIGuide.light_Purple,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: DownloandPdf(
-                  isUseIcon: true,
-                  pdfUrl: value.url.toString().isEmpty
-                      ? '--'
-                      : value.url.toString(),
-                  fileNames: value.name.toString().isEmpty
-                      ? '---'
-                      : value.name.toString(),
-                  color: Colors.white,
-                ),
-              ),
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(
+                      onPressed: () async {
+                        await requestDownload(
+                          value.url == null ? '--' : value.url.toString(),
+                          value.id == null
+                              ? '---'
+                              : value.id.toString() + value.name.toString(),
+                        );
+                      },
+                      icon: const Icon(Icons.download_outlined))),
             ],
           ),
           body: SfPdfViewer.network(
-            value.url.toString().isEmpty ? '--' : value.url.toString(),
+            value.url == null ? '--' : value.url.toString(),
           )),
     );
   }
@@ -458,10 +527,111 @@ class PdfViewPages extends StatelessWidget {
 
 ////////Exam
 
-class ExamPdfView extends StatelessWidget {
+// class ExamPdfView extends StatelessWidget {
+//   ExamPdfView({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<Timetableprovider>(
+//       builder: (context, value, child) => Scaffold(
+//           appBar: AppBar(
+//             title: const Text('TimeTable'),
+//             titleSpacing: 00.0,
+//             centerTitle: true,
+//             toolbarHeight: 50.2,
+//             toolbarOpacity: 0.8,
+//             backgroundColor: UIGuide.light_Purple,
+//             actions: [
+//               Padding(
+//                 padding: const EdgeInsets.only(right: 15.0),
+//                 child: DownloandPdf(
+//                   isUseIcon: true,
+//                   pdfUrl: value.urlExam.toString().isEmpty
+//                       ? '--'
+//                       : value.urlExam.toString(),
+//                   fileNames: value.nameExam.toString().isEmpty
+//                       ? '---'
+//                       : value.nameExam.toString(),
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           body: SfPdfViewer.network(
+//             value.urlExam == null ? '--' : value.urlExam.toString(),
+//           )),
+//     );
+//   }
+// }
+
+class ExamPdfView extends StatefulWidget {
   ExamPdfView({
     Key? key,
   }) : super(key: key);
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
+
+  @override
+  State<ExamPdfView> createState() => _ExamPdfViewState();
+}
+
+class _ExamPdfViewState extends State<ExamPdfView> {
+  final ReceivePort _port = ReceivePort();
+  @override
+  void initState() {
+    super.initState();
+
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = data[1];
+      int progress = data[2];
+
+      setState(() {});
+    });
+
+    FlutterDownloader.registerCallback(ExamPdfView.downloadCallback);
+  }
+
+  @pragma('vm:entry-point')
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort? send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
+  }
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  Future<void> requestDownload(String _url, String _name) async {
+    final dir = await getExternalStorageDirectory();
+    var _localPath = dir!.path;
+    print("pathhhh  $_localPath");
+    final savedDir = Directory(_localPath);
+    await savedDir.create(recursive: true).then((value) async {
+      String? _taskid = await FlutterDownloader.enqueue(
+        savedDir: _localPath,
+        url: _url,
+        fileName: "$_name.pdf",
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+      log("nweurlll $_url");
+
+      print(_taskid);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -476,18 +646,20 @@ class ExamPdfView extends StatelessWidget {
             backgroundColor: UIGuide.light_Purple,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 15.0),
-                child: DownloandPdf(
-                  isUseIcon: true,
-                  pdfUrl: value.urlExam.toString().isEmpty
-                      ? '--'
-                      : value.urlExam.toString(),
-                  fileNames: value.nameExam.toString().isEmpty
-                      ? '---'
-                      : value.nameExam.toString(),
-                  color: Colors.white,
-                ),
-              ),
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(
+                      onPressed: () async {
+                        await requestDownload(
+                          value.urlExam.toString().isEmpty
+                              ? '--'
+                              : value.urlExam.toString(),
+                          value.idExam.toString().isEmpty
+                              ? '---'
+                              : value.idExam.toString() +
+                                  value.nameExam.toString(),
+                        );
+                      },
+                      icon: const Icon(Icons.download_outlined))),
             ],
           ),
           body: SfPdfViewer.network(
