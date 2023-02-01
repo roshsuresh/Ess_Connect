@@ -11,6 +11,7 @@ import 'package:essconnect/utils/LoadingIndication.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Application/StudentProviders/LoginProvider.dart';
@@ -368,6 +369,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         setState(() {
           isLoading = true;
         });
+        await Permission.videos.request();
+
+        await Permission.photos.request();
         await Future.delayed(const Duration(seconds: 3));
 
         Navigator.pushReplacement(
@@ -379,6 +383,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         setState(() {
           isLoading = true;
         });
+        await Permission.videos.request();
+
+        await Permission.photos.request();
         await Future.delayed(const Duration(seconds: 3));
 
         Navigator.pushReplacement(context,
@@ -390,7 +397,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         setState(() {
           isLoading = true;
         });
+        await Permission.videos.request();
 
+        await Permission.photos.request();
         await Future.delayed(const Duration(seconds: 3));
 
         Navigator.pushReplacement(
@@ -402,7 +411,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         setState(() {
           isLoading = true;
         });
+        await Permission.videos.request();
 
+        await Permission.photos.request();
         await Future.delayed(const Duration(seconds: 3));
 
         Navigator.pushReplacement(

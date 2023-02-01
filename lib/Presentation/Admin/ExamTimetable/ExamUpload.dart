@@ -500,57 +500,76 @@ class _ExamTTUploadState extends State<ExamTTUpload> {
                 color: UIGuide.light_Purple,
                 onPressed: (() async {
                   attachmentid.text = attach;
-
-                  if (attachmentid.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                        'Select Image..',
-                        textAlign: TextAlign.center,
-                      ),
-                      duration: Duration(seconds: 1),
-                    ));
-                  }
-                  // if (checkname!.isEmpty) {
-                  //   attachmentid.clear();
-                  // } else {
-                  //   attachmentid.text = attach;
-                  // }
-                  if (descriptioncontroller.text.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                        'Enter Title..',
-                        textAlign: TextAlign.center,
-                      ),
-                      duration: Duration(seconds: 1),
-                    ));
-                  } else if (descriptioncontroller.text.isNotEmpty &&
-                      studReportcourseController.text.isNotEmpty &&
-                      attachmentid.text.isNotEmpty &&
-                      division.toString().isNotEmpty) {
-                    print('object');
-                    print("attachmentid   $attachmentid");
-                    await Provider.of<ExamTTAdmProviders>(context,
-                            listen: false)
-                        .examSave(
-                            context,
-                            displayFrom,
-                            time,
-                            timeNow,
-                            descriptioncontroller.text,
-                            studReportcourseController.text,
-                            divisionData,
-                            attachmentid.text);
+                  var parsedResponse = await parseJWT();
+                  if (parsedResponse['role'] == "SystemAdmin") {
+                    if (attachmentid.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                          'Select Image..',
+                          textAlign: TextAlign.center,
+                        ),
+                        duration: Duration(seconds: 1),
+                      ));
+                    }
+                    // if (checkname!.isEmpty) {
+                    //   attachmentid.clear();
+                    // } else {
+                    //   attachmentid.text = attach;
+                    // }
+                    if (descriptioncontroller.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                          'Enter Title..',
+                          textAlign: TextAlign.center,
+                        ),
+                        duration: Duration(seconds: 1),
+                      ));
+                    } else if (descriptioncontroller.text.isNotEmpty &&
+                        studReportcourseController.text.isNotEmpty &&
+                        attachmentid.text.isNotEmpty &&
+                        division.toString().isNotEmpty) {
+                      print('object');
+                      print("attachmentid   $attachmentid");
+                      await Provider.of<ExamTTAdmProviders>(context,
+                              listen: false)
+                          .examSave(
+                              context,
+                              displayFrom,
+                              time,
+                              timeNow,
+                              descriptioncontroller.text,
+                              studReportcourseController.text,
+                              divisionData,
+                              attachmentid.text);
+                    } else {
+                      await AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.warning,
+                              animType: AnimType.rightSlide,
+                              headerAnimationLoop: false,
+                              desc: 'Enter mandatory fileds',
+                              btnOkOnPress: () {},
+                              btnOkIcon: Icons.cancel,
+                              btnOkColor: Colors.red)
+                          .show();
+                    }
                   } else {
-                    await AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            animType: AnimType.rightSlide,
-                            headerAnimationLoop: false,
-                            desc: 'Enter mandatory fileds',
-                            btnOkOnPress: () {},
-                            btnOkIcon: Icons.cancel,
-                            btnOkColor: Colors.red)
-                        .show();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        duration: Duration(seconds: 3),
+                        margin:
+                            EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                        behavior: SnackBarBehavior.floating,
+                        content: Text(
+                          "Sorry, you don't have access",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
                   }
                 }),
                 child: const Text(

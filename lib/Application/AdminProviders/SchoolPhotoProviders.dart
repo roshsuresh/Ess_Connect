@@ -28,10 +28,12 @@ class SchoolPhotoProviders with ChangeNotifier {
         Uri.parse("${UIGuide.baseURL}/mobileapp/admin/school/photo"),
         headers: headers);
     if (response.statusCode == 200) {
+      setLoading(true);
       Map<String, dynamic> data = json.decode(response.body);
       Map<String, dynamic> school = data['schoolphoto'];
       Schoolphoto ac = Schoolphoto.fromJson(school);
       url = ac.url;
+      setLoading(false);
       notifyListeners();
     } else {
       print('Error in dashboard');
@@ -40,11 +42,18 @@ class SchoolPhotoProviders with ChangeNotifier {
   }
 
   //section list
+  bool _loadingSection = false;
+  bool get loadingSection => _loadingSection;
+  setloadingSection(bool value) {
+    _loadingSection = value;
+    notifyListeners();
+  }
 
   List<StudReportSectionList> stdReportInitialValues = [];
   List<MultiSelectItem> dropDown = [];
   Future stdReportSectionStaff() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setloadingSection(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -58,6 +67,7 @@ class SchoolPhotoProviders with ChangeNotifier {
     try {
       if (response.statusCode == 200) {
         print("corect");
+        setloadingSection(true);
         final data = json.decode(response.body);
         log(data.toString());
         Map<String, dynamic> stl = data['studentReportInitialValues'];
@@ -67,9 +77,10 @@ class SchoolPhotoProviders with ChangeNotifier {
         dropDown = stdReportInitialValues.map((subjectdata) {
           return MultiSelectItem(subjectdata, subjectdata.text!);
         }).toList();
-
+        setloadingSection(false);
         notifyListeners();
       } else {
+        setloadingSection(false);
         print("Error in notification response");
       }
     } catch (e) {
@@ -145,8 +156,16 @@ class SchoolPhotoProviders with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loadingCourse = false;
+  bool get loadingCourse => _loadingCourse;
+  setloadingCourse(bool value) {
+    _loadingCourse = value;
+    notifyListeners();
+  }
+
   Future<bool> getCourseList(String sectionId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setloadingCourse(true);
 
     var headers = {
       'Content-Type': 'application/json',
@@ -166,6 +185,7 @@ class SchoolPhotoProviders with ChangeNotifier {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      setloadingCourse(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
@@ -175,8 +195,10 @@ class SchoolPhotoProviders with ChangeNotifier {
       courseDrop = courselist.map((subjectdata) {
         return MultiSelectItem(subjectdata, subjectdata.text);
       }).toList();
+      setloadingCourse(false);
       notifyListeners();
     } else {
+      setloadingCourse(false);
       print('Error in courseList stf');
     }
     return true;
@@ -188,11 +210,18 @@ class SchoolPhotoProviders with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _loadingDivision = false;
+  bool get loadingDivision => _loadingDivision;
+  setloadingDivision(bool value) {
+    _loadingDivision = value;
+    notifyListeners();
+  }
+
   List<StudReportDivision> divisionlist = [];
 
   Future<bool> getDivisionList(String courseId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-
+    setloadingDivision(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -207,6 +236,7 @@ class SchoolPhotoProviders with ChangeNotifier {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      setloadingDivision(true);
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
       List<StudReportDivision> templist = List<StudReportDivision>.from(
@@ -215,8 +245,10 @@ class SchoolPhotoProviders with ChangeNotifier {
       divisionDrop = divisionlist.map((subjectdata) {
         return MultiSelectItem(subjectdata, subjectdata.text!);
       }).toList();
+      setloadingDivision(false);
       notifyListeners();
     } else {
+      setloadingDivision(false);
       print('Error in DivisionList stf');
     }
     return true;

@@ -11,16 +11,16 @@
 // import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 // import 'package:path_provider/path_provider.dart';
 // import 'package:url_launcher/url_launcher.dart';
-//
+
 // class LoginPageWeb extends StatefulWidget {
 //   @override
 //   _LoginPageWebState createState() => new _LoginPageWebState();
 // }
-//
+
 // class _LoginPageWebState extends State<LoginPageWeb> {
 //   final GlobalKey webViewKey = GlobalKey();
 //   final ReceivePort _port = ReceivePort();
-//
+
 //   InAppWebViewController? webViewController;
 //   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
 //       crossPlatform: InAppWebViewOptions(
@@ -33,20 +33,20 @@
 //       ios: IOSInAppWebViewOptions(
 //         allowsInlineMediaPlayback: true,
 //       ));
-//
+
 //   late PullToRefreshController pullToRefreshController;
 //   late ContextMenu contextMenu;
 //   String url = "";
 //   double progress = 0;
 //   String baseUrl = "";
 //   final urlController = TextEditingController();
-//
+
 //   Future<String> session() async {
 //     SharedPreferences prefs = await SharedPreferences.getInstance();
-//
+
 //     return baseUrl = (prefs.getString("baseUrl"))!;
 //   }
-//
+
 //   @override
 //   void initState() {
 //     Permission.storage.request();
@@ -60,7 +60,7 @@
 //       setState(() {});
 //     });
 //     FlutterDownloader.registerCallback(downloadCallback);
-//
+
 //     contextMenu = ContextMenu(
 //         menuItems: [
 //           ContextMenuItem(
@@ -91,7 +91,7 @@
 //               " " +
 //               contextMenuItemClicked.title);
 //         });
-//
+
 //     pullToRefreshController = PullToRefreshController(
 //       options: PullToRefreshOptions(
 //         color: Colors.blue,
@@ -106,26 +106,26 @@
 //       },
 //     );
 //   }
-//
+
 //   @override
 //   void dispose() {
 //     IsolateNameServer.removePortNameMapping('downloader_send_port');
 //     super.dispose();
 //   }
-//
+
 //   static void downloadCallback(
 //       String id, DownloadTaskStatus status, int progress) {
 //     final SendPort send =
 //         IsolateNameServer.lookupPortByName('downloader_send_port')!;
 //     send.send([id, status, progress]);
 //   }
-//
+
 //   void _download(String url) async {
 //     final status = await Permission.storage.request();
-//
+
 //     if (status.isGranted) {
 //       final externalDir = await getExternalStorageDirectory();
-//
+
 //       final id = await FlutterDownloader.enqueue(
 //         url: url,
 //         savedDir: externalDir!.path,
@@ -137,7 +137,7 @@
 //       print('Permission Denied');
 //     }
 //   }
-//
+
 //   Future<bool> _onWillPop() async {
 //     return (await showDialog(
 //           context: context,
@@ -164,7 +164,7 @@
 //         )) ??
 //         false;
 //   }
-//
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -210,7 +210,7 @@
 //                               shouldOverrideUrlLoading:
 //                                   (controller, navigationAction) async {
 //                                 var uri = navigationAction.request.url!;
-//
+
 //                                 if (![
 //                                   "http",
 //                                   "https",
@@ -229,10 +229,10 @@
 //                                     return NavigationActionPolicy.CANCEL;
 //                                   }
 //                                 }
-//
+
 //                                 return NavigationActionPolicy.ALLOW;
 //                               },
-//
+
 //                               onDownloadStart: (
 //                                 controller,
 //                                 url,
@@ -252,13 +252,13 @@
 //                                     saveInPublicStorage: true,
 //                                     showNotification: true);
 //                               },
-//
+
 //                               onLoadStop: (controller, url) async {
 //                                 if (baseUrl.contains('/recon?')) {
 //                                   var html = await controller.evaluateJavascript(
 //                                       source:
 //                                           "window.document.getElementsByTagName('html')[0].outerHTML;");
-//
+
 //                                   log(html);
 //                                 }
 //                               },
@@ -321,7 +321,3 @@
 //     );
 //   }
 // }
-//
-//
-//
-//

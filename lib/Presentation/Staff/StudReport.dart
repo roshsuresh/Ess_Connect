@@ -1602,7 +1602,7 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
               const Spacer(),
               Consumer<StudReportListProvider_stf>(
                 builder: (context, value, child) => value.loading
-                    ? Center(
+                    ? const Center(
                         child: Text(
                           'Loading...',
                           style: TextStyle(color: UIGuide.light_Purple),

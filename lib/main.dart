@@ -135,11 +135,12 @@ Future<void> main() async {
 
 // await FlutterDownloader.initialize(debug: true);
   //await Permission.storage.request();
-  // await Permission.photos.request();
-  await Permission.notification.request();
-  await Permission.manageExternalStorage.request();
   // await Permission.videos.request();
 
+  // await Permission.photos.request();
+  await Permission.notification.request();
+  // await Permission.manageExternalStorage.request();
+  //
   await Permission.storage.request();
   await Permission.accessMediaLocation.request();
   runApp(GjInfoTech());

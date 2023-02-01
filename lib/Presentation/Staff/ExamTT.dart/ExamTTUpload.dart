@@ -1,18 +1,13 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
-import 'package:essconnect/Application/AdminProviders/FlashNewsProviders.dart';
 import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Constants.dart';
-import 'package:essconnect/Domain/Admin/Course&DivsionList.dart';
 import 'package:essconnect/Domain/Staff/ExamTTModelStaff.dart';
 import 'package:essconnect/utils/constants.dart';
-import 'package:essconnect/utils/spinkit.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 

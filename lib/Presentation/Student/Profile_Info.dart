@@ -791,17 +791,17 @@ class Profile_Info extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: const DecorationImage(
-                              //fit: BoxFit.fitHeight,
-                              image: NetworkImage(
-                                  "https://cdn.vectorstock.com/i/1000x1000/50/63/people-human-together-family-logo-icon-vector-32705063.webp"),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   margin: const EdgeInsets.all(6.0),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(8.0),
+                        //     image: const DecorationImage(
+                        //       //fit: BoxFit.fitHeight,
+                        //       image: NetworkImage(
+                        //           "https://cdn.vectorstock.com/i/1000x1000/50/63/people-human-together-family-logo-icon-vector-32705063.webp"),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                       options: CarouselOptions(
                         height: 180.0,

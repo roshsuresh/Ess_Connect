@@ -93,177 +93,189 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
             children: [
               const Spacer(),
               Consumer<SchoolPhotoProviders>(
-                builder: (context, value, child) => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    width: size.width * .42,
-                    height: 50,
-                    child: MultiSelectDialogField(
-                      items: value.dropDown,
-                      listType: MultiSelectListType.CHIP,
-                      title: const Text(
-                        "Select Section",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      selectedItemsTextStyle: const TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: UIGuide.light_Purple),
-                      confirmText: const Text(
-                        'OK',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      cancelText: const Text(
-                        'Cancel',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      separateSelectedItems: true,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                      buttonIcon: const Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: Colors.grey,
-                      ),
-                      buttonText: value.sectionLen == 0
-                          ? const Text(
+                builder: (context, value, child) => value.loadingSection
+                    ? SizedBox(
+                        width: size.width * .43,
+                        height: 50,
+                        child: const Center(child: Text('Loading...')))
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: size.width * .42,
+                          height: 50,
+                          child: MultiSelectDialogField(
+                            items: value.dropDown,
+                            listType: MultiSelectListType.CHIP,
+                            title: const Text(
                               "Select Section",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            )
-                          : Text(
-                              "   ${value.sectionLen.toString()} Selected",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            selectedItemsTextStyle: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: UIGuide.light_Purple),
+                            confirmText: const Text(
+                              'OK',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            cancelText: const Text(
+                              'Cancel',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            separateSelectedItems: true,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2,
                               ),
                             ),
-                      chipDisplay: MultiSelectChipDisplay.none(),
-                      onConfirm: (results) async {
-                        subjectData = [];
-                        diviData.clear();
-                        value.clearCourse();
-                        await Provider.of<AttendanceReportProvider>(context,
-                                listen: false)
-                            .cleartakenList();
+                            buttonIcon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.grey,
+                            ),
+                            buttonText: value.sectionLen == 0
+                                ? const Text(
+                                    "Select Section",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  )
+                                : Text(
+                                    "   ${value.sectionLen.toString()} Selected",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                            chipDisplay: MultiSelectChipDisplay.none(),
+                            onConfirm: (results) async {
+                              subjectData = [];
+                              diviData.clear();
+                              value.clearCourse();
+                              await Provider.of<AttendanceReportProvider>(
+                                      context,
+                                      listen: false)
+                                  .cleartakenList();
 
-                        for (var i = 0; i < results.length; i++) {
-                          StudReportSectionList data =
-                              results[i] as StudReportSectionList;
-                          print(data.text);
-                          print(data.value);
-                          subjectData.add(data.value);
-                          subjectData.map((e) => data.value);
-                          print("${subjectData.map((e) => data.value)}");
-                        }
-                        section = subjectData.join(',');
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .sectionCounter(results.length);
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .getCourseList(section);
-                        print("data $subjectData");
+                              for (var i = 0; i < results.length; i++) {
+                                StudReportSectionList data =
+                                    results[i] as StudReportSectionList;
+                                print(data.text);
+                                print(data.value);
+                                subjectData.add(data.value);
+                                subjectData.map((e) => data.value);
+                                print("${subjectData.map((e) => data.value)}");
+                              }
+                              section = subjectData.join(',');
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .sectionCounter(results.length);
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .getCourseList(section);
+                              print("data $subjectData");
 
-                        print(subjectData.join('&'));
-                      },
-                    ),
-                  ),
-                ),
+                              print(subjectData.join('&'));
+                            },
+                          ),
+                        ),
+                      ),
               ),
               //const Spacer(),
               Consumer<SchoolPhotoProviders>(
-                builder: (context, value, child) => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    width: size.width * .42,
-                    height: 50,
-                    child: MultiSelectDialogField(
-                      // height: 200,
-                      items: value.courseDrop,
-                      listType: MultiSelectListType.CHIP,
-                      title: const Text(
-                        "Select Course",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      // selectedColor: Color.fromARGB(255, 157, 232, 241),
-                      selectedItemsTextStyle: const TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: UIGuide.light_Purple),
-                      confirmText: const Text(
-                        'OK',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      cancelText: const Text(
-                        'Cancel',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      separateSelectedItems: true,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                      buttonIcon: const Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: Colors.grey,
-                      ),
-                      buttonText: value.courseLen == 0
-                          ? const Text(
+                builder: (context, value, child) => value.loadingCourse
+                    ? SizedBox(
+                        width: size.width * .43,
+                        height: 50,
+                        child: const Center(child: Text('Loading...')))
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: size.width * .42,
+                          height: 50,
+                          child: MultiSelectDialogField(
+                            // height: 200,
+                            items: value.courseDrop,
+                            listType: MultiSelectListType.CHIP,
+                            title: const Text(
                               "Select Course",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            )
-                          : Text(
-                              "   ${value.courseLen.toString()} Selected",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            // selectedColor: Color.fromARGB(255, 157, 232, 241),
+                            selectedItemsTextStyle: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: UIGuide.light_Purple),
+                            confirmText: const Text(
+                              'OK',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            cancelText: const Text(
+                              'Cancel',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            separateSelectedItems: true,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2,
                               ),
                             ),
-                      chipDisplay: MultiSelectChipDisplay.none(),
-                      onConfirm: (results) async {
-                        diviData = [];
-                        value.clearDivision();
-                        await Provider.of<AttendanceReportProvider>(context,
-                                listen: false)
-                            .cleartakenList();
-                        for (var i = 0; i < results.length; i++) {
-                          StudReportCourse data =
-                              results[i] as StudReportCourse;
-                          print(data.value);
-                          print(data.text);
-                          diviData.add(data.value);
-                          diviData.map((e) => data.value);
-                          print("${diviData.map((e) => data.value)}");
-                        }
-                        course = diviData.join(',');
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .courseCounter(results.length);
-                        results.clear();
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .getDivisionList(course);
+                            buttonIcon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.grey,
+                            ),
+                            buttonText: value.courseLen == 0
+                                ? const Text(
+                                    "Select Course",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  )
+                                : Text(
+                                    "   ${value.courseLen.toString()} Selected",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                            chipDisplay: MultiSelectChipDisplay.none(),
+                            onConfirm: (results) async {
+                              diviData = [];
+                              value.clearDivision();
+                              await Provider.of<AttendanceReportProvider>(
+                                      context,
+                                      listen: false)
+                                  .cleartakenList();
+                              for (var i = 0; i < results.length; i++) {
+                                StudReportCourse data =
+                                    results[i] as StudReportCourse;
+                                print(data.value);
+                                print(data.text);
+                                diviData.add(data.value);
+                                diviData.map((e) => data.value);
+                                print("${diviData.map((e) => data.value)}");
+                              }
+                              course = diviData.join(',');
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .courseCounter(results.length);
+                              results.clear();
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .getDivisionList(course);
 
-                        print(diviData.join(','));
-                      },
-                    ),
-                  ),
-                ),
+                              print(diviData.join(','));
+                            },
+                          ),
+                        ),
+                      ),
               ),
               const Spacer()
             ],
@@ -311,7 +323,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
           ),
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               Radio(
                 activeColor: UIGuide.light_Purple,
                 value: '0',
@@ -323,10 +335,10 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                   print(type);
                 },
               ),
-              Text(
+              const Text(
                 "Taken",
               ),
-              Spacer(),
+              const Spacer(),
               Radio(
                 activeColor: UIGuide.light_Purple,
                 value: '1',
@@ -338,10 +350,10 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                   print(type);
                 },
               ),
-              Text(
+              const Text(
                 "Not Taken",
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
           Row(
@@ -353,7 +365,7 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                   child: loadd.loading
                       ? Center(
                           child: Container(
-                              child: Text(
+                              child: const Text(
                           'Loading Data...',
                           style: TextStyle(
                               color: UIGuide.light_Purple,
@@ -415,7 +427,8 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                             width: size.width,
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(255, 176, 179, 179),
+                                  color:
+                                      const Color.fromARGB(255, 176, 179, 179),
                                 ),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
@@ -489,10 +502,10 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                                         Flexible(
                                           child: RichText(
                                             overflow: TextOverflow.ellipsis,
-                                            strutStyle:
-                                                StrutStyle(fontSize: 12.0),
+                                            strutStyle: const StrutStyle(
+                                                fontSize: 12.0),
                                             text: TextSpan(
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black),
                                               text: optedstaff == null
                                                   ? "--"

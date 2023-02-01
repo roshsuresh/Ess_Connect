@@ -123,291 +123,308 @@ class _Notification_AdminToGuardainState
           Row(
             children: [
               Consumer<SchoolPhotoProviders>(
-                builder: (context, value, child) => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    width: size.width * .43,
-                    height: 50,
-                    child: MultiSelectDialogField(
-                      items: value.dropDown,
-                      listType: MultiSelectListType.CHIP,
-                      title: const Text(
-                        "Select Section",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      selectedItemsTextStyle: const TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: UIGuide.light_Purple),
-                      confirmText: const Text(
-                        'OK',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      cancelText: const Text(
-                        'Cancel',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      separateSelectedItems: true,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                      buttonIcon: const Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: Colors.grey,
-                      ),
-                      buttonText: value.sectionLen == 0
-                          ? const Text(
+                builder: (context, value, child) => value.loadingSection
+                    ? SizedBox(
+                        width: size.width * .43,
+                        height: 50,
+                        child: const Center(child: Text('Loading...')))
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: size.width * .43,
+                          height: 50,
+                          child: MultiSelectDialogField(
+                            items: value.dropDown,
+                            listType: MultiSelectListType.CHIP,
+                            title: const Text(
                               "Select Section",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            )
-                          : Text(
-                              "   ${value.sectionLen.toString()} Selected",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            selectedItemsTextStyle: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: UIGuide.light_Purple),
+                            confirmText: const Text(
+                              'OK',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            cancelText: const Text(
+                              'Cancel',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            separateSelectedItems: true,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2,
                               ),
                             ),
-                      chipDisplay: MultiSelectChipDisplay.none(),
-                      onConfirm: (results) async {
-                        subjectData = [];
-                        diviData.clear();
-                        courseData.clear();
-                        value.courseLen = 0;
-                        value.divisionLen = 0;
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .clearCourse();
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .clearDivision();
+                            buttonIcon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.grey,
+                            ),
+                            buttonText: value.sectionLen == 0
+                                ? const Text(
+                                    "Select Section",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  )
+                                : Text(
+                                    "   ${value.sectionLen.toString()} Selected",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                            chipDisplay: MultiSelectChipDisplay.none(),
+                            onConfirm: (results) async {
+                              subjectData = [];
+                              diviData.clear();
+                              courseData.clear();
+                              value.courseLen = 0;
+                              value.divisionLen = 0;
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .clearCourse();
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .clearDivision();
 
-                        await Provider.of<NotificationToGuardianAdmin>(context,
-                                listen: false)
-                            .clearStudentList();
+                              await Provider.of<NotificationToGuardianAdmin>(
+                                      context,
+                                      listen: false)
+                                  .clearStudentList();
 
-                        for (var i = 0; i < results.length; i++) {
-                          StudReportSectionList data =
-                              results[i] as StudReportSectionList;
-                          print(data.text);
-                          print(data.value);
-                          subjectData.add(data.value);
-                          subjectData.map((e) => data.value);
-                          print("${subjectData.map((e) => data.value)}");
-                        }
-                        section = subjectData.join(',');
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .sectionCounter(results.length);
-                        // await Provider.of<SchoolPhotoProviders>(context,
-                        //         listen: false)
-                        //     .clearCourse();
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .getCourseList(section);
-                        print("data $section");
+                              for (var i = 0; i < results.length; i++) {
+                                StudReportSectionList data =
+                                    results[i] as StudReportSectionList;
+                                print(data.text);
+                                print(data.value);
+                                subjectData.add(data.value);
+                                subjectData.map((e) => data.value);
+                                print("${subjectData.map((e) => data.value)}");
+                              }
+                              section = subjectData.join(',');
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .sectionCounter(results.length);
+                              // await Provider.of<SchoolPhotoProviders>(context,
+                              //         listen: false)
+                              //     .clearCourse();
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .getCourseList(section);
+                              print("data $section");
 
-                        print(subjectData.join(','));
-                      },
-                    ),
-                  ),
-                ),
+                              print(subjectData.join(','));
+                            },
+                          ),
+                        ),
+                      ),
               ),
               const Spacer(),
               Consumer<SchoolPhotoProviders>(
-                builder: (context, value, child) => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    width: size.width * .43,
-                    height: 50,
-                    child: MultiSelectDialogField(
-                      items: value.courseDrop,
-                      listType: MultiSelectListType.CHIP,
-                      title: const Text(
-                        "Select Course",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      selectedItemsTextStyle: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w900,
-                          color: UIGuide.light_Purple),
-                      confirmText: const Text(
-                        'OK',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      cancelText: const Text(
-                        'Cancel',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      separateSelectedItems: true,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                      buttonIcon: const Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: Colors.grey,
-                      ),
-                      buttonText: value.courseLen == 0
-                          ? const Text(
+                builder: (context, value, child) => value.loadingCourse
+                    ? SizedBox(
+                        width: size.width * .43,
+                        height: 50,
+                        child: const Center(child: Text('Loading...')))
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          width: size.width * .43,
+                          height: 50,
+                          child: MultiSelectDialogField(
+                            items: value.courseDrop,
+                            listType: MultiSelectListType.CHIP,
+                            title: const Text(
                               "Select Course",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            )
-                          : Text(
-                              "   ${value.courseLen.toString()} Selected",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            selectedItemsTextStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w900,
+                                color: UIGuide.light_Purple),
+                            confirmText: const Text(
+                              'OK',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            cancelText: const Text(
+                              'Cancel',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            separateSelectedItems: true,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2,
                               ),
                             ),
-                      chipDisplay: MultiSelectChipDisplay.none(),
-                      onConfirm: (results) async {
-                        diviData = [];
-                        courseData.clear();
-                        value.divisionLen = 0;
-                        print("coursddeleteeee   $courseData");
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .clearDivision();
+                            buttonIcon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.grey,
+                            ),
+                            buttonText: value.courseLen == 0
+                                ? const Text(
+                                    "Select Course",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  )
+                                : Text(
+                                    "   ${value.courseLen.toString()} Selected",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                            chipDisplay: MultiSelectChipDisplay.none(),
+                            onConfirm: (results) async {
+                              diviData = [];
+                              courseData.clear();
+                              value.divisionLen = 0;
+                              print("coursddeleteeee   $courseData");
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .clearDivision();
 
-                        await Provider.of<NotificationToGuardianAdmin>(context,
-                                listen: false)
-                            .clearStudentList();
-                        for (var a = 0; a < results.length; a++) {
-                          StudReportCourse data =
-                              results[a] as StudReportCourse;
+                              await Provider.of<NotificationToGuardianAdmin>(
+                                      context,
+                                      listen: false)
+                                  .clearStudentList();
+                              for (var a = 0; a < results.length; a++) {
+                                StudReportCourse data =
+                                    results[a] as StudReportCourse;
 
-                          diviData.add(data.value);
-                          diviData.map((e) => data.value);
-                          print("${diviData.map((e) => data.value)}");
-                        }
-                        print('diviData course== $diviData');
-                        course = '';
-                        course = diviData.join(',');
+                                diviData.add(data.value);
+                                diviData.map((e) => data.value);
+                                print("${diviData.map((e) => data.value)}");
+                              }
+                              print('diviData course== $diviData');
+                              course = '';
+                              course = diviData.join(',');
 
-                        // await Provider.of<NotificationToGuardianAdmin>(context,
-                        //         listen: false)
-                        //     .clearStudentList();
+                              // await Provider.of<NotificationToGuardianAdmin>(context,
+                              //         listen: false)
+                              //     .clearStudentList();
 
-                        // courseData.clear();
-                        // value.divisionDrop.clear();
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .courseCounter(results.length);
-                        results.clear();
-                        // await Provider.of<SchoolPhotoProviders>(context,
-                        //         listen: false)
-                        //     .clearDivision();
+                              // courseData.clear();
+                              // value.divisionDrop.clear();
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .courseCounter(results.length);
+                              results.clear();
+                              // await Provider.of<SchoolPhotoProviders>(context,
+                              //         listen: false)
+                              //     .clearDivision();
 
-                        await Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .getDivisionList(course);
+                              await Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .getDivisionList(course);
 
-                        print("course   $course");
-                      },
-                    ),
-                  ),
-                ),
+                              print("course   $course");
+                            },
+                          ),
+                        ),
+                      ),
               )
             ],
           ),
           Row(
             children: [
               Consumer<SchoolPhotoProviders>(
-                builder: (context, value, child) => Padding(
-                  padding: const EdgeInsets.only(left: 10.0, right: 10),
-                  child: SizedBox(
-                    width: size.width * .43,
-                    height: 50,
-                    child: MultiSelectDialogField(
-                      items: value.divisionDrop,
-                      listType: MultiSelectListType.CHIP,
-                      title: const Text(
-                        "Select Division",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      selectedItemsTextStyle: const TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: UIGuide.light_Purple),
-                      confirmText: const Text(
-                        'OK',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      cancelText: const Text(
-                        'Cancel',
-                        style: TextStyle(color: UIGuide.light_Purple),
-                      ),
-                      separateSelectedItems: true,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 2,
-                        ),
-                      ),
-                      buttonIcon: const Icon(
-                        Icons.arrow_drop_down_outlined,
-                        color: Colors.grey,
-                      ),
-                      buttonText: value.divisionLen == 0
-                          ? const Text(
+                builder: (context, value, child) => value.loadingDivision
+                    ? SizedBox(
+                        width: size.width * .43,
+                        height: 50,
+                        child: const Center(child: Text('Loading...')))
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                        child: SizedBox(
+                          width: size.width * .43,
+                          height: 50,
+                          child: MultiSelectDialogField(
+                            items: value.divisionDrop,
+                            listType: MultiSelectListType.CHIP,
+                            title: const Text(
                               "Select Division",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            )
-                          : Text(
-                              "   ${value.divisionLen.toString()} Selected",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            selectedItemsTextStyle: const TextStyle(
+                                fontWeight: FontWeight.w900,
+                                color: UIGuide.light_Purple),
+                            confirmText: const Text(
+                              'OK',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            cancelText: const Text(
+                              'Cancel',
+                              style: TextStyle(color: UIGuide.light_Purple),
+                            ),
+                            separateSelectedItems: true,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.grey,
+                                width: 2,
                               ),
                             ),
-                      chipDisplay: MultiSelectChipDisplay.none(),
-                      onConfirm: (results) {
-                        courseData = [];
-                        for (var i = 0; i < results.length; i++) {
-                          StudReportDivision data =
-                              results[i] as StudReportDivision;
-                          print(data.text);
-                          print(data.value);
-                          courseData.add(data.value);
-                          courseData.map((e) => data.value);
-                          print("${courseData.map((e) => data.value)}");
-                        }
-                        print("Coursedataaaa    $courseData");
-                        division = courseData.join(',');
-                        //results.clear();
-                        Provider.of<SchoolPhotoProviders>(context,
-                                listen: false)
-                            .divisionCounter(results.length);
-                        results.clear();
-                        // Provider.of<SchoolPhotoProviders>(context, listen: false)
-                        //     .getCourseList(div);
+                            buttonIcon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.grey,
+                            ),
+                            buttonText: value.divisionLen == 0
+                                ? const Text(
+                                    "Select Division",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  )
+                                : Text(
+                                    "   ${value.divisionLen.toString()} Selected",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                            chipDisplay: MultiSelectChipDisplay.none(),
+                            onConfirm: (results) {
+                              courseData = [];
+                              for (var i = 0; i < results.length; i++) {
+                                StudReportDivision data =
+                                    results[i] as StudReportDivision;
+                                print(data.text);
+                                print(data.value);
+                                courseData.add(data.value);
+                                courseData.map((e) => data.value);
+                                print("${courseData.map((e) => data.value)}");
+                              }
+                              print("Coursedataaaa    $courseData");
+                              division = courseData.join(',');
+                              //results.clear();
+                              Provider.of<SchoolPhotoProviders>(context,
+                                      listen: false)
+                                  .divisionCounter(results.length);
+                              results.clear();
+                              // Provider.of<SchoolPhotoProviders>(context, listen: false)
+                              //     .getCourseList(div);
 
-                        print("data div  $division");
-                      },
-                    ),
-                  ),
-                ),
+                              print("data div  $division");
+                            },
+                          ),
+                        ),
+                      ),
               ),
               const Spacer(),
               Padding(
@@ -707,7 +724,7 @@ class Text_Matter_NotificationAdmin extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
                       behavior: SnackBarBehavior.floating,
                       content: Text(
-                        'Enter title & matter!',
+                        'Enter Title & Matter!',
                         textAlign: TextAlign.center,
                       ),
                     ),

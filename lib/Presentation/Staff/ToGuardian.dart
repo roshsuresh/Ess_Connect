@@ -729,7 +729,7 @@ class Text_Matter_Notification extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
                       behavior: SnackBarBehavior.floating,
                       content: Text(
-                        'Enter title & matter!',
+                        'Enter Title & Matter!',
                         textAlign: TextAlign.center,
                       ),
                     ),
