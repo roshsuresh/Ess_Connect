@@ -12,10 +12,12 @@ import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../Application/Staff_Providers/Notification_ToGuardianProvider.dart';
 import '../../Application/Staff_Providers/StaffFlashnews.dart';
 import '../../Application/Staff_Providers/StaffProfile.dart';
 import '../../Constants.dart';
@@ -25,6 +27,7 @@ import '../Student/PasswordChange.dart';
 import 'GalleryUpload.dart';
 import 'MarkEntry.dart';
 import 'MarkEntryReport/MarkEntryReport.dart';
+import 'MessagePage.dart';
 import 'NoticeBoard.dart';
 import 'StaffProfile.dart';
 import 'StaffTimeTable.dart';
@@ -40,15 +43,21 @@ class StaffHome extends StatefulWidget {
 }
 
 class _StaffHomeState extends State<StaffHome> {
+
   @override
   void initState() {
+
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+
       Provider.of<ConnectivityProvider>(context, listen: false);
       await Provider.of<StaffNotificationCountProviders>(context, listen: false)
           .getnotificationCount();
       await Provider.of<ModuleProviders>(context, listen: false)
           .getModuleDetails();
+      await Provider.of<NotificationToGuardian_Providers>(context, listen: false)
+          .communicationToGuardianCourseStaff();
+
     });
   }
 
@@ -190,12 +199,16 @@ class _StaffHomeState extends State<StaffHome> {
                               ),
                             ),
                             Consumer<StaffNotificationCountProviders>(
-                              builder: (context, count, child) => Badge(
+                              builder: (context, count, child) => badges.Badge(
                                 showBadge: count.count == 0 ? false : true,
-                                animationDuration:
-                                    const Duration(milliseconds: 300),
-                                animationType: BadgeAnimationType.fade,
-                                position: BadgePosition.topEnd(end: 9),
+                                badgeAnimation: const badges.BadgeAnimation.rotation(
+                                  animationDuration: Duration(seconds: 1),
+                                  colorChangeAnimationDuration: Duration(seconds: 1),
+                                  loopAnimation: false,
+                                  curve: Curves.fastOutSlowIn,
+                                  colorChangeAnimationCurve: Curves.easeInCubic,
+                                ),
+                                position: badges.BadgePosition.topEnd(end: 9),
                                 badgeContent: Text(
                                   count.count == null
                                       ? '0'
@@ -555,7 +568,9 @@ class _StaffHomeState extends State<StaffHome> {
                                                           LoginScreenWeb(
                                                             schdomain:
                                                                 schdomain,
-                                                          )),
+                                                          )
+                                                      //MessagePage()
+                                                  ),
                                                 );
                                               },
                                               child: Padding(
@@ -860,11 +875,13 @@ class _StaffHomeState extends State<StaffHome> {
                         ]),
                         kheight10,
                         // kheight20,
+
                         Consumer<ModuleProviders>(
                           builder: (context, module, child) => Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              module.curiculam == true  ?
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -909,6 +926,58 @@ class _StaffHomeState extends State<StaffHome> {
                                         'To Guardian',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
+                                            fontSize: 11,
+                                            color: Colors.black),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ):Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _noAcess();
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment
+                                        .spaceEvenly,
+                                    children: [
+                                      Card(
+                                        elevation: 10,
+                                        color: Colors.white,
+                                        shape:
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius
+                                              .circular(12.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                          const EdgeInsets
+                                              .all(8.0),
+                                          child: Container(
+                                            height: 38,
+                                            width: 38,
+                                            decoration:
+                                            const BoxDecoration(
+                                              image:
+                                              DecorationImage(
+                                                opacity: 20,
+                                                image: AssetImage(
+                                                    'assets/01communicationto guardian.png'),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      kheight10,
+                                      const Text(
+                                        'To Guardian',
+                                        style: TextStyle(
+                                            fontWeight:
+                                            FontWeight.w400,
                                             fontSize: 11,
                                             color: Colors.black),
                                       )

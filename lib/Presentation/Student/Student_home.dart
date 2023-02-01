@@ -10,7 +10,9 @@ import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:lottie/lottie.dart';
 import 'package:marquee/marquee.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +31,6 @@ import 'Profile_Info.dart';
 import 'Reportcard.dart';
 import 'Stud_Notification.dart';
 import 'TimeTable.dart';
-import 'package:badges/badges.dart';
 
 class StudentHome extends StatefulWidget {
   StudentHome({Key? key}) : super(key: key);
@@ -271,12 +272,16 @@ class _StudentHomeState extends State<StudentHome> {
                               ),
                             ),
                             Consumer<StudNotificationCountProviders>(
-                              builder: (context, count, child) => Badge(
-                                showBadge: count.count == 0 ? false : true,
-                                animationDuration:
-                                    const Duration(milliseconds: 300),
-                                animationType: BadgeAnimationType.fade,
-                                position: BadgePosition.topEnd(end: 9),
+                              builder: (context, count, child) => badges.Badge(
+                                showBadge:  count.count == 0 ? false :true,
+                                badgeAnimation: const badges.BadgeAnimation.rotation(
+                                  animationDuration: Duration(seconds: 1),
+                                  colorChangeAnimationDuration: Duration(seconds: 1),
+                                  loopAnimation: false,
+                                  curve: Curves.fastOutSlowIn,
+                                  colorChangeAnimationCurve: Curves.easeInCubic,
+                                ),
+                               position: badges.BadgePosition.topEnd(end: 9),
                                 badgeContent: Text(
                                   count.count == null
                                       ? '0'

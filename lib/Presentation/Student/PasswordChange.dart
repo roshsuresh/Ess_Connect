@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import '../../Application/StudentProviders/PasswordChangeProvider.dart';

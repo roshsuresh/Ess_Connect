@@ -64,7 +64,7 @@ class _StudentFeeSearchState extends State<StudentFeeSearch> {
                     .clearStudentList();
                 await Provider.of<FeeDetailsProvider>(context, listen: false)
                     .getSearchView(textController.text.toString());
-              },
+              }, onSubmitted: (String ) {  },
             ),
           ),
           LimitedBox(

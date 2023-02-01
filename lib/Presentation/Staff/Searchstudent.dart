@@ -4,6 +4,7 @@ import 'package:essconnect/Domain/Staff/SearchStudReport.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

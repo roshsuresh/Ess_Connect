@@ -645,10 +645,10 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
               minWidth: size.width - 150,
               color: UIGuide.light_Purple,
               onPressed: (() async {
-                if (titleController.text.isEmpty &&
-                    mattercontroller.text.isEmpty &&
-                    coursevalueController.text.isEmpty &&
-                    divisionvalueController.text.isEmpty &&
+                if (titleController.text.isEmpty ||
+                    mattercontroller.text.isEmpty ||
+                    coursevalueController.text.isEmpty ||
+                    divisionvalueController.text.isEmpty ||
                     categoryvalueController.text.isEmpty) {
                   return await AwesomeDialog(
                           context: context,
@@ -677,6 +677,7 @@ class _StaffNoticeBoard_sentState extends State<StaffNoticeBoard_sent> {
                           divisionvalueController.text,
                           categoryvalueController.text,
                           attachmentid!);
+
                 }
               }),
               child: const Text(

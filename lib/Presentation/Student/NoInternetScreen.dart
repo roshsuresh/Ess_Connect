@@ -1,6 +1,7 @@
 import 'package:essconnect/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
 class NoInternetConnection extends StatelessWidget {

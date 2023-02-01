@@ -197,7 +197,7 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
       String CourseId,
       String DivisionId,
       String CategoryId,
-      String AttachmentId) async {
+      String? AttachmentId) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
 
     var headers = {

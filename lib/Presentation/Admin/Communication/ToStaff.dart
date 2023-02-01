@@ -80,7 +80,7 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var p = Provider.of<SchoolPhotoProviders>(context, listen: false);
       p.stdReportSectionStaff();
-
+     p.sectionCounter(0);
       p.dropDown.clear();
       p.stdReportInitialValues.clear();
 
@@ -138,12 +138,20 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                         Icons.arrow_drop_down_outlined,
                         color: Colors.grey,
                       ),
-                      buttonText: const Text(
-                        "Select Section",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
+                       buttonText: value.sectionLen == 0
+                   ? const Text(
+                       "Select Section",
+                         style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      ),
+                      )
+                          : Text(
+                      "   ${value.sectionLen.toString()} Selected",
+                      style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      ),
                       ),
                       chipDisplay: MultiSelectChipDisplay.none(),
                       onConfirm: (results) async {
@@ -158,7 +166,9 @@ class _AdminToStaffNotificationState extends State<AdminToStaffNotification> {
                           print("${subjectData.map((e) => data.value)}");
                         }
                         section = subjectData.join(',');
-
+                        await Provider.of<SchoolPhotoProviders>(context,
+                            listen: false)
+                            .sectionCounter(results.length);
                         print("data $section");
 
                         print(subjectData.join(','));

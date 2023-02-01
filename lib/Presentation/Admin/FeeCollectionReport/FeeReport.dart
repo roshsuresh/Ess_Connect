@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:essconnect/Application/AdminProviders/FeeReportProvider.dart';
 import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart';
+import 'package:essconnect/Application/StudentProviders/FeesProvider.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -281,68 +282,76 @@ class _FeeReportState extends State<FeeReport> {
               const Spacer(),
               SizedBox(
                 width: size.width * .42,
-                child: MaterialButton(
-                  child: Center(child: Text('From ${time}')),
-                  color: Colors.white,
-                  onPressed: (() async {
-                    _mydatetimeFrom = await showDatePicker(
-                      context: context,
-                      initialDate: _mydatetimeFrom ?? DateTime.now(),
-                      firstDate: DateTime(2022),
-                      lastDate: DateTime(2030),
-                      builder: (context, child) {
-                        return Theme(
-                            data: ThemeData.light().copyWith(
-                              primaryColor: UIGuide.light_Purple,
-                              colorScheme: const ColorScheme.light(
-                                primary: UIGuide.light_Purple,
+                child: Consumer<FeeReportProvider>(
+                  builder: (context,value,child)=> MaterialButton(
+                    child: Center(child: Text('From ${time}')),
+                    color: Colors.white,
+                    onPressed: (() async {
+                      value.clearcollectionList();
+                      _mydatetimeFrom = await showDatePicker(
+                        context: context,
+                        initialDate: _mydatetimeFrom ?? DateTime.now(),
+                        firstDate: DateTime(2022),
+                        lastDate: DateTime(2030),
+                        builder: (context, child) {
+                          return Theme(
+                              data: ThemeData.light().copyWith(
+                                primaryColor: UIGuide.light_Purple,
+                                colorScheme: const ColorScheme.light(
+                                  primary: UIGuide.light_Purple,
+                                ),
+                                buttonTheme: const ButtonThemeData(
+                                    textTheme: ButtonTextTheme.primary),
                               ),
-                              buttonTheme: const ButtonThemeData(
-                                  textTheme: ButtonTextTheme.primary),
-                            ),
-                            child: child!);
-                      },
-                    );
-                    setState(() {
-                      time = DateFormat('dd-MMM-yyyy').format(_mydatetimeFrom!);
-                      print(time);
-                    });
-                  }),
+                              child: child!);
+                        },
+                      );
+                      setState(() {
+                        time = DateFormat('dd-MMM-yyyy').format(_mydatetimeFrom!);
+                        print(time);
+                      });
+                    }),
+                  ),
                 ),
               ),
               const Spacer(),
               SizedBox(
                 width: size.width * .42,
-                child: MaterialButton(
-                  // minWidth: size.width - 250,
-                  color: Colors.white,
-                  onPressed: (() async {
-                    _mydatetimeTo = await showDatePicker(
-                      context: context,
-                      initialDate: _mydatetimeTo ?? DateTime.now(),
-                      firstDate: DateTime(2022),
-                      lastDate: DateTime(2030),
-                      builder: (context, child) {
-                        return Theme(
-                            data: ThemeData.light().copyWith(
-                              primaryColor: UIGuide.light_Purple,
-                              colorScheme: const ColorScheme.light(
-                                primary: UIGuide.light_Purple,
+                child: Consumer<FeeReportProvider>(
+                  builder: (context,value,child)=>
+                  MaterialButton(
+                    // minWidth: size.width - 250,
+                    color: Colors.white,
+                    onPressed: (() async {
+                      value.clearcollectionList();
+                      _mydatetimeTo = await showDatePicker(
+
+                        context: context,
+                        initialDate: _mydatetimeTo ?? DateTime.now(),
+                        firstDate: DateTime(2022),
+                        lastDate: DateTime(2030),
+                        builder: (context, child) {
+                          return Theme(
+                              data: ThemeData.light().copyWith(
+                                primaryColor: UIGuide.light_Purple,
+                                colorScheme: const ColorScheme.light(
+                                  primary: UIGuide.light_Purple,
+                                ),
+                                buttonTheme: const ButtonThemeData(
+                                    textTheme: ButtonTextTheme.primary),
                               ),
-                              buttonTheme: const ButtonThemeData(
-                                  textTheme: ButtonTextTheme.primary),
-                            ),
-                            child: child!);
-                      },
-                    );
-                    setState(() {
-                      timeNow =
-                          DateFormat('dd-MMM-yyyy').format(_mydatetimeTo!);
-                      print(timeNow);
-                    });
-                  }),
-                  // minWidth: size.width - 250,
-                  child: Center(child: Text('To $timeNow')),
+                              child: child!);
+                        },
+                      );
+                      setState(() {
+                        timeNow =
+                            DateFormat('dd-MMM-yyyy').format(_mydatetimeTo!);
+                        print(timeNow);
+                      });
+                    }),
+                    // minWidth: size.width - 250,
+                    child: Center(child: Text('To $timeNow')),
+                  ),
                 ),
               ),
               const Spacer()
@@ -353,71 +362,104 @@ class _FeeReportState extends State<FeeReport> {
             children: [
               SizedBox(
                 width: 120,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: UIGuide.light_Purple),
-                  onPressed: (() async {
-                    // Provider.of<SchoolPhotoProviders>(context, listen: false)
-                    //     .stdReportInitialValues
-                    //     .clear();
-                    // Provider.of<SchoolPhotoProviders>(context, listen: false)
-                    //     .courselist
-                    //     .clear();
-                    // Provider.of<SchoolPhotoProviders>(context, listen: false)
-                    //     .divisionDrop
-                    //     .clear();
+                child: Consumer<FeeReportProvider>(
+                  builder: (contexr,value,child)=>
+                  TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: UIGuide.light_Purple),
+                    onPressed: (() async {
+                      // Provider.of<SchoolPhotoProviders>(context, listen: false)
+                      //     .stdReportInitialValues
+                      //     .clear();
+                      // Provider.of<SchoolPhotoProviders>(context, listen: false)
+                      //     .courselist
+                      //     .clear();
+                      // Provider.of<SchoolPhotoProviders>(context, listen: false)
+                      //     .divisionDrop
+                      //     .clear();
 
-                    DateTime dt1 = _mydatetimeFrom!;
-                    DateTime dt2 = _mydatetimeTo!;
-                    Duration diff = dt2.difference(dt1);
-                    if (diff.inDays >= 0 && diff.inDays <= 30) {
-                      await Provider.of<FeeReportProvider>(context,
-                              listen: false)
-                          .clearcollectionList();
-                      await Provider.of<FeeReportProvider>(context,
-                              listen: false)
-                          .getFeeReportView(section, course, time, timeNow);
-                    } else if (diff.isNegative) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                      DateTime dt1 = _mydatetimeFrom!;
+                      DateTime dt2 = _mydatetimeTo!;
+                      Duration diff = dt2.difference(dt1);
+                      if (diff.inDays >= 0 && diff.inDays <= 30) {
+                        await Provider.of<FeeReportProvider>(context,
+                            listen: false)
+                            .clearcollectionList();
+                        await Provider.of<FeeReportProvider>(context,
+                                listen: false)
+                            .getFeeReportView(section, course, time, timeNow);
+
+                            if(value.collectionList.isEmpty){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  ),
+                                  duration: Duration(seconds: 3),
+                                  margin:
+                                  EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'No Data For Specified Condition',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+
+                            }
+
+                      }
+
+
+
+
+
+                        else if (diff.isNegative) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                            ),
+                            duration: Duration(seconds: 3),
+                            margin:
+                                EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                              'From date should be lesser than To date',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                          duration: Duration(seconds: 3),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'From date should be lesser than To date',
-                            textAlign: TextAlign.center,
+                        );
+                      }
+
+
+                      else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(20)),
+                            ),
+                            duration: Duration(seconds: 3),
+                            margin:
+                                EdgeInsets.only(bottom: 80, left: 30, right: 30),
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                              'Please select date range between 30 days',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          elevation: 10,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                          ),
-                          duration: Duration(seconds: 3),
-                          margin:
-                              EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                          behavior: SnackBarBehavior.floating,
-                          content: Text(
-                            'Please select date range between 30 days',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      );
-                    }
-                  }),
-                  child: const Text(
-                    'View',
-                    style: TextStyle(color: Colors.white),
+                        );
+                      }
+                    }),
+                    child: const Text(
+                      'View',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
@@ -1027,8 +1069,11 @@ class _FeeReportState extends State<FeeReport> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w900, fontSize: 16),
                       ),
+
+
                 kWidth
               ],
+
             ),
           )
         ],
