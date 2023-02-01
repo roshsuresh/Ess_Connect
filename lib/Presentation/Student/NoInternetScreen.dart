@@ -10,11 +10,12 @@ class NoInternetConnection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
-      color: UIGuide.WHITE,
-      height: size.height,
-      width: size.width,
-      child: Center(child: LottieBuilder.asset('assets/no internet.json')),
-    );
+    return Center(
+        child: LottieBuilder.asset(
+      'assets/no internet.json',
+      height: size.height / 2,
+      width: size.width / 1.2,
+      fit: BoxFit.fill,
+    ));
   }
 }

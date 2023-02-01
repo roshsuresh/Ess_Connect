@@ -36,6 +36,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -358,6 +359,9 @@ class _CurriculamPageState extends State<CurriculamPage> {
                 onPressed: () {
                   webViewController?.reload();
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: UIGuide.light_Purple,
+                ),
               ),
             ],
           ),

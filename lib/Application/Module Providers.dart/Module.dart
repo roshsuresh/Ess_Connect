@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class ModuleProviders extends ChangeNotifier {
   bool fees = false;
+  bool feesOnly = false;
   bool tabulation = false;
   bool timetable = false;
   bool curiculam = false;
@@ -44,6 +45,10 @@ class ModuleProviders extends ChangeNotifier {
 
     if (data.contains('ATT')) {
       attendenceEntry = true;
+      notifyListeners();
+    }
+    if (data.contains('FEE_ONLY')) {
+      feesOnly = true;
       notifyListeners();
     }
 

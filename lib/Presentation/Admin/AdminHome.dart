@@ -1187,7 +1187,7 @@ class AdminHomeContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    module.fees == true
+                    module.fees == true || module.feesOnly == true
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -1286,7 +1286,7 @@ class AdminHomeContent extends StatelessWidget {
                               ),
                             ),
                           ),
-                    module.fees == true
+                    module.fees == true || module.feesOnly == true
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(

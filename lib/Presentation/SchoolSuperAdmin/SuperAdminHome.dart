@@ -12,7 +12,6 @@ import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.d
 import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
 import 'package:essconnect/Presentation/Admin/WebViewLogin.dart';
-import 'package:essconnect/Presentation/Admin/demo.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/GalleryReceived.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/NoticeBoardSA.dart';
 import 'package:essconnect/Presentation/Staff/StaffHome.dart';
@@ -43,9 +42,10 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       Provider.of<ConnectivityProvider>(context, listen: false);
-      Provider.of<ModuleProviders>(context, listen: false).getModuleDetails();
+      await Provider.of<ModuleProviders>(context, listen: false)
+          .getModuleDetails();
     });
   }
 
@@ -942,7 +942,7 @@ class SuperAdminHomeContents extends StatelessWidget {
                                           image: DecorationImage(
                                             opacity: 20,
                                             image: AssetImage(
-                                              'assets/Tabulation.png',
+                                              'assets/attendance report.png',
                                             ),
                                           ),
                                         ),

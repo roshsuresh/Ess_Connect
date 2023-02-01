@@ -273,15 +273,17 @@ class _StudentHomeState extends State<StudentHome> {
                             ),
                             Consumer<StudNotificationCountProviders>(
                               builder: (context, count, child) => badges.Badge(
-                                showBadge:  count.count == 0 ? false :true,
-                                badgeAnimation: const badges.BadgeAnimation.rotation(
+                                showBadge: count.count == 0 ? false : true,
+                                badgeAnimation:
+                                    const badges.BadgeAnimation.rotation(
                                   animationDuration: Duration(seconds: 1),
-                                  colorChangeAnimationDuration: Duration(seconds: 1),
+                                  colorChangeAnimationDuration:
+                                      Duration(seconds: 1),
                                   loopAnimation: false,
                                   curve: Curves.fastOutSlowIn,
                                   colorChangeAnimationCurve: Curves.easeInCubic,
                                 ),
-                               position: badges.BadgePosition.topEnd(end: 9),
+                                position: badges.BadgePosition.topEnd(end: 9),
                                 badgeContent: Text(
                                   count.count == null
                                       ? '0'
@@ -955,7 +957,8 @@ class _StudentHomeState extends State<StudentHome> {
                                               ),
                                             ),
                                           ),
-                                    module.fees == true
+                                    module.fees == true ||
+                                            module.feesOnly == true
                                         ? Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 10, right: 10),
@@ -1068,7 +1071,8 @@ class _StudentHomeState extends State<StudentHome> {
                                               ),
                                             ),
                                           ),
-                                    module.fees == true
+                                    module.fees == true ||
+                                            module.feesOnly == true
                                         ? Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 10, right: 10),
