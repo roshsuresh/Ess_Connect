@@ -28,6 +28,11 @@ class Profile_Info extends StatelessWidget {
     const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color.fromARGB(255, 70, 151, 226),
+        toolbarHeight: 0,
+      ),
       body: Consumer<ProfileProvider>(
         builder: (_, provider, child) {
           return provider.loading

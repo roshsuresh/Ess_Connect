@@ -299,6 +299,7 @@ class NotificationToGuardian_Providers with ChangeNotifier {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           elevation: 10,

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import '../../utils/TextWrap(moreOption).dart';
 import '../../utils/constants.dart';
@@ -31,7 +30,7 @@ class Stud_Notification extends StatelessWidget {
         centerTitle: true,
         toolbarHeight: 60.2,
         toolbarOpacity: 0.8,
-        shape:  const RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(20),
             bottomLeft: Radius.circular(20),

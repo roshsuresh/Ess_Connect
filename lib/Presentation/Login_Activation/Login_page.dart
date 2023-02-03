@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/Presentation/Admin/AdminHome.dart';
+import 'package:essconnect/Presentation/ChildLogin/ChildHomeScreen.dart';
 import 'package:essconnect/Presentation/SchoolHead/SchoolHeadHome.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/SuperAdminHome.dart';
 import 'package:essconnect/Presentation/Student/Student_home.dart';
@@ -420,6 +421,18 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) => SchoolHeadHomeScreen()));
+      } else if (parsedResponse['role'] == "Student") {
+        if (isLoading) return;
+        setState(() {
+          isLoading = true;
+        });
+        await Permission.videos.request();
+
+        await Permission.photos.request();
+        await Future.delayed(const Duration(seconds: 3));
+
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => ChildHome()));
       } else {
         Navigator.pushReplacement(
             context,

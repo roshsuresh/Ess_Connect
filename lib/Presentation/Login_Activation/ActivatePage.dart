@@ -88,12 +88,15 @@ class _ActivatePageState extends State<ActivatePage>
                               child: Container(
                                 height: 50,
                                 decoration: BoxDecoration(
-                                    color: UIGuide.primary4,
+                                    color: UIGuide.light_Purple,
                                     borderRadius: BorderRadius.circular(15)),
                                 child: const Center(
                                   child: Text(
                                     'Continue',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 16),
                                   ),
                                 ),
                               ),
@@ -285,36 +288,63 @@ class _ActivatePageState extends State<ActivatePage>
                                         setState(() {
                                           isLoading = false;
                                         });
-                                        final snackBar = SnackBar(
-                                          content: Container(
-                                            //color: Colors.white,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    width: 2.0,
-                                                    color: Colors.transparent),
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
-                                            //margin: EdgeInsets.fromLTRB(100, 0, 0, 300),
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 15.0),
-                                                child: Text(
-                                                  'Invalid School Code',
-                                                  style: TextStyle(
-                                                      color:
-                                                          Colors.red.shade600,
-                                                      fontSize: 15),
-                                                ),
-                                              ),
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            backgroundColor: Colors.white,
+                                            elevation: 10,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                            ),
+                                            duration: Duration(seconds: 1),
+                                            margin: EdgeInsets.only(
+                                                bottom: 180,
+                                                left: 30,
+                                                right: 30),
+                                            behavior: SnackBarBehavior.floating,
+                                            content: Text(
+                                              'Invalid School Code',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
                                             ),
                                           ),
-                                          backgroundColor: Colors.transparent,
-                                          elevation: 1000,
-                                          behavior: SnackBarBehavior.floating,
                                         );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
+                                        // final snackBar = SnackBar(
+                                        //   content: Container(
+                                        //     //color: Colors.white,
+                                        //     decoration: BoxDecoration(
+                                        //         border: Border.all(
+                                        //             width: 2.0,
+                                        //             color: Colors.white),
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(20)),
+                                        //     //margin: EdgeInsets.fromLTRB(100, 0, 0, 300),
+                                        //     child: Center(
+                                        //       child: Padding(
+                                        //         padding: const EdgeInsets.only(
+                                        //             top: 15.0),
+                                        //         child: Text(
+                                        //           'Invalid School Code',
+                                        //           style: TextStyle(
+                                        //               color:
+                                        //                   Colors.red.shade600,
+                                        //               fontWeight:
+                                        //                   FontWeight.bold,
+                                        //               fontSize: 15),
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        //   backgroundColor: Colors.white,
+                                        //   elevation: 1000,
+                                        //   behavior: SnackBarBehavior.floating,
+                                        // );
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showSnackBar(snackBar);
 
                                         // final snackBar = SnackBar(content: Container(
                                         //   //color: Colors.white,
@@ -395,6 +425,7 @@ showAlertDialog(BuildContext context) {
 
 TextFormField secretKey(TextEditingController controller) {
   return TextFormField(
+    cursorColor: UIGuide.light_Purple,
     controller: controller,
     validator: (value) {
       if (value!.isEmpty) {
@@ -409,7 +440,10 @@ TextFormField secretKey(TextEditingController controller) {
           "School Code",
           style: TextStyle(color: Colors.grey.shade600),
         ),
-        prefixIcon: const Icon(Icons.lock_open_outlined),
+        prefixIcon: const Icon(
+          Icons.lock_open_outlined,
+          color: UIGuide.light_Purple,
+        ),
         filled: true,
         fillColor: Colors.white,
         focusedBorder: OutlineInputBorder(

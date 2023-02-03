@@ -122,7 +122,7 @@ class StaffGalleryView extends StatelessWidget {
                                                               .galleryReceived[
                                                                   index]
                                                               .caption ??
-                                                          '---',
+                                                          '',
                                                       maxLines: 3,
                                                     ),
                                                     kheight10,

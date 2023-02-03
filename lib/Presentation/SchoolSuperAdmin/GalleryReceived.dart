@@ -142,7 +142,7 @@ class GalleryReceivedSAdmin extends StatelessWidget {
                                                                 .galleryReceived[
                                                                     index]
                                                                 .caption ??
-                                                            '---',
+                                                            '',
                                                         maxLines: 3,
                                                       ),
                                                       kheight10,

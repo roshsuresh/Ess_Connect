@@ -5,7 +5,6 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
 import '../../Application/StudentProviders/GalleryProvider.dart';
 import '../../Constants.dart';
-import '../../utils/LoadingIndication.dart';
 import '../../utils/constants.dart';
 
 class Gallery extends StatefulWidget {

@@ -946,8 +946,11 @@ class StudProfileView_Staff extends StatelessWidget {
     const double fillStop = (100 - fillPercent) / 100;
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
 
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        backgroundColor: UIGuide.light_Purple,
+      ),
       body: Consumer<StudReportListProvider_stf>(
         builder: (context, value, child) => ListView(
           physics: const BouncingScrollPhysics(),
@@ -1004,13 +1007,13 @@ class StudProfileView_Staff extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('Division',
+                              const Text('Division : ',
                                   style: TextStyle(
                                       fontSize: 14.0, color: Colors.grey)),
                               Text(
                                   value.viewStudReportListt[indexx].division ??
                                       '---',
-                                  style: const TextStyle(fontSize: 16.0)),
+                                  style: const TextStyle(fontSize: 14.0)),
                             ],
                           ),
                           kheight10,
@@ -1185,7 +1188,7 @@ class StudProfileView_Staff extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 
   _makingPhoneCall(String phn) async {

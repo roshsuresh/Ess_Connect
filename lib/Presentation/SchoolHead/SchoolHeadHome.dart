@@ -26,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upgrader/upgrader.dart';
 import '../../Application/StudentProviders/InternetConnection.dart';
 import '../../Constants.dart';
 import '../Admin/AttendanceTaken/AbsentReport.dart';
@@ -57,27 +58,32 @@ class _SchoolHeadHomeScreenState extends State<SchoolHeadHomeScreen> {
       body: Consumer<ConnectivityProvider>(
         builder: (context, connection, child) => connection.isOnline == false
             ? const NoInternetConnection()
-            : ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const SuperAdminProfileTop(),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  StaffFlashNews(),
-                  Container(
-                    width: size.width,
-                    height: size.height - 200,
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: UIGuide.THEME_LIGHT, width: 1),
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30))),
-                    child: const SchoolHeadHomeScreenContents(),
-                  )
-                ],
+            : UpgradeAlert(
+                upgrader: Upgrader(
+                    dialogStyle: UpgradeDialogStyle.cupertino,
+                    durationUntilAlertAgain: Duration(days: 1)),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const SuperAdminProfileTop(),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    StaffFlashNews(),
+                    Container(
+                      width: size.width,
+                      height: size.height - 200,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: UIGuide.THEME_LIGHT, width: 1),
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30))),
+                      child: const SchoolHeadHomeScreenContents(),
+                    )
+                  ],
+                ),
               ),
       ),
     );

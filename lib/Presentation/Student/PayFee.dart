@@ -16,7 +16,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +46,7 @@ class PayFee extends StatelessWidget {
                         const Text('Payment'),
                         const Spacer(),
                         Provider.of<FeesProvider>(context).loading
-                            ? Text(
+                            ? const Text(
                                 'Loading...',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
@@ -157,7 +156,7 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                     children: [
                       kheight20,
                       value.feeList.isEmpty
-                          ? SizedBox(
+                          ? const SizedBox(
                               height: 0,
                               width: 0,
                             )
@@ -169,8 +168,8 @@ class _FeePayInstallmentState extends State<FeePayInstallment> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
+                                    children: const [
+                                      Text(
                                         'Installment',
                                         style: TextStyle(
                                             fontSize: 18,

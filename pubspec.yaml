@@ -80,6 +80,7 @@ dependencies:
   shared_preferences: ^2.0.9
   syncfusion_flutter_pdfviewer: ^20.4.38
   toggle_switch: ^2.0.1
+  upgrader: any
   url_launcher: ^6.1.5
   webview_flutter: ^3.0.4
 dev_dependencies:

@@ -26,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upgrader/upgrader.dart';
 import '../../Application/StudentProviders/InternetConnection.dart';
 import '../../Constants.dart';
 import '../Login_Activation/Login_page.dart';
@@ -63,23 +64,28 @@ class _AdminHomeState extends State<AdminHome> {
       body: Consumer<ConnectivityProvider>(
         builder: (context, connection, child) => connection.isOnline == false
             ? const NoInternetConnection()
-            : ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const AdminProfileTop(),
-                  Container(
-                    width: size.width,
-                    height: size.height - 170,
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: UIGuide.THEME_LIGHT, width: 1),
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30))),
-                    child: const AdminHomeContent(),
-                  )
-                ],
+            : UpgradeAlert(
+                upgrader: Upgrader(
+                    dialogStyle: UpgradeDialogStyle.cupertino,
+                    durationUntilAlertAgain: const Duration(days: 1)),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const AdminProfileTop(),
+                    Container(
+                      width: size.width,
+                      height: size.height - 170,
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: UIGuide.THEME_LIGHT, width: 1),
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30))),
+                      child: const AdminHomeContent(),
+                    )
+                  ],
+                ),
               ),
       ),
     );

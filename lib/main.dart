@@ -11,6 +11,7 @@ import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
 import 'package:essconnect/Application/StudentProviders/DiaryProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Application/SuperAdminProviders/NoticeBoardProvidersSA.dart';
+import 'package:essconnect/Presentation/ChildLogin/ChildHomeScreen.dart';
 import 'package:essconnect/Presentation/SchoolHead/SchoolHeadHome.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/SuperAdminHome.dart';
 import 'package:essconnect/routes.dart';
@@ -265,7 +266,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(create: (context) => MobileAppCheckinProvider()),
       ],
       child: MaterialApp(
-        title: 'Ess Connect Pro',
+        title: 'e-SS Connect',
         theme: ThemeData(
           primaryColor: UIGuide.light_Purple,
           inputDecorationTheme: InputDecorationTheme(
@@ -323,6 +324,11 @@ class _SplashFuturePageState extends State<SplashFuturePage>
             context,
             MaterialPageRoute(builder: (context) => SchoolHeadHomeScreen()),
           );
+        } else if (data['role'] == "Student") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ChildHome()),
+          );
         } else {
           Navigator.pushReplacement(
             context,
@@ -360,7 +366,7 @@ class _SplashFuturePageState extends State<SplashFuturePage>
 
     _controller.forward();
 
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       setState(() {
         _fontSize = 1.06;
       });
@@ -403,7 +409,7 @@ class _SplashFuturePageState extends State<SplashFuturePage>
                 duration: const Duration(milliseconds: 1000),
                 opacity: _textOpacity,
                 child: Text(
-                  'Ess Connect Pro',
+                  'e-SS Connect',
                   style: TextStyle(
                     color: UIGuide.light_Purple,
                     fontWeight: FontWeight.bold,

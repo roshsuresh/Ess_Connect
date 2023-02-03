@@ -12,6 +12,10 @@ class StaffInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: UIGuide.light_Purple,
+        toolbarHeight: 0,
+      ),
       body: Consumer<StaffReportProviders>(
         builder: (context, value, child) => ListView(
           physics: const BouncingScrollPhysics(),

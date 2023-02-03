@@ -638,34 +638,35 @@ class _ExamPdfViewState extends State<ExamPdfView> {
   Widget build(BuildContext context) {
     return Consumer<Timetableprovider>(
       builder: (context, value, child) => Scaffold(
-          appBar: AppBar(
-            title: const Text('TimeTable'),
-            titleSpacing: 00.0,
-            centerTitle: true,
-            toolbarHeight: 50.2,
-            toolbarOpacity: 0.8,
-            backgroundColor: UIGuide.light_Purple,
-            actions: [
-              Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: IconButton(
-                      onPressed: () async {
-                        await requestDownload(
-                          value.urlExam.toString().isEmpty
-                              ? '--'
-                              : value.urlExam.toString(),
-                          value.idExam.toString().isEmpty
-                              ? '---'
-                              : value.idExam.toString() +
-                                  value.nameExam.toString(),
-                        );
-                      },
-                      icon: const Icon(Icons.download_outlined))),
-            ],
-          ),
-          body: SfPdfViewer.network(
-            value.urlExam == null ? '--' : value.urlExam.toString(),
-          )),
+        appBar: AppBar(
+          title: const Text('TimeTable'),
+          titleSpacing: 00.0,
+          centerTitle: true,
+          toolbarHeight: 50.2,
+          toolbarOpacity: 0.8,
+          backgroundColor: UIGuide.light_Purple,
+          actions: [
+            Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: IconButton(
+                    onPressed: () async {
+                      await requestDownload(
+                        value.urlExam.toString().isEmpty
+                            ? '--'
+                            : value.urlExam.toString(),
+                        value.idExam.toString().isEmpty
+                            ? '---'
+                            : value.idExam.toString() +
+                                value.nameExam.toString(),
+                      );
+                    },
+                    icon: const Icon(Icons.download_outlined))),
+          ],
+        ),
+        body: SfPdfViewer.network(
+          value.urlExam == null ? '--' : value.urlExam.toString(),
+        ),
+      ),
     );
   }
 }

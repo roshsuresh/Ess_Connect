@@ -2,17 +2,14 @@ import 'package:essconnect/Presentation/Admin/Communication/ToGuardian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../utils/constants.dart';
 
-
-
 class MessagePage extends StatefulWidget {
-
-  const MessagePage({Key? key,})
-      : super(key: key);
+  const MessagePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MessagePage> createState() => _MessagePageState();
@@ -55,7 +52,6 @@ class _MessagePageState extends State<MessagePage> {
       body: Chat(
         theme: DefaultChatTheme(
           backgroundColor: Colors.white70,
-
           inputBackgroundColor: UIGuide.light_Purple,
         ),
         messages: _messages,
