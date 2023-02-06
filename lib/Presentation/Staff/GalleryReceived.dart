@@ -3,7 +3,6 @@ import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
@@ -119,10 +118,21 @@ class StaffGalleryView extends StatelessWidget {
                                                     kheight10,
                                                     Text(
                                                       value
+                                                                      .galleryReceived[
+                                                                          index]
+                                                                      .caption ==
+                                                                  null ||
+                                                              value
+                                                                      .galleryReceived[
+                                                                          index]
+                                                                      .caption ==
+                                                                  "null"
+                                                          ? ''
+                                                          : value
                                                               .galleryReceived[
                                                                   index]
-                                                              .caption ??
-                                                          '',
+                                                              .caption
+                                                              .toString(),
                                                       maxLines: 3,
                                                     ),
                                                     kheight10,

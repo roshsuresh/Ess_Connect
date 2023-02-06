@@ -160,7 +160,6 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
-      debugPrint(await response.stream.bytesToString());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         elevation: 10,
@@ -175,7 +174,7 @@ class NotificationToStaffAdminProviders with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
-      debugPrint(response.reasonPhrase);
+      print(response.reasonPhrase);
     }
   }
 

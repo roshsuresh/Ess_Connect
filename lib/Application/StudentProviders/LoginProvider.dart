@@ -68,7 +68,9 @@ class LoginProvider with ChangeNotifier {
       "StaffId": data.containsKey('StaffId') ? data['StaffId'] : null,
       "GuardianId": data['GuardianId'],
       "StudentId": data['ChildId'],
-      "Type": data['role'] == "Guardian" ? "Student" : "Staff"
+      "Type": data['role'] == "Guardian" || data['role'] == "Student"
+          ? "Student"
+          : "Staff"
     });
     print('Responde body  ${request.body}');
     request.headers.addAll(headers);

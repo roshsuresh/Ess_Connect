@@ -135,9 +135,14 @@ class _GalleryState extends State<Gallery> {
                                                     ),
                                                     kheight10,
                                                     Text(
-                                                      galleryResponse![index]
-                                                                  ['caption'] ==
-                                                              null
+                                                      galleryResponse![index][
+                                                                      'caption'] ==
+                                                                  null ||
+                                                              galleryResponse![
+                                                                          index]
+                                                                      [
+                                                                      'caption'] ==
+                                                                  "null"
                                                           ? ''
                                                           : galleryResponse![
                                                                       index]

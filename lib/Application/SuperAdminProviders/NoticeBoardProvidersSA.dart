@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:essconnect/Domain/Staff/NoticeboardSendModel.dart';
 import 'package:essconnect/Domain/SuperAdmin/NoticeBoardModel.dart';
 import 'package:essconnect/utils/constants.dart';

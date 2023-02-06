@@ -2,12 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
-
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -195,7 +193,7 @@ class ReportCard extends StatelessWidget {
                                                     child: LottieBuilder.network(
                                                                 "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
                                                             null
-                                                        ? Icon(Icons
+                                                        ? const Icon(Icons
                                                             .remove_red_eye_outlined)
                                                         : LottieBuilder.network(
                                                             "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),

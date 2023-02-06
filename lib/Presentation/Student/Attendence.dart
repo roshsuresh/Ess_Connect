@@ -1,7 +1,6 @@
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import '../../Application/StudentProviders/AttendenceProvider.dart';
 import '../../Constants.dart';
@@ -64,8 +63,6 @@ class Attendence extends StatelessWidget {
                                     children: [
                                       Center(
                                         child: Table(
-                                          // border: TableBorder.all(
-                                          //     color: UIGuide.light_Purple),
                                           children: [
                                             TableRow(children: [
                                               Padding(
@@ -101,33 +98,6 @@ class Attendence extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      // Row(
-                                      //   children: [
-                                      //     kWidth,
-                                      //     Text(
-                                      //         'Working Days : ${provider.workDays == null ? '--' : provider.workDays.toString()}'),
-
-                                      //     //  const Spacer(),
-                                      //     Text(
-                                      //         'Days Present :  ${provider.presentDays == null ? '--' : provider.presentDays.toString()}'),
-                                      //     kWidth,
-                                      //     kWidth
-                                      //   ],
-                                      // ),
-                                      // kheight10,
-                                      // kheight10,
-                                      // Row(
-                                      //   children: [
-                                      //     kWidth,
-                                      //     Text(
-                                      //         'Days Absent : ${provider.absentDays == null ? '--' : provider.absentDays.toString()}'),
-                                      //     //  const Spacer(),
-                                      //     Text(
-                                      //         'Percentage % : ${provider.attendancePercentage == null ? '--' : provider.attendancePercentage.toString()}'),
-                                      //     kWidth,
-                                      //     kWidth
-                                      //   ],
-                                      // ),
                                     ],
                                   );
                                 },
@@ -137,7 +107,7 @@ class Attendence extends StatelessWidget {
                           kheight10,
                           Table(
                             border: TableBorder.all(
-                                color: Color.fromARGB(255, 215, 216, 216),
+                                color: const Color.fromARGB(255, 215, 216, 216),
                                 width: .2),
                             children: const [
                               TableRow(
@@ -214,13 +184,6 @@ class Attendence extends StatelessWidget {
                                     : value.attendList.length,
                                 shrinkWrap: true,
                                 itemBuilder: ((context, index) {
-                                  // String percentage =
-                                  //     attend![index]['monthres'].toString();
-                                  // if (percentage.length >= 5) {
-                                  //   percentage.replaceRange(
-                                  //       6, percentage.length, '');
-                                  // }
-
                                   return Table(
                                     border: TableBorder.all(
                                         color: const Color.fromARGB(
@@ -232,7 +195,6 @@ class Attendence extends StatelessWidget {
                                           child: Text(
                                             value.attendList[index].month ??
                                                 '--',
-                                            //'${attend![index]['month'] == null ? '--' : attend![index]['month'].toString()} \n',
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w400),
                                             textAlign: TextAlign.center,
@@ -248,7 +210,6 @@ class Attendence extends StatelessWidget {
                                                 : value.attendList[index]
                                                     .totalWorkingDays
                                                     .toString(),
-                                            // '${attend![index]['totalWorkingDays'].toString()} \n',
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w400),
                                             textAlign: TextAlign.center,
@@ -264,7 +225,6 @@ class Attendence extends StatelessWidget {
                                                 : value.attendList[index]
                                                     .daysPresent
                                                     .toString(),
-                                            //   '${attend![index]['daysPresent'].toString()} \n',
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w400),
                                             textAlign: TextAlign.center,
@@ -280,8 +240,6 @@ class Attendence extends StatelessWidget {
                                                 : value.attendList[index]
                                                     .daysAbsent
                                                     .toString(),
-
-                                            // '${attend![index]['daysAbsent'].toString()} \n',
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.w400),
                                             textAlign: TextAlign.center,

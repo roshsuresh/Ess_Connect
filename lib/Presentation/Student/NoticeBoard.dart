@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +89,7 @@ class NoticeBoard extends StatelessWidget {
                                       padding: const EdgeInsets.all(6.0),
                                       child: Container(
                                         width: size.width - 4,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             color: Color.fromARGB(
                                                 255, 255, 255, 255),
                                             // border: Border.all(
@@ -232,8 +231,6 @@ class NoticeBoard extends StatelessWidget {
                                                     child: Container(
                                                       height: 25,
                                                       width: 25,
-                                                      // color: Color.fromARGB(
-                                                      //     255, 241, 241, 241),
                                                       child: LottieBuilder.network(
                                                                   "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
                                                               null
@@ -253,174 +250,6 @@ class NoticeBoard extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-
-                                //  Stack(
-                                //   children: [
-                                //     Padding(
-                                //       padding: const EdgeInsets.all(8.0),
-                                //       child: Container(
-                                //         width: width,
-                                //         //   height: 200,
-                                //         decoration: BoxDecoration(
-                                //             color:
-                                //                 Color.fromARGB(255, 240, 240, 243),
-                                //             border: Border.all(
-                                //                 color: UIGuide.light_Purple,
-                                //                 width: .5),
-                                //             borderRadius: const BorderRadius.all(
-                                //                 Radius.circular(5))),
-                                //         child: Column(
-                                //           crossAxisAlignment:
-                                //               CrossAxisAlignment.start,
-                                //           children: [
-                                //             Padding(
-                                //               padding: const EdgeInsets.all(4.0),
-                                //               child: Row(
-                                //                 children: [
-                                //                   kWidth,
-                                //                   const Text('📌  '),
-                                //                   Flexible(
-                                //                     child: RichText(
-                                //                       overflow:
-                                //                           TextOverflow.ellipsis,
-                                //                       strutStyle: const StrutStyle(
-                                //                           fontSize: 14.0),
-                                //                       text: TextSpan(
-                                //                           style: const TextStyle(
-                                //                               color: UIGuide
-                                //                                   .light_Purple,
-                                //                               fontWeight:
-                                //                                   FontWeight.w500),
-                                //                           text: noticeresponse![
-                                //                                           index]
-                                //                                       ['title'] ==
-                                //                                   null
-                                //                               ? '---'
-                                //                               : noticeresponse![
-                                //                                           index]
-                                //                                       ['title']
-                                //                                   .toString()),
-                                //                     ),
-                                //                   ),
-                                //                 ],
-                                //               ),
-                                //             ),
-                                //             Padding(
-                                //               padding: const EdgeInsets.all(4.0),
-                                //               child: Container(
-                                //                 width: width - 15,
-                                //                 decoration: BoxDecoration(
-                                //                     color: Color.fromARGB(
-                                //                         255, 255, 255, 255),
-                                //                     border: Border.all(
-                                //                         color: const Color.fromARGB(
-                                //                             255, 215, 207, 236)),
-                                //                     borderRadius:
-                                //                         const BorderRadius.all(
-                                //                             Radius.circular(4))),
-                                //                 child: Column(
-                                //                   crossAxisAlignment:
-                                //                       CrossAxisAlignment.start,
-                                //                   children: [
-                                //                     TextWrapper(
-                                //                       text: noticeresponse![index]
-                                //                                   ['matter'] ==
-                                //                               null
-                                //                           ? '------'
-                                //                           : noticeresponse![index]
-                                //                                   ['matter']
-                                //                               .toString(),
-                                //                       fSize: 16,
-                                //                     )
-                                //                   ],
-                                //                 ),
-                                //               ),
-                                //             ),
-                                //             Row(
-                                //               crossAxisAlignment:
-                                //                   CrossAxisAlignment.end,
-                                //               mainAxisAlignment:
-                                //                   MainAxisAlignment.spaceEvenly,
-                                //               children: [
-                                //                 kWidth,
-                                //                 Text(
-                                //                   noticeresponse![index]
-                                //                               ['entryDate'] ==
-                                //                           null
-                                //                       ? '--'
-                                //                       : noticeresponse![index]
-                                //                               ['entryDate']
-                                //                           .toString(),
-                                //                   style:
-                                //                       const TextStyle(fontSize: 12),
-                                //                 ),
-                                //                 const Spacer(),
-                                //                 Row(
-                                //                   children: [
-                                //                     Text(
-                                //                       'Send by: ',
-                                //                       style: TextStyle(
-                                //                           color: Colors.grey,
-                                //                           fontSize: 12),
-                                //                     ),
-                                //                     Text(
-                                //                       noticeresponse![index]
-                                //                                   ['staffName'] ==
-                                //                               null
-                                //                           ? '--'
-                                //                           : noticeresponse![index]
-                                //                                   ['staffName']
-                                //                               .toString(),
-                                //                       style: const TextStyle(
-                                //                           fontSize: 12),
-                                //                     ),
-                                //                   ],
-                                //                 ),
-                                //                 const Spacer(),
-                                //                 GestureDetector(
-                                //                   onTap: () async {
-                                //                     var newProvider = await Provider
-                                //                             .of<NoticeProvider>(
-                                //                                 context,
-                                //                                 listen: false)
-                                //                         .noticeAttachement(
-                                //                             noticeattach);
-                                //                     if (value.extension
-                                //                             .toString() ==
-                                //                         '.pdf') {
-                                //                       final result =
-                                //                           value.url.toString();
-                                //                       final name =
-                                //                           value.name.toString();
-
-                                //                       Navigator.push(
-                                //                         context,
-                                //                         MaterialPageRoute(
-                                //                           builder: (context) =>
-                                //                               PDFDownload(),
-                                //                         ),
-                                //                       );
-                                //                     } else {
-                                //                       Navigator.push(
-                                //                         context,
-                                //                         MaterialPageRoute(
-                                //                             builder: (context) =>
-                                //                                 PdfViewPage()),
-                                //                       );
-                                //                     }
-                                //                   },
-                                //                   child: const Icon(
-                                //                       Icons.remove_red_eye),
-                                //                 ),
-                                //                 kWidth,
-                                //               ],
-                                //             )
-                                //           ],
-                                //         ),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
                               ),
                             ),
                           );
