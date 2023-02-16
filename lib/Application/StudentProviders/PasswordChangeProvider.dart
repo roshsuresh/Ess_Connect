@@ -50,6 +50,8 @@ class PasswordChangeprovider with ChangeNotifier {
 
     try {
       if (response.statusCode == 201) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.remove("password");
         print('_____Password Changed_____');
         AwesomeDialog(
                 context: context,
@@ -74,6 +76,7 @@ class PasswordChangeprovider with ChangeNotifier {
             textAlign: TextAlign.center,
           ),
         ));
+        await prefs.setString('password', newPass);
         notifyListeners();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

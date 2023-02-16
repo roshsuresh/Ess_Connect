@@ -13,9 +13,16 @@ class LoginProvider with ChangeNotifier {
   String schoolName = "";
   String schoolid = "";
   String subDomain = "";
+  bool _loading = false;
+  bool get loading => _loading;
+  setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
   Future<int> getActivation(String key) async {
     String res;
-
+    setLoading(true);
     var headers = {
       'Content-Type': 'application/json',
     };
@@ -28,6 +35,7 @@ class LoginProvider with ChangeNotifier {
         body: json.encode(params),
         headers: headers);
     if (response.statusCode == 200) {
+      setLoading(true);
       print("corect");
       var jsonData = json.decode(response.body);
 
@@ -42,9 +50,10 @@ class LoginProvider with ChangeNotifier {
       _pref.setString("subDomain", ac.subDomain!);
       print(_pref.getString('subDomain'));
       print('-----');
-
+      setLoading(false);
       notifyListeners();
     } else {
+      setLoading(false);
       print("Error in API calling");
     }
 

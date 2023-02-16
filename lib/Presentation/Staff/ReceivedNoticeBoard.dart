@@ -176,9 +176,19 @@ class StaffNoticeBoardReceived extends StatelessWidget {
                                             );
                                           }
                                         },
-                                        child: const Icon(
-                                            Icons.remove_red_eye_outlined),
+                                        child: Container(
+                                          height: 25,
+                                          width: 25,
+                                          child: LottieBuilder.network(
+                                                      "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json") ==
+                                                  null
+                                              ? Icon(
+                                                  Icons.remove_red_eye_outlined)
+                                              : LottieBuilder.network(
+                                                  "https://assets2.lottiefiles.com/temp/lf20_D0nz3r.json"),
+                                        ),
                                       ),
+                                      kWidth,
                                     ],
                                   )
                                 ],

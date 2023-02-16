@@ -5,7 +5,6 @@ import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:material_dialogs/material_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -109,13 +108,10 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                 if (clearValue.text.isEmpty) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.emoji_emotions_sharp,
-                        size: 100,
-                        color: UIGuide.light_black,
-                      ),
-                      Text(
+                    children: [
+                      LottieBuilder.network(
+                          'https://assets5.lottiefiles.com/packages/lf20_l5qvxwtf.json'),
+                      const Text(
                         "Please enter the name to search",
                         style: TextStyle(
                             fontSize: 20,
@@ -125,7 +121,7 @@ class _SearchStudent_stfState extends State<SearchStudent_stf> {
                   );
                 }
                 if (provider.searchStudent.isEmpty) {
-                  Future.delayed(Duration(seconds: 2));
+                  Future.delayed(const Duration(seconds: 2));
                   return provider.loading
                       ? spinkitLoader()
                       : Center(
@@ -413,8 +409,8 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     const Color background = Colors.white;
-    const Color fill1 = Color.fromARGB(255, 79, 97, 197);
-    const Color fill2 = Color.fromARGB(255, 180, 103, 216);
+    const Color fill1 = UIGuide.light_Purple;
+    const Color fill2 = UIGuide.custom_blue;
     final List<Color> gradient = [
       fill1,
       fill2,
@@ -478,7 +474,23 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                             style: const TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 13),
                           ),
-                          kheight10,
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Division: ',
+                                  style: TextStyle(
+                                      fontSize: 14.0, color: Colors.grey)),
+                              Text(stud.division ?? '---',
+                                  style: const TextStyle(fontSize: 14.0)),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Table(
@@ -490,17 +502,6 @@ class StudProfileViewBySearch_Staff extends StatelessWidget {
                                   width: 2),
                               children: [
                                 TableRow(children: [
-                                  Column(
-                                    children: [
-                                      const Text('Division',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              color: Colors.grey)),
-                                      Text(stud.division ?? '---',
-                                          style:
-                                              const TextStyle(fontSize: 16.0)),
-                                    ],
-                                  ),
                                   Column(
                                     children: [
                                       const Text('Roll No',

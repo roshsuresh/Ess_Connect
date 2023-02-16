@@ -249,7 +249,7 @@ class StaffNoticeboardSendProviders with ChangeNotifier {
               animType: AnimType.rightSlide,
               headerAnimationLoop: false,
               title: 'Success',
-              desc: 'Successfully send',
+              desc: 'Successfully sent',
               btnOkOnPress: () {
                 return;
               },

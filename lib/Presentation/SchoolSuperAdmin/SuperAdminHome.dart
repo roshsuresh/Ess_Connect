@@ -1375,6 +1375,10 @@ class SuperAdminHomeContents extends StatelessWidget {
                                 await SharedPreferences.getInstance();
                             print("accesstoken  $prefs");
                             await prefs.remove("accesstoken");
+                            print("username  $prefs");
+                            await prefs.remove("username");
+                            print("password  $prefs");
+                            await prefs.remove("password");
 
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(

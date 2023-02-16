@@ -1,5 +1,7 @@
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../Application/Staff_Providers/MarkEntryProvider.dart';
@@ -161,6 +163,10 @@ class _MarkEntryState extends State<MarkEntry> {
                                   controller: markEntryInitialValuesController1,
                                   decoration: const InputDecoration(
                                     filled: true,
+                                    contentPadding:
+                                        EdgeInsets.only(left: 0, top: 0),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     fillColor:
                                         Color.fromARGB(255, 238, 237, 237),
                                     border: OutlineInputBorder(),
@@ -290,6 +296,10 @@ class _MarkEntryState extends State<MarkEntry> {
                                   controller: markEntryDivisionListController1,
                                   decoration: const InputDecoration(
                                     filled: true,
+                                    contentPadding:
+                                        EdgeInsets.only(left: 0, top: 0),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     fillColor:
                                         Color.fromARGB(255, 238, 237, 237),
                                     border: OutlineInputBorder(),
@@ -424,6 +434,10 @@ class _MarkEntryState extends State<MarkEntry> {
                                   controller: markEntryPartListController1,
                                   decoration: const InputDecoration(
                                     filled: true,
+                                    contentPadding:
+                                        EdgeInsets.only(left: 0, top: 0),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     fillColor:
                                         Color.fromARGB(255, 238, 237, 237),
                                     border: OutlineInputBorder(),
@@ -568,6 +582,10 @@ class _MarkEntryState extends State<MarkEntry> {
                                   controller: markEntrySubjectListController1,
                                   decoration: const InputDecoration(
                                     filled: true,
+                                    contentPadding:
+                                        EdgeInsets.only(left: 0, top: 0),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     fillColor:
                                         Color.fromARGB(255, 238, 237, 237),
                                     border: OutlineInputBorder(),
@@ -675,6 +693,10 @@ class _MarkEntryState extends State<MarkEntry> {
                                   controller: markEntryExamListController,
                                   decoration: const InputDecoration(
                                     filled: true,
+                                    contentPadding:
+                                        EdgeInsets.only(left: 0, top: 0),
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
                                     fillColor:
                                         Color.fromARGB(255, 238, 237, 237),
                                     border: OutlineInputBorder(),
@@ -772,179 +794,328 @@ class _MarkEntryState extends State<MarkEntry> {
               Consumer<MarkEntryProvider>(
                 builder: (context, providerr, child) => providerr.loading
                     ? spinkitLoader()
-                    : Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Table(
-                              columnWidths: const {
-                                0: FlexColumnWidth(1),
-                                1: FlexColumnWidth(4),
-                                2: FlexColumnWidth(1.5),
-                                3: FlexColumnWidth(1.5),
-                              },
-                              children: const [
-                                TableRow(
-                                    decoration: BoxDecoration(
-                                      //  border: Border.all(),
-                                      color: Color.fromARGB(255, 228, 224, 224),
+                    : LimitedBox(
+                        child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Container(
+                          height: 100,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: UIGuide.light_Purple,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Roll No: ',
+                                      style: TextStyle(),
                                     ),
-                                    children: [
-                                      SizedBox(
-                                        height: 30,
-                                        child: Center(
-                                            child: Text(
-                                          'Roll No.',
+                                    Text(
+                                      '4665 ',
+                                      style: TextStyle(
+                                          color: UIGuide.light_Purple),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      'Adm No: ',
+                                      style: TextStyle(),
+                                    ),
+                                    Text(
+                                      '466565 ',
+                                      style: TextStyle(
+                                          color: UIGuide.light_Purple),
+                                    ),
+                                    Spacer()
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Name: ',
+                                      style: TextStyle(),
+                                    ),
+                                    Flexible(
+                                      child: RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        strutStyle: StrutStyle(fontSize: 12.0),
+                                        text: TextSpan(
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12),
-                                        )),
+                                              color: UIGuide.light_Purple),
+                                          text:
+                                              'AADAM ARUN MALIYEKAL AADAM ARUN ARUN MALIYEKAL AADAM ARUN ',
+                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 30,
-                                        child: Center(
-                                          child: Text(
-                                            'Name',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          width: 28,
+                                          height: 26,
+                                          child: SizedBox(
+                                              width: 28,
+                                              height: 26,
+                                              child: SvgPicture.asset(
+                                                UIGuide.absent,
+                                              )),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 70,
+                                          child: TextField(
+                                            cursorColor: UIGuide.light_Purple,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  6),
+                                            ],
+                                            decoration: InputDecoration(
+                                                focusColor:
+                                                    const Color.fromARGB(
+                                                        255, 213, 215, 218),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color:
+                                                          UIGuide.light_Purple,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                fillColor: Colors.grey,
+                                                hintStyle: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16,
+                                                  fontFamily: "verdana_regular",
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelText: 'Mark',
+                                                labelStyle: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 106, 107, 109))),
+                                            onChanged: (value) {},
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 30,
-                                        child: Center(
-                                            child: Text(
-                                          'Attendance',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12),
-                                        )),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                        child: Center(
-                                            child: Text(
-                                          'Mark',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12),
-                                        )),
-                                      ),
-                                    ]),
-                              ],
-                            ),
-                          ),
-                          Consumer<MarkEntryProvider>(
-                            builder: (context, valuee, child) => LimitedBox(
-                                //     <------  Box Height
-                                maxHeight: 480,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: valuee.studentMEList.length,
-                                    itemBuilder: ((context, index) {
-                                      String pre = 'P';
-                                      markfieldController.text = pre;
-                                      return Padding(
+                                      Padding(
                                         padding: const EdgeInsets.all(4.0),
-                                        child: Column(
-                                          children: [
-                                            Table(
-                                              columnWidths: const {
-                                                0: FlexColumnWidth(1),
-                                                1: FlexColumnWidth(4),
-                                                2: FlexColumnWidth(.7),
-                                                3: FlexColumnWidth(1.5),
-                                              },
-                                              children: [
-                                                TableRow(
-                                                    decoration:
-                                                        const BoxDecoration(),
-                                                    children: [
-                                                      Text(
-                                                        valuee
-                                                                    .studentMEList[
-                                                                        index]
-                                                                    .rollNo ==
-                                                                null
-                                                            ? '--'
-                                                            : valuee
-                                                                .studentMEList[
-                                                                    index]
-                                                                .rollNo
-                                                                .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                            fontSize: 12),
-                                                      ),
-                                                      Text(
-                                                        valuee
-                                                                    .studentMEList[
-                                                                        index]
-                                                                    .name ==
-                                                                null
-                                                            ? '--'
-                                                            : valuee
-                                                                .studentMEList[
-                                                                    index]
-                                                                .name
-                                                                .toString(),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                            fontSize: 14),
-                                                      ),
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              attend = !attend;
-                                                            });
-                                                          },
-                                                          child: Text(attend
-                                                              ? "P"
-                                                              : "A")),
-                                                      SizedBox(
-                                                        height: 22,
-                                                        width: 10,
-                                                        child: TextField(
-                                                          onTap: () {
-                                                            String abs = "A";
-
-                                                            // setState(() {
-                                                            //   markfieldController.text = pre;
-                                                            //   print(markfieldController.text
-                                                            //       .toString());
-                                                            // });
-                                                            //  markfieldController.text = abs;
-                                                          },
-                                                          // controller: markfieldController,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration: const InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              errorStyle: TextStyle(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                          //  style: TextStyle(height: 0),
-                                                        ),
-                                                      )
-                                                    ]),
-                                              ],
-                                            ),
-                                            kheight20,
-                                          ],
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 70,
+                                          child: TextField(
+                                            cursorColor: UIGuide.light_Purple,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  6),
+                                            ],
+                                            decoration: InputDecoration(
+                                                focusColor:
+                                                    const Color.fromARGB(
+                                                        255, 213, 215, 218),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color:
+                                                          UIGuide.light_Purple,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                fillColor: Colors.grey,
+                                                hintStyle: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16,
+                                                  fontFamily: "verdana_regular",
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelText: 'Mark',
+                                                labelStyle: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 106, 107, 109))),
+                                            onChanged: (value) {},
+                                          ),
                                         ),
-                                      );
-                                    }))),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 70,
+                                          child: TextField(
+                                            cursorColor: UIGuide.light_Purple,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  6),
+                                            ],
+                                            decoration: InputDecoration(
+                                                focusColor:
+                                                    const Color.fromARGB(
+                                                        255, 213, 215, 218),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color:
+                                                          UIGuide.light_Purple,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                fillColor: Colors.grey,
+                                                hintStyle: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16,
+                                                  fontFamily: "verdana_regular",
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelText: 'Mark',
+                                                labelStyle: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 106, 107, 109))),
+                                            onChanged: (value) {},
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 70,
+                                          child: TextField(
+                                            cursorColor: UIGuide.light_Purple,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  6),
+                                            ],
+                                            decoration: InputDecoration(
+                                                focusColor:
+                                                    const Color.fromARGB(
+                                                        255, 213, 215, 218),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color:
+                                                          UIGuide.light_Purple,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                fillColor: Colors.grey,
+                                                hintStyle: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16,
+                                                  fontFamily: "verdana_regular",
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelText: 'Mark',
+                                                labelStyle: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 106, 107, 109))),
+                                            onChanged: (value) {},
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: SizedBox(
+                                          height: 30,
+                                          width: 70,
+                                          child: TextField(
+                                            cursorColor: UIGuide.light_Purple,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              LengthLimitingTextInputFormatter(
+                                                  6),
+                                            ],
+                                            decoration: InputDecoration(
+                                                focusColor:
+                                                    const Color.fromARGB(
+                                                        255, 213, 215, 218),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      color:
+                                                          UIGuide.light_Purple,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                fillColor: Colors.grey,
+                                                hintStyle: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16,
+                                                  fontFamily: "verdana_regular",
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                labelText: 'Mark',
+                                                labelStyle: const TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 106, 107, 109))),
+                                            onChanged: (value) {},
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      )),
               ),
             ],
           );

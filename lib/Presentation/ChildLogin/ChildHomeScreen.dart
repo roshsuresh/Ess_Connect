@@ -925,6 +925,10 @@ class _ChildHomeState extends State<ChildHome> {
                                                       .getInstance();
                                               print("accesstoken  $prefs");
                                               prefs.remove("accesstoken");
+                                              print("username  $prefs");
+                                              await prefs.remove("username");
+                                              print("password  $prefs");
+                                              await prefs.remove("password");
 
                                               Navigator.of(context)
                                                   .pushAndRemoveUntil(
@@ -1061,7 +1065,7 @@ class ProfileHome extends StatelessWidget {
                           const EdgeInsets.only(left: 20.0, right: 20, top: 5),
                       child: Container(
                         height: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 0.5,

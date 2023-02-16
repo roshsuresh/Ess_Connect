@@ -554,6 +554,25 @@ class _AttendanceReportState extends State<AttendanceReport> {
                                     listen: false)
                                 .getAttReportView(
                                     section, course, division, timeNow);
+                            if (val.attendanceList.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  duration: Duration(seconds: 1),
+                                  margin: EdgeInsets.only(
+                                      bottom: 80, left: 30, right: 30),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'No data found..!',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            }
                           }),
                           child: const Text(
                             'View',

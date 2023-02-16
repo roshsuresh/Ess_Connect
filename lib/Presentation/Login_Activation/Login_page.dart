@@ -351,9 +351,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       LoginModel res = LoginModel.fromJson(data);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('accesstoken', res.accessToken);
+      SharedPreferences user = await SharedPreferences.getInstance();
+      user.setString('username', username);
+      SharedPreferences pass = await SharedPreferences.getInstance();
+      pass.setString('password', password);
 
       Provider.of<LoginProvider>(context, listen: false).getToken(context);
       var parsedResponse = await parseJWT();
+
       if (parsedResponse['role'] == "Guardian") {
         if (isLoading) return;
         setState(() {
@@ -434,10 +439,23 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (BuildContext context) => ChildHome()));
       } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => StudentHome()));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            duration: Duration(seconds: 3),
+            margin: EdgeInsets.only(bottom: 45, left: 30, right: 30),
+            behavior: SnackBarBehavior.floating,
+            content: Text(
+              "Login credentials mismatch \n Please contact your School Admin... ",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+            )));
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) => StudentHome()));
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

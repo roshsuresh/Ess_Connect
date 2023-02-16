@@ -6,8 +6,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class StaffNotificationCountProviders with ChangeNotifier {
+  bool _loading = false;
+  bool get loading => _loading;
+  setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
   Future seeNotification() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -24,8 +32,11 @@ class StaffNotificationCountProviders with ChangeNotifier {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      setLoading(true);
       print(' _ _ _ _ _ _  Notification Count  _ _ _ _ _ _');
+      setLoading(false);
     } else {
+      setLoading(false);
       print('Error in notificationInitial respo');
     }
   }
@@ -33,7 +44,7 @@ class StaffNotificationCountProviders with ChangeNotifier {
   int? count;
   Future getnotificationCount() async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-
+    setLoading(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -46,16 +57,19 @@ class StaffNotificationCountProviders with ChangeNotifier {
         headers: headers);
     try {
       if (response.statusCode == 200) {
+        setLoading(true);
         final data = json.decode(response.body);
         NotifiCountModel not = NotifiCountModel.fromJson(data);
         count = not.totalCount;
         print("Notification Count = $count");
-
+        setLoading(false);
         notifyListeners();
       } else {
+        setLoading(false);
         print("Error in Response");
       }
     } catch (e) {
+      setLoading(false);
       print(e);
     }
   }

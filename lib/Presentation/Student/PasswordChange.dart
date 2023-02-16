@@ -6,14 +6,9 @@ import '../../Application/StudentProviders/PasswordChangeProvider.dart';
 import '../../Constants.dart';
 import '../../utils/constants.dart';
 
-class PasswordChange extends StatefulWidget {
+class PasswordChange extends StatelessWidget {
   PasswordChange({Key? key}) : super(key: key);
 
-  @override
-  State<PasswordChange> createState() => _PasswordChangeState();
-}
-
-class _PasswordChangeState extends State<PasswordChange> {
   final bool _isObscure = false;
 
   final _passwordNew = TextEditingController();

@@ -1,6 +1,8 @@
 import 'package:essconnect/Application/Module%20Providers.dart/MobileAppCheckin.dart';
 import 'package:essconnect/Domain/Admin/MobileAppCkeckinModel.dart';
+import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -187,275 +189,299 @@ class _ActivatePageState extends State<ActivatePage>
     super.dispose();
   }
 
+  bool _isObscure = false;
+
+  final _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     var width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Scaffold(
+          resizeToAvoidBottomInset: false,
           body: isLoading
               ? Container(
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            loginBackground,
-                          ),
-                          fit: BoxFit.fill)),
-                  child: Center(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 32, vertical: 8),
-                            child: Theme(
-                                data: Theme.of(context).copyWith(
-                                  hintColor: Colors.black,
-                                  inputDecorationTheme:
-                                      const InputDecorationTheme(
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.grey))),
-                                ),
-                                child: secretKey(secretKeyController)),
-                          ),
-                          Consumer<LoginProvider>(
-                            builder: (context, loginn, child) => RectGetter(
-                              key: rectGetterKey,
-                              child: Consumer<MobileAppCheckinProvider>(
-                                builder: (context, checkk, child) => InkWell(
-                                  onTap: () async {
-                                    sizeAnimationController.forward();
-                                    FocusScope.of(context)
-                                        .requestFocus(FocusNode());
-                                    if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState!.save();
-                                      setState(() {
-                                        isLoading = false;
-                                      });
-                                      int statusCode =
-                                          await Provider.of<LoginProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .getActivation(
-                                                  secretKeyController.text);
-                                      if (statusCode == 200) {
-                                        print(statusCode);
-                                        String schlId = loginn.schoolid == null
-                                            ? '--'
-                                            : loginn.schoolid.toString();
-                                        await checkk.getMobile(schlId);
-                                        if (checkk.existapp == true) {
-                                          print(
-                                              "------------------------------IsMobileAppChecked---------------------------");
-                                          setState(() {
-                                            isLoading = false;
-                                            showBottomDialogSchool();
-                                          });
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              elevation: 10,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10)),
-                                              ),
-                                              duration: Duration(seconds: 1),
-                                              margin: EdgeInsets.only(
-                                                  bottom: 80,
-                                                  left: 30,
-                                                  right: 30),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              content: Text(
-                                                'Something went wrong...',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPageWeb()));
-                                      } else {
+              : Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/activation_page.jpg"),
+                              fit: BoxFit.fill)),
+                    ),
+                    Positioned(
+                      // bottom: 200,
+                      left: 10,
+                      right: 10,
+                      bottom: size.height / 4.5,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30.0, right: 30),
+                              child: TextFormField(
+                                obscureText: !_isObscure,
+                                cursorColor: UIGuide.light_Purple,
+                                controller: secretKeyController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return activationError;
+                                  }
+                                },
+                                style: const TextStyle(color: Colors.black),
+                                decoration: InputDecoration(
+                                    labelStyle: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400),
+                                    label: Text(
+                                      "School Code",
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600),
+                                    ),
+                                    prefixIcon: const Icon(
+                                      Icons.key_outlined,
+                                      color: UIGuide.light_Purple,
+                                    ),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        _isObscure
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: UIGuide.light_Purple,
+                                      ),
+                                      onPressed: () {
                                         setState(() {
-                                          isLoading = false;
+                                          _isObscure = !_isObscure;
                                         });
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            backgroundColor: Colors.white,
-                                            elevation: 10,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10)),
-                                            ),
-                                            duration: Duration(seconds: 1),
-                                            margin: EdgeInsets.only(
-                                                bottom: 180,
-                                                left: 30,
-                                                right: 30),
-                                            behavior: SnackBarBehavior.floating,
-                                            content: Text(
-                                              'Invalid School Code',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15),
-                                            ),
-                                          ),
-                                        );
-                                        // final snackBar = SnackBar(
-                                        //   content: Container(
-                                        //     //color: Colors.white,
-                                        //     decoration: BoxDecoration(
-                                        //         border: Border.all(
-                                        //             width: 2.0,
-                                        //             color: Colors.white),
-                                        //         borderRadius:
-                                        //             BorderRadius.circular(20)),
-                                        //     //margin: EdgeInsets.fromLTRB(100, 0, 0, 300),
-                                        //     child: Center(
-                                        //       child: Padding(
-                                        //         padding: const EdgeInsets.only(
-                                        //             top: 15.0),
-                                        //         child: Text(
-                                        //           'Invalid School Code',
-                                        //           style: TextStyle(
-                                        //               color:
-                                        //                   Colors.red.shade600,
-                                        //               fontWeight:
-                                        //                   FontWeight.bold,
-                                        //               fontSize: 15),
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        //   backgroundColor: Colors.white,
-                                        //   elevation: 1000,
-                                        //   behavior: SnackBarBehavior.floating,
-                                        // );
-                                        // ScaffoldMessenger.of(context)
-                                        //     .showSnackBar(snackBar);
-
-                                        // final snackBar = SnackBar(content: Container(
-                                        //   //color: Colors.white,
-                                        //   decoration: BoxDecoration( border: Border.all(width: 2.0, color: Colors.transparent), borderRadius: BorderRadius.circular(20)),
-                                        //   margin: EdgeInsets.fromLTRB(30, 0, 0, 25),
-                                        //   child: Padding(
-                                        //     padding: const EdgeInsets.only(top:15.0),
-                                        //     child: Text('Invalid School Code',style: TextStyle(
-                                        //         color: Colors.red.shade600,
-                                        //         fontSize: 16
-                                        //     ),),
-                                        //   ),
-                                        // ),);
-                                        //  ScaffoldMessenger.of(context)
-                                        //      .showSnackBar(snackBar);
-                                      }
-                                    } else {
-                                      return;
-                                    }
-                                  },
-                                  child: AnimatedBuilder(
-                                    animation: sizeAnimation,
-                                    builder:
-                                        (BuildContext context, Widget? child) {
-                                      print(
-                                          '${(width * 0.4) + sizeAnimation.value} size animation');
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: (width * 0.4 - 20) +
-                                              sizeAnimation.value,
-                                          height: 40 + sizeAnimation.value,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              image: const DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/act_button.png'),
-                                                  fit: BoxFit.fill)),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
+                                      },
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: const BorderSide(
+                                            color: UIGuide.WHITE)),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: const BorderSide(
+                                            color: UIGuide.WHITE)),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: const BorderSide(
+                                            color: UIGuide.WHITE))),
+                                obscuringCharacter: "*",
                               ),
                             ),
-                          ),
-                        ],
+                            kheight20,
+                            Consumer<LoginProvider>(
+                              builder: (context, loginn, child) => loginn
+                                      .loading
+                                  ? spinkitLoader()
+                                  : RectGetter(
+                                      key: rectGetterKey,
+                                      child: Consumer<MobileAppCheckinProvider>(
+                                        builder: (context, checkk, child) =>
+                                            InkWell(
+                                          splashColor: UIGuide.light_black,
+                                          onTap: () async {
+                                            sizeAnimationController.forward();
+                                            FocusScope.of(context)
+                                                .requestFocus(FocusNode());
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              _formKey.currentState!.save();
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+                                              int statusCode = await Provider
+                                                      .of<LoginProvider>(
+                                                          context,
+                                                          listen: false)
+                                                  .getActivation(
+                                                      secretKeyController.text);
+                                              if (statusCode == 200) {
+                                                print(statusCode);
+                                                String schlId =
+                                                    loginn.schoolid == null
+                                                        ? '--'
+                                                        : loginn.schoolid
+                                                            .toString();
+                                                await checkk.getMobile(schlId);
+                                                if (checkk.existapp == true) {
+                                                  print(
+                                                      "------------------------------IsMobileAppChecked---------------------------");
+                                                  setState(() {
+                                                    isLoading = false;
+                                                    showBottomDialogSchool();
+                                                  });
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      elevation: 10,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                      ),
+                                                      duration:
+                                                          Duration(seconds: 1),
+                                                      margin: EdgeInsets.only(
+                                                          bottom: 80,
+                                                          left: 30,
+                                                          right: 30),
+                                                      behavior: SnackBarBehavior
+                                                          .floating,
+                                                      content: Text(
+                                                        'You have no Privilege \nPlease contact your School...',
+                                                        style: TextStyle(
+                                                            fontSize: 16),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPageWeb()));
+                                              } else {
+                                                return scaff();
+                                                // setState(() {
+                                                //   isLoading = false;
+                                                // });
+                                                // ScaffoldMessenger.of(context)
+                                                //     .showSnackBar(
+                                                //   const SnackBar(
+                                                //     backgroundColor:
+                                                //         Colors.white,
+                                                //     elevation: 10,
+                                                //     shape:
+                                                //         RoundedRectangleBorder(
+                                                //       borderRadius:
+                                                //           BorderRadius.all(
+                                                //               Radius.circular(
+                                                //                   10)),
+                                                //     ),
+                                                //     duration:
+                                                //         Duration(seconds: 1),
+                                                //     margin: EdgeInsets.only(
+                                                //         bottom: 180,
+                                                //         left: 30,
+                                                //         right: 30),
+                                                //     behavior: SnackBarBehavior
+                                                //         .floating,
+                                                //     content: Text(
+                                                //       'Invalid School Code',
+                                                //       textAlign:
+                                                //           TextAlign.center,
+                                                //       style: TextStyle(
+                                                //           color: Colors.red,
+                                                //           fontWeight:
+                                                //               FontWeight.bold,
+                                                //           fontSize: 15),
+                                                //     ),
+                                                //   ),
+                                                // );
+                                              }
+                                            } else {
+                                              return;
+                                            }
+                                          },
+                                          child: AnimatedBuilder(
+                                            animation: sizeAnimation,
+                                            builder: (BuildContext context,
+                                                Widget? child) {
+                                              print(
+                                                  '${(width * 0.4) + sizeAnimation.value} size animation');
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(18.0),
+                                                child: Container(
+                                                  width: 60,
+                                                  height: 60,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          // borderRadius:
+                                                          //     BorderRadius.circular(10),
+                                                          image: DecorationImage(
+                                                              image: AssetImage(
+                                                                  'assets/submitButton.png'),
+                                                              fit:
+                                                                  BoxFit.fill)),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        height: 40,
+                        width: size.width,
+                        decoration: const BoxDecoration(color: Colors.white24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              'Powered by  ',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Color.fromARGB(255, 92, 92, 92)),
+                            ),
+                            Text(
+                              '𝗚𝗝 𝗜𝗡𝗙𝗢𝗧𝗘𝗖𝗛 (𝗣) 𝗟𝗧𝗗.',
+                              style: TextStyle(
+                                  fontSize: 19,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ),
         ),
         rect == null ? Container() : ripple(context, animationDuration, rect)
       ],
     );
   }
-}
 
-showAlertDialog(BuildContext context) {
-  // set up the button
-  Widget okButton = TextButton(
-    child: const Text("OK"),
-    onPressed: () {},
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: const Text("My title"),
-    content: const Text("This is my message."),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-}
-
-TextFormField secretKey(TextEditingController controller) {
-  return TextFormField(
-    cursorColor: UIGuide.light_Purple,
-    controller: controller,
-    validator: (value) {
-      if (value!.isEmpty) {
-        return activationError;
-      }
-    },
-    style: const TextStyle(color: Colors.black),
-    decoration: InputDecoration(
-        labelStyle: const TextStyle(
-            color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
-        label: Text(
-          "School Code",
-          style: TextStyle(color: Colors.grey.shade600),
+  scaff() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Colors.white,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        prefixIcon: const Icon(
-          Icons.lock_open_outlined,
-          color: UIGuide.light_Purple,
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 180, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Invalid School Code',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.red, fontWeight: FontWeight.bold, fontSize: 15),
         ),
-        filled: true,
-        fillColor: Colors.white,
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(color: Colors.black)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(color: Colors.black)),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: const BorderSide(color: Colors.black))),
-    obscuringCharacter: "*",
-    obscureText: true,
-  );
+      ),
+    );
+  }
 }

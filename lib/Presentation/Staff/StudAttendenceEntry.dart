@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:essconnect/Application/Staff_Providers/Attendencestaff.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
@@ -914,73 +913,88 @@ class _AttendenceEntryState extends State<AttendenceEntry> {
               const Spacer(),
               Consumer<AttendenceStaffProvider>(
                   builder: (context, value, child) {
-                return MaterialButton(
-                  onPressed: () async {
-                    List obj = [];
-                    obj.clear();
-                    print("length:  ${value.studentsAttendenceView.length}");
-                    for (int i = 0;
-                        i < value.studentsAttendenceView.length;
-                        i++) {
-                      obj.add({
-                        "studAttId": value.studentsAttendenceView[i].studAttId,
-                        "divisionId":
-                            value.studentsAttendenceView[i].divisionId,
-                        "id": value.studentsAttendenceView[i].id,
-                        "forenoon": value.studentsAttendenceView[i].forenoon,
-                        "afternoon": value.studentsAttendenceView[i].afternoon,
-                        "admNo": value.studentsAttendenceView[i].admNo,
-                        "rollNo": value.studentsAttendenceView[i].rollNo,
-                        "name": value.studentsAttendenceView[i].name,
-                        "terminatedStatus":
-                            value.studentsAttendenceView[i].terminatedStatus,
-                      });
-                    }
-                    log("Litsssss   $obj");
+                return value.loadingg
+                    ? MaterialButton(
+                        onPressed: () async {},
+                        color: UIGuide.WHITE,
+                        child: const Text(
+                          'Saving....',
+                          style: TextStyle(color: UIGuide.light_Purple),
+                        ),
+                      )
+                    : MaterialButton(
+                        onPressed: () async {
+                          List obj = [];
+                          obj.clear();
+                          print(
+                              "length:  ${value.studentsAttendenceView.length}");
+                          for (int i = 0;
+                              i < value.studentsAttendenceView.length;
+                              i++) {
+                            obj.add({
+                              "studAttId":
+                                  value.studentsAttendenceView[i].studAttId,
+                              "divisionId":
+                                  value.studentsAttendenceView[i].divisionId,
+                              "id": value.studentsAttendenceView[i].id,
+                              "forenoon":
+                                  value.studentsAttendenceView[i].forenoon,
+                              "afternoon":
+                                  value.studentsAttendenceView[i].afternoon,
+                              "admNo": value.studentsAttendenceView[i].admNo,
+                              "rollNo": value.studentsAttendenceView[i].rollNo,
+                              "name": value.studentsAttendenceView[i].name,
+                              "terminatedStatus": value
+                                  .studentsAttendenceView[i].terminatedStatus,
+                            });
+                          }
+                          log("Litsssss   $obj");
 
-                    if (markEntryDivisionListController.text.isEmpty &&
-                        markEntryInitialValuesController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          if (markEntryDivisionListController.text.isEmpty &&
+                              markEntryInitialValuesController.text.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              duration: Duration(seconds: 1),
+                              margin: EdgeInsets.only(
+                                  bottom: 80, left: 30, right: 30),
+                              behavior: SnackBarBehavior.floating,
+                              content: Text(
+                                "Select mandatory fileds...!",
+                                textAlign: TextAlign.center,
+                              ),
+                            ));
+                          } else if (obj.isEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              duration: Duration(seconds: 1),
+                              margin: EdgeInsets.only(
+                                  bottom: 80, left: 30, right: 30),
+                              behavior: SnackBarBehavior.floating,
+                              content: Text(
+                                "No data to save...",
+                                textAlign: TextAlign.center,
+                              ),
+                            ));
+                          } else {
+                            await value.attendanceSave(context, obj, dateFinal);
+                          }
+                        },
+                        color: UIGuide.light_Purple,
+                        child: const Text(
+                          'Save',
+                          style: TextStyle(color: Colors.white),
                         ),
-                        duration: Duration(seconds: 1),
-                        margin:
-                            EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                        behavior: SnackBarBehavior.floating,
-                        content: Text(
-                          "Select mandatory fileds...!",
-                          textAlign: TextAlign.center,
-                        ),
-                      ));
-                    } else if (obj.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        duration: Duration(seconds: 1),
-                        margin:
-                            EdgeInsets.only(bottom: 80, left: 30, right: 30),
-                        behavior: SnackBarBehavior.floating,
-                        content: Text(
-                          "No data to save...",
-                          textAlign: TextAlign.center,
-                        ),
-                      ));
-                    } else {
-                      value.loadingg
-                          ? spinkitLoader()
-                          : await value.attendanceSave(context, obj, dateFinal);
-                    }
-                  },
-                  color: UIGuide.light_Purple,
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                );
+                      );
               }),
               kWidth,
               Consumer<AttendenceStaffProvider>(

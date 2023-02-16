@@ -1,9 +1,7 @@
-import 'package:essconnect/Application/AdminProviders/NoticeBoardList.dart';
 import 'package:essconnect/Application/AdminProviders/NoticeBoardadmin.dart';
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +23,7 @@ class _AddCategoryState extends State<AddCategory> {
       var p = Provider.of<NoticeBoardAdminProvider>(context, listen: false);
       await p.clearListcategoryListt();
       await p.categoryList();
-      sortController.text = p.categoryListt.length.toString();
+      sortController.text = "${p.categoryListt.length + 1}".toString();
     });
   }
 
@@ -81,7 +79,7 @@ class _AddCategoryState extends State<AddCategory> {
                 child: TextFormField(
                   controller: sortController,
                   minLines: 1,
-                  inputFormatters: [LengthLimitingTextInputFormatter(15)],
+                  inputFormatters: [LengthLimitingTextInputFormatter(3)],
                   maxLines: 1,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(

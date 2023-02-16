@@ -270,8 +270,8 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                   itemBuilder: (context, index) {
                                     print(snapshot.courselist.length);
                                     return ListTile(
-                                      selected: snapshot.isCourseSelected(
-                                          snapshot.courselist[index]),
+                                      // selected: snapshot.isCourseSelected(
+                                      //     snapshot.courselist[index]),
                                       onTap: () async {
                                         await Provider.of<
                                                     StudReportListProvider_stf>(
@@ -1404,8 +1404,8 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                     print(snapshot.courselist.length);
                                     // value.removeDivisionAll();
                                     return ListTile(
-                                      selected: snapshot.isCourseSelected(
-                                          snapshot.courselist[index]),
+                                      // selected: snapshot.isCourseSelected(
+                                      //     snapshot.courselist[index]),
                                       onTap: () async {
                                         print(snapshot.courselist.length);
                                         StudReportcourseController.text =
@@ -2212,8 +2212,8 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                                   itemBuilder: (context, index) {
                                     print(snapshot.courselist.length);
                                     return ListTile(
-                                      selected: snapshot.isCourseSelected(
-                                          snapshot.courselist[index]),
+                                      // selected: snapshot.isCourseSelected(
+                                      //     snapshot.courselist[index]),
                                       onTap: () async {
                                         await Provider.of<
                                                     StudReportListProvider_stf>(

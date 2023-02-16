@@ -1625,7 +1625,11 @@ class AdminHomeContent extends StatelessWidget {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
                             print("accesstoken  $prefs");
-                            prefs.remove("accesstoken");
+                            await prefs.remove("accesstoken");
+                            print("username  $prefs");
+                            await prefs.remove("username");
+                            print("password  $prefs");
+                            await prefs.remove("password");
 
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(

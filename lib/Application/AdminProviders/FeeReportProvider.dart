@@ -19,6 +19,7 @@ class FeeReportProvider with ChangeNotifier {
   Future getFeeReportView(
       String section, String course, String start, String end) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -28,6 +29,7 @@ class FeeReportProvider with ChangeNotifier {
             "${UIGuide.baseURL}/fee-collection/fees-collection-report?feeCategory=ALL&section=$section&courses=$course&displayStartDate=$start&displayEndDate=$end"),
         headers: headers);
     if (response.statusCode == 200) {
+      setLoading(true);
       print('correct');
       Map<String, dynamic> data = json.decode(response.body);
       Map<String, dynamic> fee = data['feeCollectionReportDetails'];
@@ -36,9 +38,10 @@ class FeeReportProvider with ChangeNotifier {
       List<AllFeeCollect> templist = List<AllFeeCollect>.from(
           fee['allFeeCollect'].map((x) => AllFeeCollect.fromJson(x)));
       collectionList.addAll(templist);
-
+      setLoading(false);
       notifyListeners();
     } else {
+      setLoading(false);
       print('Error in fee collection report');
     }
     return response.statusCode;

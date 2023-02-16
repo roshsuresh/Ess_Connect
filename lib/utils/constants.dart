@@ -52,7 +52,7 @@ class UIGuide {
   static const Color FACEBOOK_COLOR = Color(0xfff3b5998);
 }
 
-Future<Map<String, dynamic>>  parseJWT() async {
+Future<Map<String, dynamic>> parseJWT() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   String? token = pref.getString("accesstoken");
   print(token);

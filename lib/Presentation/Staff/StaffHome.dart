@@ -5,6 +5,7 @@ import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart
 import 'package:essconnect/Application/StudentProviders/InternetConnection.dart';
 import 'package:essconnect/Presentation/Admin/WebViewLogin.dart';
 import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTScreen.dart';
+import 'package:essconnect/Presentation/Staff/MarkEntry.dart';
 import 'package:essconnect/Presentation/Staff/ScreenNotification.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
@@ -197,91 +198,141 @@ class _StaffHomeState extends State<StaffHome> {
                                 ),
                               ),
                               Consumer<StaffNotificationCountProviders>(
-                                builder: (context, count, child) =>
-                                    badges.Badge(
-                                  showBadge: count.count == 0 ? false : true,
-                                  badgeAnimation:
-                                      const badges.BadgeAnimation.rotation(
-                                    animationDuration: Duration(seconds: 1),
-                                    colorChangeAnimationDuration:
-                                        Duration(seconds: 1),
-                                    loopAnimation: false,
-                                    curve: Curves.fastOutSlowIn,
-                                    colorChangeAnimationCurve:
-                                        Curves.easeInCubic,
-                                  ),
-                                  position: badges.BadgePosition.topEnd(end: 9),
-                                  badgeContent: Text(
-                                    count.count == null
-                                        ? '0'
-                                        : count.count.toString(),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      await Provider.of<
-                                                  StaffNotificationCountProviders>(
-                                              context,
-                                              listen: false)
-                                          .seeNotification();
-                                      await Provider.of<
-                                                  StaffNotificationCountProviders>(
-                                              context,
-                                              listen: false)
-                                          .getnotificationCount();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                StaffNotificationScreen()),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Card(
-                                            elevation: 10,
-                                            color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                height: 38,
-                                                width: 38,
-                                                decoration: const BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                      'assets/notificationnew.png',
+                                builder: (context, count, child) => count
+                                        .loading
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Card(
+                                              elevation: 10,
+                                              color: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  height: 38,
+                                                  width: 38,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                        'assets/notificationnew.png',
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            kheight10,
+                                            const Text(
+                                              'Notifications',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Colors.black),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    : badges.Badge(
+                                        showBadge:
+                                            count.count == 0 ? false : true,
+                                        badgeAnimation: const badges
+                                            .BadgeAnimation.rotation(
+                                          animationDuration:
+                                              Duration(seconds: 1),
+                                          colorChangeAnimationDuration:
+                                              Duration(seconds: 1),
+                                          loopAnimation: false,
+                                          curve: Curves.fastOutSlowIn,
+                                          colorChangeAnimationCurve:
+                                              Curves.easeInCubic,
+                                        ),
+                                        position:
+                                            badges.BadgePosition.topEnd(end: 9),
+                                        badgeContent: Text(
+                                          count.count == null
+                                              ? '0'
+                                              : count.count.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            await Provider.of<
+                                                        StaffNotificationCountProviders>(
+                                                    context,
+                                                    listen: false)
+                                                .seeNotification();
+                                            await Provider.of<
+                                                        StaffNotificationCountProviders>(
+                                                    context,
+                                                    listen: false)
+                                                .getnotificationCount();
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      StaffNotificationScreen()),
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Card(
+                                                  elevation: 10,
+                                                  color: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      height: 38,
+                                                      width: 38,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: AssetImage(
+                                                            'assets/notificationnew.png',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                kheight10,
+                                                const Text(
+                                                  'Notifications',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 11,
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            ),
                                           ),
-                                          kheight10,
-                                          const Text(
-                                            'Notifications',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 11,
-                                                color: Colors.black),
-                                          )
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
                               ),
                               Consumer<ModuleProviders>(
                                 builder: (context, module, child) => module
@@ -579,7 +630,7 @@ class _StaffHomeState extends State<StaffHome> {
                                                               schdomain:
                                                                   schdomain,
                                                             )
-                                                        //MessagePage()
+                                                        //  MarkEntry()
                                                         ),
                                                   );
                                                 },
@@ -1322,7 +1373,11 @@ class _StaffHomeState extends State<StaffHome> {
                                             await SharedPreferences
                                                 .getInstance();
                                         print("accesstoken  $prefs");
-                                        prefs.remove("accesstoken");
+                                        await prefs.remove("accesstoken");
+                                        print("username  $prefs");
+                                        await prefs.remove("username");
+                                        print("password  $prefs");
+                                        await prefs.remove("password");
 
                                         Navigator.of(context)
                                             .pushAndRemoveUntil(

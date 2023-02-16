@@ -10,6 +10,7 @@ import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
 import 'package:essconnect/Application/StudentProviders/DiaryProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
+import 'package:essconnect/Application/StudentProviders/TokenCheckProviders.dart';
 import 'package:essconnect/Application/SuperAdminProviders/NoticeBoardProvidersSA.dart';
 import 'package:essconnect/Presentation/ChildLogin/ChildHomeScreen.dart';
 import 'package:essconnect/Presentation/SchoolHead/SchoolHeadHome.dart';
@@ -264,9 +265,12 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(
             create: (context) => NoticeBoardProvidersSAdmin()),
         ChangeNotifierProvider(create: (context) => MobileAppCheckinProvider()),
+        ChangeNotifierProvider(
+            create: (context) => TokenExpiryCheckProviders()),
       ],
       child: MaterialApp(
         title: 'e-SS Connect',
+        themeMode: ThemeMode.light,
         theme: ThemeData(
           primaryColor: UIGuide.light_Purple,
           inputDecorationTheme: InputDecorationTheme(
@@ -309,6 +313,11 @@ class _SplashFuturePageState extends State<SplashFuturePage>
             context,
             MaterialPageRoute(builder: (context) => AdminHome()),
           );
+        } else if (data['role'] == "Guardian") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => StudentHome()),
+          );
         } else if (data['role'] == "Teacher") {
           Navigator.pushReplacement(
             context,
@@ -332,7 +341,7 @@ class _SplashFuturePageState extends State<SplashFuturePage>
         } else {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => StudentHome()),
+            MaterialPageRoute(builder: (context) => LoginPage()),
           );
         }
       } else {
@@ -354,7 +363,7 @@ class _SplashFuturePageState extends State<SplashFuturePage>
     super.initState();
 
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
 
     animation1 = Tween<double>(begin: 40, end: 20).animate(CurvedAnimation(
         parent: _controller, curve: Curves.fastLinearToSlowEaseIn))
@@ -379,7 +388,9 @@ class _SplashFuturePageState extends State<SplashFuturePage>
       });
     });
 
-    Timer(const Duration(seconds: 4), () async {
+    Timer(const Duration(seconds: 3), () async {
+      await Provider.of<TokenExpiryCheckProviders>(context, listen: false)
+          .checkTokenExpired();
       await _checkSession();
     });
   }
@@ -434,7 +445,7 @@ class _SplashFuturePageState extends State<SplashFuturePage>
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Image.asset('assets/backlogo.png')),
+                  child: Image.asset('assets/ESS-logo.png')),
             ),
           ),
         ],

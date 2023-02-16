@@ -3,7 +3,6 @@ import 'package:essconnect/Application/AdminProviders/SchoolPhotoProviders.dart'
 import 'package:essconnect/Constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
@@ -386,6 +385,25 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                                     listen: false)
                                 .getAttendanceTaken(
                                     context, timeNow, section, course, type);
+                            if (loadd.takenList.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  duration: Duration(seconds: 1),
+                                  margin: EdgeInsets.only(
+                                      bottom: 80, left: 30, right: 30),
+                                  behavior: SnackBarBehavior.floating,
+                                  content: Text(
+                                    'No data found..!',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            }
                           }),
                           child: const Text(
                             'View',
@@ -411,117 +429,126 @@ class _AttendanceTakenReportState extends State<AttendanceTakenReport> {
                   )
                 : LimitedBox(
                     maxHeight: size.height / 1.8,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount:
-                          value.takenList.isEmpty ? 0 : value.takenList.length,
-                      itemBuilder: (context, index) {
-                        final opted =
-                            value.takenList[index].optedStaffs.toString();
-                        final optedstaff = opted.substring(1, opted.length - 1);
-                        return Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Container(
-                            height: 82,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 176, 179, 179),
-                                ),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 1.0),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'SL. :',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: UIGuide.light_Purple),
-                                        ),
-                                        Text((index + 1).toString())
-                                      ],
-                                    ),
+                    child: Scrollbar(
+                      child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: value.takenList.isEmpty
+                            ? 0
+                            : value.takenList.length,
+                        itemBuilder: (context, index) {
+                          final opted =
+                              value.takenList[index].optedStaffs.toString();
+                          final optedstaff =
+                              opted.substring(1, opted.length - 1);
+                          return Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Container(
+                              height: 82,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: const Color.fromARGB(
+                                        255, 176, 179, 179),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 1.0),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'Division :',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: UIGuide.light_Purple),
-                                        ),
-                                        Text(
-                                          value.takenList[index].division ==
-                                                  null
-                                              ? '--'
-                                              : "  ${value.takenList[index].division}",
-                                        )
-                                      ],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 1.0),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'SL. :',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: UIGuide.light_Purple),
+                                          ),
+                                          Text((index + 1).toString())
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 1.0),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'Class Teacher :',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: UIGuide.light_Purple),
-                                        ),
-                                        Text(
-                                          value.takenList[index].classTeacher ==
-                                                  null
-                                              ? '---'
-                                              : value
-                                                  .takenList[index].classTeacher
-                                                  .toString(),
-                                        )
-                                      ],
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 1.0),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Division :',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: UIGuide.light_Purple),
+                                          ),
+                                          Text(
+                                            value.takenList[index].division ==
+                                                    null
+                                                ? '--'
+                                                : "  ${value.takenList[index].division}",
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 1.0),
-                                    child: Row(
-                                      children: [
-                                        const Text(
-                                          'Alotted Staff :',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: UIGuide.light_Purple),
-                                        ),
-                                        Flexible(
-                                          child: RichText(
-                                            overflow: TextOverflow.ellipsis,
-                                            strutStyle: const StrutStyle(
-                                                fontSize: 12.0),
-                                            text: TextSpan(
-                                              style: const TextStyle(
-                                                  color: Colors.black),
-                                              text: optedstaff == null
-                                                  ? "--"
-                                                  : optedstaff,
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 1.0),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Class Teacher :',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: UIGuide.light_Purple),
+                                          ),
+                                          Text(
+                                            value.takenList[index]
+                                                        .classTeacher ==
+                                                    null
+                                                ? '---'
+                                                : value.takenList[index]
+                                                    .classTeacher
+                                                    .toString(),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 1.0),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Alotted Staff :',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: UIGuide.light_Purple),
+                                          ),
+                                          Flexible(
+                                            child: RichText(
+                                              overflow: TextOverflow.ellipsis,
+                                              strutStyle: const StrutStyle(
+                                                  fontSize: 12.0),
+                                              text: TextSpan(
+                                                style: const TextStyle(
+                                                    color: Colors.black),
+                                                text: optedstaff == null
+                                                    ? "--"
+                                                    : optedstaff,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
           ),

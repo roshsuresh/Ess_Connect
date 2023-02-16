@@ -30,7 +30,7 @@ class GalleryProvider with ChangeNotifier {
     var response = await http.get(
         Uri.parse("${UIGuide.baseURL}/mobileapp/parents/gallery"),
         headers: headers);
-
+    print("${UIGuide.baseURL}/mobileapp/parents/gallery");
     try {
       if (response.statusCode == 200) {
         setLoading(true);
@@ -40,6 +40,7 @@ class GalleryProvider with ChangeNotifier {
         setLoading(false);
         notifyListeners();
       } else {
+        print(response.statusCode);
         setLoading(false);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

@@ -509,7 +509,7 @@ class _ExamTTUploadStaffState extends State<ExamTTUploadStaff> {
                   if (descriptioncontroller.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(
-                        'Enter Title..',
+                        'Enter Description...',
                         textAlign: TextAlign.center,
                       ),
                       duration: Duration(seconds: 1),

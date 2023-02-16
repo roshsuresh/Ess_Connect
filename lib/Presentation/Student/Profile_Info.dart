@@ -38,7 +38,7 @@ class Profile_Info extends StatelessWidget {
           return provider.loading
               ? spinkitLoader()
               : ListView(
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [
                     Stack(
                       children: [
@@ -496,7 +496,10 @@ class Profile_Info extends StatelessWidget {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        provider.area == 'NIL'
+                                                        provider.area ==
+                                                                    'NIL' ||
+                                                                provider.area ==
+                                                                    null
                                                             ? '--'
                                                             : provider.area
                                                                 .toString(),
@@ -668,15 +671,6 @@ class Profile_Info extends StatelessWidget {
                                         ],
                                       ),
                                       kheight10,
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.phone_android_outlined,
-                                            size: 12,
-                                          ),
-                                          Text('  +91 ----')
-                                        ],
-                                      ),
                                     ],
                                   )
                                 ],
@@ -780,15 +774,6 @@ class Profile_Info extends StatelessWidget {
                                         ],
                                       ),
                                       kheight10,
-                                      Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.phone_android_outlined,
-                                            size: 12,
-                                          ),
-                                          Text('  +91 ----')
-                                        ],
-                                      ),
                                     ],
                                   )
                                 ],
@@ -819,7 +804,7 @@ class Profile_Info extends StatelessWidget {
                         viewportFraction: 0.8,
                       ),
                     ),
-                    //  kheight10,
+                    kheight10,
                   ],
                 );
         },

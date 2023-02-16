@@ -106,6 +106,13 @@ class Attendence extends StatelessWidget {
                           ),
                           kheight10,
                           Table(
+                            columnWidths: const {
+                              0: FlexColumnWidth(3),
+                              1: FlexColumnWidth(2),
+                              2: FlexColumnWidth(2),
+                              3: FlexColumnWidth(2),
+                              4: FlexColumnWidth(2),
+                            },
                             border: TableBorder.all(
                                 color: const Color.fromARGB(255, 215, 216, 216),
                                 width: .2),
@@ -185,6 +192,13 @@ class Attendence extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemBuilder: ((context, index) {
                                   return Table(
+                                    columnWidths: const {
+                                      0: FlexColumnWidth(3),
+                                      1: FlexColumnWidth(2),
+                                      2: FlexColumnWidth(2),
+                                      3: FlexColumnWidth(2),
+                                      4: FlexColumnWidth(2),
+                                    },
                                     border: TableBorder.all(
                                         color: const Color.fromARGB(
                                             255, 245, 243, 243)),

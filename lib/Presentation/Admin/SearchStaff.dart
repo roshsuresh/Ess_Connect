@@ -5,6 +5,7 @@ import 'package:essconnect/Presentation/Admin/StaffInfo.dart';
 import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -110,12 +111,9 @@ class _SearchStaffState extends State<SearchStaff> {
                   if (clearValue.text.isEmpty) {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.emoji_emotions_sharp,
-                          size: 100,
-                          color: UIGuide.light_black,
-                        ),
+                      children: [
+                        LottieBuilder.network(
+                            'https://assets5.lottiefiles.com/packages/lf20_l5qvxwtf.json'),
                         Text(
                           "Please enter the name to search",
                           style: TextStyle(
@@ -126,18 +124,13 @@ class _SearchStaffState extends State<SearchStaff> {
                     );
                   }
                   if (value.staffReportList.isEmpty) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.sentiment_dissatisfied_outlined,
-                          size: 120,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                            "Sorry, We couldn't find the text you have entered")
-                      ],
-                    );
+                    Future.delayed(Duration(seconds: 2));
+                    return value.loading
+                        ? spinkitLoader()
+                        : Center(
+                            child: LottieBuilder.network(
+                                'https://assets2.lottiefiles.com/private_files/lf30_lkquf6qz.json'),
+                          );
                   }
                   return value.loading
                       ? Center(child: spinkitLoader())
