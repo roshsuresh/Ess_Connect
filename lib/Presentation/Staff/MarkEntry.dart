@@ -1785,302 +1785,471 @@ class _MarkEntryState extends State<MarkEntry> {
                 ///-------------------------------------------------
                 else if (providerr.typecode == "PBT" &&
                     providerr.maxmarkList[0].entryMethod == "Mark") {
-                  return LimitedBox(
-                      maxHeight: size.height / 1.85,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: value.studentMEList.length,
-                            itemBuilder: ((context, index) {
-                              String pre = 'P';
-                              markfieldController.text = pre;
-                              teMarkController.add(new TextEditingController());
-                              ceMarkController.add(new TextEditingController());
-                              practicalMarkController
-                                  .add(new TextEditingController());
+///////////////----------------------------------------------------------------------///////////////
+///////////////-----------------------     TE MARK  --  PE MARK --  CE MARK  --------///////////////
+///////////////----------------------------------------------------------------------///////////////
 
-                              teMarkController[index].text =
-                                  value.studentMEList[index].teMark == null
-                                      ? teMarkController[index].text
-                                      : value.studentMEList[index].teMark
-                                          .toString();
+                  if (providerr.maxmarkList[0].teMax != null &&
+                      providerr.maxmarkList[0].peMax != null &&
+                      providerr.maxmarkList[0].ceMax != null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+                                teMarkController
+                                    .add(new TextEditingController());
+                                ceMarkController
+                                    .add(new TextEditingController());
+                                practicalMarkController
+                                    .add(new TextEditingController());
 
-                              practicalMarkController[index].text =
-                                  value.studentMEList[index].peMark == null
-                                      ? practicalMarkController[index].text
-                                      : value.studentMEList[index].peMark
-                                          .toString();
+                                teMarkController[index].text =
+                                    value.studentMEList[index].teMark == null
+                                        ? teMarkController[index].text
+                                        : value.studentMEList[index].teMark
+                                            .toString();
 
-                              return Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  // height: 100,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: UIGuide.light_Purple,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Roll No: ',
-                                              style: TextStyle(),
-                                            ),
-                                            value.studentMEList[index].rollNo ==
-                                                    null
-                                                ? Text(
-                                                    '0',
-                                                    style: TextStyle(
-                                                        color: UIGuide
-                                                            .light_Purple),
-                                                  )
-                                                : Text(
-                                                    value.studentMEList[index]
-                                                        .rollNo
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        color: UIGuide
-                                                            .light_Purple),
-                                                  ),
-                                            Spacer()
-                                          ],
+                                practicalMarkController[index].text =
+                                    value.studentMEList[index].peMark == null
+                                        ? practicalMarkController[index].text
+                                        : value.studentMEList[index].peMark
+                                            .toString();
+
+                                ceMarkController[index].text =
+                                    value.studentMEList[index].ceMark == null
+                                        ? ceMarkController[index].text
+                                        : value.studentMEList[index].ceMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              'Name: ',
-                                              style: TextStyle(),
-                                            ),
-                                            Flexible(
-                                              child: RichText(
-                                                overflow: TextOverflow.ellipsis,
-                                                strutStyle:
-                                                    StrutStyle(fontSize: 12.0),
-                                                text: TextSpan(
-                                                  style: TextStyle(
-                                                      color:
-                                                          UIGuide.light_Purple),
-                                                  text: value
-                                                      .studentMEList[index]
-                                                      .name,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10.0),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    if (value
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
                                                             .studentMEList[
                                                                 index]
-                                                            .attendance ==
-                                                        'A') {
-                                                      value.studentMEList[index]
-                                                          .attendance = 'P';
-                                                    } else {
-                                                      value.studentMEList[index]
-                                                          .attendance = 'A';
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        teMarkController[index]
+                                                            .clear();
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                        ceMarkController
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        teMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Theory',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
                                                       teMarkController[index]
-                                                          .clear();
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .teMark
+                                                              .toString();
+                                                      teMarkController[index]
+                                                          .text = value1;
+                                                      teMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  teMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              teMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .teMax!) {
+                                                        teMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].teMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        practicalMarkController[
+                                                            index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Practical',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .peMark
+                                                              .toString();
                                                       practicalMarkController[
                                                               index]
-                                                          .clear();
-                                                    }
-                                                    attendancee = value
-                                                        .studentMEList[index]
-                                                        .attendance;
-
-                                                    print(
-                                                        "attendace   $attendancee");
-                                                  });
-                                                },
-                                                child: Container(
-                                                  color: Colors.transparent,
-                                                  width: 28,
-                                                  height: 26,
-                                                  child: SizedBox(
-                                                      width: 28,
-                                                      height: 26,
-                                                      child: value
-                                                                  .studentMEList[
-                                                                      index]
-                                                                  .attendance ==
-                                                              'A'
-                                                          ? SvgPicture.asset(
-                                                              UIGuide.absent)
-                                                          : SvgPicture.asset(
-                                                              UIGuide.present)),
-                                                ),
-                                              ),
-                                            ),
-                                            kWidth,
-                                            kWidth,
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: SizedBox(
-                                                height: 30,
-                                                width: 80,
-                                                child: TextField(
-                                                  controller:
-                                                      teMarkController[index],
-                                                  focusNode: FocusNode(),
-                                                  enabled:
-                                                      value.studentMEList[index]
-                                                                  .attendance ==
-                                                              'A'
-                                                          ? false
-                                                          : true,
-                                                  cursorColor:
-                                                      UIGuide.light_Purple,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  inputFormatters: [
-                                                    FilteringTextInputFormatter
-                                                        .allow(
-                                                            RegExp(r"[0-9.]")),
-                                                    TextInputFormatter
-                                                        .withFunction((oldValue,
-                                                            newValue) {
-                                                      try {
-                                                        final text =
-                                                            newValue.text;
-                                                        if (text.isNotEmpty)
-                                                          double.parse(text);
-                                                        return newValue;
-                                                      } catch (e) {}
-                                                      return oldValue;
-                                                    }),
-                                                    LengthLimitingTextInputFormatter(
-                                                        5),
-                                                  ],
-                                                  decoration: InputDecoration(
-                                                      focusColor:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              213,
-                                                              215,
-                                                              218),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                      ),
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide:
-                                                            const BorderSide(
-                                                                color: UIGuide
-                                                                    .light_Purple,
-                                                                width: 1.0),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                      ),
-                                                      fillColor: Colors.grey,
-                                                      hintStyle:
-                                                          const TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 16,
-                                                        fontFamily:
-                                                            "verdana_regular",
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                      ),
-                                                      labelText: 'Theory',
-                                                      labelStyle:
-                                                          const TextStyle(
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      106,
-                                                                      107,
-                                                                      109))),
-                                                  onChanged: (value1) {
-                                                    teMarkController[index]
-                                                            .text =
-                                                        value
-                                                            .studentMEList[
-                                                                index]
-                                                            .teMark
-                                                            .toString();
-                                                    teMarkController[index]
-                                                        .text = value1;
-                                                    teMarkController[index]
-                                                            .selection =
-                                                        TextSelection.collapsed(
-                                                            offset:
-                                                                teMarkController[
-                                                                        index]
-                                                                    .text
-                                                                    .length);
-
-                                                    if (double.parse(
-                                                            teMarkController[
-                                                                    index]
-                                                                .text) >
-                                                        value.maxmarkList[0]
-                                                            .teMax!) {
-                                                      teMarkController[index]
-                                                          .clear();
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 2.0),
-                                              child: SizedBox(
-                                                  height: 30,
-                                                  width: 50,
-                                                  child: Center(
-                                                      child: Text(
-                                                    "(${value.maxmarkList[0].teMax})",
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                    ),
-                                                  ))),
-                                            ),
-                                            kWidth,
-                                            kWidth,
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: SizedBox(
-                                                height: 30,
-                                                width: 80,
-                                                child: TextField(
-                                                  controller:
+                                                          .text = value1;
                                                       practicalMarkController[
-                                                          index],
+                                                                  index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  practicalMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              practicalMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .peMax!) {
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].peMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 58,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: SizedBox(
+                                                height: 30,
+                                                width: 80,
+                                                child: TextField(
+                                                  controller:
+                                                      ceMarkController[index],
                                                   focusNode: FocusNode(),
                                                   enabled:
                                                       value.studentMEList[index]
@@ -2145,7 +2314,7 @@ class _MarkEntryState extends State<MarkEntry> {
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
-                                                      labelText: 'Practical',
+                                                      labelText: 'CE Mark',
                                                       labelStyle:
                                                           const TextStyle(
                                                               fontSize: 13,
@@ -2156,35 +2325,31 @@ class _MarkEntryState extends State<MarkEntry> {
                                                                       107,
                                                                       109))),
                                                   onChanged: (value1) {
-                                                    practicalMarkController[
-                                                                index]
+                                                    ceMarkController[index]
                                                             .text =
                                                         value
                                                             .studentMEList[
                                                                 index]
-                                                            .peMark
+                                                            .ceMark
                                                             .toString();
-                                                    practicalMarkController[
-                                                            index]
+                                                    ceMarkController[index]
                                                         .text = value1;
-                                                    practicalMarkController[
-                                                                index]
+                                                    ceMarkController[index]
                                                             .selection =
                                                         TextSelection.collapsed(
                                                             offset:
-                                                                practicalMarkController[
+                                                                ceMarkController[
                                                                         index]
                                                                     .text
                                                                     .length);
 
                                                     if (double.parse(
-                                                            practicalMarkController[
+                                                            ceMarkController[
                                                                     index]
                                                                 .text) >
                                                         value.maxmarkList[0]
                                                             .peMax!) {
-                                                      practicalMarkController[
-                                                              index]
+                                                      ceMarkController[index]
                                                           .clear();
                                                     }
                                                   },
@@ -2199,139 +2364,2291 @@ class _MarkEntryState extends State<MarkEntry> {
                                                   width: 50,
                                                   child: Center(
                                                       child: Text(
-                                                    "(${value.maxmarkList[0].peMax})",
+                                                    "(${value.maxmarkList[0].ceMax})",
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                     ),
                                                   ))),
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                      // Row(
-                                      //   children: [
-                                      //     const SizedBox(
-                                      //       width: 58,
-                                      //     ),
-                                      //     Padding(
-                                      //       padding: const EdgeInsets.all(4.0),
-                                      //       child: SizedBox(
-                                      //         height: 30,
-                                      //         width: 80,
-                                      //         child: TextField(
-                                      //           controller: _controllers[index],
-                                      //           focusNode: FocusNode(),
-                                      //           enabled:
-                                      //               value.studentMEList[index]
-                                      //                           .attendance ==
-                                      //                       'A'
-                                      //                   ? false
-                                      //                   : true,
-                                      //           cursorColor:
-                                      //               UIGuide.light_Purple,
-                                      //           keyboardType:
-                                      //               TextInputType.number,
-                                      //           inputFormatters: [
-                                      //             FilteringTextInputFormatter
-                                      //                 .allow(RegExp(r"[0-9.]")),
-                                      //             TextInputFormatter
-                                      //                 .withFunction(
-                                      //                     (oldValue, newValue) {
-                                      //               try {
-                                      //                 final text =
-                                      //                     newValue.text;
-                                      //                 if (text.isNotEmpty)
-                                      //                   double.parse(text);
-                                      //                 return newValue;
-                                      //               } catch (e) {}
-                                      //               return oldValue;
-                                      //             }),
-                                      //             LengthLimitingTextInputFormatter(
-                                      //                 5),
-                                      //           ],
-                                      //           decoration: InputDecoration(
-                                      //               focusColor:
-                                      //                   const Color.fromARGB(
-                                      //                       255, 213, 215, 218),
-                                      //               border: OutlineInputBorder(
-                                      //                 borderRadius:
-                                      //                     BorderRadius.circular(
-                                      //                         10.0),
-                                      //               ),
-                                      //               focusedBorder:
-                                      //                   OutlineInputBorder(
-                                      //                 borderSide:
-                                      //                     const BorderSide(
-                                      //                         color: UIGuide
-                                      //                             .light_Purple,
-                                      //                         width: 1.0),
-                                      //                 borderRadius:
-                                      //                     BorderRadius.circular(
-                                      //                         10.0),
-                                      //               ),
-                                      //               fillColor: Colors.grey,
-                                      //               hintStyle: const TextStyle(
-                                      //                 color: Colors.grey,
-                                      //                 fontSize: 16,
-                                      //                 fontFamily:
-                                      //                     "verdana_regular",
-                                      //                 fontWeight:
-                                      //                     FontWeight.w400,
-                                      //               ),
-                                      //               labelText: 'Mark',
-                                      //               labelStyle: const TextStyle(
-                                      //                   color: Color.fromARGB(
-                                      //                       255,
-                                      //                       106,
-                                      //                       107,
-                                      //                       109))),
-                                      //           onChanged: (value1) {
-                                      //             _controllers[index].text =
-                                      //                 value.studentMEList[index]
-                                      //                     .teMark
-                                      //                     .toString();
-                                      //             _controllers[index].text =
-                                      //                 value1;
-                                      //             _controllers[index]
-                                      //                     .selection =
-                                      //                 TextSelection.collapsed(
-                                      //                     offset: _controllers[
-                                      //                             index]
-                                      //                         .text
-                                      //                         .length);
-
-                                      //             if (double.parse(
-                                      //                     _controllers[index]
-                                      //                         .text) >
-                                      //                 maxScrore!) {
-                                      //               _controllers[index].clear();
-                                      //             }
-                                      //           },
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //     Padding(
-                                      //       padding: const EdgeInsets.only(
-                                      //           left: 2.0),
-                                      //       child: SizedBox(
-                                      //           height: 30,
-                                      //           width: 50,
-                                      //           child: Center(
-                                      //               child: Text(
-                                      //             "($maxScrore)",
-                                      //             style: TextStyle(
-                                      //               fontSize: 15,
-                                      //             ),
-                                      //           ))),
-                                      //     ),
-                                      //   ],
-                                      // )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            })),
-                      ));
+                                );
+                              })),
+                        ));
+                  }
+
+///////////////----------------------------------------------------------------------///////////////
+//////////////--------------------------     TE MARK  --  PE MARK -------------------///////////////
+///////////////----------------------------------------------------------------------///////////////
+
+                  else if (providerr.maxmarkList[0].teMax != null &&
+                      providerr.maxmarkList[0].peMax != null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+                                teMarkController
+                                    .add(new TextEditingController());
+                                ceMarkController
+                                    .add(new TextEditingController());
+                                practicalMarkController
+                                    .add(new TextEditingController());
+
+                                teMarkController[index].text =
+                                    value.studentMEList[index].teMark == null
+                                        ? teMarkController[index].text
+                                        : value.studentMEList[index].teMark
+                                            .toString();
+
+                                practicalMarkController[index].text =
+                                    value.studentMEList[index].peMark == null
+                                        ? practicalMarkController[index].text
+                                        : value.studentMEList[index].peMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        teMarkController[index]
+                                                            .clear();
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        teMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Theory',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      teMarkController[index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .teMark
+                                                              .toString();
+                                                      teMarkController[index]
+                                                          .text = value1;
+                                                      teMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  teMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              teMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .teMax!) {
+                                                        teMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].teMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        practicalMarkController[
+                                                            index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Practical',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .peMark
+                                                              .toString();
+                                                      practicalMarkController[
+                                                              index]
+                                                          .text = value1;
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  practicalMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              practicalMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .peMax!) {
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].peMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ));
+                  }
+
+///////////////----------------------------------------------------------------------///////////////
+//////////////--------------------------     TE MARK  --  CE MARK -------------------///////////////
+///////////////----------------------------------------------------------------------///////////////
+
+                  else if (providerr.maxmarkList[0].teMax != null &&
+                      providerr.maxmarkList[0].ceMax != null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+                                teMarkController
+                                    .add(new TextEditingController());
+                                ceMarkController
+                                    .add(new TextEditingController());
+                                practicalMarkController
+                                    .add(new TextEditingController());
+
+                                teMarkController[index].text =
+                                    value.studentMEList[index].teMark == null
+                                        ? teMarkController[index].text
+                                        : value.studentMEList[index].teMark
+                                            .toString();
+
+                                ceMarkController[index].text =
+                                    value.studentMEList[index].ceMark == null
+                                        ? ceMarkController[index].text
+                                        : value.studentMEList[index].ceMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        teMarkController[index]
+                                                            .clear();
+                                                        ceMarkController[index]
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        teMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Theory',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      teMarkController[index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .teMark
+                                                              .toString();
+                                                      teMarkController[index]
+                                                          .text = value1;
+                                                      teMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  teMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              teMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .teMax!) {
+                                                        teMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].teMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        ceMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'CE Mark',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      ceMarkController[index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .ceMark
+                                                              .toString();
+                                                      ceMarkController[index]
+                                                          .text = value1;
+                                                      ceMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  ceMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              ceMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .ceMax!) {
+                                                        ceMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].ceMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ));
+                  }
+
+///////////////----------------------------------------------------------------------///////////////
+//////////////--------------------------     PE MARK  --  CE MARK -------------------///////////////
+///////////////----------------------------------------------------------------------///////////////
+
+                  else if (providerr.maxmarkList[0].ceMax != null &&
+                      providerr.maxmarkList[0].peMax != null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+
+                                ceMarkController
+                                    .add(new TextEditingController());
+                                practicalMarkController
+                                    .add(new TextEditingController());
+
+                                practicalMarkController[index].text =
+                                    value.studentMEList[index].peMark == null
+                                        ? practicalMarkController[index].text
+                                        : value.studentMEList[index].peMark
+                                            .toString();
+
+                                ceMarkController[index].text =
+                                    value.studentMEList[index].ceMark == null
+                                        ? ceMarkController[index].text
+                                        : value.studentMEList[index].ceMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        ceMarkController[index]
+                                                            .clear();
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        practicalMarkController[
+                                                            index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Practical',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .peMark
+                                                              .toString();
+                                                      practicalMarkController[
+                                                              index]
+                                                          .text = value1;
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  practicalMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              practicalMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .peMax!) {
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].peMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        ceMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'CE Mark',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      ceMarkController[index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .ceMark
+                                                              .toString();
+                                                      ceMarkController[index]
+                                                          .text = value1;
+                                                      ceMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  ceMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              ceMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .ceMax!) {
+                                                        ceMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].ceMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ));
+                  }
+///////////////----------------------------------------------------------------------///////////////
+///////////////-----------------------     TE MARK -------------------------  --------///////////////
+///////////////----------------------------------------------------------------------///////////////
+
+                  else if (providerr.maxmarkList[0].teMax != null &&
+                      providerr.maxmarkList[0].peMax == null &&
+                      providerr.maxmarkList[0].ceMax == null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+                                teMarkController
+                                    .add(new TextEditingController());
+
+                                teMarkController[index].text =
+                                    value.studentMEList[index].teMark == null
+                                        ? teMarkController[index].text
+                                        : value.studentMEList[index].teMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        teMarkController[index]
+                                                            .clear();
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                        ceMarkController
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        teMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Theory',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      teMarkController[index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .teMark
+                                                              .toString();
+                                                      teMarkController[index]
+                                                          .text = value1;
+                                                      teMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  teMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              teMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .teMax!) {
+                                                        teMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].teMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ));
+                  }
+///////////////----------------------------------------------------------------------///////////////
+///////////////-----------------------     PE MARK  ---------------------------------///////////////
+///////////////----------------------------------------------------------------------///////////////
+
+                  else if (providerr.maxmarkList[0].teMax == null &&
+                      providerr.maxmarkList[0].peMax != null &&
+                      providerr.maxmarkList[0].ceMax == null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+
+                                practicalMarkController
+                                    .add(new TextEditingController());
+
+                                practicalMarkController[index].text =
+                                    value.studentMEList[index].peMark == null
+                                        ? practicalMarkController[index].text
+                                        : value.studentMEList[index].peMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        teMarkController[index]
+                                                            .clear();
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                        ceMarkController
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        practicalMarkController[
+                                                            index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'Practical',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .peMark
+                                                              .toString();
+                                                      practicalMarkController[
+                                                              index]
+                                                          .text = value1;
+                                                      practicalMarkController[
+                                                                  index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  practicalMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              practicalMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .peMax!) {
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].peMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ));
+                  }
+///////////////----------------------------------------------------------------------///////////////
+///////////////-----------------------     CE MARK  ---------------------------------///////////////
+///////////////----------------------------------------------------------------------///////////////
+
+                  else if (providerr.maxmarkList[0].teMax == null &&
+                      providerr.maxmarkList[0].peMax == null &&
+                      providerr.maxmarkList[0].ceMax != null) {
+                    return LimitedBox(
+                        maxHeight: size.height / 1.85,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: value.studentMEList.length,
+                              itemBuilder: ((context, index) {
+                                String pre = 'P';
+                                markfieldController.text = pre;
+
+                                ceMarkController
+                                    .add(new TextEditingController());
+
+                                ceMarkController[index].text =
+                                    value.studentMEList[index].ceMark == null
+                                        ? ceMarkController[index].text
+                                        : value.studentMEList[index].ceMark
+                                            .toString();
+
+                                return Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    // height: 100,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: UIGuide.light_Purple,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Roll No: ',
+                                                style: TextStyle(),
+                                              ),
+                                              value.studentMEList[index]
+                                                          .rollNo ==
+                                                      null
+                                                  ? Text(
+                                                      '0',
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    )
+                                                  : Text(
+                                                      value.studentMEList[index]
+                                                          .rollNo
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: UIGuide
+                                                              .light_Purple),
+                                                    ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Name: ',
+                                                style: TextStyle(),
+                                              ),
+                                              Flexible(
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  strutStyle: StrutStyle(
+                                                      fontSize: 12.0),
+                                                  text: TextSpan(
+                                                    style: TextStyle(
+                                                        color: UIGuide
+                                                            .light_Purple),
+                                                    text: value
+                                                        .studentMEList[index]
+                                                        .name,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      if (value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .attendance ==
+                                                          'A') {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'P';
+                                                      } else {
+                                                        value
+                                                            .studentMEList[
+                                                                index]
+                                                            .attendance = 'A';
+                                                        teMarkController[index]
+                                                            .clear();
+                                                        practicalMarkController[
+                                                                index]
+                                                            .clear();
+                                                        ceMarkController
+                                                            .clear();
+                                                      }
+                                                      attendancee = value
+                                                          .studentMEList[index]
+                                                          .attendance;
+
+                                                      print(
+                                                          "attendace   $attendancee");
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.transparent,
+                                                    width: 28,
+                                                    height: 26,
+                                                    child: SizedBox(
+                                                        width: 28,
+                                                        height: 26,
+                                                        child: value
+                                                                    .studentMEList[
+                                                                        index]
+                                                                    .attendance ==
+                                                                'A'
+                                                            ? SvgPicture.asset(
+                                                                UIGuide.absent)
+                                                            : SvgPicture.asset(
+                                                                UIGuide
+                                                                    .present)),
+                                                  ),
+                                                ),
+                                              ),
+                                              kWidth,
+                                              kWidth,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: SizedBox(
+                                                  height: 30,
+                                                  width: 80,
+                                                  child: TextField(
+                                                    controller:
+                                                        ceMarkController[index],
+                                                    focusNode: FocusNode(),
+                                                    enabled: value
+                                                                .studentMEList[
+                                                                    index]
+                                                                .attendance ==
+                                                            'A'
+                                                        ? false
+                                                        : true,
+                                                    cursorColor:
+                                                        UIGuide.light_Purple,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(RegExp(
+                                                              r"[0-9.]")),
+                                                      TextInputFormatter
+                                                          .withFunction(
+                                                              (oldValue,
+                                                                  newValue) {
+                                                        try {
+                                                          final text =
+                                                              newValue.text;
+                                                          if (text.isNotEmpty)
+                                                            double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                      LengthLimitingTextInputFormatter(
+                                                          5),
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                        focusColor: const Color
+                                                                .fromARGB(255,
+                                                            213, 215, 218),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                                  color: UIGuide
+                                                                      .light_Purple,
+                                                                  width: 1.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
+                                                        fillColor: Colors.grey,
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 16,
+                                                          fontFamily:
+                                                              "verdana_regular",
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                        labelText: 'CE Mark',
+                                                        labelStyle:
+                                                            const TextStyle(
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        106,
+                                                                        107,
+                                                                        109))),
+                                                    onChanged: (value1) {
+                                                      ceMarkController[index]
+                                                              .text =
+                                                          value
+                                                              .studentMEList[
+                                                                  index]
+                                                              .ceMark
+                                                              .toString();
+                                                      ceMarkController[index]
+                                                          .text = value1;
+                                                      ceMarkController[index]
+                                                              .selection =
+                                                          TextSelection.collapsed(
+                                                              offset:
+                                                                  ceMarkController[
+                                                                          index]
+                                                                      .text
+                                                                      .length);
+
+                                                      if (double.parse(
+                                                              ceMarkController[
+                                                                      index]
+                                                                  .text) >
+                                                          value.maxmarkList[0]
+                                                              .ceMax!) {
+                                                        ceMarkController[index]
+                                                            .clear();
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 2.0),
+                                                child: SizedBox(
+                                                    height: 30,
+                                                    width: 50,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "(${value.maxmarkList[0].ceMax})",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                      ),
+                                                    ))),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ));
+                  } else {
+                    return Container(
+                      height: 0,
+                      width: 0,
+                    );
+                  }
                 } else {
                   return Container(
                     height: 0,
@@ -2438,7 +4755,9 @@ class _MarkEntryState extends State<MarkEntry> {
                           "peMark": practicalMarkController[i].text.isEmpty
                               ? null
                               : practicalMarkController[i].text.toString(),
-                          "ceMark": null,
+                          "ceMark": ceMarkController[i].text.isEmpty
+                              ? null
+                              : ceMarkController[i].text.toString(),
                           "teGrade": null,
                           "peGrade": null,
                           "ceGrade": null,
