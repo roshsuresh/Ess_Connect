@@ -6,6 +6,7 @@ import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Student_statistics_admin extends StatelessWidget {
@@ -45,8 +46,15 @@ class Student_statistics_admin extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Student_statistics_admin()));
+                        PageTransition(
+                            type: PageTransitionType.leftToRight,
+                            child: this,
+                            duration: const Duration(milliseconds: 400),
+                            childCurrent: this));
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => Student_statistics_admin()));
                   },
                   icon: const Icon(Icons.refresh_outlined)),
               kWidth

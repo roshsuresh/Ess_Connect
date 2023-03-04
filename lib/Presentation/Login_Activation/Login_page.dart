@@ -281,7 +281,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please enter some text';
+                                      return 'Please enter your password';
                                     }
                                     return null;
                                   },
@@ -350,13 +350,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       var data = jsonDecode(await response.stream.bytesToString());
       LoginModel res = LoginModel.fromJson(data);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('accesstoken', res.accessToken);
+      await prefs.setString('accesstoken', res.accessToken);
       SharedPreferences user = await SharedPreferences.getInstance();
-      user.setString('username', username);
+      await user.setString('username', username);
       SharedPreferences pass = await SharedPreferences.getInstance();
-      pass.setString('password', password);
+      await pass.setString('password', password);
 
-      Provider.of<LoginProvider>(context, listen: false).getToken(context);
+      await Provider.of<LoginProvider>(context, listen: false)
+          .getToken(context);
       var parsedResponse = await parseJWT();
 
       if (parsedResponse['role'] == "Guardian") {

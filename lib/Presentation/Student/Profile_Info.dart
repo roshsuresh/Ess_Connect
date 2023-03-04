@@ -55,6 +55,16 @@ class Profile_Info extends StatelessWidget {
                           ),
                         ),
                         Positioned(
+                          top: 0,
+                          left: 5,
+                          child: IconButton(
+                              color: Colors.white,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(Icons.arrow_back_ios_new_rounded)),
+                        ),
+                        Positioned(
                           top: 70,
                           left: 30,
                           right: 30,

@@ -3,7 +3,6 @@ import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart
 import 'package:essconnect/Application/StudentProviders/InternetConnection.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Constants.dart';
-import 'package:essconnect/Presentation/Admin/demo.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/Diary.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
@@ -75,6 +74,7 @@ class _StudentHomeState extends State<StudentHome> {
             ? const NoInternetConnection()
             : UpgradeAlert(
                 upgrader: Upgrader(
+                    shouldPopScope: () => true,
                     dialogStyle: UpgradeDialogStyle.cupertino,
                     durationUntilAlertAgain: const Duration(days: 1)),
                 child: ListView(
@@ -230,10 +230,7 @@ class _StudentHomeState extends State<StudentHome> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ChatListScreen()
-                                        // const Diary()
-
-                                        ),
+                                        builder: (context) => const Diary()),
                                   );
                                 },
                                 child: Padding(

@@ -7,6 +7,7 @@ import 'package:essconnect/Presentation/Admin/WebViewLogin.dart';
 import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTScreen.dart';
 import 'package:essconnect/Presentation/Staff/MarkEntry.dart';
 import 'package:essconnect/Presentation/Staff/ScreenNotification.dart';
+import 'package:essconnect/Presentation/Staff/TextSMS.dart/ViewSMSFormats.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/spinkit.dart';
@@ -626,12 +627,13 @@ class _StaffHomeState extends State<StaffHome> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            LoginScreenWeb(
-                                                              schdomain:
-                                                                  schdomain,
-                                                            )
-                                                        //  MarkEntry()
-                                                        ),
+                                                            // LoginScreenWeb(
+                                                            //   schdomain:
+                                                            //       schdomain,
+                                                            // )
+
+                                                            // MyHomePageDemooo()
+                                                            MarkEntry()),
                                                   );
                                                 },
                                                 child: Padding(

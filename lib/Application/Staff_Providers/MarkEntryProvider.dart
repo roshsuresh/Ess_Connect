@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,61 +9,11 @@ import '../../Domain/Staff/MarkentryViewStaff.dart';
 import '../../utils/constants.dart';
 
 class MarkEntryProvider with ChangeNotifier {
-  List<MarkEntryInitialValues> selectedCourse = [];
-
-  String filtersDivision = "";
-  String filterCourse = "";
-
-  addFilterCourse(String course) {
-    filterCourse = course;
-    notifyListeners();
-  }
-
-  addFilters(String f) {
-    filtersDivision = f;
-  }
-
-  clearAllFilters() {
-    filtersDivision = "";
-    filterCourse = "";
-
-    notifyListeners();
-  }
-
-//course List
-  addSelectedCourse(MarkEntryInitialValues item) {
-    if (selectedCourse.contains(item)) {
-      print("removing");
-      selectedCourse.remove(item);
-      notifyListeners();
-    } else {
-      print("adding");
-      selectedCourse.add(item);
-      notifyListeners();
-    }
-    clearAllFilters();
-    addFilterCourse(selectedCourse.first.courseName!);
-  }
-
-  removeCourse(MarkEntryInitialValues item) {
-    selectedCourse.remove(item);
-    notifyListeners();
-  }
-
-  removeCourseAll() {
-    selectedCourse.clear();
-  }
-
-  isCourseSelected(MarkEntryInitialValues item) {
-    if (selectedCourse.contains(item)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  String? typecode;
+  String? examStatus;
   courseClear() {
     markEntryInitialValues.clear();
+    notifyListeners();
   }
 
   List<MarkEntryInitialValues> markEntryInitialValues = [];
@@ -98,40 +49,10 @@ class MarkEntryProvider with ChangeNotifier {
   }
 
 // Division
-  List<MarkEntryDivisionList> selectedDivision = [];
-
-  addSelectedDivision(MarkEntryDivisionList item) {
-    if (selectedDivision.contains(item)) {
-      print("removing");
-      selectedDivision.remove(item);
-      notifyListeners();
-    } else {
-      print("adding");
-      selectedDivision.add(item);
-      notifyListeners();
-    }
-  }
-
-  removeDivision(MarkEntryDivisionList item) {
-    selectedDivision.remove(item);
-    notifyListeners();
-  }
-
-  removeDivisionAll() {
-    selectedDivision.clear();
-    notifyListeners();
-  }
-
-  isDivisonSelected(MarkEntryDivisionList item) {
-    if (selectedDivision.contains(item)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   divisionClear() {
     markEntryDivisionList.clear();
+    notifyListeners();
   }
 
   List<MarkEntryDivisionList> markEntryDivisionList = [];
@@ -168,40 +89,9 @@ class MarkEntryProvider with ChangeNotifier {
 
   //part
 
-  List<MarkEntryPartList> selectedPart = [];
-
-  addSelectedPart(MarkEntryPartList item) {
-    if (selectedPart.contains(item)) {
-      print("removing");
-      selectedPart.remove(item);
-      notifyListeners();
-    } else {
-      print("adding");
-      selectedPart.add(item);
-      notifyListeners();
-    }
-  }
-
-  removePart(MarkEntryPartList item) {
-    selectedPart.remove(item);
-    notifyListeners();
-  }
-
-  removePartAll() {
-    selectedPart.clear();
-    notifyListeners();
-  }
-
-  isPartSelected(MarkEntryPartList item) {
-    if (selectedPart.contains(item)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   removeAllpartClear() {
     markEntryPartList.clear();
+    notifyListeners();
   }
 
   List<MarkEntryPartList> markEntryPartList = [];
@@ -239,40 +129,9 @@ class MarkEntryProvider with ChangeNotifier {
 
   //subjectList
 
-  List<MarkEntrySubjectList> selectedSubject = [];
-
-  addSelectedSubject(MarkEntrySubjectList item) {
-    if (selectedSubject.contains(item)) {
-      print("removing");
-      selectedSubject.remove(item);
-      notifyListeners();
-    } else {
-      print("adding");
-      selectedSubject.add(item);
-      notifyListeners();
-    }
-  }
-
-  removeSubject(MarkEntrySubjectList item) {
-    selectedSubject.remove(item);
-    notifyListeners();
-  }
-
-  removeSubjectAll() {
-    selectedSubject.clear();
-    notifyListeners();
-  }
-
-  isSubjectSelected(MarkEntrySubjectList item) {
-    if (selectedSubject.contains(item)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   removeAllSubjectClear() {
     markEntrySubjectList.clear();
+    notifyListeners();
   }
 
   List<MarkEntrySubjectList> markEntrySubjectList = [];
@@ -308,42 +167,54 @@ class MarkEntryProvider with ChangeNotifier {
     return true;
   }
 
+//Optional subject List
+
+  removeAllOptionSubjectListClear() {
+    markEntryOptionSubjectList.clear();
+    notifyListeners();
+  }
+
+  List<MarkEntryOptionSubjectModel> markEntryOptionSubjectList = [];
+  Future<bool> getMarkEntryOptionSubject(
+      String subjectId, String divisionId) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    print('object');
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var request = http.Request(
+        'GET',
+        Uri.parse(
+            '${UIGuide.baseURL}/markentry/subjectdetails/$subjectId/$divisionId'));
+    print('${UIGuide.baseURL}/markentry/subjectdetails/$subjectId/$divisionId');
+    request.headers.addAll(headers);
+    print('object');
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print('correct');
+      List data = jsonDecode(await response.stream.bytesToString());
+
+      log(data.toString());
+
+      List<MarkEntryOptionSubjectModel> templist =
+          List<MarkEntryOptionSubjectModel>.from(
+              data.map((x) => MarkEntryOptionSubjectModel.fromJson(x)));
+      markEntryOptionSubjectList.addAll(templist);
+
+      notifyListeners();
+    } else {
+      print('Error in markEntryOptionSubjectList stf');
+    }
+    return true;
+  }
   //examList
-
-  List<MarkEntryExamList> selectedExam = [];
-
-  addSelectedExam(MarkEntryExamList item) {
-    if (selectedExam.contains(item)) {
-      print("removing");
-      selectedExam.remove(item);
-      notifyListeners();
-    } else {
-      print("adding");
-      selectedExam.add(item);
-      notifyListeners();
-    }
-  }
-
-  removeExam(MarkEntryExamList item) {
-    selectedExam.remove(item);
-    notifyListeners();
-  }
-
-  removeExamAll() {
-    selectedExam.clear();
-    notifyListeners();
-  }
-
-  isExamSelected(MarkEntryExamList item) {
-    if (selectedExam.contains(item)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   removeAllExamClear() {
     markEntryExamList.clear();
+    notifyListeners();
   }
 
   List<MarkEntryExamList> markEntryExamList = [];
@@ -392,6 +263,8 @@ class MarkEntryProvider with ChangeNotifier {
   }
 
   List<StudentMEList> studentMEList = [];
+  List<MaxMarkList> maxmarkList = [];
+  List<GradeList> gradeList = [];
   Future<bool> getMarkEntryView(String course, String date, String division,
       String exam, String part, String subject) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
@@ -428,6 +301,16 @@ class MarkEntryProvider with ChangeNotifier {
       List<StudentMEList> templist = List<StudentMEList>.from(
           data["studentMEList"].map((x) => StudentMEList.fromJson(x)));
       studentMEList.addAll(templist);
+      MarkentryViewByStaff daaataa = MarkentryViewByStaff.fromJson(data);
+      typecode = daaataa.typeCode;
+      examStatus = daaataa.examStatus;
+
+      List<MaxMarkList> templist1 = List<MaxMarkList>.from(
+          data["maxMarkList"].map((x) => MaxMarkList.fromJson(x)));
+      maxmarkList.addAll(templist1);
+      List<GradeList> templist2 = List<GradeList>.from(
+          data["gradeList"].map((x) => GradeList.fromJson(x)));
+      gradeList.addAll(templist2);
       setLoading(false);
       notifyListeners();
     } else {
@@ -437,8 +320,324 @@ class MarkEntryProvider with ChangeNotifier {
     return true;
   }
 
+  //SAVE
+
+  Future markEntrySave(
+      String course,
+      String divison,
+      String part,
+      String subSubject,
+      String subject,
+      String exam,
+      String date,
+      BuildContext context,
+      List finallList) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var request =
+        http.Request('POST', Uri.parse('${UIGuide.baseURL}/markentry/save'));
+
+    //request.body = json.encode(finallList);
+
+    request.body = json.encode({
+      "course": course,
+      "cretedAt": date,
+      "division": divison,
+      "exam": exam,
+      "isBlocked": false,
+      "isDeleteTePeCe": false,
+      "part": part,
+      "search": null,
+      "studentMEDet": finallList,
+      "subSubject": subSubject.isEmpty ? null : subSubject,
+      "subject": subject,
+      "te": null,
+      "tool": null
+    });
+
+    log("finalelist      $finallList".toString());
+
+    log(json.encode({
+      "course": course,
+      "cretedAt": date,
+      "division": divison,
+      "exam": exam,
+      "isBlocked": false,
+      "isDeleteTePeCe": false,
+      "part": part,
+      "search": null,
+      "studentMEDet": finallList,
+      "subSubject": subSubject.isEmpty ? null : subSubject,
+      "subject": subject,
+      "te": null,
+      "tool": null
+    }));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    setLoading(true);
+    if (response.statusCode == 200) {
+      setLoading(true);
+      print('Correct........______________________________');
+      print(await response.stream.bytesToString());
+      await AwesomeDialog(
+              dismissOnTouchOutside: false,
+              dismissOnBackKeyPress: false,
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              headerAnimationLoop: false,
+              title: 'Success',
+              desc: 'Successfully Saved',
+              btnOkOnPress: () async {
+                await getMarkEntryView(
+                    course, date, divison, exam, part, subject);
+              },
+              btnOkColor: Colors.green)
+          .show();
+
+      setLoading(false);
+      notifyListeners();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      setLoading(false);
+      print('Error Response in attendance');
+    }
+    setLoading(false);
+  }
+
+  //verify
+
+  Future markEntryVerify(
+      String course,
+      String divison,
+      String part,
+      String subSubject,
+      String subject,
+      String exam,
+      String date,
+      BuildContext context,
+      List finallList) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var request =
+        http.Request('POST', Uri.parse('${UIGuide.baseURL}/markentry/verify'));
+
+    //request.body = json.encode(finallList);
+
+    request.body = json.encode({
+      "course": course,
+      "cretedAt": date,
+      "division": divison,
+      "exam": exam,
+      "isBlocked": false,
+      "isDeleteTePeCe": false,
+      "part": part,
+      "search": null,
+      "studentMEDet": finallList,
+      "subSubject": null,
+      "subject": subject,
+      "te": null,
+      "tool": null
+    });
+
+    log("finalelist      $finallList".toString());
+
+    log(json.encode({
+      "course": course,
+      "cretedAt": date,
+      "division": divison,
+      "exam": exam,
+      "isBlocked": false,
+      "isDeleteTePeCe": false,
+      "part": part,
+      "search": null,
+      "studentMEDet": finallList,
+      "subSubject": subSubject,
+      "subject": subject,
+      "te": null,
+      "tool": null
+    }));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    setLoading(true);
+    if (response.statusCode == 200) {
+      setLoading(true);
+      print('Correct........______________________________');
+      print(await response.stream.bytesToString());
+      await AwesomeDialog(
+              dismissOnTouchOutside: false,
+              dismissOnBackKeyPress: false,
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              headerAnimationLoop: false,
+              title: 'Verified',
+              desc: 'Verified Successfully',
+              btnOkOnPress: () async {
+                await clearStudentMEList();
+                Navigator.pop(context);
+              },
+              btnOkColor: Colors.green)
+          .show();
+
+      setLoading(false);
+      notifyListeners();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      setLoading(false);
+      print('Error Response in attendance');
+    }
+    setLoading(false);
+  }
+
+//delete
+
+  Future markEntryDelete(
+      String course,
+      String divison,
+      String part,
+      String subSubject,
+      String subject,
+      String exam,
+      String date,
+      BuildContext context,
+      List finallList) async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setLoading(true);
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
+    };
+
+    var request =
+        http.Request('POST', Uri.parse('${UIGuide.baseURL}/markentry/delete'));
+
+    //request.body = json.encode(finallList);
+
+    request.body = json.encode({
+      "course": course,
+      "cretedAt": date,
+      "division": divison,
+      "exam": exam,
+      "isBlocked": false,
+      "isDeleteTePeCe": false,
+      "part": part,
+      "search": null,
+      "studentMEDet": finallList,
+      "subSubject": null,
+      "subject": subject,
+      "te": null,
+      "tool": null
+    });
+
+    log("finalelist      $finallList".toString());
+
+    log(json.encode({
+      "course": course,
+      "cretedAt": date,
+      "division": divison,
+      "exam": exam,
+      "isBlocked": false,
+      "isDeleteTePeCe": false,
+      "part": part,
+      "search": null,
+      "studentMEDet": finallList,
+      "subSubject": subSubject,
+      "subject": subject,
+      "te": null,
+      "tool": null
+    }));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    setLoading(true);
+    if (response.statusCode == 200) {
+      setLoading(true);
+      print('Correct........______________________________');
+      print(await response.stream.bytesToString());
+      await AwesomeDialog(
+              dismissOnTouchOutside: false,
+              dismissOnBackKeyPress: false,
+              context: context,
+              dialogType: DialogType.error,
+              animType: AnimType.rightSlide,
+              headerAnimationLoop: false,
+              title: 'Delete',
+              desc: 'Deleted Successfully',
+              btnOkOnPress: () async {
+                await clearStudentMEList();
+                Navigator.pop(context);
+              },
+              btnOkColor: Color.fromARGB(255, 217, 14, 14))
+          .show();
+
+      setLoading(false);
+      notifyListeners();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.only(bottom: 80, left: 30, right: 30),
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'Something Went Wrong....',
+          textAlign: TextAlign.center,
+        ),
+      ));
+      setLoading(false);
+      print('Error Response in attendance');
+    }
+    setLoading(false);
+  }
+
   clearStudentMEList() {
     studentMEList.clear();
+    maxmarkList.clear();
     notifyListeners();
   }
 }

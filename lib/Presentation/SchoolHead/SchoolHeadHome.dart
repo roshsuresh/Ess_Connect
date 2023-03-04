@@ -12,7 +12,6 @@ import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.d
 import 'package:essconnect/Presentation/Admin/StaffReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
 import 'package:essconnect/Presentation/Admin/WebViewLogin.dart';
-import 'package:essconnect/Presentation/Admin/demo.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/GalleryReceived.dart';
 import 'package:essconnect/Presentation/SchoolSuperAdmin/NoticeBoardSA.dart';
 import 'package:essconnect/Presentation/Staff/StaffHome.dart';

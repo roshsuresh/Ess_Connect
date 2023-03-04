@@ -8,13 +8,13 @@ import 'package:essconnect/Application/Module%20Providers.dart/Module.dart';
 import 'package:essconnect/Application/StudentProviders/CurriculamProviders.dart';
 import 'package:essconnect/Presentation/Admin/AttendanceTaken/AbsentReport.dart';
 import 'package:essconnect/Presentation/Admin/AttendanceTaken/Takenornot.dart';
+import 'package:essconnect/Presentation/Admin/Chat/ChatFirstScreen.dart';
 import 'package:essconnect/Presentation/Admin/Communication/ToStaff.dart';
 import 'package:essconnect/Presentation/Admin/ExamTimetable/ExamScreen.dart';
 import 'package:essconnect/Presentation/Admin/History/NotificationHistoryStaff.dart';
 import 'package:essconnect/Presentation/Admin/MarkentryReport.dart';
 import 'package:essconnect/Presentation/Admin/StudentStatistiics.dart';
 import 'package:essconnect/Presentation/Admin/WebViewLogin.dart';
-import 'package:essconnect/Presentation/Admin/demo.dart';
 import 'package:essconnect/Presentation/Staff/StudAttendenceEntry.dart';
 import 'package:essconnect/Presentation/Staff/StudReport.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
@@ -24,6 +24,7 @@ import 'package:essconnect/utils/constants.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upgrader/upgrader.dart';
@@ -140,10 +141,15 @@ class AdminHomeContent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const StudReport()),
-                        );
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const StudReport(),
+                                duration: const Duration(milliseconds: 200),
+                                childCurrent: this));
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const StudReport()),
+                        // );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -189,10 +195,16 @@ class AdminHomeContent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Student_statistics_admin()),
-                        );
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: Student_statistics_admin(),
+                                duration: const Duration(milliseconds: 200),
+                                childCurrent: this));
+
+                        // MaterialPageRoute(
+                        //     builder: (context) => Student_statistics_admin()),
+                        //  );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -239,10 +251,15 @@ class AdminHomeContent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const StaffReport()),
-                        );
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const StaffReport(),
+                                duration: const Duration(milliseconds: 200),
+                                childCurrent: this));
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const StaffReport()),
+                        // );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -287,10 +304,16 @@ class AdminHomeContent extends StatelessWidget {
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ExamTimetable()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: const ExamTimetable(),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              //   MaterialPageRoute(
+                              //       builder: (context) => ExamTimetable()),
+                              // );
                             },
                             child: Padding(
                               padding:
@@ -413,9 +436,16 @@ class AdminHomeContent extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AdminToStaff()),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: AdminToStaff(),
+                              duration: const Duration(milliseconds: 200),
+                              childCurrent: this));
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => AdminToStaff()),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -459,10 +489,17 @@ class AdminHomeContent extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AdminToGuardian()),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: AdminToGuardian(),
+                              duration: const Duration(milliseconds: 200),
+                              childCurrent: this));
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => AdminToGuardian()),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -542,10 +579,17 @@ class AdminHomeContent extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NotificationHistory()),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const NotificationHistory(),
+                              duration: const Duration(milliseconds: 200),
+                              childCurrent: this));
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const NotificationHistory()),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -589,10 +633,17 @@ class AdminHomeContent extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AdminGallery()),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const AdminGallery(),
+                              duration: const Duration(milliseconds: 200),
+                              childCurrent: this));
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const AdminGallery()),
+                      // );
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -644,10 +695,18 @@ class AdminHomeContent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ScreenFlashNews()),
-                        );
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const ScreenFlashNews(),
+                                duration: const Duration(milliseconds: 200),
+                                childCurrent: this));
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const ScreenFlashNews()),
+                        // );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -691,10 +750,17 @@ class AdminHomeContent extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NoticeBoardAdnin()),
-                        );
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const NoticeBoardAdnin(),
+                                duration: const Duration(milliseconds: 200),
+                                childCurrent: this));
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const NoticeBoardAdnin()),
+                        // );
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
@@ -744,12 +810,22 @@ class AdminHomeContent extends StatelessWidget {
                                     .getCuriculamtoken();
                                 String token = await curri.token.toString();
                                 await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CurriculamPage(
-                                            token: token,
-                                          )),
-                                );
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: CurriculamPage(
+                                          token: token,
+                                        ),
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        childCurrent: this));
+                                //  Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => CurriculamPage(
+                                //             token: token,
+                                //           )),
+                                // );
                               },
                               child: Padding(
                                 padding:
@@ -843,6 +919,117 @@ class AdminHomeContent extends StatelessWidget {
                               ),
                             ),
                           ),
+                    module.curiculam == true
+                        ? Consumer<Curriculamprovider>(
+                            builder: (context, curri, child) => GestureDetector(
+                              onTap: () async {
+                                await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: ChatFirstScreen(),
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        childCurrent: this));
+
+                                //  Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) => ChatFirstScreen()),
+                                // );
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Card(
+                                      elevation: 10,
+                                      color: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 38,
+                                          width: 38,
+                                          decoration: BoxDecoration(
+                                            image: const DecorationImage(
+                                              opacity: 20,
+                                              image: AssetImage(
+                                                'assets/Curriculum.png',
+                                              ),
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    kheight10,
+                                    const Text(
+                                      'Chat',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 11,
+                                          color: Colors.black87),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: () async {
+                              _noAcess(context);
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Card(
+                                    elevation: 10,
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        height: 38,
+                                        width: 38,
+                                        decoration: BoxDecoration(
+                                          image: const DecorationImage(
+                                            opacity: 20,
+                                            image: AssetImage(
+                                              'assets/Curriculum.png',
+                                            ),
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  kheight10,
+                                  const Text(
+                                    'Chat',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11,
+                                        color: Colors.black87),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                   ],
                 ),
               ),
@@ -879,10 +1066,18 @@ class AdminHomeContent extends StatelessWidget {
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AttendenceEntry()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: AttendenceEntry(),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => AttendenceEntry()),
+                              // );
                             },
                             child: Padding(
                               padding:
@@ -976,11 +1171,19 @@ class AdminHomeContent extends StatelessWidget {
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AttendanceReport()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: AttendanceReport(),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>
+                              //           const AttendanceReport()),
+                              // );
                             },
                             child: Padding(
                               padding:
@@ -1072,11 +1275,19 @@ class AdminHomeContent extends StatelessWidget {
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AttendanceTakenReport()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: AttendanceTakenReport(),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>
+                              //           AttendanceTakenReport()),
+                              // );
                             },
                             child: Padding(
                               padding:
@@ -1197,10 +1408,18 @@ class AdminHomeContent extends StatelessWidget {
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FeeReport()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: FeeReport(),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              // Navigator.push(
+                              // context,
+                              // MaterialPageRoute(
+                              // builder: (context) => const FeeReport()),
+                              // );
                             },
                             child: Padding(
                               padding:
@@ -1296,11 +1515,19 @@ class AdminHomeContent extends StatelessWidget {
                         ? GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const StudentFeeSearch()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: StudentFeeSearch(),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>
+                              //           const StudentFeeSearch()),
+                              // );
                             },
                             child: Padding(
                               padding:
@@ -1397,12 +1624,22 @@ class AdminHomeContent extends StatelessWidget {
                                   await _pref.getString("subDomain").toString();
                               print(schdomain);
                               await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreenWeb(
-                                          schdomain: schdomain,
-                                        )),
-                              );
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: LoginScreenWeb(
+                                        schdomain: schdomain,
+                                      ),
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      childCurrent: this));
+                              //  Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => LoginScreenWeb(
+                              //             schdomain: schdomain,
+                              //           )),
+                              // );
                             },
                             child: Padding(
                               padding:

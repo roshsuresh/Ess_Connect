@@ -1,8 +1,6 @@
 import 'package:essconnect/Application/Module%20Providers.dart/MobileAppCheckin.dart';
-import 'package:essconnect/Domain/Admin/MobileAppCkeckinModel.dart';
 import 'package:essconnect/utils/spinkit.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,10 +59,6 @@ class _ActivatePageState extends State<ActivatePage>
                           const SizedBox(
                             height: 20,
                           ),
-                          // Image.network(provider.imageUrl),
-                          // SizedBox(
-                          //   height: 20,
-                          // ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(

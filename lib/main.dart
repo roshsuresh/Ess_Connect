@@ -4,6 +4,7 @@ import 'dart:core';
 import 'dart:io';
 import 'package:essconnect/Application/AdminProviders/Attendanceprovider.dart';
 import 'package:essconnect/Application/AdminProviders/ExamTTPtoviders.dart';
+import 'package:essconnect/Application/AdminProviders/chatProviders.dart';
 import 'package:essconnect/Application/Module%20Providers.dart/MobileAppCheckin.dart';
 import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
@@ -87,7 +88,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     notification.body,
     NotificationDetails(
       android: AndroidNotificationDetails(channel.id, channel.name,
-          icon: 'launch_background', channelShowBadge: true),
+          icon: '@mipmap/ic_launcher', channelShowBadge: true),
     ),
   );
 }
@@ -186,7 +187,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
             android: AndroidNotificationDetails(
               channel.id,
               channel.name,
-              icon: 'launch_background',
+              icon: '@mipmap/ic_launcher',
             ),
           ),
         );
@@ -267,6 +268,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(create: (context) => MobileAppCheckinProvider()),
         ChangeNotifierProvider(
             create: (context) => TokenExpiryCheckProviders()),
+        ChangeNotifierProvider(create: (context) => ChatProviders()),
       ],
       child: MaterialApp(
         title: 'e-SS Connect',

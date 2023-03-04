@@ -1,14 +1,14 @@
 class MarkentryViewByStaff {
   List<StudentMEList>? studentMEList;
   List<MaxMarkList>? maxMarkList;
-  // List<Null>? gradeList;
+  List<GradeList>? gradeList;
   String? typeCode;
   String? examStatus;
 
   MarkentryViewByStaff(
       {this.studentMEList,
       this.maxMarkList,
-      // this.gradeList,
+      this.gradeList,
       this.typeCode,
       this.examStatus});
 
@@ -25,12 +25,12 @@ class MarkentryViewByStaff {
         maxMarkList!.add(MaxMarkList.fromJson(v));
       });
     }
-    // if (json['gradeList'] != null) {
-    //   gradeList = [];
-    //   json['gradeList'].forEach((v) {
-    //     gradeList!.add(new Null.fromJson(v));
-    //   });
-    // }
+    if (json['gradeList'] != null) {
+      gradeList = <GradeList>[];
+      json['gradeList'].forEach((v) {
+        gradeList!.add(new GradeList.fromJson(v));
+      });
+    }
     typeCode = json['typeCode'];
     examStatus = json['examStatus'];
   }
@@ -43,9 +43,9 @@ class MarkentryViewByStaff {
     if (maxMarkList != null) {
       data['maxMarkList'] = maxMarkList!.map((v) => v.toJson()).toList();
     }
-    // if (this.gradeList != null) {
-    //   data['gradeList'] = this.gradeList.map((v) => v.toJson()).toList();
-    // }
+    if (this.gradeList != null) {
+      data['gradeList'] = this.gradeList!.map((v) => v.toJson()).toList();
+    }
     data['typeCode'] = typeCode;
     data['examStatus'] = examStatus;
     return data;
@@ -222,6 +222,28 @@ class MaxMarkList {
     data['part'] = part;
     data['isConfirmed'] = isConfirmed;
     data['code'] = code;
+    return data;
+  }
+}
+
+class GradeList {
+  String? gradeName;
+  int? gradeOrder;
+  String? gradeId;
+
+  GradeList({this.gradeName, this.gradeOrder, this.gradeId});
+
+  GradeList.fromJson(Map<String, dynamic> json) {
+    gradeName = json['gradeName'];
+    gradeOrder = json['gradeOrder'];
+    gradeId = json['gradeId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['gradeName'] = this.gradeName;
+    data['gradeOrder'] = this.gradeOrder;
+    data['gradeId'] = this.gradeId;
     return data;
   }
 }

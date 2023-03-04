@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
+
 class MarkEntryInitialValues {
   String? id;
   String? courseName;
   int? sortOrder;
+  TextEditingController? contro;
 
-  MarkEntryInitialValues({this.id, this.courseName, this.sortOrder});
+  MarkEntryInitialValues(
+      {this.id, this.courseName, this.sortOrder, this.contro});
 
   MarkEntryInitialValues.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -16,6 +20,7 @@ class MarkEntryInitialValues {
     data['id'] = id;
     data['courseName'] = courseName;
     data['sortOrder'] = sortOrder;
+    data['id'] = id;
     return data;
   }
 }
@@ -82,6 +87,29 @@ class MarkEntrySubjectList {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['value'] = value;
     data['text'] = text;
+    return data;
+  }
+}
+
+class MarkEntryOptionSubjectModel {
+  String? id;
+  String? subjectName;
+  String? subjectDescription;
+
+  MarkEntryOptionSubjectModel(
+      {this.id, this.subjectName, this.subjectDescription});
+
+  MarkEntryOptionSubjectModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    subjectName = json['subjectName'];
+    subjectDescription = json['subjectDescription'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['subjectName'] = subjectName;
+    data['subjectDescription'] = subjectDescription;
     return data;
   }
 }
