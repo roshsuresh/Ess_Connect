@@ -11,6 +11,7 @@ import '../../utils/constants.dart';
 class MarkEntryProvider with ChangeNotifier {
   String? typecode;
   String? examStatus;
+  bool? isLocked;
   courseClear() {
     markEntryInitialValues.clear();
     notifyListeners();
@@ -34,7 +35,8 @@ class MarkEntryProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
-
+      MarkEntryViewModel view = MarkEntryViewModel.fromJson(data);
+      isLocked = view.isLocked;
       log(data.toString());
 
       List<MarkEntryInitialValues> templist = List<MarkEntryInitialValues>.from(
@@ -269,6 +271,7 @@ class MarkEntryProvider with ChangeNotifier {
       String exam, String part, String subject) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
     setLoading(true);
+
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${_pref.getString('accesstoken')}'
@@ -292,12 +295,14 @@ class MarkEntryProvider with ChangeNotifier {
 
     if (response.statusCode == 200) {
       setLoading(true);
+
       print('---------------------correct--------------------------');
       Map<String, dynamic> data =
           jsonDecode(await response.stream.bytesToString());
 
       // log(data.toString());
       setLoading(true);
+
       List<StudentMEList> templist = List<StudentMEList>.from(
           data["studentMEList"].map((x) => StudentMEList.fromJson(x)));
       studentMEList.addAll(templist);
@@ -311,6 +316,7 @@ class MarkEntryProvider with ChangeNotifier {
       List<GradeList> templist2 = List<GradeList>.from(
           data["gradeList"].map((x) => GradeList.fromJson(x)));
       gradeList.addAll(templist2);
+
       setLoading(false);
       notifyListeners();
     } else {
@@ -321,6 +327,12 @@ class MarkEntryProvider with ChangeNotifier {
   }
 
   //SAVE
+  bool _load = false;
+  bool get load => _load;
+  setLoad(bool value) {
+    _load = value;
+    notifyListeners();
+  }
 
   Future markEntrySave(
       String course,
@@ -333,7 +345,7 @@ class MarkEntryProvider with ChangeNotifier {
       BuildContext context,
       List finallList) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    setLoading(true);
+    setLoad(true);
 
     var headers = {
       'Content-Type': 'application/json',
@@ -382,9 +394,11 @@ class MarkEntryProvider with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    setLoading(true);
+    setLoad(true);
+
     if (response.statusCode == 200) {
-      setLoading(true);
+      setLoad(true);
+
       print('Correct........______________________________');
       print(await response.stream.bytesToString());
       await AwesomeDialog(
@@ -397,13 +411,13 @@ class MarkEntryProvider with ChangeNotifier {
               title: 'Success',
               desc: 'Successfully Saved',
               btnOkOnPress: () async {
-                await getMarkEntryView(
-                    course, date, divison, exam, part, subject);
+                await clearStudentMEList();
               },
               btnOkColor: Colors.green)
           .show();
+      gradeList.clear();
+      setLoad(false);
 
-      setLoading(false);
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -419,13 +433,19 @@ class MarkEntryProvider with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
-      setLoading(false);
+      setLoad(false);
       print('Error Response in attendance');
     }
-    setLoading(false);
+    setLoad(false);
   }
 
   //verify
+  bool _loadVerify = false;
+  bool get loadVerify => _loadVerify;
+  setLoadVerify(bool value) {
+    _loadVerify = value;
+    notifyListeners();
+  }
 
   Future markEntryVerify(
       String course,
@@ -438,7 +458,7 @@ class MarkEntryProvider with ChangeNotifier {
       BuildContext context,
       List finallList) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
-    setLoading(true);
+    setLoadVerify(true);
 
     var headers = {
       'Content-Type': 'application/json',
@@ -487,9 +507,9 @@ class MarkEntryProvider with ChangeNotifier {
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
-    setLoading(true);
+    setLoadVerify(true);
     if (response.statusCode == 200) {
-      setLoading(true);
+      setLoadVerify(true);
       print('Correct........______________________________');
       print(await response.stream.bytesToString());
       await AwesomeDialog(
@@ -508,7 +528,7 @@ class MarkEntryProvider with ChangeNotifier {
               btnOkColor: Colors.green)
           .show();
 
-      setLoading(false);
+      setLoadVerify(false);
       notifyListeners();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -524,10 +544,10 @@ class MarkEntryProvider with ChangeNotifier {
           textAlign: TextAlign.center,
         ),
       ));
-      setLoading(false);
+      setLoadVerify(false);
       print('Error Response in attendance');
     }
-    setLoading(false);
+    setLoadVerify(false);
   }
 
 //delete

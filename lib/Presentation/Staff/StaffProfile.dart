@@ -26,6 +26,10 @@ class StaffProfileView extends StatelessWidget {
     final List<double> stops = [0.0, fillStop, fillStop, 1.0];
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: UIGuide.light_Purple,
+        toolbarHeight: 0,
+      ),
       body: Consumer<StaffProfileProvider>(
         builder: (context, value, child) => value.loading
             ? spinkitLoader()

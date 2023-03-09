@@ -1,5 +1,34 @@
 import 'package:flutter/cupertino.dart';
 
+class MarkEntryViewModel {
+  List<MarkEntryInitialValues>? courseList;
+  bool? isLocked;
+  String? code;
+
+  MarkEntryViewModel({this.courseList, this.isLocked, this.code});
+
+  MarkEntryViewModel.fromJson(Map<String, dynamic> json) {
+    if (json['courseList'] != null) {
+      courseList = <MarkEntryInitialValues>[];
+      json['courseList'].forEach((v) {
+        courseList!.add(MarkEntryInitialValues.fromJson(v));
+      });
+    }
+    isLocked = json['isLocked'];
+    code = json['code'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.courseList != null) {
+      data['courseList'] = this.courseList!.map((v) => v.toJson()).toList();
+    }
+    data['isLocked'] = this.isLocked;
+    data['code'] = this.code;
+    return data;
+  }
+}
+
 class MarkEntryInitialValues {
   String? id;
   String? courseName;
