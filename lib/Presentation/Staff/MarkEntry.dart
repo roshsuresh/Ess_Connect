@@ -1035,6 +1035,9 @@ class _MarkEntryState extends State<MarkEntry> {
                             ? SizedBox(
                                 width: size.width / 2.5,
                                 child: MaterialButton(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
                                   onPressed: () {},
                                   color: UIGuide.light_Purple,
                                   child: const Text(
@@ -1116,7 +1119,13 @@ class _MarkEntryState extends State<MarkEntry> {
                     Consumer<MarkEntryProvider>(
                         builder: (context, providerr, child) {
                       if (providerr.loading) {
-                        return spinkitLoader();
+                        return LimitedBox(
+                          maxHeight: size.height / 1.85,
+                          child: Container(
+                            height: size.height / 1.95,
+                            child: spinkitLoader(),
+                          ),
+                        );
                       } else if (providerr.maxmarkList.isEmpty ||
                           providerr.maxmarkList == null) {
                         return Container(
@@ -1128,6 +1137,7 @@ class _MarkEntryState extends State<MarkEntry> {
 ////-----------    ----------    ---------    ----------    ---------     ----------    ---------
 ////-----------    ----------          Mark  Entry --[ UAS ]--     -----------        -----------
 ////-----------    ----------    ---------    ----------    ---------     ----------    ---------
+
                       else if (providerr.typecode == "UAS" &&
                           providerr.maxmarkList[0].entryMethod == "Mark") {
                         return LimitedBox(

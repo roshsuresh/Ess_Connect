@@ -8,6 +8,7 @@ import 'package:essconnect/Presentation/Staff/ExamTT.dart/ExamTTScreen.dart';
 import 'package:essconnect/Presentation/Staff/MarkEntry.dart';
 import 'package:essconnect/Presentation/Staff/ScreenNotification.dart';
 import 'package:essconnect/Presentation/Staff/TextSMS.dart/ViewSMSFormats.dart';
+import 'package:essconnect/Presentation/Staff/ToolMarkEntry.dart';
 import 'package:essconnect/Presentation/Student/CurriculamScreen.dart';
 import 'package:essconnect/Presentation/Student/NoInternetScreen.dart';
 import 'package:essconnect/utils/spinkit.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:marquee/marquee.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upgrader/upgrader.dart';
@@ -97,12 +99,20 @@ class _StaffHomeState extends State<StaffHome> {
                             children: [
                               GestureDetector(
                                 onTap: () async {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const StaffProfileView()),
-                                  );
+                                  await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: StaffProfileView(),
+                                        duration: Duration(milliseconds: 300),
+                                        // childCurrent:this
+                                      ));
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           const StaffProfileView()),
+                                  // );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -149,13 +159,21 @@ class _StaffHomeState extends State<StaffHome> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const StudReport()),
-                                  );
+                                onTap: () async {
+                                  await Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: StudReport(),
+                                        duration: Duration(milliseconds: 300),
+                                        // childCurrent:this
+                                      ));
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           const StudReport()),
+                                  // );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -280,12 +298,24 @@ class _StaffHomeState extends State<StaffHome> {
                                                     context,
                                                     listen: false)
                                                 .getnotificationCount();
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      StaffNotificationScreen()),
-                                            );
+
+                                            await Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  child:
+                                                      StaffNotificationScreen(),
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  // childCurrent:this
+                                                ));
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           StaffNotificationScreen()),
+                                            // );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -342,11 +372,22 @@ class _StaffHomeState extends State<StaffHome> {
                                     ? GestureDetector(
                                         onTap: () async {
                                           Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Staff_Timetable()),
-                                          );
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .rightToLeft,
+                                                child: Staff_Timetable(),
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                // childCurrent:this
+                                              ));
+
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //       builder: (context) =>
+                                          //           const Staff_Timetable()),
+                                          // );
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.only(
@@ -504,11 +545,24 @@ class _StaffHomeState extends State<StaffHome> {
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              AttendenceEntry()),
-                                                    );
+                                                        context,
+                                                        PageTransition(
+                                                          type:
+                                                              PageTransitionType
+                                                                  .rightToLeft,
+                                                          child:
+                                                              AttendenceEntry(),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  300),
+                                                          // childCurrent:this
+                                                        ));
+                                                    // Navigator.push(
+                                                    //   context,
+                                                    //   MaterialPageRoute(
+                                                    //       builder: (context) =>
+                                                    //           AttendenceEntry()),
+                                                    // );
                                                   },
                                                   child: Column(
                                                     mainAxisAlignment:
@@ -623,18 +677,30 @@ class _StaffHomeState extends State<StaffHome> {
                                                       .getString("subDomain")
                                                       .toString();
                                                   print(schdomain);
-                                                  await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            // LoginScreenWeb(
-                                                            //   schdomain:
-                                                            //       schdomain,
-                                                            // )
 
-                                                            // MyHomePageDemooo()
-                                                            MarkEntry()),
-                                                  );
+                                                  Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .rightToLeft,
+                                                        child: MarkEntry(),
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        // childCurrent:this
+                                                      ));
+
+                                                  // await Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           // LoginScreenWeb(
+                                                  //           //   schdomain:
+                                                  //           //       schdomain,
+                                                  //           // )
+
+                                                  //           // MyHomePageDemooo()
+                                                  //           MarkEntry()),
+                                                  // );
                                                 },
                                                 child: Padding(
                                                   padding:
@@ -746,15 +812,91 @@ class _StaffHomeState extends State<StaffHome> {
                                                   ),
                                                 ),
                                               ),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  child: ToolMarkEntry(),
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  // childCurrent:this
+                                                ));
+                                            // await Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           ToolMarkEntry()),
+                                            // );
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Card(
+                                                  elevation: 10,
+                                                  color: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Container(
+                                                      height: 38,
+                                                      width: 38,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: AssetImage(
+                                                            'assets/Tabulation.png',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                kheight10,
+                                                const Text(
+                                                  'Tool Mark Entry',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 11,
+                                                      color: Colors.black),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                         module.timetable == true
                                             ? GestureDetector(
                                                 onTap: () async {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ExamTimetableStaff()),
-                                                  );
+                                                  await Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .rightToLeft,
+                                                        child:
+                                                            ExamTimetableStaff(),
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        // childCurrent:this
+                                                      ));
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           const ExamTimetableStaff()),
+                                                  // );
                                                 },
                                                 child: Padding(
                                                   padding:
@@ -962,13 +1104,23 @@ class _StaffHomeState extends State<StaffHome> {
                               children: [
                                 module.curiculam == true
                                     ? GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    Staff_ToGuardian()),
-                                          );
+                                        onTap: () async {
+                                          await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .rightToLeft,
+                                                child: Staff_ToGuardian(),
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                // childCurrent:this
+                                              ));
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //       builder: (context) =>
+                                          //           Staff_ToGuardian()),
+                                          // );
                                         },
                                         child: Padding(
                                           padding: const EdgeInsets.only(
@@ -1067,13 +1219,23 @@ class _StaffHomeState extends State<StaffHome> {
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 10),
                                   child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                StaffNoticeBoard()),
-                                      );
+                                    onTap: () async {
+                                      await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.rightToLeft,
+                                            child: StaffNoticeBoard(),
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                            // childCurrent:this
+                                          ));
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           StaffNoticeBoard()),
+                                      // );
                                     },
                                     child: Column(
                                       mainAxisAlignment:
@@ -1117,13 +1279,21 @@ class _StaffHomeState extends State<StaffHome> {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const StaffGallery()),
-                                    );
+                                  onTap: () async {
+                                    await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.rightToLeft,
+                                          child: StaffGallery(),
+                                          duration: Duration(milliseconds: 300),
+                                          // childCurrent:this
+                                        ));
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           const StaffGallery()),
+                                    // );
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -1179,14 +1349,27 @@ class _StaffHomeState extends State<StaffHome> {
                                                 .getCuriculamtoken();
                                             String token =
                                                 await curri.token.toString();
+
                                             await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CurriculamPage(
-                                                        token: token,
-                                                      )),
-                                            );
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  child: CurriculamPage(
+                                                    token: token,
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  // childCurrent:this
+                                                ));
+                                            // await Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //       builder: (context) =>
+                                            //           CurriculamPage(
+                                            //             token: token,
+                                            //           )),
+                                            // );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -1333,11 +1516,19 @@ class _StaffHomeState extends State<StaffHome> {
                                       borderRadius:
                                           BorderRadius.circular(30.0)),
                                   onPressed: () async {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PasswordChange()),
-                                    );
+                                    await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.rightToLeft,
+                                          child: PasswordChange(),
+                                          duration: Duration(milliseconds: 300),
+                                          // childCurrent:this
+                                        ));
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           PasswordChange()),
+                                    // );
                                   },
                                   child: const Icon(
                                     Icons.key_sharp,

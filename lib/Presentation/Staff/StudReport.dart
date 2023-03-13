@@ -681,26 +681,45 @@ class _StudCurrentStudyingState extends State<StudCurrentStudying> {
                                                                 FontWeight.w500,
                                                             fontSize: 13),
                                                       ),
-                                                      RichText(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 1,
-                                                        strutStyle:
-                                                            const StrutStyle(
-                                                                fontSize: 8.0),
-                                                        text: TextSpan(
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 12,
-                                                              color: UIGuide
-                                                                  .light_Purple,
-                                                            ),
-                                                            text: provider
-                                                                    .viewStudReportListt[
-                                                                        index]
-                                                                    .name ??
-                                                                '---'),
-                                                      ),
+
+                                                      SizedBox(
+                                                        width: size.width / 1.7,
+                                                        child: Text(
+                                                          provider
+                                                                  .viewStudReportListt[
+                                                                      index]
+                                                                  .name ??
+                                                              '---',
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 12,
+                                                            color: UIGuide
+                                                                .light_Purple,
+                                                          ),
+                                                        ),
+                                                      )
+                                                      // RichText(
+                                                      //   overflow: TextOverflow
+                                                      //       .ellipsis,
+                                                      //   maxLines: 1,
+                                                      //   strutStyle:
+                                                      //       const StrutStyle(
+                                                      //           fontSize: 8.0),
+                                                      //   text: TextSpan(
+                                                      //       style:
+                                                      //           const TextStyle(
+                                                      //         fontSize: 12,
+                                                      //         color: UIGuide
+                                                      //             .light_Purple,
+                                                      //       ),
+                                                      //       text: provider
+                                                      //               .viewStudReportListt[
+                                                      //                   index]
+                                                      //               .name ??
+                                                      //           '---'),
+                                                      // ),
                                                     ],
                                                   ),
                                                   Row(
@@ -1789,26 +1808,43 @@ class _StudRelievedStaffState extends State<StudRelievedStaff> {
                                                               FontWeight.w500,
                                                           fontSize: 13),
                                                     ),
-                                                    RichText(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      strutStyle:
-                                                          const StrutStyle(
-                                                              fontSize: 8.0),
-                                                      text: TextSpan(
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 12,
-                                                            color: UIGuide
-                                                                .light_Purple,
-                                                          ),
-                                                          text: provider
-                                                                  .viewStudReportListt[
-                                                                      index]
-                                                                  .name ??
-                                                              '---'),
-                                                    ),
+                                                    SizedBox(
+                                                      width: size.width / 1.7,
+                                                      child: Text(
+                                                        provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .name ??
+                                                            '---',
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: UIGuide
+                                                              .light_Purple,
+                                                        ),
+                                                      ),
+                                                    )
+                                                    // RichText(
+                                                    //   overflow:
+                                                    //       TextOverflow.ellipsis,
+                                                    //   maxLines: 1,
+                                                    //   strutStyle:
+                                                    //       const StrutStyle(
+                                                    //           fontSize: 8.0),
+                                                    //   text: TextSpan(
+                                                    //       style:
+                                                    //           const TextStyle(
+                                                    //         fontSize: 12,
+                                                    //         color: UIGuide
+                                                    //             .light_Purple,
+                                                    //       ),
+                                                    //       text: provider
+                                                    //               .viewStudReportListt[
+                                                    //                   index]
+                                                    //               .name ??
+                                                    //           '---'),
+                                                    // ),
                                                   ],
                                                 ),
                                                 Row(
@@ -2609,26 +2645,44 @@ class _StudentReportBoth_StaffState extends State<StudentReportBoth_Staff> {
                                                               FontWeight.w500,
                                                           fontSize: 13),
                                                     ),
-                                                    RichText(
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                      strutStyle:
-                                                          const StrutStyle(
-                                                              fontSize: 8.0),
-                                                      text: TextSpan(
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 12,
-                                                            color: UIGuide
-                                                                .light_Purple,
-                                                          ),
-                                                          text: provider
-                                                                  .viewStudReportListt[
-                                                                      index]
-                                                                  .name ??
-                                                              '---'),
-                                                    ),
+
+                                                    SizedBox(
+                                                      width: size.width / 1.7,
+                                                      child: Text(
+                                                        provider
+                                                                .viewStudReportListt[
+                                                                    index]
+                                                                .name ??
+                                                            '---',
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: const TextStyle(
+                                                          fontSize: 12,
+                                                          color: UIGuide
+                                                              .light_Purple,
+                                                        ),
+                                                      ),
+                                                    )
+                                                    // RichText(
+                                                    //   overflow:
+                                                    //       TextOverflow.ellipsis,
+                                                    //   maxLines: 1,
+                                                    //   strutStyle:
+                                                    //       const StrutStyle(
+                                                    //           fontSize: 8.0),
+                                                    //   text: TextSpan(
+                                                    //       style:
+                                                    //           const TextStyle(
+                                                    //         fontSize: 12,
+                                                    //         color: UIGuide
+                                                    //             .light_Purple,
+                                                    //       ),
+                                                    //       text: provider
+                                                    //               .viewStudReportListt[
+                                                    //                   index]
+                                                    //               .name ??
+                                                    //           '---'),
+                                                    // ),
                                                   ],
                                                 ),
                                                 Row(

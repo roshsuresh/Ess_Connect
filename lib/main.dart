@@ -9,6 +9,7 @@ import 'package:essconnect/Application/Module%20Providers.dart/MobileAppCheckin.
 import 'package:essconnect/Application/Staff_Providers/ExamTTProviderStaff.dart';
 import 'package:essconnect/Application/Staff_Providers/NotificationCount.dart';
 import 'package:essconnect/Application/Staff_Providers/TimetableProvider.dart';
+import 'package:essconnect/Application/Staff_Providers/ToolMarkProvider.dart';
 import 'package:essconnect/Application/StudentProviders/DiaryProviders.dart';
 import 'package:essconnect/Application/StudentProviders/NotificationCountProviders.dart';
 import 'package:essconnect/Application/StudentProviders/TokenCheckProviders.dart';
@@ -269,6 +270,7 @@ class _GjInfoTechState extends State<GjInfoTech> {
         ChangeNotifierProvider(
             create: (context) => TokenExpiryCheckProviders()),
         ChangeNotifierProvider(create: (context) => ChatProviders()),
+        ChangeNotifierProvider(create: (context) => ToolMarkEntryProviders()),
       ],
       child: MaterialApp(
         title: 'e-SS Connect',
